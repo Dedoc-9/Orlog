@@ -1,0 +1,75 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B work/speed-adv/r2/q3b_certificate.py (the adversary's), rerun by the judge against the debater's snapshot of f16dc26
+# the script lives in work/ (ignored by git), so this file is a record of the rerun, not reproducible from this tree
+# host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; 2026-10-26; equal to the adversary's q3b_certificate.txt
+{
+ "certificate_clause": "\u00a73.1 (id 4)",
+ "law": "CERT-AFTER",
+ "segmented": {
+  "L": 200,
+  "broken_boundaries": [],
+  "first_tick_line_differing": null,
+  "p11_checks_pass": true,
+  "p11_final_comparison_passes": true,
+  "play_receipt_equals_sequential_reference": true,
+  "segmented_receipt_equals_sequential_reference": false,
+  "segmented_reference_claim": [
+   "claim 0 7 1 1 1 4 2000"
+  ],
+  "segments": 16
+ },
+ "sequential_reference_claim": [
+  "claim 0 7 1 1 1 4 32000"
+ ],
+ "tick_line_plant": {
+  "claim_line": [
+   "claim 0 7 1 1 1 4 32001"
+  ],
+  "first_tick_line_differing": null,
+  "planted": "g_cost4 one more at tick 237, no event",
+  "receipt_core_differs": true
+ }
+}
+{
+ "certificate_clause": "\u00a73.1 (id 4)",
+ "law": "CERT-IN",
+ "segmented": {
+  "L": 200,
+  "broken_boundaries": [
+   400,
+   600,
+   800,
+   1000,
+   1200,
+   1400,
+   1600,
+   1800,
+   2000,
+   2200,
+   2400,
+   2600,
+   2800,
+   3000
+  ],
+  "first_tick_line_differing": 201,
+  "p11_checks_pass": false,
+  "p11_final_comparison_passes": false,
+  "play_receipt_equals_sequential_reference": true,
+  "segmented_receipt_equals_sequential_reference": false,
+  "segmented_reference_claim": [
+   "claim 0 7 3200 3200 3200 4 2000"
+  ],
+  "segments": 16
+ },
+ "sequential_reference_claim": [
+  "claim 0 7 3200 3200 3200 4 32000"
+ ],
+ "tick_line_plant": {
+  "claim_line": [
+   "claim 0 7 3200 3200 3200 4 32001"
+  ],
+  "first_tick_line_differing": 237,
+  "planted": "g_cost4 one more at tick 237, no event",
+  "receipt_core_differs": true
+ }
+}
+Q3B DONE

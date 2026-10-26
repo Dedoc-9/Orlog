@@ -1,0 +1,71 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B work/speed-probe/r2/p12_plant_matrix.py (the proponent's), rerun by the judge against the debater's snapshot of f16dc26
+# the script lives in work/ (ignored by git), so this file is a record of the rerun, not reproducible from this tree
+# host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; 2026-10-26; its lines equal the proponent's p12.txt but for a closing P12 DONE line
+P12 plant matrix (round 2): snapshot ['commit f16dc26905749ee00f32f38c6751e935237acbc3', 'tree 8be7185151934ab74827c204df288399600f8d51']
+projectiles: the clean reference's largest per-tick count at a statement's entry: 2713 (the budget)
+class (law)                    at     | H             R5            R5+ops        R5+ops+claims FULL          NOHEAD        FULL+RECV     NOHEAD+RECV   | receipt output | rule
+control (fall+claim)           -      | -             -             -             -             -             -             -             -             | False   False  | None
+value (fall+claim)             237    | 237*          237*          237*          237*          237*          237*          237*          237*          | True    False  | 237
+ops (fall+claim)               237    | -             -             237*          237*          237*          237*          237*          237*          | True    False  | 237
+out (fall+claim)               237    | -             237*          237*          237*          237*          237*          237*          237*          | True    True   | 237
+claimcost (fall+claim)         237    | -             -             -             237*          237*          237*          237*          237*          | True    False  | 237
+silent (fall+claim)            237    | -             -             -             -             237*          237*          237*          237*          | True    True   | 237
+lowering (fall+claim)          1      | -             -             1*            1*            1*            1*            1*            1*            | True    False  | 1
+out-unhashed (fall+claim)      237    | -             -             -             -             -             -             237*          237*          | False   True   | 237
+refusal (fall+claim)           237    | 237*          237*          237*          237*          237*          237*          237*          237*          | True    True   | 237
+proj-control (projectiles)     -      | -             -             -             -             -             -             -             -             | False   False  | None
+proj-lowering (projectiles)    1      | -             -             1*            1*            1*            1*            1*            1*            | True    False  | 1
+proj-budget-control (projectiles) -      | -             -             -             -             -             -             -             -             | False   False  | None
+proj-lowering+budget (projectiles) 1      | 246           246           1*            1*            1*            1*            1*            1*            | True    True   | 1
+silent-list (silent-list)      237    | -             -             -             -             237*          237*          237*          237*          | True    True   | 237
+transient (transient)          237    | 237*          237*          237*          237*          237*          -             237*          -             | True    False  | 237
+refusal-code (refusing)        63     | -             -             -             -             -             -             -             -             | True    False  | 63
+stream: lowering (fall+claim)  1      | -             -             1*            1*            1*            1*            1*            1*            | True    False  | 1
+stream: proj-lowering+budget (projectiles) 1      | 246           246           1*            1*            1*            1*            1*            1*            | True    True   | 1
+stream: transient (transient)  237    | 237*          237*          237*          237*          237*          -             237*          -             | True    False  | 237
+stream: silent-list (silent-list) 237    | -             -             -             -             237*          237*          237*          237*          | True    True   | 237
+nochain: control (fall+claim)  -      | 1             1             1             1             1             -             1             -             | False   False  | None
+nochain: value (fall+claim)    237    | 1             1             1             1             1             237*          1             237*          | False   False  | 237
+nochain: ops (fall+claim)      237    | 1             1             1             1             1             237*          1             237*          | True    False  | 237
+nochain: claimcost (fall+claim) 237    | 1             1             1             1             1             237*          1             237*          | True    False  | 237
+nochain: silent (fall+claim)   237    | 1             1             1             1             1             237*          1             237*          | True    True   | 237
+nochain: out-unhashed (fall+claim) 237    | 1             1             1             1             1             -             1             237*          | False   True   | 237
+nochain: refusal (fall+claim)  237    | 1             1             1             1             1             237*          1             237*          | True    True   | 237
+nochain: proj-lowering+budget (projectiles) 1      | 1*            1*            1*            1*            1*            1*            1*            1*            | True    True   | 1
+nochain: silent-list (silent-list) 237    | 1             1             1             1             1             237*          1             237*          | True    True   | 237
+nochain: transient (transient) 237    | 1             1             1             1             1             -             1             -             | False   False  | None
+nochain: refusal-code (refusing) 63     | 1             1             1             1             1             -             1             -             | True    False  | 63
+(* = names the tick the class was planted at; - = no line differs)
+
+control                        fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: []
+value                          fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['head', 'state']
+ops                            fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['ops']
+out                            fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['out_bytes', 'recv_chain']
+claimcost                      fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['claims']
+silent                         fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['state']
+lowering                       fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['ops']
+out-unhashed                   fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['recv_chain']
+refusal                        fast ['status REFUSED OVERFLOW 20'] | reference ['status COMPLETED'] | lines fast 236, reference 400 | fields at FULL+RECV's tick: ['(no line on the fast side)']
+proj-control                   fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 300, reference 300 | fields at FULL+RECV's tick: []
+proj-lowering                  fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 300, reference 300 | fields at FULL+RECV's tick: ['ops', 'claims']
+proj-budget-control            fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 300, reference 300 | fields at FULL+RECV's tick: []
+proj-lowering+budget           fast ['status REFUSED TICK-BUDGET 5'] | reference ['status COMPLETED'] | lines fast 245, reference 300 | fields at FULL+RECV's tick: ['ops', 'claims']
+silent-list                    fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['state']
+transient                      fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['head']
+refusal-code                   fast ['status REFUSED DIVISION-BY-ZERO 3'] | reference ['status REFUSED OVERFLOW 3'] | lines fast 62, reference 62 | fields at FULL+RECV's tick: []
+stream: lowering               fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['ops']
+stream: proj-lowering+budget   fast ['status REFUSED TICK-BUDGET 5'] | reference ['status COMPLETED'] | lines fast 245, reference 300 | fields at FULL+RECV's tick: ['ops', 'claims']
+stream: transient              fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['head']
+stream: silent-list            fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['state']
+nochain: control               fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['head']
+nochain: value                 fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['head']
+nochain: ops                   fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['head']
+nochain: claimcost             fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['head']
+nochain: silent                fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['head']
+nochain: out-unhashed          fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['head']
+nochain: refusal               fast ['status REFUSED OVERFLOW 20'] | reference ['status COMPLETED'] | lines fast 236, reference 400 | fields at FULL+RECV's tick: ['head']
+nochain: proj-lowering+budget  fast ['status REFUSED TICK-BUDGET 5'] | reference ['status COMPLETED'] | lines fast 245, reference 300 | fields at FULL+RECV's tick: ['ops', 'head', 'claims']
+nochain: silent-list           fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['head']
+nochain: transient             fast ['status COMPLETED'] | reference ['status COMPLETED'] | lines fast 400, reference 400 | fields at FULL+RECV's tick: ['head']
+nochain: refusal-code          fast ['status REFUSED DIVISION-BY-ZERO 3'] | reference ['status REFUSED OVERFLOW 3'] | lines fast 62, reference 62 | fields at FULL+RECV's tick: ['head']
+P12 DONE

@@ -1,0 +1,10 @@
+# command: python -B research/speed/judge/ablate_hash.py 21 (second run)
+# tree: f16dc26, measured on 2026-10-26 from work/speed-judge/ before the scripts were copied here
+# host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; PYTHONHASHSEED=0 PYTHONUTF8=1
+clock perf_counter, resolution 1e-07 s; 21 runs a cell, the median; each run a fresh process
+  R 4  as generated  median    16.763 ms   (directions 728)
+  R 4  hash removed  median    14.073 ms   (directions 728)
+  R 16 as generated  median   188.475 ms   (directions 35936)
+  R 16 hash removed  median    29.672 ms   (directions 35936)
+  marginal, as generated  4.877 us a direction
+  marginal, hash removed  0.443 us a direction

@@ -1,0 +1,23 @@
+# command: python -B research/speed/judge/analyze_sh.py
+# tree: f16dc26, measured on 2026-10-26 from work/speed-judge/ before the scripts were copied here
+# host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; PYTHONHASHSEED=0 PYTHONUTF8=1
+== agreement across the four executions (the reference and python, c99, rust)
+say R4     dissent NONE  agreeing c99,python,rust      receipt cores identical: yes  ops 65837  events 19036
+sum R4     dissent NONE  agreeing c99,python,rust      receipt cores identical: yes  ops 49093  events 18308
+sum R8     dissent NONE  agreeing c99,python,rust      receipt cores identical: yes  ops 330069  events 123124
+== cost in counted operations (exact)
+  R4: 728 directions, 49093 ops, 67.4 ops a direction overall
+  R8: 4912 directions, 330069 ops, 67.2 ops a direction overall
+  by difference (R8 - R4): 67.2 ops a direction, the loop's own steps included
+== error of the Q31.32 values against binary64 at the same direction (R4, every value said)
+  directions read: 728
+  Y0  worst |error| 9.485e-12 = 0.04 units of 2^-32, at (-4, -4, -4)
+  Y1  worst |error| 2.267e-10 = 0.97 units of 2^-32, at (-1, -3, 0)
+  Y2  worst |error| 2.267e-10 = 0.97 units of 2^-32, at (-1, 0, -3)
+  Y3  worst |error| 2.267e-10 = 0.97 units of 2^-32, at (-3, -1, 0)
+  Y4  worst |error| 2.862e-10 = 1.23 units of 2^-32, at (-3, -4, 0)
+  Y5  worst |error| 2.862e-10 = 1.23 units of 2^-32, at (0, -3, -4)
+  Y6  worst |error| 2.780e-10 = 1.19 units of 2^-32, at (-2, -2, -4)
+  Y7  worst |error| 2.862e-10 = 1.23 units of 2^-32, at (-3, 0, -4)
+  Y8  worst |error| 1.669e-10 = 0.72 units of 2^-32, at (-2, -1, -3)
+  overall worst: 1.23 units of 2^-32 (2.862e-10)

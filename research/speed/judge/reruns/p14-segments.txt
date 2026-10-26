@@ -1,0 +1,31 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B work/speed-probe/r2/p14_segments_bodies.py (the proponent's), rerun by the judge against the debater's snapshot of f16dc26
+# the script lives in work/ (ignored by git), so this file is a record of the rerun, not reproducible from this tree
+# host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; 2026-10-26; timings of this sitting; plants identical
+fast execution: 1600 tick lines, 16 snapshots, 2418.8 ms (one process run)
+pool of 16: 16 worker processes warmed before any clock
+sequential reference: 26362.3 ms, 1600 lines equal to the fast execution's
+witness: at every lane count every segment's lines equal the fast execution's, every boundary reproduced, the final state the sequential reference's
+round 1 W=2          15083.8 ms
+round 1 W=16          4371.9 ms
+round 1 W=8           6392.4 ms
+round 1 W=1          26387.1 ms
+round 1 sequential   25668.9 ms
+round 1 W=4           7924.5 ms
+round 2 W=8           5072.9 ms
+round 2 W=2          14096.7 ms
+round 2 W=4           7967.7 ms
+round 2 W=1          26005.1 ms
+round 2 W=16          4012.6 ms
+round 2 sequential   25858.5 ms
+round 3 W=4           7873.8 ms
+round 3 W=16          4101.7 ms
+round 3 sequential   26029.4 ms
+round 3 W=1          25620.3 ms
+round 3 W=8           4916.5 ms
+round 3 W=2          13836.3 ms
+median of 3 rounds: sequential 25858 ms, W=1 26005 ms, W=2 14097 ms, W=4 7924 ms, W=8 5073 ms, W=16 4102 ms
+ticks admitted per second of software time: sequential 62, W=1 62, W=2 114, W=4 202, W=8 315, W=16 390
+plant value            {"broken_boundaries": [600], "divergences_in_untrusted_segments": [], "fast_lines_equal_sequential_reference": false, "first_divergent_tick": 523}
+plant forged-snapshot  {"broken_boundaries": [800, 900], "divergences_in_untrusted_segments": [801], "fast_lines_equal_sequential_reference": true, "first_divergent_tick": null}
+P14 DONE
+p14 exit 0

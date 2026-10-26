@@ -1,0 +1,16 @@
+# command: python -B research/speed/judge/time_sh.py 21
+# tree: f16dc26, measured on 2026-10-26 from work/speed-judge/ before the scripts were copied here
+# host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; PYTHONHASHSEED=0 PYTHONUTF8=1
+clock perf_counter, resolution 1e-07 s, monotonic True
+== c99, each run a fresh process (output and receipt written)
+  R 4  (728 directions)        n  21  median    18.194 ms  p10    15.922  p90    24.951
+  R 16 (35936 directions)      n  21  median   186.459 ms  p10   174.470  p90   199.145
+  marginal: 4.779 us a direction (median difference over 35208 extra directions)
+== rust, each run a fresh process (output and receipt written)
+  R 4  (728 directions)        n  21  median    21.272 ms  p10    18.767  p90    28.453
+  R 16 (35936 directions)      n  21  median   208.335 ms  p10   197.737  p90   227.312
+  marginal: 5.313 us a direction (median difference over 35208 extra directions)
+== the reference interpreter, in this process (no process start)
+  R 4  (728 directions)        n   5  median    67.983 ms  p10    66.764  p90    69.722
+  R 16 (35936 directions)      n   5  median  3798.517 ms  p10  3536.323  p90  4735.012
+  marginal: 105.957 us a direction (median difference over 35208 extra directions)

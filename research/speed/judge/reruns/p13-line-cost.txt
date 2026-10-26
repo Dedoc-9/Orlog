@@ -1,0 +1,44 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B work/speed-probe/r2/p13_line_cost.py (the proponent's), rerun by the judge against the debater's snapshot of f16dc26
+# the script lives in work/ (ignored by git), so this file is a record of the rerun, not reproducible from this tree
+# host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; 2026-10-26; timings of this sitting; the ratios within the proponent's order
+P13 line cost by regime (round 2): ['commit f16dc26905749ee00f32f38c6751e935237acbc3', 'tree 8be7185151934ab74827c204df288399600f8d51'] | clock {'implementation': 'QueryPerformanceCounter()', 'declared_resolution_s': 1e-07, 'smallest_positive_step_ns': 100, 'median_positive_step_ns': 100.0}
+host before: {'cpu_busy_permille_over_1s': 82, 'memory_load_percent': 97}
+K = 1000: witnesses held: {"as-built": {"line_bytes": null, "lines_equal": null, "output_equal": true}, "chain+line": {"line_bytes": 212, "lines_equal": true, "output_equal": true}, "nochain": {"line_bytes": null, "lines_equal": null, "output_equal": true}, "nochain+line": {"line_bytes": 212, "lines_equal": true, "output_equal": true}, "stream+line": {"line_bytes": 212, "lines_equal": true, "output_equal": true}}
+K = 1000, 400 ticks a run, 3 runs a cell (us a tick; clock step 0.100 us):
+  as-built      falling  p50    802.0    803.4    803.2 | p99    825.2   1560.2   3307.3 | max    825.2   1560.2   3307.3 | over 2 x p50 0 0 3
+  as-built      landed   p50   1439.0   1440.9   1438.2 | p99   2061.6   2083.7   1831.4 | max   2763.9   2997.3   2096.4 | over 2 x p50 0 1 0
+  chain+line    falling  p50    859.0    856.5    859.5 | p99   1544.6   1030.5   1014.4 | max   1544.6   1030.5   1014.4 | over 2 x p50 0 0 0
+  chain+line    landed   p50   1511.8   1514.9   1512.3 | p99   2496.2   2451.6   2014.3 | max   2610.0   3724.1   2796.6 | over 2 x p50 0 1 0
+  stream+line   falling  p50    272.9    273.8    273.2 | p99    420.2    397.9    359.3 | max    420.2    397.9    359.3 | over 2 x p50 0 0 0
+  stream+line   landed   p50    438.4    439.1    438.8 | p99    537.9    716.3    555.6 | max   2034.8   1279.1    665.0 | over 2 x p50 1 1 0
+  nochain+line  falling  p50     55.4     55.0     55.0 | p99    169.3    219.7    144.6 | max    169.3    219.7    144.6 | over 2 x p50 1 1 1
+  nochain+line  landed   p50     63.0     62.5     62.6 | p99    106.0    113.7     86.1 | max    153.4    281.4    115.1 | over 2 x p50 2 2 0
+  nochain       falling  p50     15.0     14.9     14.9 | p99     20.4     15.2     15.2 | max     20.4     15.2     15.2 | over 2 x p50 0 0 0
+  nochain       landed   p50     22.4     22.3     22.4 | p99     57.5     57.3     80.6 | max     61.0     85.9    123.7 | over 2 x p50 19 10 12
+  falling: median p50 relative to as-built: as-built 1.000, chain+line 1.069, stream+line 0.340, nochain+line 0.068, nochain 0.019
+  landed: median p50 relative to as-built: as-built 1.000, chain+line 1.051, stream+line 0.305, nochain+line 0.044, nochain 0.016
+K = 100: witnesses held: {"as-built": {"line_bytes": null, "lines_equal": null, "output_equal": true}, "chain+line": {"line_bytes": 210, "lines_equal": true, "output_equal": true}, "nochain": {"line_bytes": null, "lines_equal": null, "output_equal": true}, "nochain+line": {"line_bytes": 210, "lines_equal": true, "output_equal": true}, "stream+line": {"line_bytes": 210, "lines_equal": true, "output_equal": true}}
+K = 100, 3000 ticks a run, 3 runs a cell (us a tick; clock step 0.100 us):
+  as-built      falling  p50     81.4     81.7     81.9 | p99    151.8    217.7    120.4 | max    151.8    217.7    120.4 | over 2 x p50 0 1 0
+  as-built      landed   p50    147.1    147.2    145.8 | p99    175.9    181.1    173.3 | max   1850.1   1390.7   1281.2 | over 2 x p50 3 1 3
+  chain+line    falling  p50     86.5     86.8     86.8 | p99    219.7    235.4    189.8 | max    219.7    235.4    189.8 | over 2 x p50 1 3 1
+  chain+line    landed   p50    151.3    151.4    151.3 | p99    182.5    203.4    215.5 | max   1281.5   1224.3   1861.7 | over 2 x p50 1 13 14
+  stream+line   falling  p50     28.5     28.5     28.6 | p99    115.4    115.7    139.0 | max    115.4    115.7    139.0 | over 2 x p50 5 2 1
+  stream+line   landed   p50     44.9     45.0     45.1 | p99     60.3     65.8     64.2 | max    182.9    180.5    135.6 | over 2 x p50 7 22 18
+  nochain+line  falling  p50      6.2      6.2      6.2 | p99    102.8    103.0    101.2 | max    102.8    103.0    101.2 | over 2 x p50 2 2 2
+  nochain+line  landed   p50      7.0      7.0      7.0 | p99     11.5     10.6     17.7 | max     38.9     74.7     79.5 | over 2 x p50 23 19 39
+  nochain       falling  p50      1.5      1.5      1.5 | p99      1.6      1.6      2.4 | max      1.6      1.6      2.4 | over 2 x p50 0 0 0
+  nochain       landed   p50      2.3      2.3      2.3 | p99      8.2      2.3      2.4 | max     67.9     41.2      8.2 | over 2 x p50 679 3 4
+  falling: median p50 relative to as-built: as-built 1.000, chain+line 1.062, stream+line 0.349, nochain+line 0.076, nochain 0.018
+  landed: median p50 relative to as-built: as-built 1.000, chain+line 1.029, stream+line 0.306, nochain+line 0.048, nochain 0.016
+reference K = 1000, 200 ticks a run, 3 runs (us a tick):
+  plain  falling  p50   12196.1   12337.8   12192.3 | p99   16057.3   14982.3   14084.1 | max   16057.3   14982.3   14084.1
+  plain  landed   p50   14909.4   15044.7   15031.8 | p99   16627.5   18711.0   17437.3 | max   16627.5   18711.0   17437.3
+  line   falling  p50   13273.5   13582.2   13450.0 | p99   14944.2   15990.8   16265.7 | max   14944.2   15990.8   16265.7
+  line   landed   p50   16492.6   16824.0   16646.5 | p99   18205.7   24177.0   19848.9 | max   18205.7   24177.0   19848.9
+reference K = 100, 1000 ticks a run, 3 runs (us a tick):
+  plain  falling  p50    1208.4    1216.7    1225.8 | p99    1397.6    1451.2    1766.0 | max    1397.6    1451.2    1766.0
+  plain  landed   p50    1469.9    1490.1    1494.8 | p99    1987.0    2001.8    2443.0 | max    2709.8    3115.8    3523.9
+  line   falling  p50    1315.3    1307.6    1348.2 | p99    1952.1    1534.3    1589.2 | max    1952.1    1534.3    1589.2
+  line   landed   p50    1643.6    1645.9    1662.6 | p99    2751.3    2754.2    3011.1 | max    4022.8    4842.5    4936.3
+host after: {'cpu_busy_permille_over_1s': 77, 'memory_load_percent': 97}
