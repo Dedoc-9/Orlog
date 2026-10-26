@@ -1,15 +1,17 @@
 """The arbiter: one law, the reference and three compiled backends, compared byte for byte.
 
 What it decides, and on what authority:
-  - Agreement is integrity: every receipt (minus its backend line) and every output byte equal.
-    It shows that four executions did the same thing; it does not show the law is right.
+  - Agreement is integrity: every receipt (minus its backend line) and every output byte equal,
+    and every backend exiting with status 0. It shows that four executions did the same thing;
+    it does not show the law is right.
   - On disagreement the reference's output is kept, because the reference is the DECLARED
     authority (a small definition, the de Bruijn criterion), never because of a vote. Each
     dissent is localized to its first divergent event and written down. When the compiled
     backends agree with each other against the reference, that is REFERENCE-DISSENT: the
     reference is still kept, and the witness says loudly that its authority is a declaration.
-Compilation is memoized by the sha256 of the generated source and the flags; runs never are,
-because a run is the observation.
+Compilation is memoized by the sha256 of the generated source, the flags and the compiler's
+version line, with a record of the toolchain and the program's own sha256 checked before a
+cached program runs; runs never are, because a run is the observation.
 """
 import hashlib
 import json
@@ -56,6 +58,27 @@ def toolchains():
             return "unavailable"
     return {"python": platform.python_version(), "clang": first(["clang", "--version"]),
             "rustc": first(["rustc", "--version"])}
+
+
+_TOOLCHAIN = {}
+
+
+def toolchain(backend):
+    """The first line of `--version` from the compiler a build of this backend would call, read once per PATH; ""
+    for the Python backend, which builds nothing. It is part of the build key, and it is recorded beside each binary:
+    a warm cache had answered for a compiler that could not build (the reporting pass's finding 7)."""
+    exe = {"c99": "clang", "rust": "rustc"}.get(backend)
+    if exe is None:
+        return ""
+    k = (exe, os.environ.get("PATH", ""))
+    if k not in _TOOLCHAIN:
+        try:
+            r = subprocess.run([exe, "--version"], capture_output=True, text=True)
+            line = (r.stdout or r.stderr).splitlines()[0].strip() if r.returncode == 0 else ""
+        except (OSError, IndexError):
+            line = ""
+        _TOOLCHAIN[k] = line or "unavailable"
+    return _TOOLCHAIN[k]
 
 
 def parse_receipt(b):
@@ -128,19 +151,46 @@ class Arbiter:
     # Every path a compiler or a compiled program sees is relative and ASCII, with the working directory set: with a
     # work folder named ØRLǪG, the C runtime's fopen on the narrow argv and the GNU linker both failed (red team E11).
     def build(self, backend, src):
+        """(command, how, key). A compiled program is keyed by its source, its flags and the compiler's
+        version line, and kept with a record of the toolchain that built it and its own sha256; a cache entry whose
+        record is missing or does not match is built again, never run (the reporting pass's finding 7)."""
         ext = {"python": ".py", "c99": ".c", "rust": ".rs"}[backend]
         flags = {"python": [], "c99": self.c_flags, "rust": RS_FLAGS}[backend]
-        key = sha((src + "\0" + " ".join(flags)).encode("utf-8"))[:24]
+        tool = toolchain(backend)
+        key = sha((src + "\0" + " ".join(flags) + ("\0" + tool if tool else "")).encode("utf-8"))[:24]
         cache = os.path.join(self.workdir, "cache")
         name = "%s-%s" % (backend, key)
         srcpath = os.path.join(cache, name + ext)
+        how = None
         if not os.path.exists(srcpath):
             publish(srcpath, src.encode("utf-8"))
+        elif backend == "python":
+            with open(srcpath, "rb") as fh:
+                found = fh.read()
+            if found != src.encode("utf-8"):            # the file runs as it is found: it must be this source
+                # written again with the file closed (Windows refuses a rename onto an open file, and publish then
+                # keeps the copy already there), and read back: a source that is not this law's never runs
+                publish(srcpath, src.encode("utf-8"))
+                with open(srcpath, "rb") as fh:
+                    if fh.read() != src.encode("utf-8"):
+                        raise RuntimeError("the cached source %s is not this law's source and could not be written "
+                                           "again" % os.path.basename(srcpath))
+                how = "rewritten (the cached source was not this source)"
         if backend == "python":
-            return [sys.executable, "-I", "-B", os.path.join("cache", name + ext)], "interpreted", key
+            return [sys.executable, "-I", "-B", os.path.join("cache", name + ext)], how or "interpreted", key
         exe_rel = os.path.join("cache", name + ".exe")
-        if os.path.exists(os.path.join(self.workdir, exe_rel)):
-            return [exe_rel], "cached", key
+        exe_abs, rec_abs = os.path.join(self.workdir, exe_rel), os.path.join(cache, name + ".exe.record")
+        if os.path.exists(exe_abs):
+            try:
+                with open(rec_abs, "rb") as fh:
+                    rec = json.loads(fh.read().decode("utf-8"))
+                if rec.get("toolchain") == tool and rec.get("exe_sha256") == file_sha(exe_abs):
+                    return [exe_rel], "cached", key
+            except (OSError, ValueError, AttributeError):
+                pass
+            how = "built again (the cached program's record was missing or did not match)"
+        if tool == "unavailable":
+            raise OSError("%s: no compiler answers --version on PATH" % backend)
         if backend == "c99":
             cmd = ["clang"] + flags + [name + ext, "-o", name + ".exe"]
         else:
@@ -158,10 +208,13 @@ class Arbiter:
             if r.returncode != 0 or not os.path.exists(built):
                 raise RuntimeError("%s build failed:\n%s" % (backend, (r.stdout + r.stderr)[-4000:]))
             with open(built, "rb") as fh:
-                publish(os.path.join(cache, name + ".exe"), fh.read())
+                program = fh.read()
+            publish(exe_abs, program)
+            record = {"toolchain": tool, "exe_sha256": sha(program)}
+            publish(rec_abs, json.dumps(record, sort_keys=True).encode("ascii"))
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
-        return [exe_rel], "built", key
+        return [exe_rel], how or "built", key
 
     def run(self, cmd, tag, trace=False, cwd=None):
         """Run one backend program. Its files live in cwd, which an arbitration makes fresh for itself: a verdict
@@ -221,7 +274,8 @@ class Arbiter:
                     results[b] = {"build": "FAILED", "error": "%s: %s" % (type(e).__name__, e)}
                     continue
                 r = self.run(cmd, "%s-%s" % (name, b), cwd=rundir)
-                r.update({"build": how, "source_sha256": sha(src.encode("utf-8")), "cmd": cmd})
+                r.update({"build": how, "source_sha256": sha(src.encode("utf-8")), "cmd": cmd,
+                          "toolchain": toolchain(b)})
                 results[b] = r
             ref_core = receipt_core(ref.receipt())
             agree, dissent = [], []
@@ -263,7 +317,7 @@ class Arbiter:
             "literal_notes": comp.an.notes,
             "reference": {"status": ref.status, "output_sha256": sha(bytes(ref.out)), "events": ref.events,
                           "trace_head": ref.head.hex(), "ops": ref.ops,
-                          "receipt_sha256": sha(ref.receipt())},
+                          "receipt_core_sha256": sha(ref_core) if ref_core is not None else None},
             "backends": {b: self._summary(r) for b, r in results.items()},
             "agreeing": sorted(agree), "dissenting": sorted(dissent), "dissent_kind": kind,
             "mismatch_notes": notes,
@@ -285,14 +339,19 @@ class Arbiter:
         return cores[0] is not None and all(x == cores[0] for x in cores) and all(o == outs[0] for o in outs)
 
     def _summary(self, r):
+        """For display. The receipt's hash is of its core, as the reference's is, so the two compare: None when the
+        receipt is missing or its frame is wrong (the reporting pass's finding 16, where a CR LF dissent's summary had
+        equalled an agreeing run's in every field)."""
         if r.get("build") == "FAILED":
             return {"build": "FAILED"}
         rec = parse_receipt(r["receipt"]) if r.get("receipt") else []
         get = lambda k: next((l.split(" ", 1)[1] for l in rec if l.startswith(k + " ")), None)
-        return {"build": r["build"], "source_sha256": r["source_sha256"], "exit": r["exit"],
-                "status": get("status"), "output_sha256": sha(r["out"]) if r.get("out") is not None else None,
+        core = receipt_core(r.get("receipt"))
+        return {"build": r["build"], "toolchain": r.get("toolchain", ""), "source_sha256": r["source_sha256"],
+                "exit": r["exit"], "status": get("status"),
+                "output_sha256": sha(r["out"]) if r.get("out") is not None else None,
                 "events": get("events"), "trace_head": get("trace-head"), "ops": get("ops"),
-                "receipt_sha256": sha("\n".join(rec).encode()) if rec else None}
+                "receipt_core_sha256": sha(core) if core is not None else None}
 
     def localize(self, comp, backend, ref, run):
         """The first event where the backend and the reference part, decoded, plus the first output byte."""
@@ -308,7 +367,21 @@ class Arbiter:
                 break
         if idx is None:
             note["first_divergent_event"] = None
-            note["detail"] = "traces equal; the difference is outside the event chain (exit %s)" % run.get("exit")
+            core = receipt_core(run.get("receipt"))
+            if run.get("exit") != 0:
+                where = "its exit status"
+            elif (run.get("out") or b"") != bytes(ref.out):
+                where = "its output file"
+            elif run.get("receipt") is None:
+                where = "its receipt is missing"
+            elif core is None:
+                where = "its receipt's frame (a CR, a missing final LF, or a backend line missing or added)"
+            elif core != receipt_core(ref.receipt()):
+                where = "its receipt's core"
+            else:
+                where = "nothing this rerun shows (the first run differed)"
+            note["detail"] = "traces equal; the difference is outside the event chain: %s (exit %s)" % (
+                where, run.get("exit"))
         else:
             a = rt[idx].split(" ") if idx < len(rt) else None
             b = bt[idx].split(" ") if idx < len(bt) else None

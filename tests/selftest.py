@@ -24,9 +24,11 @@ from orlog import court as COURT  # noqa: E402
 from orlog import numeric_ref as N  # noqa: E402
 from orlog import seal as SEAL  # noqa: E402
 from orlog import sema as SEMA  # noqa: E402
+from orlog import arbiter as ARB  # noqa: E402
 from orlog.arbiter import Arbiter, C_FLAGS, witness_artifact, parse_receipt, receipt_core  # noqa: E402
 from orlog.front import compile_bytes  # noqa: E402
 from orlog.interp import Interp  # noqa: E402
+from plants import planted  # noqa: E402  (tests/plants.py: a module copied with exact edits, in memory)
 
 ROWS = []
 
@@ -268,7 +270,9 @@ def runtime_refusal_rows(arb):
     for code, raw in RUNTIME_REFUSALS:
         comp, w, ref = arb.arbitrate(raw, "refuse-" + code.lower())
         st = w.get("reference", {}).get("status", "")
-        ok = comp.ok and st.startswith("REFUSED %s " % code) and not w["dissenting"]
+        # every backend that ran agreeing, not merely none dissenting: a backend that did not build is neither (the
+        # reporting pass's finding 8)
+        ok = comp.ok and st.startswith("REFUSED %s " % code) and len(w["agreeing"]) == len(arb.backends)
         row(ok, "runtime refusal %s: the reference and [%s] stop at the same event with the same code"
             % (code, ",".join(w.get("agreeing", []))), "" if ok else json.dumps(w.get("mismatch_notes"))[:400])
 
@@ -612,12 +616,21 @@ def redteam_rows(arb):
     c = compile_bytes(prog(*tall))
     row(not c.ok and c.error.code == "NESTING-DEPTH", "bounds: clauses 25 deep are refused NESTING-DEPTH",
         "" if not c.ok else "compiled")
-    chain = ["§1 Let x be 599.", "§2 If x equals 0, say 0."]
-    chain += ["§%d Otherwise, if x equals %d, say %d." % (k + 2, k, k) for k in range(1, 600)]
-    comp, w, ref = arb.arbitrate(prog(*chain), "rt-chain-600")
-    row(comp.ok and not w["dissenting"] and bytes(ref.out) == b"599\n",
-        "bounds: a 600-arm If chain runs byte-identically on the reference and [%s] (constant-depth lowering)"
-        % ",".join(w.get("agreeing", [])))
+    ok, agreeing = chain_runs(arb)
+    row(ok, "bounds: a 600-arm If chain runs byte-identically on the reference and [%s] (constant-depth lowering)"
+        % ",".join(agreeing))
+
+
+CHAIN_600 = ["§1 Let x be 599.", "§2 If x equals 0, say 0."] + [
+    "§%d Otherwise, if x equals %d, say %d." % (k + 2, k, k) for k in range(1, 600)]
+
+
+def chain_runs(a):
+    """The chain row's reading: every backend that ran agreeing (E10's class shows as a compiler refusing the chain,
+    which 'none dissenting' had read as a pass: the reporting pass's finding 8)."""
+    comp, w, ref = a.arbitrate(prog(*CHAIN_600), "rt-chain-600")
+    return (comp.ok and len(w["agreeing"]) == len(a.backends) and ref is not None and bytes(ref.out) == b"599\n",
+            w.get("agreeing", []))
 
 
 def redteam_v2_rows(arb, workdir, backends):
@@ -635,12 +648,8 @@ def redteam_v2_rows(arb, workdir, backends):
     row(all(checks), "arbiter: receipts agree byte for byte without their second line, and only that line: a renamed "
         "backend agrees; a CR LF receipt, one without its final LF and one with an extra line do not (red team E7)",
         str(checks))
-
-    def lenient(b):         # the comparison before E7: splitlines, every 'backend ' line dropped
-        return "\n".join(l for l in b.decode("ascii", "replace").splitlines() if not l.startswith("backend "))
-    survived = [lenient(x) == lenient(good) for x in (crlf, nolf, extra)]
-    plant("arbiter-lenient-receipts", any(survived), "the pre-E7 comparison calls %d of the 3 malformed receipts "
-          "agreeing, so the row fails under it" % sum(survived))
+    # The plant that stood here ran a stand-in comparison and never reached the verdict (the reporting pass's finding
+    # 4); E7's plant is now the pre-E7 comparison put back into the arbiter's verdict, in reporting_rows.
     # E8: a failed build is reported, never counted as a dissent
     if {"python", "c99", "rust"} <= set(backends):
         masking = Arbiter(workdir, backends=("python", "c99", "rust"), reference_patch=reference_truncates_quotient,
@@ -653,7 +662,7 @@ def redteam_v2_rows(arb, workdir, backends):
     # E9: curly quotes inside a straight-quoted literal are its text
     comp, w, ref = arb.arbitrate(read("tests/fixtures/redteam/E9_door_curly_in_literal.orl"), "rt2-e9")
     want = "Use “followed by” to join\n".encode("utf-8")
-    ok = comp.ok and not comp.canon.events and bytes(ref.out) == want and not w["dissenting"]
+    ok = comp.ok and not comp.canon.events and bytes(ref.out) == want and len(w["agreeing"]) == len(arb.backends)
     row(ok, "door: curly quotes inside a straight-quoted literal are its text: no event, and the reference and [%s] "
         "print them byte for byte (red team E9)" % ",".join(w.get("agreeing", [])),
         "" if ok else repr(bytes(ref.out) if ref is not None else comp.error))
@@ -834,8 +843,14 @@ def isolation_rows(backends):
     a_src, b_src = prog("§1 Let x be 6.", "§2 Say x times 7."), prog("§1 Let y be 5.", "§2 Say y plus 1.")
     real = tempfile.mkdtemp
 
-    def run_two(fake):
-        used = []
+    def run_two(fake, arbiter_cls=Arbiter):
+        """The folders each arbitration made, and the folder every one of its runs ran in."""
+        used, cwds = [], []
+
+        class Recording(arbiter_cls):
+            def run(self, cmd, tag, trace=False, cwd=None):
+                cwds.append(cwd)
+                return arbiter_cls.run(self, cmd, tag, trace=trace, cwd=cwd)
 
         def mk(*args, **kw):
             d = fake(*args, **kw) if kw.get("prefix") == "arb-" else real(*args, **kw)
@@ -845,16 +860,30 @@ def isolation_rows(backends):
         tempfile.mkdtemp = mk
         try:
             for src in (a_src, b_src):
-                Arbiter(wd, backends=backends).arbitrate(src, "iso")
+                Recording(wd, backends=backends).arbitrate(src, "iso")
         finally:
             tempfile.mkdtemp = real
-        return used
-    used = run_two(real)
-    ok = len(used) == 2 and used[0] != used[1] and not any(os.path.exists(d) for d in used)
+        return used, cwds
+
+    def isolated(used, cwds):
+        """Two folders, distinct, none left, and every run in one of them: a folder made and removed while the runs
+        happened in the shared one had passed (the reporting pass's finding 18)."""
+        return (len(used) == 2 and used[0] != used[1] and not any(os.path.exists(d) for d in used) and bool(cwds)
+                and all(c in used for c in cwds) and set(cwds) == set(used))
+    used, cwds = run_two(real)
+    ok = isolated(used, cwds)
     # the folders' names are random, so the detail gives counts: a row's text must be the same on every run
-    row(ok, "arbiter: each arbitration runs in a folder of its own inside the work folder, removed afterwards (two "
-        "arbitrations, two folders, none left)", "" if ok else "%d folder(s) for %d arbitrations, %d distinct, %d left" % (
-            len(used), 2, len(set(used)), sum(1 for d in used if os.path.exists(d))))
+    row(ok, "arbiter: each arbitration runs in a folder of its own inside the work folder, every one of its runs "
+        "there, and the folder is removed afterwards (two arbitrations, two folders, none left)",
+        "" if ok else "%d folder(s) for %d arbitrations, %d distinct, %d left, %d run(s) outside them" % (
+            len(used), 2, len(set(used)), sum(1 for d in used if os.path.exists(d)),
+            sum(1 for c in cwds if c not in used)))
+    shared_runs = planted("src/orlog/arbiter.py", [('r = self.run(cmd, "%s-%s" % (name, b), cwd=rundir)',
+                                                    'r = self.run(cmd, "%s-%s" % (name, b), cwd=self.workdir)')])
+    used, cwds = run_two(real, shared_runs.Arbiter)
+    plant("run-folder-made-but-shared", not isolated(used, cwds),
+          "under the plant each arbitration made and removed its own folder while its runs ran in the shared work "
+          "folder, so the row's runs are outside the arbitrations' folders")
 
     def one(k):
         try:
@@ -876,7 +905,7 @@ def isolation_rows(backends):
     def constant(*args, **kw):
         os.makedirs(shared, exist_ok=True)
         return shared
-    used = run_two(constant)
+    used, _ = run_two(constant)
     plant("arbiter-shares-a-run-folder", len(used) == 2 and used[0] == used[1],
           "under the plant both arbitrations ran in %s, so the row's two folders are one" % os.path.basename(shared))
 
@@ -991,8 +1020,9 @@ def compat_rows():
     k = re.search(r"^COMPAT SELFTEST (\d+)/(\d+)", s.stdout, re.M)
     ok = s.returncode == 0 and k is not None and k.group(1) == k.group(2)
     row(ok, "compat: the gate's plants are caught (a word newly reserved, a law line respelled, a change only the "
-        "receipts see, a frozen text altered) and a declared change passes only with its exact new result "
-        "(COMPAT SELFTEST %s/%s)" % (k.group(1) if k else "?", k.group(2) if k else "?"),
+        "receipts see, a frozen text altered, a declared change without its reason, a baseline row removed) and a "
+        "declared change passes only with its exact new result (COMPAT SELFTEST %s/%s)" % (
+            k.group(1) if k else "?", k.group(2) if k else "?"),
         "" if ok else (s.stdout[-600:] + s.stderr[-400:]))
 
 
@@ -1002,42 +1032,56 @@ R8_EXPECTED = {         # the court's R8 (the doppler debate's DP-5): fixture ->
                        "§3.1": ("REFUSED at evaluation 2 (INDEX-OUT-OF-RANGE), after 1 true: not held", "UNGROUNDED")},
     "inline_claim.orl": {"§2.1": ("REFUSED at its clause (INDEX-OUT-OF-RANGE) after 16 of 16", "UNGROUNDED")},
     "inline_condition.orl": {"§2.1": ("REFUSED at its clause (INDEX-OUT-OF-RANGE) after 16 of 16", "UNGROUNDED")},
+    # a plain Otherwise clause evaluates nothing but its arm: read exactly (the reporting pass's finding 15)
+    "otherwise_claim.orl": {"§2.2": ("REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held",
+                                     "UNGROUNDED")},
+    # two claims that support each other, the second refusing at its second evaluation (finding 12)
+    "cycle_refusal.orl": {"§2": ("true in 1 of 1 evaluations", "UNGROUNDED"),
+                          "§3.1": ("REFUSED at evaluation 2 (INDEX-OUT-OF-RANGE), after 1 true: not held",
+                                   "UNGROUNDED")},
 }
+OTHERWISE_EXACT = ('    if st is site.stmt or (isinstance(st, RawIf) and st.kind == "otherwise" and st.then is site.stmt'
+                   '):\n', "    if st is site.stmt:\n")
 
 
 def r8_rows(arb):
-    """The court's R8: an evaluation that refused is not held, and the rule only ever withholds."""
-    def readings(name, check=True):
+    """The court's R8: an evaluation that refused is not held, and the rule only ever withholds. Every row reads R8 at
+    panel's shipped default, the value orl.py reads; only the plant passes r8=False (the reporting pass's finding 1)."""
+    def readings(name, off=False, court=COURT):
         comp, w, ref = arb.arbitrate(read("tests/fixtures/r8/" + name), "r8-" + name[:-4])
-        seals = COURT.claim_seals(comp)
+        seals = court.claim_seals(comp)
         ledger = [{"kind": "claim", "claim_seal": s, "note": FIXTURE, "_line": i + 1}
                   for i, s in enumerate(seals.values())]
-        COURT.REFUSED_EVALUATION_CHECK = check
-        try:
-            p = COURT.panel(comp, w, parse_receipt(ref.receipt()), ledger)
-        finally:
-            COURT.REFUSED_EVALUATION_CHECK = True
+        rec = parse_receipt(ref.receipt())
+        p = court.panel(comp, w, rec, ledger, r8=False) if off else court.panel(comp, w, rec, ledger)
         return w, {r["clause"]: r for r in p["rows"]}
     for name, want in R8_EXPECTED.items():
         w, rows = readings(name)
         got = {k: (rows[k]["evaluation"], rows[k]["grounding"]) for k in want if k in rows}
-        ok = (not w["dissenting"] and all(k in got and got[k][0].startswith(v[0]) and got[k][1] == v[1]
-                                          for k, v in want.items()))
+        ok = (len(w["agreeing"]) == len(arb.backends) and all(
+            k in got and got[k][0].startswith(v[0]) and got[k][1] == v[1] for k, v in want.items()))
         row(ok, "court R8: %s, every claim's seal ratified, agreed on [%s]: %s" % (
             name, ",".join(w["agreeing"]), "; ".join("%s %s, %s" % (k, got[k][0], got[k][1]) for k in sorted(got))),
             "" if ok else str(got))
-    w, rows = readings("omit.orl", check=False)
+    w, rows = readings("omit.orl", off=True)
     plant("court-counts-only-finished-evaluations (R8 off)", rows["§2.1"]["grounding"] == "GROUNDED",
           "with R8 off, omit.orl's claim reads %s, %s over a run REFUSED at that claim" % (
               rows["§2.1"]["evaluation"], rows["§2.1"]["grounding"]))
+    w, rows = readings("otherwise_claim.orl", court=planted("src/orlog/court.py", [OTHERWISE_EXACT]))
+    plant("r8-otherwise-read-as-possible", rows["§2.2"]["evaluation"].startswith("REFUSED at its clause"),
+          "under the predicate before finding 15, the Otherwise clause's claim reads 'REFUSED at its clause ... the "
+          "refusal may come from the condition or the other arm', which that clause does not have")
     r = run_python(os.path.join(ROOT, "tests", "court_monotone.py"), "--jobs", "8")
-    m = re.search(r"^COURT R8 ONE-SIDED: (\d+) gained, (\d+) lost \(frozen texts (\d+), fixtures (\d+)\)", r.stdout, re.M)
-    ok = r.returncode == 0 and m is not None and m.group(1) == "0" and "plant r8-reverted" in r.stdout and \
-        ": CAUGHT," in r.stdout
-    row(ok, "court R8 is one-sided: over COMPAT-0's frozen texts and R8's fixtures, %s standings gained, %s lost "
-        "(frozen texts %s, a coverage gap: none refuses inside a claim; fixtures %s), and the plant that reverts R8 "
-        "is caught (tests/court_monotone.py)" % (m.group(1) if m else "?", m.group(2) if m else "?",
-                                                  m.group(3) if m else "?", m.group(4) if m else "?"),
+    m = re.search(r"^COURT R8 ONE-SIDED: (\d+) gained, (\d+) lost \(frozen texts (\d+), fixtures (\d+); "
+                  r"cycle_refusal.orl (\d+)\)", r.stdout, re.M)
+    plants_caught = [re.search(r"^plant %s .*: CAUGHT," % n, r.stdout, re.M) is not None
+                     for n in ("standing-without-circular", "court-grants-a-refuted-claim")]
+    ok = r.returncode == 0 and m is not None and m.group(1) == "0" and all(plants_caught)
+    row(ok, "court R8 is one-sided: over COMPAT-0's frozen texts and the court's fixtures, %s standings gained, %s lost "
+        "(frozen texts %s, a coverage gap: none refuses inside a claim; fixtures %s, cycle_refusal.orl's two moves out "
+        "of CIRCULAR among them), every changed reading counted, and both plants caught: a comparator blind to "
+        "CIRCULAR, and a court that grants (tests/court_monotone.py)" % (
+            m.group(1) if m else "?", m.group(2) if m else "?", m.group(3) if m else "?", m.group(4) if m else "?"),
         "" if ok else (r.stdout[-600:] + r.stderr[-300:]))
 
 
@@ -1245,7 +1289,8 @@ def law_plants(arb):
     comp, w, ref = arb.arbitrate(planted, "plant-law-gcd")
     st = w.get("reference", {}).get("status", "")
     cid = comp.prog.by_label["12"].id if comp.ok else -1
-    plant("law-gcd-wrong-answer (g doubled)", comp.ok and st == "REFUSED CLAIM-REFUTED %d" % cid and not w["dissenting"],
+    plant("law-gcd-wrong-answer (g doubled)", comp.ok and st == "REFUSED CLAIM-REFUTED %d" % cid and
+          len(w["agreeing"]) == len(arb.backends),
           "the Bezout certificate refuses at §12 in the reference and [%s]: %s" % (",".join(w.get("agreeing", [])), st))
     src = read("examples/leapfrog.orl")
     old = "§9.1.1 Set item i of x to item i of x plus item i of v times h.".encode("utf-8")
@@ -1255,7 +1300,8 @@ def law_plants(arb):
     st = w.get("reference", {}).get("status", "")
     cid = comp.prog.by_label["17"].id if comp.ok else -1
     plant("law-leapfrog-asymmetric-drift (a bias not symmetric under negation)",
-          planted != src and comp.ok and st == "REFUSED CLAIM-REFUTED %d" % cid and not w["dissenting"],
+          planted != src and comp.ok and st == "REFUSED CLAIM-REFUTED %d" % cid and
+          len(w["agreeing"]) == len(arb.backends),
           "exact return fails and the reversibility claim refuses at §17 in the reference and [%s]: %s"
           % (",".join(w.get("agreeing", [])), st))
 
@@ -1299,6 +1345,372 @@ def firewall_rows():
         row(True, "firewall: a verdict-shaped key in a witness is refused (executable-epistemics)")
 
 
+# ------------------------------------------------------------------ the reporting layer (the reporting pass, 2026-10-26)
+ORL = planted("orl.py", [])                    # orl.py as a module, so its printed reading can be read in process
+COURT_PY, ARBITER_PY = "src/orlog/court.py", "src/orlog/arbiter.py"
+HELD = '        held = hit is None and r["evals"] > 0 and r["trues"] == r["evals"] and agreed\n'
+AGREE_CORE = 'ok = (r.get("receipt") is not None and receipt_core(r["receipt"]) == ref_core and ref_core is not None'
+AGREE_COND = 'and r.get("out") == bytes(ref.out) and r.get("exit") == 0)'
+PY_RECEIPT = r'fh.write(("\n".join(lines) + "\n").encode("ascii"))'
+PY_FINISH = '        self._receipt("COMPLETED")\n        _sys.exit(0)'
+PY_CLOSE = '        self.out.close()\n        if self.trace is not None:\n            self.trace.close()'
+PY_MUTANTS = {          # a Python backend that breaks one agreement condition, made through the arbiter's mutate hook
+    "a CR LF receipt": (PY_RECEIPT, r'fh.write(("\r\n".join(lines) + "\r\n").encode("ascii"))'),
+    "a receipt without its final LF": (PY_RECEIPT, r'fh.write(("\n".join(lines)).encode("ascii"))'),
+    "a receipt with a second backend line": (
+        PY_RECEIPT, r'fh.write(("\n".join(lines[:2] + ["backend extra"] + lines[2:]) + "\n").encode("ascii"))'),
+    "an exit status of 5 after a whole run": (PY_FINISH, '        self._receipt("COMPLETED")\n        _sys.exit(5)'),
+    "bytes added to its output after the receipt": (PY_CLOSE, '        self.out.write(b"planted extra bytes\\n")\n' +
+                                                    PY_CLOSE),
+}
+STAND_IN_C = (b'#include <stdio.h>\n#include <string.h>\nint main(int argc, char **argv) {\n'
+              b'    for (int i = 1; i < argc; i++) if (strcmp(argv[i], "--version") == 0) {\n'
+              b'        puts("clang version 0.0.0 (a self-test stand-in that builds nothing)"); return 0; }\n'
+              b'    return 1;\n}\n')
+
+
+def py_mutant(old, new):
+    def m(b, src):
+        if b != "python":
+            return src
+        if src.count(old) != 1:
+            raise AssertionError("a mutant's anchor occurs %d times in the generated source" % src.count(old))
+        return src.replace(old, new)
+    return m
+
+
+def orl_cli(*args, orl=None, court=None):
+    """orl.py's main in this process: (its exit status, or 'TRACEBACK <type>', and what it printed). orl: a planted
+    copy of orl.py; court: a planted court module whose panel and ledger reader the command uses."""
+    import io
+    m = orl or ORL
+    saved = (m.panel, m.read_ledger, m.LedgerBroken)
+    if court is not None:
+        m.panel, m.read_ledger, m.LedgerBroken = court.panel, court.read_ledger, court.LedgerBroken
+    buf = io.StringIO()
+    try:
+        with contextlib.redirect_stdout(buf):
+            code = m.main([str(x) for x in args])
+    except SystemExit as e:                 # argparse's own exit
+        code = e.code
+    except Exception as e:
+        code = "TRACEBACK " + type(e).__name__
+    finally:
+        m.panel, m.read_ledger, m.LedgerBroken = saved
+    return code, buf.getvalue()
+
+
+def all_ratified(comp):
+    return [{"kind": "claim", "claim_seal": s, "note": FIXTURE, "_line": i + 1}
+            for i, s in enumerate(COURT.claim_seals(comp).values())]
+
+
+def reporting_rows(arb, workdir, backends):
+    """The reporting pass's findings (research/reporting-pass/FINDINGS.md): each reporter that said more than its run
+    is held by a row, and each row by the plant that is the regression the pass planted (2026-10-26)."""
+    fixture = lambda name: os.path.join(ROOT, "tests", "fixtures", "court", name)
+    collatz = os.path.join(ROOT, "examples", "collatz.orl")
+    every, first = ",".join(backends), backends[0]
+    wd = ["--workdir", workdir]
+
+    # 1. R8 at panel's shipped default, as orl.py reads it
+    def r8_cli(court=None):
+        code, out = orl_cli("court", os.path.join(ROOT, "tests", "fixtures", "r8", "omit.orl"), "--backends", every,
+                            *wd, court=court)
+        return code == 0 and "REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held (R8)" in out
+    row(r8_cli(), "court R8 as orl.py reads it: omit.orl's claim reads REFUSED at evaluation 17 at panel's shipped "
+        "default, which no row sets (the reporting pass's finding 1)")
+    plant("r8-default-off", not r8_cli(planted(COURT_PY, [("ledger=(), r8=True):", "ledger=(), r8=False):")])),
+          "with panel's default flipped, orl.py court reads omit.orl's claim true in 16 of 16 evaluations, so the "
+          "row's REFUSED at evaluation 17 is absent")
+
+    # 2. R1: no claim held unless every backend agreed, and the sandwich says why
+    contested = Arbiter(workdir, backends=backends, reference_patch=reference_truncates_quotient)
+    comp_c, w_c, ref_c = contested.arbitrate(read(fixture("contested_true.orl")), "rep-contested")
+    rec_c, led_c = parse_receipt(ref_c.receipt()), all_ratified(comp_c)
+
+    def contested_ok(court):
+        p = court.panel(comp_c, w_c, rec_c, led_c)
+        return (w_c["dissent_kind"] != "NONE" and p["summary"]["sandwich"] == "VACUOUS (the backends did not all "
+                "agree)" and all(r["support"] == "UNSUPPORTED" and r["grounding"] == "UNGROUNDED" for r in p["rows"]))
+    row(contested_ok(COURT), "court R1: a claim true in every execution, its seal ratified, reads UNSUPPORTED and "
+        "UNGROUNDED when the backends dissent (%s), and the sandwich says the backends did not all agree (finding 2)"
+        % w_c["dissent_kind"])
+    incomplete_ok = None
+    if "c99" in backends:
+        unbuilt = Arbiter(workdir, backends=backends, mutate=mutate_with("c99", lambda s: s + "\nthis is not C\n"))
+        comp_i, w_i, ref_i = unbuilt.arbitrate(read(fixture("contested_true.orl")), "rep-incomplete")
+        rec_i, led_i = parse_receipt(ref_i.receipt()), all_ratified(comp_i)
+
+        def incomplete_ok(court):
+            p = court.panel(comp_i, w_i, rec_i, led_i)
+            return (w_i["build_failed"] == ["c99"] and p["summary"]["sandwich"].startswith("VACUOUS (not every")
+                    and all(r["support"] == "UNSUPPORTED" and r["grounding"] == "UNGROUNDED" for r in p["rows"]))
+        row(incomplete_ok(COURT), "court R1: the same claim reads UNSUPPORTED and UNGROUNDED when a backend did not "
+            "build (integrity INCOMPLETE) (finding 2)")
+    unguarded = planted(COURT_PY, [(HELD, HELD.replace(" and agreed\n", "\n"))])
+    plant("held-ignores-integrity", not contested_ok(unguarded) and (incomplete_ok is None or
+                                                                      not incomplete_ok(unguarded)),
+          "with integrity dropped from 'held', the claim reads WELL-FOUNDED and GROUNDED over a run whose backends "
+          "did not all agree, so the R1 row%s fail%s" % (("s", "") if incomplete_ok else ("", "s")))
+    blind = planted(COURT_PY, [('    elif not agreed:\n        sandwich = "VACUOUS (the backends did not all agree)"\n',
+                                "")])
+    plant("sandwich-ignores-dissent", not contested_ok(blind), "without its dissent branch the sandwich reads 'VACUOUS "
+          "(no claim is well-founded)', a reason that is not the run's, so the R1 row fails")
+
+    # 3. a refuted claim is not held
+    comp_r, w_r, ref_r = arb.arbitrate(read(fixture("refuted_claim.orl")), "rep-refuted")
+    rec_r, led_r = parse_receipt(ref_r.receipt()), all_ratified(comp_r)
+
+    def refuted_ok(court):
+        p = court.panel(comp_r, w_r, rec_r, led_r)
+        r = p["rows"][0]
+        return (len(w_r["agreeing"]) == len(backends) and r["evaluation"].startswith("REFUTED at evaluation 1 ")
+                and r["support"] == "UNSUPPORTED" and r["grounding"] == "UNGROUNDED"
+                and p["summary"]["sandwich"].startswith("VACUOUS") and p["summary"]["refuted"] == 1)
+    row(refuted_ok(COURT), "court: a refuted claim, its seal ratified, reads UNSUPPORTED and UNGROUNDED and the sandwich "
+        "VACUOUS, the reference and [%s] agreeing (finding 3)" % ",".join(w_r["agreeing"]))
+    plant("held-ignores-refutation", not refuted_ok(planted(COURT_PY, [(HELD, HELD.replace(
+        ' and r["trues"] == r["evals"]', ""))])), "with refutation dropped from 'held', the refuted claim reads "
+          "WELL-FOUNDED and GROUNDED beside its REFUTED evaluation, so the row fails")
+
+    # 4, 5 and 16. the arbiter's four agreement conditions, each through a backend that breaks only it, and the witness
+    if "python" in backends:
+        def arbitrate_mutant(arbiter_cls, mutant):
+            a = arbiter_cls(workdir, backends=("python",), mutate=py_mutant(*PY_MUTANTS[mutant]))
+            return a.arbitrate(read("examples/collatz.orl"), "rep-agree")[1]
+        mutants = {m: arbitrate_mutant(Arbiter, m) for m in PY_MUTANTS}
+        for m, w in mutants.items():
+            row(w["dissent_kind"] == "BACKEND-DISSENT" and w["dissenting"] == ["python"],
+                "arbiter: a Python backend with %s reads BACKEND-DISSENT, in the verdict itself (findings 4, 5)" % m,
+                w["dissent_kind"])
+        lenient = planted(ARBITER_PY, [(AGREE_CORE, 'ok = (r.get("receipt") is not None and parse_receipt(r["receipt"]'
+                                                    ') == parse_receipt(ref.receipt())')]).Arbiter
+        framing = ("a CR LF receipt", "a receipt without its final LF", "a receipt with a second backend line")
+        passed = [m for m in framing if arbitrate_mutant(lenient, m)["dissent_kind"] == "NONE"]
+        plant("arbiter-lenient-receipts (in the verdict)", len(passed) == 3, "with the pre-E7 comparison (lines split "
+              "on any line end, every backend line dropped) put back in the verdict, %d of the 3 framing mutants read "
+              "NONE, so their rows fail" % len(passed))
+        no_exit = planted(ARBITER_PY, [(AGREE_COND, 'and r.get("out") == bytes(ref.out))')]).Arbiter
+        plant("agreement-ignores-exit", arbitrate_mutant(no_exit, "an exit status of 5 after a whole run")[
+            "dissent_kind"] == "NONE", "without the exit condition the backend that exits 5 reads NONE, so its row "
+              "fails")
+        no_out = planted(ARBITER_PY, [(AGREE_COND, 'and r.get("exit") == 0)')]).Arbiter
+        plant("agreement-ignores-output", arbitrate_mutant(no_out, "bytes added to its output after the receipt")[
+            "dissent_kind"] == "NONE", "without the output condition the backend whose output grew after its receipt "
+              "reads NONE, so its row fails")
+
+        def hashes_ok(w):
+            h = w["reference"].get("receipt_core_sha256")
+            return h is not None and bool(w["agreeing"]) and all(
+                w["backends"][b].get("receipt_core_sha256") == h for b in w["agreeing"])
+        comp_h, w_h, ref_h = arb.arbitrate(read("examples/collatz.orl"), "rep-hashes")
+        crlf = mutants["a CR LF receipt"]
+        note = (crlf["mismatch_notes"] or [{}])[0].get("detail", "")
+        ok = hashes_ok(w_h) and crlf["backends"]["python"].get("receipt_core_sha256") is None and "frame" in note
+        row(ok, "arbiter: the witness's receipt hashes are of the receipt's core, the reference's equal to [%s]'s, a "
+            "CR LF dissent's none, and its note names the receipt's frame (finding 16)" % ",".join(w_h["agreeing"]),
+            "" if ok else note)
+        parsed = planted(ARBITER_PY, [('"receipt_core_sha256": sha(core) if core is not None else None}',
+                                       '"receipt_core_sha256": sha("\\n".join(rec).encode()) if rec else None}')])
+        w_old = parsed.Arbiter(workdir, backends=backends).arbitrate(read("examples/collatz.orl"), "rep-hashes")[1]
+        plant("witness-hashes-parsed-lines", not hashes_ok(w_old), "with a backend's hash taken over its parsed lines, "
+              "an agreeing run's hashes differ from the reference's, so the row fails")
+
+    # 6. the run's own status in the printed reading, and the exit status over a failed build
+    def status_ok(orl=None):
+        code1, out1 = orl_cli("court", fixture("must_after_claim.orl"), "--backends", every, *wd, orl=orl)
+        code2, out2 = orl_cli("court", fixture("hoisted_omit.orl"), "--backends", every, *wd, orl=orl)
+        return (code1 == 0 and out1.startswith("run REFUSED MUST-FAILED at §3\n") and code2 == 0
+                and out2.startswith("run REFUSED INDEX-OUT-OF-RANGE at §2.1\n"))
+    row(status_ok(), "orl.py court prints the run's status first: REFUSED MUST-FAILED at §3 after a claim held, and "
+        "REFUSED INDEX-OUT-OF-RANGE at §2.1, one clause before a claim that held 16 times (finding 6; whether such a "
+        "claim stays held, and what a law's own refusal exits with, are the owner's to rule)")
+    plant("court-prints-no-run-status", not status_ok(planted("orl.py", [('    print("run %s" % p["summary"]["run"])\n',
+                                                                          "")])),
+          "without its first line the reading of a refused run names no refusal, so the row fails")
+    if "c99" in backends:
+        def unbuilt_court(orl=None):
+            saved = ARB.C_FLAGS
+            ARB.C_FLAGS = saved + ["--orlog-no-such-flag"]
+            try:
+                return orl_cli("court", collatz, "--backends", "c99", *wd, orl=orl)
+            finally:
+                ARB.C_FLAGS = saved
+        code, out = unbuilt_court()
+        row(code == 2 and "integrity INCOMPLETE (did not build: c99)" in out, "orl.py court exits 2, as 'run' does, "
+            "when a backend did not build, and prints integrity INCOMPLETE (did not build: c99) (finding 6)", str(code))
+        exit_line = '    return 2 if (w["dissenting"] or w.get("build_failed") or w.get("stopped")) else 0\n'
+        code, _ = unbuilt_court(planted("orl.py", [(exit_line, "    return 0\n")]))
+        plant("court-exits-0-over-a-failed-build", code == 0, "with the exit before the repair, orl.py court exits 0 "
+              "over an INCOMPLETE reading, so the row fails")
+
+    # 7. a warm build cache never answers for a compiler that cannot build
+    if "c99" in backends:
+        standin = os.path.join(workdir, "stand-in")
+        exe = os.path.join(standin, "clang.exe" if os.name == "nt" else "clang")
+        if not os.path.exists(exe):
+            os.makedirs(standin, exist_ok=True)
+            with open(os.path.join(standin, "stand_in.c"), "wb") as fh:
+                fh.write(STAND_IN_C)
+            import subprocess
+            subprocess.run(["clang", "-O0", "stand_in.c", "-o", os.path.basename(exe)], cwd=standin,
+                           capture_output=True)
+
+        def under_stand_in(arbiter_cls):
+            arbiter_cls(workdir, backends=("c99",)).arbitrate(read("examples/collatz.orl"), "rep-cache")  # warm
+            saved = os.environ.get("PATH", "")
+            os.environ["PATH"] = standin + os.pathsep + saved
+            try:
+                return arbiter_cls(workdir, backends=("c99",)).arbitrate(read("examples/collatz.orl"), "rep-cache")[1]
+            finally:
+                os.environ["PATH"] = saved
+        w = under_stand_in(Arbiter)
+        row(os.path.exists(exe) and w["build_failed"] == ["c99"] and not w["agreeing"], "arbiter: with a stand-in "
+            "compiler first on PATH that builds nothing, a warm cache does not answer for it: BUILD-FAILED, as from an "
+            "empty folder (finding 7)", w["dissent_kind"])
+        keyless = planted(ARBITER_PY, [
+            ('key = sha((src + "\\0" + " ".join(flags) + ("\\0" + tool if tool else "")).encode("utf-8"))[:24]',
+             'key = sha((src + "\\0" + " ".join(flags)).encode("utf-8"))[:24]'),
+            ('if rec.get("toolchain") == tool and rec.get("exe_sha256") == file_sha(exe_abs):',
+             'if rec.get("exe_sha256") == file_sha(exe_abs):')]).Arbiter
+        w = under_stand_in(keyless)
+        plant("cache-ignores-toolchain", w["agreeing"] == ["c99"], "with the toolchain out of the key and the record, "
+              "the binary another compiler built answers for the stand-in, and the run reads %s, so the row fails"
+              % w["dissent_kind"])
+    if "python" in backends:
+        from orlog.lower import Lowered
+        src = ARB.generate("python", Lowered(compile_bytes(read("examples/collatz.orl"))))
+        cached = os.path.join(workdir, "cache", "python-%s.py" % ARB.sha((src + "\0").encode("utf-8"))[:24])
+        other = ARB.generate("python", Lowered(compile_bytes(read("examples/fall.orl")))).encode("utf-8")
+
+        def tampered(arbiter_cls):
+            with open(cached, "wb") as fh:
+                fh.write(other)
+            return arbiter_cls(workdir, backends=("python",)).arbitrate(read("examples/collatz.orl"), "rep-pycache")[1]
+        w = tampered(Arbiter)
+        row(w["agreeing"] == ["python"] and w["backends"]["python"]["build"].startswith("rewritten"), "arbiter: a "
+            "cached Python source that is not this law's source is written again before it runs (finding 7)",
+            w["backends"]["python"]["build"])
+        trusting = planted(ARBITER_PY, [('        elif backend == "python":\n            with open(srcpath, "rb") as fh:',
+                                         '        elif False:\n            with open(srcpath, "rb") as fh:')]).Arbiter
+        w = tampered(trusting)
+        plant("python-cache-runs-as-found", w["dissent_kind"] != "NONE", "without the check, the cached file runs "
+              "another law's program and the run reads %s, so the row fails" % w["dissent_kind"])
+        Arbiter(workdir, backends=("python",)).arbitrate(read("examples/collatz.orl"), "rep-pycache")  # left whole
+
+    # 8. E10's class: both compilers refusing the 600-arm chain must fail the chain row
+    if {"c99", "rust"} & set(backends):
+        refusing = Arbiter(workdir, backends=backends, mutate=lambda b, s: s + "\n#error the E10 class\n" if b == "c99"
+                           else (s + '\ncompile_error!("the E10 class");\n' if b == "rust" else s))
+        ok, agreeing = chain_runs(refusing)
+        plant("chain-600-refused-by-compilers", not ok, "with the compilers refusing the chain, it agrees on [%s] of "
+              "[%s], so the chain row fails (finding 8)" % (",".join(agreeing), every))
+
+    # 9. the summary counts each reason a claim is not held apart, and every count is its rows'
+    texts = [("examples/plankton.orl", False), ("tests/fixtures/court/refuted_claim.orl", True),
+             ("tests/fixtures/r8/omit.orl", True), ("tests/fixtures/r8/transitive.orl", True),
+             ("tests/fixtures/r8/cycle_refusal.orl", True), ("tests/fixtures/court/unreached.orl", True)]
+    runs = []
+    for path, ratify in texts:
+        comp, w, ref = arb.arbitrate(read(path), "rep-sum")
+        runs.append((comp, w, parse_receipt(ref.receipt()), all_ratified(comp) if ratify else []))
+
+    def summary_ok(court):
+        sums = []
+        for comp, w, rec, led in runs:
+            p = court.panel(comp, w, rec, led)
+            rows, s = p["rows"], p["summary"]
+            want = {"claims": len(rows), "well_founded": sum(r["support"] == "WELL-FOUNDED" for r in rows),
+                    "circular": sum(r["support"].startswith("CIRCULAR") for r in rows),
+                    "unreached": sum(r["support"] == "UNREACHED" for r in rows),
+                    "unsupported": sum(r["support"] == "UNSUPPORTED" for r in rows),
+                    "refuted": sum(r["evaluation"].startswith("REFUTED") for r in rows),
+                    "refused_evaluation": sum(r["evaluation"].endswith("(R8)") for r in rows),
+                    "grounded": sum(r["grounding"] == "GROUNDED" for r in rows)}
+            if any(s.get(k) != v for k, v in want.items()):
+                return False
+            sums.append(s)
+        return sums[1]["refuted"] == 1 and sums[2]["refused_evaluation"] == 1 and sums[1] != sums[2]
+    row(summary_ok(COURT), "court: the summary counts a refuted claim and an R8-withheld one apart (refuted, "
+        "refused_evaluation), and every count equals its rows' on six texts (finding 9)")
+    plant("summary-grounded-counts-all", not summary_ok(planted(COURT_PY, [
+        ('"grounded": sum(1 for r in out if r["grounding"] == "GROUNDED"),', '"grounded": len(out),')])),
+        "a summary counting every claim grounded differs from its rows, so the row fails")
+    plant("summary-well-founded-counts-unsupported", not summary_ok(planted(COURT_PY, [
+        ('"well_founded": sum(1 for r in out if r["support"] == "WELL-FOUNDED"),',
+         '"well_founded": sum(1 for r in out if r["support"] in ("WELL-FOUNDED", "UNSUPPORTED")),')])),
+        "a summary counting unsupported claims well-founded differs from its rows, so the row fails")
+
+    # 10. a certificate's cost is not read over an evaluation R8 names
+    comp_k, w_k, ref_k = arb.arbitrate(read(fixture("certificate_refused.orl")), "rep-cost")
+
+    def cost_reading(court):
+        return court.panel(comp_k, w_k, parse_receipt(ref_k.receipt()), [])["rows"][0]
+    r = cost_reading(COURT)
+    row(r["cost_reading"].startswith("NOT READ: evaluation 17 refused (R8)"), "court R4 over R8: a certificate whose "
+        "17th evaluation refused reads NOT READ, not CHEAPER, since its line (%s) counts only the 16 finished "
+        "evaluations (finding 10)" % r["cost"], r["cost_reading"])
+    r = cost_reading(planted(COURT_PY, [("            if hit is not None:             # the receipt counts finished "
+                                         "evaluations only (finding 10)\n", "            if False:\n")]))
+    plant("cost-read-over-a-refused-evaluation", r["cost_reading"].startswith("CHEAPER"), "without the guard the "
+          "withheld certificate reads %s from its finished evaluations, so the row fails" % r["cost_reading"][:7])
+
+    # 13, 14. what orl.py court prints: the CONSTANT note, and the backends that agreed
+    def constant_ok(orl=None):
+        code, out = orl_cli("court", fixture("constant_claim.orl"), "--backends", first, *wd, orl=orl)
+        blocks = re.split(r"\n(?=§)", out)
+        b2 = [b for b in blocks if b.startswith("§2 ")]
+        b3 = [b for b in blocks if b.startswith("§3 ")]
+        return code == 0 and len(b2) == 1 and len(b3) == 1 and "CONSTANT" in b2[0] and "CONSTANT" not in b3[0]
+    row(constant_ok(), "orl.py court prints the CONSTANT note for a claim that reads no variable, and not for one that "
+        "reads the run (finding 13)")
+    plant("court-prints-no-condition", not constant_ok(planted("orl.py", [('"evaluation", "condition", "theorem"',
+                                                                            '"evaluation", "theorem"')])),
+          "with the printed keys before the repair, the CONSTANT note is in the row and not on the screen")
+
+    def names_ok(court=None):
+        code, out = orl_cli("court", collatz, "--backends", first, *wd, court=court)
+        line = next((l for l in out.splitlines() if l.startswith("integrity ")), "")
+        others = [b for b in ("python", "c99", "rust") if b != first]
+        return code == 0 and line == "integrity AGREED (the reference and %s)" % first and not any(
+            b in line for b in others)
+    row(names_ok(), "orl.py court names the backends that agreed: --backends %s reads AGREED (the reference and %s) and "
+        "names no other (finding 14)" % (first, first))
+    plant("integrity-names-no-backend", not names_ok(planted(COURT_PY, [
+        ('        integrity = "AGREED (the reference and %s)" % ", ".join(names) if names else "AGREED"\n',
+         '        integrity = "AGREED"\n')])), "an integrity of AGREED alone reads the same over one backend and "
+          "three, so the row fails")
+
+    # 17. a ledger line of the wrong shape fails closed, by the reader and by orl.py court
+    shapes = [b'{"kind": "claim"}\n', b'{"kind": "theorem"}\n', b'{"kind": "claim", "claim_seal": ["x"]}\n']
+
+    def ledger_ok(court):
+        for i, body in enumerate(shapes):
+            path = os.path.join(workdir, "rep-ledger-%d.jsonl" % i)
+            with open(path, "wb") as fh:
+                fh.write(body)
+            try:
+                court.read_ledger(path)
+                return False
+            except court.LedgerBroken as e:
+                if not str(e).startswith("LEDGER-BROKEN at line 1"):
+                    return False
+            except Exception:
+                return False
+            code, out = orl_cli("court", collatz, "--ledger", path, "--backends", first, *wd, court=court)
+            if code != 1 or not out.startswith("LEDGER-BROKEN at line 1"):
+                return False
+        return True
+    row(ledger_ok(COURT), "ledger: a line that is a JSON object of the wrong shape (a claim without its seal, a "
+        "theorem without its name, a seal that is a list) is refused LEDGER-BROKEN at line 1 by the reader and by "
+        "'orl.py court' (exit 1, no traceback) (finding 17)")
+    plant("ledger-reads-any-object", not ledger_ok(planted(COURT_PY, [(
+        "        # its shape too, so that", '        e["_line"] = i\n        entries.append(e)\n        continue\n'
+        "        # its shape too, so that")])), "a reader that keeps any object hands the panel a claim without its "
+          "seal, so the row fails")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--backends", default="python,c99,rust")
@@ -1326,6 +1738,7 @@ def main():
     independence_rows(workdir, backends)
     compat_rows()
     r8_rows(arb)
+    reporting_rows(arb, workdir, backends)
     e21_rows(arb, backends)
     law_plants(arb)
     backend_plants(workdir, backends)

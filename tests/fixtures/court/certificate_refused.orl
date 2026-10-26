@@ -1,0 +1,7 @@
+Note: a certificate claim whose 17th evaluation refuses inside its condition: the receipt counts only its 16 finished evaluations, so its cost line reads 64 ops against the loop of 130 (the reporting pass, finding 10).
+§1 Let xs be a list of 16 copies of 1.
+§2 Let s be 0.
+§3 For each j from 1 to 43, do the following.
+§3.1 Increase s by j.
+§4 For each i from 1 to 17, do the following.
+§4.1 We claim that s is positive and item i of xs equals 1, by the certificate of §3.

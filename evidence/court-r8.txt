@@ -1,24 +1,31 @@
 # command: python -B tests/court_monotone.py --jobs 8, run twice: the two outputs byte-identical
-# tree: 3417949 plus the uncommitted R8 repair that adds this file; COMPAT-0 HELD after it (receipts unchanged)
+# tree: f16dc26 plus the uncommitted repairs of the reporting pass that rewrite this file
 # host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; 2026-10-26; PYTHONHASHSEED=0 PYTHONUTF8=1
-# the court read twice per run, R8 off (the court before the repair) and on, every claim's seal ratified by a fixture
-# line and the witness agreed; the plant reads the two courts the other way round (R8 reverted)
+# the court read twice per text: R8 off (the court before the repair) and as shipped (panel's default), every
+# claim's seal ratified by a fixture line and the witness agreed; the frozen texts under COMPAT-0's budget for
+# their kind. Its two plants: the comparator before the repair (blind to CIRCULAR), and a court that grants a
+# refuted claim, read as the court after R8
 == COMPAT-0's frozen texts (the blast radius on what exists): 3361 texts, 44 ran with claims, 65 claims, every seal ratified (fixture), the witness agreed
-  readings changed: 0; standings gained (WELL-FOUNDED or GROUNDED): 0; lost: 0
+  readings changed: 0; standings gained: 0; lost: 0; counted neither way: 0
     lost, exact: 0
     lost, possible: 0
     lost, through premises: 0
   R8 changes nothing here: no frozen text refuses inside a claim's condition. A coverage gap, not a pass: R8's class is exercised by its fixtures below
-== R8's fixtures (tests/fixtures/r8/): 4 texts, 4 ran with claims, 5 claims, every seal ratified (fixture), the witness agreed
-  readings changed: 5; standings gained (WELL-FOUNDED or GROUNDED): 0; lost: 5
-    lost, exact: 2
+== the court's fixtures (tests/fixtures/r8/, tests/fixtures/court/): 13 texts, 13 ran with claims, 16 claims, every seal ratified (fixture), the witness agreed
+  readings changed: 9; standings gained: 0; lost: 9; counted neither way: 0
+    lost, exact: 5
+      fixture/court/certificate_refused.orl §4.1: was true in 16 of 16 evaluations, WELL-FOUNDED, GROUNDED; now REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held (R8); UNSUPPORTED; UNGROUNDED
+      fixture/r8/cycle_refusal.orl §3.1: was true in 1 of 1 evaluations, CIRCULAR (in gfp, not in lfp), UNGROUNDED; now REFUSED at evaluation 2 (INDEX-OUT-OF-RANGE), after 1 true: not held (R8); UNSUPPORTED; UNGROUNDED
       fixture/r8/omit.orl §2.1: was true in 16 of 16 evaluations, WELL-FOUNDED, GROUNDED; now REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held (R8); UNSUPPORTED; UNGROUNDED
+      fixture/r8/otherwise_claim.orl §2.2: was true in 16 of 16 evaluations, WELL-FOUNDED, GROUNDED; now REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held (R8); UNSUPPORTED; UNGROUNDED
       fixture/r8/transitive.orl §3.1: was true in 1 of 1 evaluations, WELL-FOUNDED, GROUNDED; now REFUSED at evaluation 2 (INDEX-OUT-OF-RANGE), after 1 true: not held (R8); UNSUPPORTED; UNGROUNDED
     lost, possible: 2
       fixture/r8/inline_claim.orl §2.1: was true in 16 of 16 evaluations, WELL-FOUNDED, GROUNDED; now REFUSED at its clause (INDEX-OUT-OF-RANGE) after 16 of 16 evaluations true; the refusal may come from the condition or the other arm its clause holds: not held (R8); UNSUPPORTED; UNGROUNDED
       fixture/r8/inline_condition.orl §2.1: was true in 16 of 16 evaluations, WELL-FOUNDED, GROUNDED; now REFUSED at its clause (INDEX-OUT-OF-RANGE) after 16 of 16 evaluations true; the refusal may come from the condition or the other arm its clause holds: not held (R8); UNSUPPORTED; UNGROUNDED
-    lost, through premises: 1
+    lost, through premises: 2
+      fixture/r8/cycle_refusal.orl §2: was true in 1 of 1 evaluations, CIRCULAR (in gfp, not in lfp), UNGROUNDED; now true in 1 of 1 evaluations; UNSUPPORTED; UNGROUNDED
       fixture/r8/transitive.orl §2: was true in 1 of 1 evaluations, WELL-FOUNDED, GROUNDED; now true in 1 of 1 evaluations; UNSUPPORTED; UNGROUNDED
-plant r8-reverted (the courts read the other way round: a court granting what R8 withholds): CAUGHT, 5 standing(s) gained
-COURT R8 ONE-SIDED: 0 gained, 5 lost (frozen texts 0, fixtures 5)
+plant standing-without-circular (the comparator read WELL-FOUNDED and GROUNDED only): CAUGHT, 1 changed reading(s) counted neither way
+plant court-grants-a-refuted-claim (a court that grants, read as the court after R8): CAUGHT, 1 standing(s) gained
+COURT R8 ONE-SIDED: 0 gained, 9 lost (frozen texts 0, fixtures 9; cycle_refusal.orl 2)
 exit 0

@@ -55,8 +55,9 @@ def paths(version):
 
 # ------------------------------------------------------------------------------------------------ one text's result
 def receipt_core(b):
-    """The receipt with its second line ('backend <name>') removed: the same rule as the arbiter's, written here so
-    that the gate runs on any revision's src."""
+    """The receipt with its second line ('backend <name>') removed, written here so that the gate runs on any
+    revision's src. It is laxer than the arbiter's (no check of the head, the final LF or a CR), and that laxity
+    reaches no verdict: every framing change still reads as another core (measured by the reporting pass)."""
     first, _, rest = b.partition(b"\n")
     second, _, rest = rest.partition(b"\n")
     if not second.startswith(b"backend "):
@@ -164,6 +165,29 @@ def load_settled():
     return {s["id"]: s for s in doc.get("settled", [])}
 
 
+def baseline_gaps(base, texts, count):
+    """What the baseline does not cover: a frozen text without a row was never compared, and HELD was printed over the
+    rest (the reporting pass's finding 11). Empty when the rows are exactly the texts, as many as the header counts."""
+    ids_b, ids_t = set(base), {t["id"] for t in texts}
+    gaps = []
+    if len(base) != count:
+        gaps.append("the baseline has %d rows and its header counts %d" % (len(base), count))
+    if ids_t - ids_b:
+        gaps.append("%d frozen text(s) have no baseline row (first: %s)" % (len(ids_t - ids_b), min(ids_t - ids_b)))
+    if ids_b - ids_t:
+        gaps.append("%d baseline row(s) have no frozen text (first: %s)" % (len(ids_b - ids_t), min(ids_b - ids_t)))
+    return gaps
+
+
+def settled_gaps(settled):
+    """A settled entry settles a change only with its reason and its amendment (README: {"id", "now", "reason",
+    "amendment"}); one with either empty settles nothing (finding 11)."""
+    def said(v):
+        return isinstance(v, str) and v.strip() != ""
+    return ["%s: a settled entry needs its reason and its amendment" % i for i, s in sorted(settled.items())
+            if not (said(s.get("reason")) and said(s.get("amendment")))]
+
+
 # ------------------------------------------------------------------------------------------------ comparing
 def compare(base, results, texts, settled):
     """Each text's verdict: same, accepted (refused at the baseline, accepted now: an extension), settled (a declared
@@ -184,7 +208,7 @@ def compare(base, results, texts, settled):
             verdicts[ident] = ("skipped", want, got)
         elif "refused" in want and "refused" not in got and "crash" not in got:
             verdicts[ident] = ("accepted", want, got)
-        elif ident in settled and settled[ident].get("now") == got:
+        elif ident in settled and not settled_gaps({ident: settled[ident]}) and settled[ident].get("now") == got:
             verdicts[ident] = ("settled", want, got)
         else:
             verdicts[ident] = ("differs", want, got)
@@ -218,12 +242,17 @@ def summary(verdicts, texts):
     return counts, by_kind
 
 
-def report(verdicts, texts, limit=12):
+def report(verdicts, texts, limit=12, settled=None):
     counts, by_kind = summary(verdicts, texts)
     print("  same %d, newly accepted %d, settled %d, skipped %d, differ %d, input changed %d" % tuple(
         counts.get(k, 0) for k in ("same", "accepted", "settled", "skipped", "differs", "input-changed")))
     print("  by kind: " + ", ".join("%s %d of %d held" % (k, by_kind[k][0], by_kind[k][1]) for k in KINDS
                                     if k in by_kind))
+    for ident, (v, want, got) in sorted(verdicts.items()):     # every settled text named, never only counted
+        if v == "settled":
+            s = (settled or {}).get(ident, {})
+            print("    SETTLED %s: was %s; now %s (%s; %s)" % (ident, show(want), show(got), s.get("reason"),
+                                                              s.get("amendment")))
     shown = 0
     for ident, (v, want, got) in sorted(verdicts.items()):
         if v in ("differs", "input-changed", "accepted") and shown < limit:
@@ -241,11 +270,16 @@ def cmd_check(a):
         print("COMPAT-0 BROKEN: tests/compat/texts-%s.json.gz is not the file the baseline was made from (sha256 %s, "
               "the baseline names %s)" % (a.version, texts_sha[:16], head["texts_sha256"][:16]))
         return 1
+    settled = load_settled()
+    gaps = baseline_gaps(base, doc["texts"], head["count"]) + settled_gaps(settled)
+    if gaps:
+        print("COMPAT-0 BROKEN: %s" % "; ".join(gaps))
+        return 1
     results = compute(doc["texts"], head["budgets"], jobs=a.jobs)
-    verdicts = compare(base, results, doc["texts"], load_settled())
+    verdicts = compare(base, results, doc["texts"], settled)
     print("COMPAT-0 baseline %s (made at commit %s; %d texts; texts sha256 %s)" % (
         a.version, head["commit"][:7], len(base), texts_sha[:16]))
-    counts = report(verdicts, doc["texts"])
+    counts = report(verdicts, doc["texts"], settled=settled)
     bad = counts.get("differs", 0) + counts.get("input-changed", 0)
     crashes = sorted(i for i, r in base.items() if "crash" in r["result"])
     if crashes:
@@ -285,6 +319,10 @@ def cmd_history(a):
     doc, texts_sha = load_texts(a.version)
     head, base = load_baseline(a.version)
     settled = load_settled()
+    gaps = baseline_gaps(base, doc["texts"], head["count"]) + settled_gaps(settled)
+    if gaps:
+        print("COMPAT-0 HISTORY INCOMPLETE: %s" % "; ".join(gaps))
+        return 1
     print("COMPAT-0 history: the %d frozen texts under each revision's src (from git), against baseline %s "
           "(commit %s)" % (len(base), a.version, head["commit"][:7]))
     corpus = sorted(i for i in base if i.startswith("corpus/"))
@@ -304,7 +342,7 @@ def cmd_history(a):
             results = json.loads(fh.read().decode("ascii"))
         verdicts = compare(base, results, doc["texts"], settled)
         print("== %s (%s)" % (rev, shaid[:7]))
-        counts = report(verdicts, doc["texts"])
+        counts = report(verdicts, doc["texts"], settled=settled)
         tally.append("%s %d differ" % (rev, counts.get("differs", 0) + counts.get("input-changed", 0)))
         table[rev] = results
     print("the corpus, every version in the history (law seal / text seal / receipt core, first 12 hex digits):")
@@ -366,11 +404,18 @@ def cmd_selftest(a):
             results = compute(texts, head["budgets"])
         finally:
             syntax.RESERVED.discard("tick")
-        right = compare(sub, results, texts, {ident: {"id": ident, "now": got}})[ident][0]
-        wrong = compare(sub, results, texts, {ident: {"id": ident, "now": dict(got, line=got.get("line", 0) + 1)}})[
+        why = {"reason": "the self-test's plant reserve-tick", "amendment": "none: a self-test fixture"}
+        right = compare(sub, results, texts, {ident: dict(why, id=ident, now=got)})[ident][0]
+        wrong = compare(sub, results, texts, {ident: dict(why, id=ident, now=dict(got, line=got.get("line", 0) + 1))})[
             ident][0]
         rows.append(("settled: a declared change passes only with its exact new result", right == "settled" and
                      wrong == "differs", "declared exactly: %s; declared one line off: %s" % (right, wrong)))
+        # 5. a declared change with no reason and no amendment settles nothing (the reporting pass's finding 11)
+        bare = {ident: {"id": ident, "now": got}}
+        verdict = compare(sub, results, texts, bare)[ident][0]
+        rows.append(("plant settled-without-reason (declared exactly, with no reason and no amendment)",
+                     verdict == "differs" and bool(settled_gaps(bare)),
+                     "it reads %s, and the check names it: %s" % (verdict, "; ".join(settled_gaps(bare)))))
     # 2. one law line spelled differently: every law seal moves
     saved_law = front.law_bytes
 
@@ -410,6 +455,13 @@ def cmd_selftest(a):
     v = compare(sub, compute(altered, head["budgets"]), altered, {})
     changed = [i for i, (k, _, _) in v.items() if k == "input-changed"]
     rows.append(("plant frozen-text-altered", changed == [victim["id"]], "input changed: %s" % changed))
+    # 6. a baseline row removed: its text would never be compared, so the gate refuses before comparing anything (the
+    # reporting pass's finding 11, where one row removed read HELD over the other 3,360)
+    short = dict(sub)
+    short.pop(sorted(short)[0])
+    gaps = baseline_gaps(short, texts, len(texts))
+    rows.append(("plant baseline-row-removed", not baseline_gaps(sub, texts, len(texts)) and bool(gaps),
+                 "; ".join(gaps) or "no gap found"))
     ok = 0
     for name, caught, witness in rows:
         print("[%s] %s: %s -- %s" % ("PASS" if caught else "FAIL", name, "CAUGHT" if caught and name.startswith(

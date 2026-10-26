@@ -98,17 +98,23 @@ def cmd_court(a):
         print(str(e))
         return 1
     p = panel(comp, w, parse_receipt(ref.receipt()), ledger)
+    # the run first: a refusal outside every claim, and a backend that did not build, were invisible in the reading
+    # and the exit status (the reporting pass's finding 6)
+    print("run %s" % p["summary"]["run"])
+    print("integrity %s" % p["summary"]["integrity"])
     for r in p["rows"]:
         print("%s  %s" % (r["clause"], r["text"][:110]))
-        for k in ("channel", "integrity", "evaluation", "theorem", "ratification", "cost", "cost_reading",
-                  "external_bits", "support", "cycle", "grounding"):
+        for k in ("channel", "integrity", "evaluation", "condition", "theorem", "ratification", "cost", "cost_reading",
+                  "external_bits", "support", "cycle", "grounding", "claim_seal"):
             if k in r:
                 print("    %-13s %s" % (k, r[k]))
     print("summary", json.dumps(p["summary"], sort_keys=True))
     if a.json:
         with open(a.json, "wb") as fh:
             fh.write(json.dumps(court_artifact(comp, p), indent=1, sort_keys=True).encode("ascii"))
-    return 0
+    # as 'run' does: a dissent, a backend that did not build and a run the host stopped exit 2. A law's own refusal
+    # exits 0 under both, which is the owner's to rule
+    return 2 if (w["dissenting"] or w.get("build_failed") or w.get("stopped")) else 0
 
 
 def cmd_stamp(a):

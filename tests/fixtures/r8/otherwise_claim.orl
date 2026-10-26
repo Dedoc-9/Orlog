@@ -1,0 +1,5 @@
+Note: an Otherwise clause evaluates no condition and holds no other arm; its claim refuses at its 17th evaluation.
+§1 Let xs be a list of 16 copies of 1.
+§2 For each i from 1 to 17, do the following.
+§2.1 If false, say 0.
+§2.2 Otherwise, we claim that item i of xs equals 1, by the owner.

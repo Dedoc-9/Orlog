@@ -26,16 +26,18 @@ import json
 import random
 
 from .sema import law_stmt
+from .syntax import RawIf
 
 COURT_RULES = [
     "R1 integrity: a claim is held only if every backend agreed with the reference byte for byte (otherwise the "
-    "integrity column reads CONTESTED and no claim is held).",
+    "integrity column reads CONTESTED, INCOMPLETE or REFERENCE-ONLY and no claim is held).",
     "R2 computation: a claim checked by the program's own computation carries no bits about the author's intent "
     "beyond the text; it can be WELL-FOUNDED, never GROUNDED.",
     "R3 agreement: 'by agreement of' is a label the author writes; the court treats it as computation.",
     "R4 certificate: the reading compares the check's counted operations (summed over its evaluations) with the "
     "certified clause's (summed over every execution of the clause before the claim's latest evaluation), at this "
-    "input (CHEAPER at most 1/2, NOT CHEAPER above, CLAUSE NOT RUN at 0). Counted operations are a unit-cost model, not "
+    "input (CHEAPER at most 1/2, NOT CHEAPER above, CLAUSE NOT RUN at 0; NOT READ when R8 withholds the claim, since "
+    "the receipt counts only finished evaluations). Counted operations are a unit-cost model, not "
     "time; the reading is not Blum's little-oh (Blum 1988; Wasserman & Blum 1997), which compares with the fastest "
     "program for the task. Difference from the computation must be argued from the check's characterization.",
     "R5 grounding: GROUNDED only if a ledger line ratifies this claim's own seal; nothing in the program can write the "
@@ -47,25 +49,33 @@ COURT_RULES = [
     "R8 a refused evaluation: when the run refuses at a claim's own clause with any code but CLAIM-REFUTED, an "
     "evaluation of the claim began and did not finish; the claim is not held, whatever its finished evaluations read. "
     "A claim inline in another statement shares its clause with a condition or another arm, so the refusal may come "
-    "from there; it is not held either (withheld, possibly more than needed: this rule only ever withholds).",
+    "from there; it is not held either (withheld, possibly more than needed: this rule only ever withholds). A plain "
+    "Otherwise clause evaluates nothing but its arm, so its claim's refusal is read exactly.",
 ]
 CHEAP_RATIO = (1, 2)
-# The court's R8 (the doppler debate's DP-5, 2026-10-26). The self-test's plant switches it off to show its rows bite.
-REFUSED_EVALUATION_CHECK = True
 
 
-def refusal_in_claim(site, refusal):
+def refusal_in_claim(site, refusal, r8=True):
     """'exact' when the run's refusal fell inside this claim's own evaluation, 'possible' when it may have, None when
     it did not. Every refusal names the clause whose statement is executing, a rule's refusal the clause that used the
     rule (SPEC §6, §7), so a refusal inside a claim's condition names the claim's clause. CLAIM-REFUTED is the claim's
     own verdict, counted before the run refuses, and is never one. A clause whose statement is the claim evaluates
-    nothing else; an inline claim's clause also evaluates an If arm's condition, and perhaps another inline claim."""
-    if not REFUSED_EVALUATION_CHECK or refusal is None:
+    nothing else, and neither does a plain Otherwise clause whose arm is the claim: the If's condition runs at the
+    If's own clause (the reporting pass's finding 15). An inline claim's clause also evaluates an If arm's condition,
+    and perhaps another inline claim.
+
+    r8 is the court's R8 (the doppler debate's DP-5, 2026-10-26). It is a parameter, never a module switch, so the
+    value orl.py reads is the one every row reads; only the self-test's plant passes False (the reporting pass's
+    finding 1: a switch the rows set first was never read at its shipped value)."""
+    if not r8 or refusal is None:
         return None
     code, clause = refusal
     if code == "CLAIM-REFUTED" or clause != site.id:
         return None
-    return "exact" if site.clause.stmt is site.stmt else "possible"
+    st = site.clause.stmt
+    if st is site.stmt or (isinstance(st, RawIf) and st.kind == "otherwise" and st.then is site.stmt):
+        return "exact"
+    return "possible"
 
 
 def reads_state(expr):
@@ -190,6 +200,18 @@ def read_ledger(path):
             raise LedgerBroken(i, "%s: %s" % (type(err).__name__, err))
         if not isinstance(e, dict):
             raise LedgerBroken(i, "a line is not a JSON object")
+        # its shape too, so that a well-formed object of the wrong shape fails closed here and never reaches the panel
+        # as a traceback (the reporting pass's finding 17)
+        kind = e.get("kind")
+        if kind == "claim":
+            s = e.get("claim_seal")
+            if not (isinstance(s, str) and len(s) == 64 and all(ch in "0123456789abcdef" for ch in s)):
+                raise LedgerBroken(i, "a claim line's claim_seal is not 64 lowercase hex digits")
+        elif kind == "theorem":
+            if not isinstance(e.get("name"), str):
+                raise LedgerBroken(i, "a theorem line's name is not a text")
+        else:
+            raise LedgerBroken(i, "a line's kind is neither claim nor theorem")
         e["_line"] = i
         entries.append(e)
     return entries
@@ -201,10 +223,19 @@ def claim_seals(comp):
 
 
 # ------------------------------------------------------------------ the panel
-def panel(comp, witness, ref_receipt_lines, ledger=()):
-    """One row per claim (by claim id), side by side; no scalar."""
+def panel(comp, witness, ref_receipt_lines, ledger=(), r8=True):
+    """One row per claim (by claim id), side by side; no scalar. r8: see refusal_in_claim."""
     an = comp.an
     agreed = witness.get("dissent_kind") == "NONE" and bool(witness.get("backends"))
+    if agreed:
+        names = sorted(witness.get("agreeing") or [])
+        integrity = "AGREED (the reference and %s)" % ", ".join(names) if names else "AGREED"
+    elif (witness.get("build_failed") or witness.get("stopped")) and not witness.get("dissenting"):
+        integrity = "INCOMPLETE (%s)" % "; ".join(
+            ["did not build: " + ",".join(witness["build_failed"])] * bool(witness.get("build_failed")) +
+            ["stopped by the host: " + ",".join(witness["stopped"])] * bool(witness.get("stopped")))
+    else:
+        integrity = "CONTESTED" if witness.get("backends") else "REFERENCE-ONLY"
     recs = {}
     for line in ref_receipt_lines:
         if line.startswith("claim "):
@@ -214,6 +245,9 @@ def panel(comp, witness, ref_receipt_lines, ledger=()):
     status = next((l[7:] for l in ref_receipt_lines if l.startswith("status ")), "")
     parts = status.split(" ")
     refusal = (parts[1], int(parts[2])) if len(parts) == 3 and parts[0] == "REFUSED" and parts[2].isdigit() else None
+    # the run's own status, named in the reading: a refusal outside every claim was invisible in it (finding 6)
+    clause_label = {c.id: c.label for c in comp.prog.clauses}
+    run = ("REFUSED %s at §%s" % (refusal[0], clause_label.get(refusal[1], "?"))) if refusal else (status or "?")
     seals = claim_seals(comp)
     ratified = {e["claim_seal"]: e for e in ledger if e.get("kind") == "claim"}
     theorems = {e["name"]: e for e in ledger if e.get("kind") == "theorem"}
@@ -236,15 +270,8 @@ def panel(comp, witness, ref_receipt_lines, ledger=()):
             row["channel"] = "theorem \"%s\"" % o[1]
         else:
             row["channel"] = "the owner"
-        if agreed:
-            row["integrity"] = "AGREED"
-        elif (witness.get("build_failed") or witness.get("stopped")) and not witness.get("dissenting"):
-            row["integrity"] = "INCOMPLETE (%s)" % "; ".join(
-                ["did not build: " + ",".join(witness["build_failed"])] * bool(witness.get("build_failed")) +
-                ["stopped by the host: " + ",".join(witness["stopped"])] * bool(witness.get("stopped")))
-        else:
-            row["integrity"] = "CONTESTED" if witness.get("backends") else "REFERENCE-ONLY"
-        hit = refusal_in_claim(site, refusal)
+        row["integrity"] = integrity
+        hit = refusal_in_claim(site, refusal, r8)
         if hit == "exact":
             row["evaluation"] = "REFUSED at evaluation %d (%s), after %d true: not held (R8)" % (
                 r["evals"] + 1, refusal[0], r["trues"])
@@ -258,14 +285,17 @@ def panel(comp, witness, ref_receipt_lines, ledger=()):
             row["evaluation"] = "REFUTED at evaluation %d (%s)" % (r["evals"], status)
         else:
             row["evaluation"] = "true in %d of %d evaluations" % (r["trues"], r["evals"])
-        held = hit is None and r["evals"] > 0 and r["trues"] == r["evals"] and row["integrity"] == "AGREED"
+        held = hit is None and r["evals"] > 0 and r["trues"] == r["evals"] and agreed
         if not reads_state(s.cond):
             row["condition"] = ("CONSTANT: it reads no variable, so it cannot depend on the run (if it always holds it "
                                 "is a tautology airlock: Semiotic core TRIAGE, red team E5)")
         row["claim_seal"] = seals[k]
         if o[0] == "certificate":
             row["cost"] = "check %d ops / certified clause %d ops (counted, unit cost)" % (r["cost"], r["ref_cost"])
-            if r["ref_cost"] == 0:
+            if hit is not None:             # the receipt counts finished evaluations only (finding 10)
+                row["cost_reading"] = "NOT READ: %s refused (R8); the line counts its %d finished evaluations" % (
+                    "evaluation %d" % (r["evals"] + 1) if hit == "exact" else "an evaluation at its clause", r["evals"])
+            elif r["ref_cost"] == 0:
                 row["cost_reading"] = "CLAUSE NOT RUN"
             elif r["cost"] * CHEAP_RATIO[1] <= r["ref_cost"] * CHEAP_RATIO[0]:
                 row["cost_reading"] = "CHEAPER (at most 1/2 of the clause's counted ops, this input)"
@@ -314,12 +344,16 @@ def panel(comp, witness, ref_receipt_lines, ledger=()):
         sandwich = "VACUOUS (no claim is well-founded)"
     else:
         sandwich = "CLOSED" if sup_lo == sup_hi else "OPEN"
-    summary = {
+    summary = {             # the run and its integrity first, and why a claim is not held counted apart (finding 9)
+        "run": run,
+        "integrity": integrity,
         "claims": len(out),
         "well_founded": sum(1 for r in out if r["support"] == "WELL-FOUNDED"),
         "circular": sum(1 for r in out if r["support"].startswith("CIRCULAR")),
         "unreached": sum(1 for r in out if r["support"] == "UNREACHED"),
         "unsupported": sum(1 for r in out if r["support"] == "UNSUPPORTED"),
+        "refuted": sum(1 for r in out if r["evaluation"].startswith("REFUTED")),
+        "refused_evaluation": sum(1 for r in out if r["evaluation"].endswith("(R8)")),
         "grounded": sum(1 for r in out if r["grounding"] == "GROUNDED"),
         "sandwich": sandwich,
         "ledger_entries": len(list(ledger)),
