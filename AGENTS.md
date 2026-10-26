@@ -115,7 +115,7 @@ Set `PYTHONHASHSEED=0` and `PYTHONUTF8=1` for every run, and use `python -B`.
 | the event chain | `python -B src/check_chain.py` | the four heads each runtime's harness prints |
 | a generator or `lower.py` | the self-test | the corpus four-way identical; codegen identical under two hash seeds; every backend plant caught; the lowering row still REFERENCE-DISSENT |
 | the arbiter | the self-test; `python -B tests/race_arbiter.py` | the receipt rows (E7), the masking row (E8), the non-ASCII work folder (E11), one run folder per arbitration and its plant, the race of 16, BUILD-FAILED counted neither way, the host budget's stop at the same operation twice; the race of 48 all `NONE`, no folder left. A verdict may depend only on the law, the backends' builds and their runs: never on a file another arbitration could write |
-| the court or its record | the self-test; `python -B court/build_record.py && python -B court/judge.py` | the court rows; `court/VERDICT.txt` recomputed, never typed |
+| the court or its record | the self-test; `python -B tests/court_monotone.py --jobs 8`; `python -B court/build_record.py && python -B court/judge.py` | the court rows, R8's among them; `COURT R8 ONE-SIDED: 0 gained`, its plant caught; `court/VERDICT.txt` recomputed, never typed. A rule that withholds is measured one-sided over COMPAT-0's frozen texts and its own fixtures. A rule that grants needs its own rows, never only a count |
 | the specification | the self-test and the probes | the phase-table row; a settled reading recorded in `settled.json` |
 
 Before believing a surprising result, rerun clean: delete the stale `build/` cache, and use `python -B`.
@@ -172,6 +172,9 @@ Before believing a surprising result, rerun clean: delete the stale `build/` cac
   output.
 - **A verdict that reads ambient files is impure.** Two arbitrations sharing a work folder once read each other's
   outputs and reported false dissents. Give every run its own folder.
+- **The components that report are the ones that lie.** A lenient receipt comparison (E7), an arbiter reading another
+  run's files, and a court counting only the evaluations that finished (DP-5) each reported agreement or standing that
+  was not there. Give the reporting layer its own adversarial pass; it is not plumbing.
 - **Failure must be deterministic too.** A ledger torn by a crash made every court reading raise; now it refuses at its
   line. A host stop is not a refusal, and is never written as one.
 

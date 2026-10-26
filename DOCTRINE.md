@@ -150,6 +150,17 @@ The theorem is the DPI, read as a necessity bound only (court L4).
 - CIRCULAR means held, with all declared support held, and some support chain reaching a cycle: on one, or resting on
   one. The court names the cycle when there is one.
 - UNREACHED is its own standing.
+- **A refused evaluation is not held (R8, 2026-10-26).** Before R8 the court counted only finished evaluations. A claim
+  whose 17th evaluation refused inside its own condition read "true in 16 of 16 evaluations", WELL-FOUNDED and, with
+  its seal ratified, GROUNDED, over a run REFUSED at that very claim. The doppler debate's adversary found this (DP-5);
+  the judge reproduced it.
+  - Every refusal names the clause whose statement is executing, a rule's refusal the clause that used the rule
+    (SPEC §6, §7), and CLAIM-REFUTED is the only code that means "evaluated and false".
+  - So a refusal at a claim's own clause with any other code is an evaluation that began and did not finish. The court
+    names it ("REFUSED at evaluation n (CODE)"), and does not count the claim as held.
+  - An inline claim shares its clause with an If's condition, and perhaps with another arm, so its refusal is withheld
+    conservatively.
+  - The court reads this from the receipt's status line, and no receipt changed: COMPAT-0 held.
 - The sandwich is reported CLOSED only when the backends agreed and lfp is non-empty; otherwise it is VACUOUS. Edition
   1 reported "closed" over a backend bug, and over nothing (L10).
 
@@ -377,6 +388,7 @@ The edition-1 rows stand, with these added:
 | an arbiter whose verdict read ambient files (foundations review) | one run folder per arbitration, removed after it; a race row of 16 at once |
 | a run nothing bounds (foundations review) | a host budget of counted operations on the reference: STOPPED-BY-HOST, no receipt, never a refusal; a wall-clock backstop on the backends, labelled host-dependent |
 | a ledger torn by a crash breaks every court reading (foundations review) | LEDGER-BROKEN at its line, read whole or not at all; a row and a plant |
+| a claim whose evaluation refused, read as held and GROUNDED (the doppler debate's DP-5) | R8: the evaluation is named and the claim is not held; four fixtures, a plant that switches R8 off, and a one-sidedness measurement over COMPAT-0's frozen texts (`tests/court_monotone.py`) |
 | a backend that did not build, counted as dissenting (prosecutor F2) | BUILD-FAILED, outside agreement and dissent; every claim's integrity INCOMPLETE; the sandwich VACUOUS |
 | vectors that define the arithmetic and check nothing (foundations review) | a second derivation, hand-worked cases and published digests, with plants of mistakes the reference and its vectors would share (T11) |
 | a later version that quietly changes what an old text means (the roadmap's first rung) | COMPAT-0: 3,361 texts frozen with their results at b4eaf11, law seal and receipt both, so a change that keeps every seal but alters a run is caught (its plant `say-counts-twice`) |
@@ -477,6 +489,12 @@ Edition 1's list stands, and the court adds:
   must judge the instantiation.
 - **Counted operations are a unit-cost model.** They are not time or work, and their ratio is not little-oh (L6).
 - **The support graph is the author's declared premises.** Undeclared dependence is invisible (L10).
+- **R8 only withholds, and that is measured, not assumed.** Over COMPAT-0's 3,361 frozen texts it changes nothing:
+  none refuses inside a claim's condition, which is a coverage gap, not a pass. Over its four fixtures it withholds 5
+  standings and grants none. A plant that reverts R8 shows 5 standings gained, and is caught
+  (`evidence/court-r8.txt`). A rule that withholds can be wrong only by withholding too much, and the inline case does.
+  A rule that grants, such as R6's licence when it is built, needs its own soundness argument and rows that show what
+  it grants. A count of what it grants is not enough.
 - **COMPAT-0 holds the results of its frozen texts, and nothing else.** Every text version 0 accepted keeps its law
   bytes and its reference receipt: MEASURED on 3,361 texts, DECLARED for the rest. It sees no timing, no memory over a
   long run, no defect of the arbiter, no backend, no door event and no court reading, and it freezes what one commit

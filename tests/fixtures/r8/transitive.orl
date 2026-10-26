@@ -1,0 +1,5 @@
+Note: R8 through premises: the claim at §2 rests on §3.1, whose second evaluation refuses.
+§1 Let xs be a list of 1 copies of 1.
+§2 We claim that 1 equals 1, by the owner, given §3.1.
+§3 For each i from 1 to 2, do the following.
+§3.1 We claim that item i of xs equals 1, by the owner.

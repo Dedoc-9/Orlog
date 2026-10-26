@@ -44,8 +44,28 @@ COURT_RULES = [
     "claims whose declared support reaches a cycle are CIRCULAR (gfp minus lfp).",
     "R7 absence: a claim never evaluated is UNREACHED: neither supported nor refuted; a claim citing it is not "
     "supported through it.",
+    "R8 a refused evaluation: when the run refuses at a claim's own clause with any code but CLAIM-REFUTED, an "
+    "evaluation of the claim began and did not finish; the claim is not held, whatever its finished evaluations read. "
+    "A claim inline in another statement shares its clause with a condition or another arm, so the refusal may come "
+    "from there; it is not held either (withheld, possibly more than needed: this rule only ever withholds).",
 ]
 CHEAP_RATIO = (1, 2)
+# The court's R8 (the doppler debate's DP-5, 2026-10-26). The self-test's plant switches it off to show its rows bite.
+REFUSED_EVALUATION_CHECK = True
+
+
+def refusal_in_claim(site, refusal):
+    """'exact' when the run's refusal fell inside this claim's own evaluation, 'possible' when it may have, None when
+    it did not. Every refusal names the clause whose statement is executing, a rule's refusal the clause that used the
+    rule (SPEC §6, §7), so a refusal inside a claim's condition names the claim's clause. CLAIM-REFUTED is the claim's
+    own verdict, counted before the run refuses, and is never one. A clause whose statement is the claim evaluates
+    nothing else; an inline claim's clause also evaluates an If arm's condition, and perhaps another inline claim."""
+    if not REFUSED_EVALUATION_CHECK or refusal is None:
+        return None
+    code, clause = refusal
+    if code == "CLAIM-REFUTED" or clause != site.id:
+        return None
+    return "exact" if site.clause.stmt is site.stmt else "possible"
 
 
 def reads_state(expr):
@@ -192,6 +212,8 @@ def panel(comp, witness, ref_receipt_lines, ledger=()):
             recs[int(p[1])] = {"clause": int(p[2]), "evals": int(p[3]), "trues": int(p[4]), "cost": int(p[5]),
                                "ref": int(p[6]), "ref_cost": int(p[7])}
     status = next((l[7:] for l in ref_receipt_lines if l.startswith("status ")), "")
+    parts = status.split(" ")
+    refusal = (parts[1], int(parts[2])) if len(parts) == 3 and parts[0] == "REFUSED" and parts[2].isdigit() else None
     seals = claim_seals(comp)
     ratified = {e["claim_seal"]: e for e in ledger if e.get("kind") == "claim"}
     theorems = {e["name"]: e for e in ledger if e.get("kind") == "theorem"}
@@ -222,13 +244,21 @@ def panel(comp, witness, ref_receipt_lines, ledger=()):
                 ["stopped by the host: " + ",".join(witness["stopped"])] * bool(witness.get("stopped")))
         else:
             row["integrity"] = "CONTESTED" if witness.get("backends") else "REFERENCE-ONLY"
-        if r["evals"] == 0:
+        hit = refusal_in_claim(site, refusal)
+        if hit == "exact":
+            row["evaluation"] = "REFUSED at evaluation %d (%s), after %d true: not held (R8)" % (
+                r["evals"] + 1, refusal[0], r["trues"])
+        elif hit == "possible":
+            row["evaluation"] = ("REFUSED at its clause (%s) after %d of %d evaluations true; the refusal may come from "
+                                 "the condition or the other arm its clause holds: not held (R8)" % (
+                                     refusal[0], r["trues"], r["evals"]))
+        elif r["evals"] == 0:
             row["evaluation"] = "UNREACHED"
         elif r["trues"] < r["evals"]:
             row["evaluation"] = "REFUTED at evaluation %d (%s)" % (r["evals"], status)
         else:
             row["evaluation"] = "true in %d of %d evaluations" % (r["trues"], r["evals"])
-        held = r["evals"] > 0 and r["trues"] == r["evals"] and row["integrity"] == "AGREED"
+        held = hit is None and r["evals"] > 0 and r["trues"] == r["evals"] and row["integrity"] == "AGREED"
         if not reads_state(s.cond):
             row["condition"] = ("CONSTANT: it reads no variable, so it cannot depend on the run (if it always holds it "
                                 "is a tautology airlock: Semiotic core TRIAGE, red team E5)")

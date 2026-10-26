@@ -996,6 +996,51 @@ def compat_rows():
         "" if ok else (s.stdout[-600:] + s.stderr[-400:]))
 
 
+R8_EXPECTED = {         # the court's R8 (the doppler debate's DP-5): fixture -> {clause label: (evaluation starts, grounding)}
+    "omit.orl": {"§2.1": ("REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held", "UNGROUNDED")},
+    "transitive.orl": {"§2": ("true in 1 of 1 evaluations", "UNGROUNDED"),
+                       "§3.1": ("REFUSED at evaluation 2 (INDEX-OUT-OF-RANGE), after 1 true: not held", "UNGROUNDED")},
+    "inline_claim.orl": {"§2.1": ("REFUSED at its clause (INDEX-OUT-OF-RANGE) after 16 of 16", "UNGROUNDED")},
+    "inline_condition.orl": {"§2.1": ("REFUSED at its clause (INDEX-OUT-OF-RANGE) after 16 of 16", "UNGROUNDED")},
+}
+
+
+def r8_rows(arb):
+    """The court's R8: an evaluation that refused is not held, and the rule only ever withholds."""
+    def readings(name, check=True):
+        comp, w, ref = arb.arbitrate(read("tests/fixtures/r8/" + name), "r8-" + name[:-4])
+        seals = COURT.claim_seals(comp)
+        ledger = [{"kind": "claim", "claim_seal": s, "note": FIXTURE, "_line": i + 1}
+                  for i, s in enumerate(seals.values())]
+        COURT.REFUSED_EVALUATION_CHECK = check
+        try:
+            p = COURT.panel(comp, w, parse_receipt(ref.receipt()), ledger)
+        finally:
+            COURT.REFUSED_EVALUATION_CHECK = True
+        return w, {r["clause"]: r for r in p["rows"]}
+    for name, want in R8_EXPECTED.items():
+        w, rows = readings(name)
+        got = {k: (rows[k]["evaluation"], rows[k]["grounding"]) for k in want if k in rows}
+        ok = (not w["dissenting"] and all(k in got and got[k][0].startswith(v[0]) and got[k][1] == v[1]
+                                          for k, v in want.items()))
+        row(ok, "court R8: %s, every claim's seal ratified, agreed on [%s]: %s" % (
+            name, ",".join(w["agreeing"]), "; ".join("%s %s, %s" % (k, got[k][0], got[k][1]) for k in sorted(got))),
+            "" if ok else str(got))
+    w, rows = readings("omit.orl", check=False)
+    plant("court-counts-only-finished-evaluations (R8 off)", rows["§2.1"]["grounding"] == "GROUNDED",
+          "with R8 off, omit.orl's claim reads %s, %s over a run REFUSED at that claim" % (
+              rows["§2.1"]["evaluation"], rows["§2.1"]["grounding"]))
+    r = run_python(os.path.join(ROOT, "tests", "court_monotone.py"), "--jobs", "8")
+    m = re.search(r"^COURT R8 ONE-SIDED: (\d+) gained, (\d+) lost \(frozen texts (\d+), fixtures (\d+)\)", r.stdout, re.M)
+    ok = r.returncode == 0 and m is not None and m.group(1) == "0" and "plant r8-reverted" in r.stdout and \
+        ": CAUGHT," in r.stdout
+    row(ok, "court R8 is one-sided: over COMPAT-0's frozen texts and R8's fixtures, %s standings gained, %s lost "
+        "(frozen texts %s, a coverage gap: none refuses inside a claim; fixtures %s), and the plant that reverts R8 "
+        "is caught (tests/court_monotone.py)" % (m.group(1) if m else "?", m.group(2) if m else "?",
+                                                  m.group(3) if m else "?", m.group(4) if m else "?"),
+        "" if ok else (r.stdout[-600:] + r.stderr[-300:]))
+
+
 ORDER_CASES = [         # SPEC §13, within a statement: each text holds two faults, the first written is reported
     ("Let: its expression before its name", ["§1 Let x be 1.", "§2 Let x be y."], "UNDECLARED"),
     ("item I of X: I before X", ["§1 Define r as 1.", "§2 Say item \"a\" of r."], "TYPE"),
@@ -1280,6 +1325,7 @@ def main():
     isolation_rows(backends)
     independence_rows(workdir, backends)
     compat_rows()
+    r8_rows(arb)
     e21_rows(arb, backends)
     law_plants(arb)
     backend_plants(workdir, backends)

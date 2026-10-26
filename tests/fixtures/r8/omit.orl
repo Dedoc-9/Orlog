@@ -1,0 +1,4 @@
+Note: DP-5 (the doppler debate, 2026-10-26): the claim's 17th evaluation refuses inside its own condition.
+§1 Let xs be a list of 16 copies of 1.
+§2 For each i from 1 to 17, do the following.
+§2.1 We claim that item i of xs equals 1, by the owner.

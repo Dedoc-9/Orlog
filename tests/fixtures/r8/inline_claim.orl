@@ -1,0 +1,4 @@
+Note: R8, an inline claim whose own evaluation refuses; its clause also holds the If's condition.
+§1 Let xs be a list of 16 copies of 1.
+§2 For each i from 1 to 17, do the following.
+§2.1 If true, we claim that item i of xs equals 1, by the owner.
