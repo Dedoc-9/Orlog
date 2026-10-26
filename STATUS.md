@@ -1,4 +1,4 @@
-# ØRLǪG (Orlog): status, 2026-10-26, after COMPAT-0 (SPEC v0.4)
+# ØRLǪG (Orlog): status, 2026-10-26, after COMPAT-0 and the court's R8 (SPEC v0.4)
 
 Start here when resuming. The project lives in its own repository, [github.com/Dedoc-9/Orlog](https://github.com/Dedoc-9/Orlog)
 (local folder `Desktop\Orlog`), under the GNU AGPL v3 (AGPL-3.0-only, as Verðandi). It moved there from a session
@@ -16,10 +16,13 @@ owner makes every commit and push.
    architect, a use-case skeptic and a documentation prosecutor, and the disposition of the prosecutor's 57 findings.
 5. **research/run-1/RULINGS.md**: the rulings the open run needs (R1–R12 and ten defaults), each with its options,
    what each entails, the theorem under it, a falsifier and a recommendation. Awaiting the owner.
-6. **research/ragnarok/VERDICT.md**: the counterworld search, argued by a proponent and an adversary over two rounds,
+6. **research/doppler/VERDICT.md**: whether incompleteness can be ruled out "as ruthlessly as sha256". A sound,
+   refusal-sensitive dependence analysis certifies and a doppler search only prosecutes; nothing is built before
+   RUN-1. It also records a defect in the court as built (DP-5) and three holes in R6's amendment.
+7. **research/ragnarok/VERDICT.md**: the counterworld search, argued by a proponent and an adversary over two rounds,
    with a prior-art survey. Proposed, not admitted.
-7. **court/RECORD.md** and court/VERDICT.txt (the first court; the second round's record is still open, below).
-8. **ADMISSION.md**: the proposed admission record. Not admitted.
+8. **court/RECORD.md** and court/VERDICT.txt (the first court; the second round's record is still open, below).
+9. **ADMISSION.md**: the proposed admission record. Not admitted.
 
 ## Measured here, COMPAT-0 (2026-10-26)
 - `python -B tests/selftest.py`: **ORLOG SELFTEST 163/163** (reference, python, c99, rust), two consecutive runs
@@ -91,7 +94,22 @@ owner makes every commit and push.
 - **Debates**: `research/roadmap-debate/` (architect, skeptic, prosecutor, verdict) and `research/ragnarok/` (the
   proposal, the proponent's and adversary's two rounds, the survey, the verdict), each report saved verbatim.
 
+## Repaired 2026-10-26, after the doppler debate
+- `python -B tests/selftest.py`: **ORLOG SELFTEST 169/169**, two consecutive runs byte-identical, sha256
+  367ef35a14de8ffd… as captured (CR LF); with `--backends python`, **159/159**. The six new rows are R8's.
+- **The court's R8** (DP-5). Before it, a claim whose evaluation refused partway through its own condition was not
+  counted, and read GROUNDED with its seal ratified over a run REFUSED at it. The court now names that evaluation and
+  does not count the claim as held. An inline claim is withheld conservatively.
+  - **No receipt changed:** COMPAT-0 HELD.
+  - **Blast radius on the 3,361 frozen texts:** nothing. None refuses inside a claim, which is a coverage gap.
+  - **Its four fixtures:** 5 standings withheld and none granted; the plant that reverts R8 is caught
+    (`evidence/court-r8.txt`).
+- **R6 in the RUN-1 sheet.** The trigger is now any input log (DP-4). The exemption, PREFIX, is decided by evaluation
+  (N-1) and covers the whole claim line (N-2). R12 gains the court's one-sidedness row.
+
 ## Still open
+- **An adversarial pass over the reporting layer.** The court, the arbiter and the receipt comparison have each
+  reported what was not there (DP-5, the shared work folder, E7).
 - **The owner's rulings**: RUN-1's sheet (`research/run-1/RULINGS.md`, R1–R12); DOCTRINE §9 (fork 2 is decided);
   HOST-0, which needs a second machine; whether Ragnarök's narrow instrument is admitted at all
   (`research/ragnarok/VERDICT.md`); and prosecutor F42, below.

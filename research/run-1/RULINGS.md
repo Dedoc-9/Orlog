@@ -89,7 +89,10 @@ must be caught), or a rounded value with no note.
 | **a. It ends the branch** | the run stops at the refusing tick; the receipt says REFUSED code, clause and tick; recovery is a new branch from an earlier snapshot (SNAP-1), and the refused branch stays in the record | the refuted claim's evaluation stands |
 | b. It rolls the tick back and the run goes on | friendlier to a game loop | it erases the refutation: the court would read "true in n of n" for ever. A rolled-back refusal is a laundered verdict |
 
-**Recommended: a.** **Falsifier:** a session whose court reading omits an evaluation that refused.
+**Recommended: a.** **Falsifier:** a session whose court reading omits an evaluation that refused. *(Note,
+2026-10-26: the doppler debate found this falsifier already firing in version 0 (DP-5). A claim whose evaluation
+refused partway read "true in 16 of 16" and GROUNDED. The court's R8 now names that evaluation and does not hold the
+claim: `evidence/court-r8.txt`.)*
 
 ### R5. Versions and headers
 - `orlog-law 1`, only when a v1 form appears, so v0 laws stay byte-identical. It adds the law lines
@@ -107,12 +110,30 @@ reproduce the output chain.
 ### R6. What the input log is to the court
 | option | entails | design |
 |---|---|---|
-| **a. Data, never a channel** | in a run whose law declares any port, no claim is GROUNDED, whatever its channel and whatever is ratified; the court shows the log's seal as provenance: "rests on input log <seal>, unratified" | replayable is not admissible (DOCTRINE T12, limit 4). A log is a value chosen by whoever ran the session, and it can never raise a standing |
+| **a. Data, never a channel** | in a run with an input log (the law declares a port, or has a tick block), no claim is GROUNDED, whatever its channel and whatever is ratified, except under the licence below; the court shows the log's seal as provenance: "rests on input log <seal>, unratified" | replayable is not admissible (DOCTRINE T12, limit 4). A log is a value chosen by whoever ran the session, and it can never raise a standing |
 | b. Testimony | a person may ratify a log's seal ("this is what the sensor recorded"); a claim over that log could be GROUNDED only with both its own seal and the log's ratified | the supplier's word becomes explicit and signed, as the ledger makes a ratification. That is a court change, in the territory of typed terminals (DOCTRINE §9, fork 9) |
 
 **Recommended: a for RUN-1; b as a later fork.**
-- **Falsifier:** a claim in a run whose law declares a port that reads GROUNDED. The acceptance row: a claim that reads
-  only `x`, where `x` is updated from a port, rests on the owner and has its own seal ratified, must read UNGROUNDED.
+- **The trigger is any input log.** A tick block with no port still takes input, because the log's length sets how
+  many ticks run (D3). A claim in it can hold over 16 ticks and be refuted at 17.
+- **The licence, PREFIX**, decided from the text: a claim is exempt only if every evaluation of it precedes the first
+  input.
+  - It must stand before the first port declaration, outside the tick block.
+  - It must not sit in a procedure performed at or after the first port declaration. The licence is decided by
+    evaluation, never by position alone: a claim inside a procedure stands textually before the tick block and still
+    runs during it.
+  - Nothing the log sets exists before its first input, so a prefix claim's whole claim line is fixed by the law: its
+    evaluations, its trues, its cost and its certified clause's cost.
+  - A wider licence would exempt a claim with no path from any port, shown by two independent derivations, and must
+    then cover the whole claim line, since a certificate's cost reading can move with a port while its truth does not.
+    It waits for a trigger (`research/doppler/VERDICT.md`).
+- **Falsifier:** a claim in a run with an input log that reads GROUNDED outside the licence. The acceptance rows:
+  - a claim that reads only `x`, where `x` is updated from a port, rests on the owner and has its own seal ratified,
+    reads UNGROUNDED;
+  - a claim in a tick block with no port reads UNGROUNDED (plant: the trigger "declares any port");
+  - a claim in a procedure performed in the tick block reads UNGROUNDED (plant: licensing by clause position);
+  - a claim before the first port, in a procedure performed after a port is read, is not licensed (plant: "before the
+    first port declaration is enough").
   The narrow wording below is that row's plant, and must be caught.
 - **Sound, not complete.** Rule a never reads a false GROUNDED, but it also withholds grounding from a claim that
   depends on no port at all. That is a known limit. The backward slice (fork 4) lifts it: a claim whose evaluation
@@ -133,6 +154,12 @@ once from a literal (`evidence/run1-r6-indirect.txt`):
 With a real port the law and the claim seal stay the same for every log, so the narrow wording would let that claim
 read GROUNDED over a log nobody vouched for. A control shows the narrow check itself works: it does withhold grounding
 from a claim that reads the stand-in directly.
+
+*Amended again 2026-10-26, after the doppler debate, before any ruling* (`research/doppler/VERDICT.md`):
+- **The trigger** was "declares any port". It missed a tick block with no port, whose log's length is input (DP-4).
+- **The licence (PREFIX)** was added, decided by evaluation (N-1) and covering the whole claim line (N-2). The debate's
+  proponent and adversary both arrived at it, and the adversary's fixtures measured each hole. The judge reran the
+  procedure case and the cost case.
 
 ### R7. A twin round before the backends
 | option | entails | design |
@@ -185,7 +212,11 @@ Proposed record:
   - a recorded 1,000-tick log gives byte-identical receipt 1 on all four executions;
   - each plant caught: a dropped `'N'` event, located at its first divergent event; a backend that parses decimal
     input; a misaligned log entry, refused rather than shifted; a tick over its budget that runs on; R6's narrow
-    wording, which lets a claim that depends on a port only through state read GROUNDED.
+    wording, which lets a claim that depends on a port only through state read GROUNDED; R6's present trigger, which
+    misses a tick block with no port; licensing by clause position;
+  - **the court one-sided.** RUN-1's floor (R6) only withholds. Measure it as `tests/court_monotone.py` measures R8:
+    over COMPAT-0's frozen texts and its own fixtures, with a plant that reverts it, no standing may be gained. The
+    licence grants by design, so it is held instead by its own rows above.
 - **Scope:** `src/`, `rt_c/`, `rt_rs/`, `tests/`, SPEC §15, a RUNTIME-SPEC section for v1, a new
   `vectors/input-vectors.txt`. `runtime-vectors.txt` is untouched.
 - **Exit:** the discriminator met; the twin's round settled; the self-test green twice and byte-identical.
