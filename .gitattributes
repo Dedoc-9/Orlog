@@ -10,6 +10,8 @@ court/redteam-eng/observed-1650/** -text
 rt_c/*.txt -text
 rt_c/*.log -text
 evidence/** -text
+tests/compat/*.jsonl -text
+*.gz binary
 
 *.png binary
 *.pdf binary

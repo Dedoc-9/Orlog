@@ -97,6 +97,12 @@ something other than their generator, and the independence rows. §4 gives each 
 - **Falsifier:** the plant `reserve-tick` (fall.orl uses `tick` as a name) must turn the row red, and so must a changed
   law-line spelling.
 - **Cost:** about a day. **Not yet:** a fuzzing project; it reuses diff_twin's generators.
+- *Built 2026-10-26, at the owner's word ("Start COMPAT-0, the conservative-extension gate, as the next rung"):*
+  `tests/compat.py`, with v0 frozen at b4eaf11. It holds 3,361 texts (every version of every corpus program in the
+  history, the 291 probes, 57 fixtures and 3,000 mutants) as stored texts rather than seeds, since the mutator's pool
+  changes whenever a fixture is added. Its plants: reserve-tick, law-line-format, say-counts-twice (a change only the
+  receipts see), frozen-text-altered. What it does not protect, at his request, is in `tests/compat/README.md`;
+  evidence in `evidence/compat-check.txt`, `compat-history.txt` and `seal-audit.txt`.
 
 ### 2. HOST-0: v0's baseline, then a second host
 - **Entails:** `tests/host_compare.py` and a baseline recorded here, holding for each corpus program the receipt core's

@@ -974,6 +974,28 @@ def e18_e22_rows(workdir):
         "" if refused and wrote else "%s | %s | %d entries" % (r1.stdout.strip(), r2.stdout.strip(), len(entries)))
 
 
+def compat_rows():
+    """COMPAT-0 (tests/compat.py): every text version 0 accepted keeps its law and its run; a refused one may later be
+    accepted, and any other change is declared in tests/compat/settled.json or fails."""
+    gate = os.path.join(ROOT, "tests", "compat.py")
+    r = run_python(gate, "check", "--jobs", "8")
+    m = re.search(r"^  same (\d+), newly accepted (\d+), settled (\d+), skipped (\d+), differ (\d+), input changed (\d+)",
+                  r.stdout, re.M)
+    n = re.search(r"; (\d+) texts;", r.stdout)
+    ok = r.returncode == 0 and "COMPAT-0 HELD" in r.stdout and m is not None and n is not None
+    row(ok, "compat: each of the %s texts frozen at version 0 gives the result it gave then (law seal, text seal and "
+        "reference receipt, or refusal code and line): %s same, %s newly accepted, %s settled (COMPAT-0)" % (
+            n.group(1) if n else "?", m.group(1) if m else "?", m.group(2) if m else "?", m.group(3) if m else "?"),
+        "" if ok else (r.stdout[-600:] + r.stderr[-400:]))
+    s = run_python(gate, "selftest")
+    k = re.search(r"^COMPAT SELFTEST (\d+)/(\d+)", s.stdout, re.M)
+    ok = s.returncode == 0 and k is not None and k.group(1) == k.group(2)
+    row(ok, "compat: the gate's plants are caught (a word newly reserved, a law line respelled, a change only the "
+        "receipts see, a frozen text altered) and a declared change passes only with its exact new result "
+        "(COMPAT SELFTEST %s/%s)" % (k.group(1) if k else "?", k.group(2) if k else "?"),
+        "" if ok else (s.stdout[-600:] + s.stderr[-400:]))
+
+
 ORDER_CASES = [         # SPEC §13, within a statement: each text holds two faults, the first written is reported
     ("Let: its expression before its name", ["§1 Let x be 1.", "§2 Let x be y."], "UNDECLARED"),
     ("item I of X: I before X", ["§1 Define r as 1.", "§2 Say item \"a\" of r."], "TYPE"),
@@ -1257,6 +1279,7 @@ def main():
     honesty_rows(workdir, backends)
     isolation_rows(backends)
     independence_rows(workdir, backends)
+    compat_rows()
     e21_rows(arb, backends)
     law_plants(arb)
     backend_plants(workdir, backends)

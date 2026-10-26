@@ -1,0 +1,29 @@
+# command: python -B tests/corpus_seals.py 83eb044 7186e50 fc19339 b4eaf11
+# tree: b4eaf11 plus the uncommitted changes of the COMPAT-0 round that adds this file (src/ unchanged since b4eaf11)
+# host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; 2026-10-26; PYTHONHASHSEED=0 PYTHONUTF8=1
+# the owner's question (2026-10-26): does every step still produce the exact same law seal, gcd's among them?
+# gcd_certificate.orl's law seal in this tree: 97187841d73fa96552652691085d9b1956d686ed017baedf9c60ad11898dcc28 nisim-lodad-tisuz-pojoj
+# law seals cover the law, not its run; tests/compat.py holds the runs (evidence/compat-history.txt)
+law seals of the 11 corpus programs (first 16 hex digits)
+  examples/aztec.orl                   1a9d69077e5f8b7b  1a9d69077e5f8b7b  1a9d69077e5f8b7b  1a9d69077e5f8b7b  1a9d69077e5f8b7b
+  examples/chaos.orl                   babaf50065335543  babaf50065335543  babaf50065335543  babaf50065335543  babaf50065335543
+  examples/collatz.orl                 02ca2f73f977effa  02ca2f73f977effa  02ca2f73f977effa  02ca2f73f977effa  02ca2f73f977effa
+  examples/fall.orl                    81cb74ad782ff846  81cb74ad782ff846  81cb74ad782ff846  81cb74ad782ff846  81cb74ad782ff846
+  examples/gcd_certificate.orl         97187841d73fa965  97187841d73fa965  97187841d73fa965  97187841d73fa965  97187841d73fa965
+  examples/leapfrog.orl                42cd40bd5b7326b2  42cd40bd5b7326b2  42cd40bd5b7326b2  42cd40bd5b7326b2  42cd40bd5b7326b2
+  examples/legal.orl                   e2d07905ed4a917c  e2d07905ed4a917c  e2d07905ed4a917c  e2d07905ed4a917c  e2d07905ed4a917c
+  examples/plankton.orl                cec2b29dba29191c  cec2b29dba29191c  cec2b29dba29191c  cec2b29dba29191c  cec2b29dba29191c
+  examples/spellings/phrases.orl       fc88a8ebc65eb159  fc88a8ebc65eb159  fc88a8ebc65eb159  fc88a8ebc65eb159  fc88a8ebc65eb159
+  examples/spellings/symbols.orl       fc88a8ebc65eb159  fc88a8ebc65eb159  fc88a8ebc65eb159  fc88a8ebc65eb159  fc88a8ebc65eb159
+  examples/spellings/words.orl         fc88a8ebc65eb159  fc88a8ebc65eb159  fc88a8ebc65eb159  fc88a8ebc65eb159  fc88a8ebc65eb159
+front end of 83eb044 (83eb044): 11 of 11 law seals equal to this tree's
+front end of 7186e50 (7186e50): 11 of 11 law seals equal to this tree's
+front end of fc19339 (fc19339): 11 of 11 law seals equal to this tree's
+front end of b4eaf11 (b4eaf11): 11 of 11 law seals equal to this tree's
+the code on the path from bytes to law seal (syntax trees, docstrings removed), revision to revision:
+  src/orlog/canon.py     83eb044->7186e50 same; 7186e50->fc19339 same; fc19339->b4eaf11 same; b4eaf11->this tree same
+  src/orlog/syntax.py    83eb044->7186e50 same; 7186e50->fc19339 same; fc19339->b4eaf11 same; b4eaf11->this tree same
+  src/orlog/sema.py      83eb044->7186e50 same; 7186e50->fc19339 CHANGED; fc19339->b4eaf11 same; b4eaf11->this tree same
+  src/orlog/seal.py      83eb044->7186e50 same; 7186e50->fc19339 same; fc19339->b4eaf11 same; b4eaf11->this tree same
+  src/orlog/front.py     83eb044->7186e50 same; 7186e50->fc19339 same; fc19339->b4eaf11 same; b4eaf11->this tree same
+exit 0

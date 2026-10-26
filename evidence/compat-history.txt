@@ -1,0 +1,40 @@
+# command: python -B tests/compat.py history 83eb044 7186e50 fc19339 b4eaf11 --jobs 8
+# tree: b4eaf11 plus the uncommitted changes of the COMPAT-0 round that adds this file (src/ unchanged since b4eaf11); each revision's src/ taken from git into build/
+# host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; 2026-10-26; PYTHONHASHSEED=0 PYTHONUTF8=1
+# the two texts that differ at 83eb044 and 7186e50 (the probe ln-place-before-condition and one mutant of it) are
+# SPEC section 14 item 8's code change in fc19339: a While's or a For's place is checked before its condition, so
+# LOOP-NESTING is reported where those revisions reported the undeclared name in the condition
+# in each DIFFERS line, 'was' is the baseline (b4eaf11) and 'now' is the revision named above the line
+COMPAT-0 history: the 3361 frozen texts under each revision's src (from git), against baseline v0 (commit b4eaf11)
+== 83eb044 (83eb044)
+  same 3359, newly accepted 0, settled 0, skipped 0, differ 2, input changed 0
+  by kind: corpus 13 of 13 held, probe 290 of 291 held, fixture 57 of 57 held, mutant 2999 of 3000 held
+    DIFFERS mutant/s1/0138: was refused LOOP-NESTING at line 17; now refused UNDECLARED at line 17
+    DIFFERS probe/twin/probes3/ln-place-before-condition.orl: was refused LOOP-NESTING at line 17; now refused UNDECLARED at line 17
+== 7186e50 (7186e50)
+  same 3359, newly accepted 0, settled 0, skipped 0, differ 2, input changed 0
+  by kind: corpus 13 of 13 held, probe 290 of 291 held, fixture 57 of 57 held, mutant 2999 of 3000 held
+    DIFFERS mutant/s1/0138: was refused LOOP-NESTING at line 17; now refused UNDECLARED at line 17
+    DIFFERS probe/twin/probes3/ln-place-before-condition.orl: was refused LOOP-NESTING at line 17; now refused UNDECLARED at line 17
+== fc19339 (fc19339)
+  same 3361, newly accepted 0, settled 0, skipped 0, differ 0, input changed 0
+  by kind: corpus 13 of 13 held, probe 291 of 291 held, fixture 57 of 57 held, mutant 3000 of 3000 held
+== b4eaf11 (b4eaf11)
+  same 3361, newly accepted 0, settled 0, skipped 0, differ 0, input changed 0
+  by kind: corpus 13 of 13 held, probe 291 of 291 held, fixture 57 of 57 held, mutant 3000 of 3000 held
+the corpus, every version in the history (law seal / text seal / receipt core, first 12 hex digits):
+  corpus/examples/aztec.orl@e317c26b31aa           same under all  1a9d69077e5f/e317c26b31aa/1bfe185311b0
+  corpus/examples/chaos.orl@5f6989aabdaa           same under all  babaf5006533/5f6989aabdaa/02e0e70fe1e9
+  corpus/examples/chaos.orl@67a0ebc27cf7           same under all  babaf5006533/67a0ebc27cf7/c598a4cf7ded
+  corpus/examples/collatz.orl@592bc3e4123d         same under all  02ca2f73f977/592bc3e4123d/2b386ae815ed
+  corpus/examples/fall.orl@73ccecab2e7b            same under all  81cb74ad782f/73ccecab2e7b/fbb32be3a200
+  corpus/examples/gcd_certificate.orl@305b2be09583 same under all  97187841d73f/305b2be09583/4b86d187a82f
+  corpus/examples/leapfrog.orl@5aecd009e358        same under all  42cd40bd5b73/5aecd009e358/5be99288e3b2
+  corpus/examples/leapfrog.orl@8ecb5c6d9b5a        same under all  42cd40bd5b73/8ecb5c6d9b5a/477642ed22bc
+  corpus/examples/legal.orl@14c3d5c4a27e           same under all  e2d07905ed4a/14c3d5c4a27e/9cbc762f7f3b
+  corpus/examples/plankton.orl@7110dcd6f849        same under all  cec2b29dba29/7110dcd6f849/f9af444ffcfd
+  corpus/examples/spellings/phrases.orl@33634aea1f1b same under all  fc88a8ebc65e/33634aea1f1b/6e81152cf002
+  corpus/examples/spellings/symbols.orl@8539dbef8406 same under all  fc88a8ebc65e/8539dbef8406/d8ed0f6c2b46
+  corpus/examples/spellings/words.orl@5fab85a9c40e same under all  fc88a8ebc65e/5fab85a9c40e/3c111264381d
+COMPAT-0 HISTORY COMPUTED: 83eb044 2 differ; 7186e50 2 differ; fc19339 0 differ; b4eaf11 0 differ
+exit 0

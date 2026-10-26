@@ -1,4 +1,4 @@
-# ØRLǪG (Orlog): status, 2026-10-25, after the foundations review (SPEC v0.4)
+# ØRLǪG (Orlog): status, 2026-10-26, after COMPAT-0 (SPEC v0.4)
 
 Start here when resuming. The project lives in its own repository, [github.com/Dedoc-9/Orlog](https://github.com/Dedoc-9/Orlog)
 (local folder `Desktop\Orlog`), under the GNU AGPL v3 (AGPL-3.0-only, as Verðandi). It moved there from a session
@@ -19,7 +19,23 @@ owner makes every commit and push.
 6. **court/RECORD.md** and court/VERDICT.txt (the first court; the second round's record is still open, below).
 7. **ADMISSION.md**: the proposed admission record. Not admitted.
 
-## Measured here (2026-10-25, in the repository)
+## Measured here, COMPAT-0 (2026-10-26)
+- `python -B tests/selftest.py`: **ORLOG SELFTEST 163/163** (reference, python, c99, rust), two consecutive runs
+  byte-identical, sha256 37a9eadd2cb885d5… of the file as captured (CR LF); with `--backends python`, **153/153**. The
+  two new rows are COMPAT-0's.
+- **The gate**, `python -B tests/compat.py check --jobs 8`: COMPAT-0 HELD. 3,361 texts frozen at b4eaf11 with their
+  results all reproduce. They are 13 corpus versions, 291 probes, 57 fixtures and 3,000 mutants; the results are 300
+  completed runs and 3,061 refusals, with no stop and no crash. `selftest`: COMPAT SELFTEST 6/6, four plants caught
+  (`evidence/compat-check.txt`).
+- **The audit trail**, `tests/compat.py history 83eb044 7186e50 fc19339 b4eaf11`: fc19339 and b4eaf11 reproduce all
+  3,361. 83eb044 and 7186e50 differ on exactly two texts, both SPEC §14 item 8's code change in fc19339. Every version
+  of every corpus program has the same law seal, text seal and receipt core under all four
+  (`evidence/compat-history.txt`). The sealing path's code is unchanged through every revision but that one change to
+  sema (`evidence/seal-audit.txt`).
+- **What it does not protect** (timings, memory over long runs, the arbiter, the backends, and more) is in
+  `tests/compat/README.md`.
+
+## Measured here, the foundations review (2026-10-25, commit b4eaf11)
 - `python -B tests/selftest.py`: **ORLOG SELFTEST 161/161** (reference, python, c99, rust). Two consecutive runs, the
   second on the first's build cache, byte-identical: `evidence/selftest-run.txt` and `selftest-run2.txt`, sha256
   e181601f0ac530d0… of the file as captured (with the CR LF line ends Python writes to a redirected stdout on
@@ -53,7 +69,12 @@ owner makes every commit and push.
 - **E21**: the list measurement, now tracked as `tests/e21_list_leak.py`, gives 46 and 46 MiB again
   (`evidence/e21-lists-rerun.txt`).
 
-## Changed this round
+## Changed in COMPAT-0 (2026-10-26)
+- `tests/compat.py` and `tests/compat/` (v0's frozen texts, baseline and an empty `settled.json`, with a README of what
+  the gate does and does not protect); two self-test rows; `tests/corpus_seals.py` also compares the sealing path's code
+  revision to revision; `.gitattributes` keeps the frozen files byte for byte.
+
+## Changed in the foundations review (b4eaf11)
 - **Arbiter** (`arbiter.py`): a run folder per arbitration, removed after it; builds published atomically from the
   source in memory; a failed build or missing compiler is `build_failed`, outside agreement and dissent; a host budget
   of counted operations on the reference (`interp.py`, HostStop) and a wall clock on the backends; `orl.py court` takes

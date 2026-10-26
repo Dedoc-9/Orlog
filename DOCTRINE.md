@@ -379,6 +379,7 @@ The edition-1 rows stand, with these added:
 | a ledger torn by a crash breaks every court reading (foundations review) | LEDGER-BROKEN at its line, read whole or not at all; a row and a plant |
 | a backend that did not build, counted as dissenting (prosecutor F2) | BUILD-FAILED, outside agreement and dissent; every claim's integrity INCOMPLETE; the sandwich VACUOUS |
 | vectors that define the arithmetic and check nothing (foundations review) | a second derivation, hand-worked cases and published digests, with plants of mistakes the reference and its vectors would share (T11) |
+| a later version that quietly changes what an old text means (the roadmap's first rung) | COMPAT-0: 3,361 texts frozen with their results at b4eaf11, law seal and receipt both, so a change that keeps every seal but alters a run is caught (its plant `say-counts-twice`) |
 
 ## 5. Evidence, measured here
 
@@ -476,6 +477,10 @@ Edition 1's list stands, and the court adds:
   must judge the instantiation.
 - **Counted operations are a unit-cost model.** They are not time or work, and their ratio is not little-oh (L6).
 - **The support graph is the author's declared premises.** Undeclared dependence is invisible (L10).
+- **COMPAT-0 holds the results of its frozen texts, and nothing else.** Every text version 0 accepted keeps its law
+  bytes and its reference receipt: MEASURED on 3,361 texts, DECLARED for the rest. It sees no timing, no memory over a
+  long run, no defect of the arbiter, no backend, no door event and no court reading, and it freezes what one commit
+  did, defects included (`tests/compat/README.md`).
 - **The language is bounded.** Clauses nest at most 24 deep, loops at most 16 within one body, expressions at most 24
   deep as SPEC §13 counts them, and lists hold at most 2^24 items. These bounds are deliberate, sized to the hosts'
   limits. §12 stated the expression bound one too generously; §13 states it as the code measures it.
