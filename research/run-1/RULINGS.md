@@ -10,6 +10,8 @@ This sheet asks for the owner's word on each choice RUN-1 must make. Each ruling
 the theorem or design under it, a falsifier, and a recommendation. Rule with the numbers ("R1 b, R2 as written, …"), or
 "as recommended" for any group. Nothing here is built, and nothing changes until he rules.
 
+**Ruled so far:** R3 a (2026-10-26).
+
 **Fixed whatever is ruled:**
 - **COMPAT-0 must hold.** Every text v0 accepted keeps its law bytes and its run. RUN-1's forms are therefore spelled
   only where v0 refuses SYNTAX at the statement itself, so they take no meaning away from an existing text.
@@ -82,6 +84,33 @@ Either way the log holds typed encodings only (RUNTIME-SPEC §5), written once b
 ever parses decimal text and no host's strtod can diverge. **Recommended: b**, consistent with literals (SPEC §5:
 "Fix stores the nearest raw value, ties to even"). **Falsifier:** a backend that parses decimal input (a plant, which
 must be caught), or a rounded value with no note.
+
+**Ruled 2026-10-26: a, against the recommendation.** His words: *"I rule in favor of Option a (The Conversion Rule) for
+R3."* His reasons, in his words: *"The true, structural differentiator is reversibility under COMPAT-0 and the
+preservation of data provenance."* Option a *"treats rounding as a client-side capability rather than an engine-side
+compromise."*
+- **What it settles.**
+  - The door never rounds. A decimal that is not exactly a Fix value is refused, and inputs arrive on the 2^-32 grid
+    or as raw values.
+  - The log holds only values the supplier sent.
+  - A later version may relax this to rounding as an extension, refused becoming accepted. The reverse would break
+    every recorded log (COMPAT-0's rule).
+- **What falls away.** The rider proposed under b, keeping the supplier's original text under a seal so that a rounding
+  stays auditable, is not needed: no value is rounded.
+- **The falsifier, under a.**
+  - A value in the log that is not exactly the one its text names (a plant: a door that rounds).
+  - A backend that parses decimal input.
+- **The enactment.** His message opened with the door's grammar: *"The entrance tool filters all incoming port streams
+  using a restrictive ASCII regular expression sieve. This occurs before passing strings to Python's Fraction
+  constructor, neutralizing format exploitation"* (Python's `Fraction` alone accepts `1e3`, `3/4`, ` 1.5 `, `+1`,
+  `1_000` and the Arabic-Indic digit `٣`: measured in the walk-through). The message was cut off there. The other
+  constraints proposed with the ruling await his word:
+  - both range bounds checked (the literal check tests only the upper bound, since a literal has no sign);
+  - integer ports: a fraction refused, never rounded;
+  - truth values: one spelling each;
+  - text: the bytes kept exactly, non-NFC noted, cp1252 refused, as for literals;
+  - a spelling for raw values that the grammar keeps distinct;
+  - a refusal that names the two nearest representable values.
 
 ### R4. What a refusal does in a run with ticks
 | option | entails | design |

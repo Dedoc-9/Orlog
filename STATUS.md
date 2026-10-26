@@ -15,7 +15,8 @@ owner makes every commit and push.
 4. **research/roadmap-debate/VERDICT.md**: the next steps ranked by foundational value, after a debate between an
    architect, a use-case skeptic and a documentation prosecutor, and the disposition of the prosecutor's 57 findings.
 5. **research/run-1/RULINGS.md**: the rulings the open run needs (R1–R12 and ten defaults), each with its options,
-   what each entails, the theorem under it, a falsifier and a recommendation. Awaiting the owner.
+   what each entails, the theorem under it, a falsifier and a recommendation. R3 is ruled (a, exact or refused,
+   2026-10-26); the rest await the owner.
 6. **research/doppler/VERDICT.md**: whether incompleteness can be ruled out "as ruthlessly as sha256". A sound,
    refusal-sensitive dependence analysis certifies and a doppler search only prosecutes; nothing is built before
    RUN-1. It also records a defect in the court as built (DP-5) and three holes in R6's amendment.
