@@ -107,6 +107,8 @@ owner makes every commit and push.
   does not count the claim as held. An inline claim is withheld conservatively.
   - **No receipt changed:** COMPAT-0 HELD.
   - **Blast radius on the 3,361 frozen texts:** nothing. None refuses inside a claim, which is a coverage gap.
+    Counted (`research/compat-status.md`): of the 44 texts that run with claims, 38 complete and 6 refuse
+    CLAIM-REFUTED, so no claim's evaluation is ever cut off. R8's class has no member there: no exercise in the corpus.
   - **Its four fixtures:** 5 standings withheld and none granted; the plant that reverts R8 is caught
     (`evidence/court-r8.txt`).
 - **R6 in the RUN-1 sheet.** The trigger is now any input log (DP-4). The exemption, PREFIX, is decided by evaluation
