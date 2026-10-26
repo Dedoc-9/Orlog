@@ -1,0 +1,14 @@
+Note: E21 and rt_c finding 8. Lists are owned like texts: a procedure's local list across calls, stores, pushes, item sets.
+§1 To fill, do the following.
+§1.1 Let ws be a list of 3 copies of 2.
+§1.2 Append 5 to ws.
+§1.3 Set item 1 of ws to 9.
+§1.4 Say ws.
+§2 Let xs be a list of 4 copies of 1.
+§3 Let ys be xs.
+§4 For each k from 1 to 3, do the following.
+§4.1 Set ys to xs.
+§4.2 Append k to xs.
+§4.3 Perform fill.
+§5 Remove the last item of xs.
+§6 Say xs followed by " | " followed by ys.

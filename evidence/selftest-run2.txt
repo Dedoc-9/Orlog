@@ -41,12 +41,13 @@
 [PASS] compile refusal PROCEDURE-NAME
 [PASS] compile refusal: mutual recursion between procedures (UNKNOWN-PROCEDURE or PERFORM-BEFORE-DEFINITION)
 [PASS] spec: the twin's 163 hand-worked probes: 161 met as the twin worked them, 2 as SPEC §13 settled them against the twin's reading (twin/probes/settled.json), 0 different
+[PASS] spec: the twin's 128 round-3 probes (SPEC §12, §13): 125 met as the twin worked them, 3 as SPEC §14 settled them against the twin's reading (twin/probes3/settled.json), 0 different
 [PASS] spec: SPEC §13's phase table lists exactly the 43 compile refusal codes the front end can raise -- only in the table: []; only in the code: []
 [PASS] plant front-end-raises-an-unlisted-code: CAUGHT -- a front end raising STATEMENT-PERIOD (as the line pass did before §13) differs from the table by ['STATEMENT-PERIOD']
 [PASS] spec: within a statement, written order, post-order (SPEC §13): 15 texts of two faults each report the one written first
 [PASS] plant item-target-before-index: CAUGHT -- under the pre-§13 order: item I of X: I before X: UNDECLARED, not TYPE
 [PASS] firewall: a verdict-shaped key in a witness is refused (executable-epistemics)
-[PASS] codegen: the law bytes and all three generated sources for the corpus are identical under PYTHONHASHSEED 0 and 424242 (sha256 198243652bd6bb1e)
+[PASS] codegen: the law bytes and all three generated sources for the corpus are identical under PYTHONHASHSEED 0 and 424242 (sha256 12f95b0fa5b7d3a9)
 [PASS] corpus aztec: reference and [c99,python,rust] byte-identical (outputs and receipts)
 [PASS] corpus chaos: reference and [c99,python,rust] byte-identical (outputs and receipts)
 [PASS] corpus collatz: reference and [c99,python,rust] byte-identical (outputs and receipts)
@@ -128,6 +129,12 @@
 [PASS] bounds: 16 nested loops around 23 nested parenthesized 'and's, both bounds at their limits, run byte-identically on the reference and [c99,python,rust] (red team E24)
 [PASS] bounds: one more parenthesis is refused EXPRESSION-DEPTH, as SPEC §13 counts it (atoms, minuses and nots on the path, the atom included; over 24 refused)
 [PASS] court: a claim that reads no variable is marked CONSTANT and one that reads the run is not (red team E5) -- ['CONSTANT: it reads no variable, so it cannot depend on the run (if it always holds it is a tautology airlock: Semiotic core TRIAGE, red team E5)', '']
+[PASS] E21 list_ownership.orl: runs byte-identically on the reference and [c99,python,rust]
+[PASS] E21 loop_condition.orl: runs byte-identically on the reference and [c99,python,rust]
+[PASS] E21 procedure_local.orl: runs byte-identically on the reference and [c99,python,rust]
+[PASS] E21 self_store.orl: runs byte-identically on the reference and [c99,python,rust]
+[PASS] memory: the C backend's peak is flat as a run rebuilds a 4 MiB text 4 and then 32 times (16 and 16 MiB) and stores a 1,000,000-item list 4 and then 32 times (23 and 23 MiB); red team E21 and rt_c finding 8: it grew by every text and list a run made -- exit 0, 0, 0, 0
+[PASS] plant c99-temporaries-never-released: CAUGHT -- with the temporaries never released, as before the repair, the text run's peak grows from 33 to 145 MiB and the list run's from 54 to 268 MiB
 [PASS] plant law-gcd-wrong-answer (g doubled): CAUGHT -- the Bezout certificate refuses at §12 in the reference and [c99,python,rust]: REFUSED CLAIM-REFUTED 22
 [PASS] plant law-leapfrog-asymmetric-drift (a bias not symmetric under negation): CAUGHT -- exact return fails and the reversibility claim refuses at §17 in the reference and [c99,python,rust]: REFUSED CLAIM-REFUTED 31
 [PASS] plant c99-remainder-truncates: CAUGHT -- first divergent event 3, a Say at §3: reference 320a, backend 2d310a
@@ -138,4 +145,4 @@
 [PASS] plant python-quotient-floors: CAUGHT -- first divergent event 4, a Say at §4: reference 340a, backend 330a
 [PASS] plant rust-fixed-multiply-floors: CAUGHT -- first divergent event 53 (E at §9.3.1)
 [PASS] plant reference-quotient-truncates: CAUGHT -- dissent kind REFERENCE-DISSENT: [c99,python,rust] agree with each other against the reference; the reference is still kept, by declaration
-ORLOG SELFTEST 140/140  (backends: python,c99,rust)
+ORLOG SELFTEST 147/147  (backends: python,c99,rust)

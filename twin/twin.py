@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 """twin.py -- a clean-room reference interpreter for ORLOG OL-0.
 
-Written from SPEC.md (v0.1, with its §11 amendments) and RUNTIME-SPEC.md alone. The numeric
-functions are those of src/orlog/numeric_ref.py and the seal words / check syllable those of
-src/orlog/seal.py; both are loaded by file path, so that no other module of the package runs.
-"§11 item n" marks a place settled by SPEC §11 (the number is the twin's NOTES number);
-"twin reading" marks a place §11 leaves open, listed in twin/probes/EXPECTED.md.
+Written from SPEC.md (v0.1 with its §11, §12 and §13 amendments) and RUNTIME-SPEC.md alone. The
+numeric functions are those of src/orlog/numeric_ref.py and the seal words / check syllable those
+of src/orlog/seal.py; both are loaded by file path, so that no other module of the package runs.
+"§11 item n" marks a place settled by SPEC §11 (the number is the twin's NOTES number); "§12" and
+"§13" mark the places those amendments changed; "twin reading" marks a place they leave open,
+listed in twin/probes/EXPECTED.md (round 2) and twin/probes3/EXPECTED.md (round 3). The twin takes
+canonical text: the door (§10, §12, §13 phase 1) is not implemented.
 
 usage:
     python twin.py [--alt N,N...] PROGRAM.orl LAW_SEAL TEXT_SEAL OUTPUT_PATH RECEIPT_PATH [TRACE_PATH]
 
 TRACE_PATH, when given, receives the RUNTIME-SPEC §5 trace lines. --alt switches the listed
-items to a reading §11 rejected (ALT_READINGS below); without it the twin follows §11.
+readings (ALT_READINGS below) to the other way: NOTES item numbers for the readings §11 rejected,
+names (lex-lazy, procs-all, depth-atoms5, tree-no-paren, ...) for round 3, where lex-lazy is the
+reading §13 settled against the twin and the rest are readings §12/§13 leave open. Without it the
+twin follows §11, §12 and §13, and its own reading where they leave a point open.
 
 Exit status: 0 for a completed or a refused run (output and receipt written);
 1 for a compile refusal (nothing written; "twin: compile refused CODE ..." on stderr, §11 G2);
@@ -53,6 +58,11 @@ LIST_MAX = NR.LIST_MAX         # 2^24
 TEXT_MAX = NR.TEXT_MAX         # 2^24
 OUTPUT_MAX = 1 << 30
 FUEL_MAX = 1 << 62
+LABEL_PARTS_MAX = 24           # §12 NESTING-DEPTH: a label of more than 24 parts
+LOOP_NEST_MAX = 16             # §12 LOOP-NESTING: more than 16 While/For loops nested in one body
+EXPR_NEST_MAX = 24             # §13 EXPRESSION-DEPTH: atoms, unary minuses and nots on one path
+TREE_DEPTH_MAX = 64            # §13 EXPRESSION-DEPTH: the statement's tree, the statement at level 1
+sys.setrecursionlimit(10000)
 
 # ---------------------------------------------------------------- words (SPEC §2, §3)
 RESERVED = frozenset("""
@@ -86,6 +96,30 @@ ALT_READINGS = {
     53: "event E carries the 0-based index k-1",
     54: "event E carries the raw slot (8 bytes, or 1 for Bool) without the value encoding's tag byte",
     57: "the receipt ends without an LF after 'end'",
+    # Round 3. "lex-lazy" is the round-2 reading §13 settled against the twin; the others are the
+    # readings §12/§13 leave open that the twin did not take (twin/probes3/EXPECTED.md).
+    "lex-lazy": "a statement is not read into tokens whole: the first offending position decides LEX or SYNTAX",
+    "procs-all": "every To clause's name is collected, nested ones included, not only top-level ones",
+    "procs-lexer": "a top-level clause beginning 'To' gives the words after it as a name, whether or not it parses",
+    "ref-parts": "NESTING-DEPTH also bounds a clause line's references to 24 parts",
+    "depth-atoms5": "EXPRESSION-DEPTH counts only a number, a text, a name, a parenthesized expression and a phrase"
+                    " (not true, false, this law's seal, item ... of, a list of ... copies of)",
+    "depth-entry": "EXPRESSION-DEPTH counts an atom position on entering it, before its token is seen",
+    "depth-isnot": "the not of 'is not less than' (greater than, at least, at most) counts on its right operand's path",
+    "depth-implicit-not": "the implicit not of Unless and of a Define's 'unless' counts on its condition's path",
+    "tree-no-paren": "parentheses are not nodes of the statement's tree",
+    "tree-cat-binary": "'followed by' is a left-associative binary node of the statement's tree",
+    "tree-inline-root": "an inline statement roots its own tree, instead of being a node below its clause's statement",
+    "tree-isnot-one": "'is not less than' and its kin are one node of the tree, not a not over a comparison",
+    "tree-no-conv": "conversions are not nodes of the statement's tree",
+    "depth-isnot-tree": "the not of 'is not <predicate>' and 'is not less than' (and kin) is on the path to every atom"
+                        " below it, its left operand included",
+    "tree-name-node": "the name in 'length of X' is a node below the phrase",
+    "loop-parts-first": "a loop's own parts (C and N; A, B and the counter) are checked before LOOP-NESTING",
+    "for-bounds-post": "a For's bounds are both checked before either's Int requirement",
+    "copies-count-first": "the count of 'a list of N copies of V' must be Int when N is reached, before V",
+    "visible-global": "a procedure may not take the lowercased name of any variable declared before it",
+    "rule-var-lower": "a variable is compared with rule names lowercased",
 }
 ALT = set()
 
@@ -100,11 +134,13 @@ class CompileRefusal(Exception):
 
 
 class SyntaxFail(Exception):
-    """A statement that does not parse; at_err when the parser stopped at an unreadable token."""
+    """A statement that does not parse. code is SYNTAX, EXPRESSION-DEPTH (§13), or LEX when the
+    parser stopped at an unreadable token (only under --alt lex-lazy, the round-2 reading)."""
 
-    def __init__(self, what, at_err=False):
+    def __init__(self, what, at_err=False, code=None):
         Exception.__init__(self, what)
         self.at_err = at_err
+        self.code = "LEX" if at_err else (code or "SYNTAX")
 
 
 class Stop(Exception):
@@ -141,9 +177,10 @@ def tokenize(s):
     """Longest match at each position; tokens need no separating space (§11 item 10).
 
     An unreadable token (a character that begins no token, an unterminated text, a section
-    sign without digits) ends the list as one 'err' token. The parser stops there only if it
-    gets that far, so the first offending position in the statement decides between LEX and
-    SYNTAX (§11 item 8; the order within a clause is a twin reading, see EXPECTED.md)."""
+    sign without digits) ends the list as one 'err' token. §13 phase 3: the statement is read
+    into tokens whole before it is parsed, so an 'err' token anywhere is LEX (phase_syntax);
+    only under --alt lex-lazy does the parser meet it, and then the first offending position
+    decides between LEX and SYNTAX (the round-2 reading)."""
     toks = []
     i = 0
     n = len(s)
@@ -225,15 +262,39 @@ BLOCK = ("block",)
 
 
 # ---------------------------------------------------------------- parser (SPEC §3, §4)
+PHRASE_HEADS = frozenset(["sum", "product", "quotient", "remainder", "larger", "smaller", "absolute", "square",
+                          "integer", "negation", "length", "list"])
+
+
 class Parser(object):
     def __init__(self, toks):
         self.t = toks
         self.i = 0
+        self.depth = 0          # §13 EXPRESSION-DEPTH: atoms, unary minuses and nots on the path so far
+        self.max_seen = 0       # the deepest count reached (for --alt depth-isnot-tree)
+
+    # -- §13 EXPRESSION-DEPTH, the nesting part: met reading left to right
+    def enter(self):
+        """A counted construct (an atom, a unary minus, a not) begins at the current token."""
+        self.depth += 1
+        self.max_seen = max(self.max_seen, self.depth)
+        if self.depth > EXPR_NEST_MAX:
+            raise SyntaxFail("more than %d atoms, unary minuses and nots on one path" % EXPR_NEST_MAX,
+                             code="EXPRESSION-DEPTH")
+
+    def leave(self):
+        self.depth -= 1
+
+    def leaf(self, count):
+        """An atom with nothing inside it: it is on the path to itself (§13 'the atom itself included')."""
+        if count:
+            self.enter()
+            self.leave()
 
     # -- helpers
     def peek(self, k=0):
-        """The token k ahead. Looking at an unreadable token is LEX at once, as with a lazy lexer:
-        the parser reads no further than it needs, so the first offending position decides."""
+        """The token k ahead. An unreadable token reaches the parser only under --alt lex-lazy
+        (§13 reads a statement into tokens whole first); looking at one is then LEX at once."""
         j = self.i + k
         if j >= len(self.t):
             return None
@@ -350,14 +411,36 @@ class Parser(object):
         return a
 
     def p_not(self):
-        if self.take("not"):
-            return ("not", self.p_not())
-        if self.take("it", "is", "not", "the", "case", "that"):
-            return ("not", self.p_not())
+        if self.take("not") or self.take("it", "is", "not", "the", "case", "that"):
+            self.enter()                            # §13: a not is on the path (written ones only: twin reading)
+            x = self.p_not()
+            self.leave()
+            return ("not", x)
         return self.p_cmp()
 
+    def is_operand(self, neg):
+        """The right operand of 'is [not] less than' and kin. Under --alt depth-isnot the not that
+        item 37 puts around the test is on this operand's path."""
+        if neg and ("depth-isnot" in ALT or "depth-isnot-tree" in ALT):
+            self.enter()
+            x = self.p_cat()
+            self.leave()
+            return x
+        return self.p_cat()
+
     def p_cmp(self):
+        saved = self.max_seen
+        self.max_seen = self.depth
         a = self.p_cat()
+        left_max = self.max_seen                # the deepest count inside the left operand
+        self.max_seen = max(saved, left_max)
+        # --alt depth-isnot-tree: item 37's not sits above the left operand too (a tree path, which a
+        # left-to-right reading has passed before the not is written)
+        if "depth-isnot-tree" in ALT and self.kw("is") and self.kw("not", 1) and (
+                any(self.kw(w, 2) for w in ("even", "odd", "zero", "positive", "negative", "less", "greater")) or
+                (self.kw("at", 2) and (self.kw("least", 3) or self.kw("most", 3)))):
+            if left_max + 1 > EXPR_NEST_MAX:
+                raise SyntaxFail("item 37's not over the left operand's atoms", code="EXPRESSION-DEPTH")
         tok = self.peek()
         if tok is not None and tok.kind == "op" and tok.text in ("<=", ">=", "!=", "<", ">", "="):
             self.i += 1
@@ -373,20 +456,21 @@ class Parser(object):
                     break
             if node is None:
                 if self.take("less", "than"):
-                    node = ("cmp", "<", a, self.p_cat())
+                    node = ("cmp", "<", a, self.is_operand(neg))
                 elif self.take("greater", "than"):
-                    node = ("cmp", ">", a, self.p_cat())
+                    node = ("cmp", ">", a, self.is_operand(neg))
                 elif self.take("at", "least"):
-                    node = ("cmp", ">=", a, self.p_cat())
+                    node = ("cmp", ">=", a, self.is_operand(neg))
                 elif self.take("at", "most"):
-                    node = ("cmp", "<=", a, self.p_cat())
+                    node = ("cmp", "<=", a, self.is_operand(neg))
                 else:
                     self.take("equal", "to")
                     node = ("cmp", "=", a, self.p_cat())
                     if neg and 37 not in ALT:
                         return ("cmp", "!=", a, node[3])     # §11 item 37: one operation
-            # 'is not <predicate>' and 'is not less than' and kin: a not around the test (§11 item 37)
-            return ("not", node) if neg else node
+            # 'is not <predicate>' and 'is not less than' and kin: a not around the test (§11 item 37),
+            # tagged "is": a node of the tree (§13, twin reading), not one of 'the nots' of the count
+            return ("not", node, "is") if neg else node
         return a
 
     def p_cat(self):
@@ -419,7 +503,10 @@ class Parser(object):
 
     def p_unary(self):
         if self.take("-"):
-            return ("neg", self.p_unary())      # a counted negation, never a negative literal (§11 item 36)
+            self.enter()                        # §13: a unary minus is on the path
+            x = self.p_unary()
+            self.leave()
+            return ("neg", x)                   # a counted negation, never a negative literal (§11 item 36)
         return self.p_postfix()
 
     POSTFIX = (
@@ -442,50 +529,95 @@ class Parser(object):
                 return a
 
     def p_atom(self):
+        """§13 EXPRESSION-DEPTH: an atom is on the path to itself and to every atom inside it. The
+        count is taken when the atom's first token is read (left to right), and only for an atom
+        that is there: an atom position holding no atom is SYNTAX (twin reading; --alt depth-entry
+        counts the position on entry). Every atom form of §4 counts (twin reading; --alt
+        depth-atoms5 counts only §13's five kinds)."""
+        if "depth-entry" in ALT:
+            self.enter()
+            node = self.atom(False)
+            self.leave()
+            return node
+        return self.atom(True)
+
+    def atom(self, count):
         tok = self.peek()
         if tok is None:
             self.fail("an expression expected")
+        small = count and "depth-atoms5" not in ALT     # true, false, the seal, item, copies
         if tok.kind == "num":
+            self.leaf(count)
             self.i += 1
             return ("num", tok.text)
         if tok.kind == "str":
+            self.leaf(count)
             self.i += 1
             return ("str", tok.val)
         if tok.kind == "op":
             if tok.text == "(":
                 self.i += 1
+                if count:
+                    self.enter()
                 e = self.expr()
                 self.need(")")
-                return e
+                if count:
+                    self.leave()
+                return ("paren", e)             # kept as a node: §13 counts it, and the tree holds it
             self.fail("an expression expected")
         if tok.kind != "word":
             self.fail("an expression expected")
         w = tok.low
         if w == "true":
+            self.leaf(small)
             self.i += 1
             return ("bool", True)
         if w == "false":
+            self.leaf(small)
             self.i += 1
             return ("bool", False)
-        if self.take("this", "law", "'", "s", "seal"):
+        if self.seq("this", "law", "'", "s", "seal"):
+            self.leaf(small)
+            self.i += 5
             return ("seal",)
         if w == "item":
             self.i += 1
+            if small:
+                self.enter()
             idx = self.p_unary()
             self.need("of")
-            return ("item", idx, self.ident())
-        if self.take("a", "list", "of"):
+            name = self.ident()
+            if small:
+                self.leave()
+            return ("item", idx, name)
+        if self.seq("a", "list", "of"):
+            self.i += 3
+            if small:
+                self.enter()
             n = self.p_sum()
             self.need("copies", "of")
-            return ("copies", n, self.p_unary())
+            v = self.p_unary()
+            if small:
+                self.leave()
+            return ("copies", n, v)
         if w == "the":
             nxt = self.peek(1)
             if nxt is not None and nxt.kind == "word" and nxt.low in RESERVED:
+                if nxt.low not in PHRASE_HEADS:
+                    self.fail("a phrase expected after 'the'")
                 self.i += 1
-                return self.p_phrase()
-            return ("var", self.ident())
+                if count:
+                    self.enter()                # §13: a phrase is an atom on the path
+                node = self.p_phrase()
+                if count:
+                    self.leave()
+                return node
+            name = self.ident()
+            self.leaf(count)
+            return ("var", name)
         if w in RESERVED:
             self.fail("a reserved word where an expression was expected")
+        self.leaf(count)
         self.i += 1
         return ("var", tok.text)
 
@@ -694,7 +826,7 @@ class Parser(object):
 
     def st_unless(self):
         # §11 item 16: no 'then' and no inline '; otherwise' for Unless.
-        cond = self.expr()
+        cond = self.implicit_not_expr()
         self.need(",")
         s = self.arm()
         self.need_end()
@@ -774,9 +906,20 @@ class Parser(object):
             provided = self.expr()
         elif self.op(",") and self.kw("unless", 1):
             self.i += 2
-            unless = self.expr()
+            unless = self.implicit_not_expr()
         self.need_end()
         return ("define", refs, name, value, provided, unless)
+
+    def implicit_not_expr(self):
+        """The condition of Unless and of a Define's 'unless': its not is counted at run time (items
+        15, 24) but is not written, so it is not on the EXPRESSION-DEPTH path (twin reading; --alt
+        depth-implicit-not puts it there)."""
+        if "depth-implicit-not" in ALT:
+            self.enter()
+            x = self.expr()
+            self.leave()
+            return x
+        return self.expr()
 
 
 def inline_parts(stmt):
@@ -838,9 +981,10 @@ def numbering_ok(prev, cur):
 
 
 def phase_lines(text):
-    """§11 G3 phase 2: every line, in line order; within a line, LINE-FORM, TITLE-PLACE,
-    SEAL-FORM, SEAL-PLACE, LINE-CHECK, NUMBERING. The first line with a fault decides
-    (twin reading: the code list orders the checks of one line, not passes over all lines).
+    """§13 phase 2: every line, in line order; within a line LINE-FORM, TITLE-PLACE, SEAL-FORM,
+    SEAL-PLACE, LINE-CHECK, NESTING-DEPTH (§12), NUMBERING; the first line with a fault decides
+    (§13 'one pass'). Only 'Sealed: ' opens a Sealed line; the Sealed line is content and a Note is
+    not; a clause line without its final period is LINE-FORM (§13, all as the twin read §11).
     Statements are not parsed here. Returns the clause lines and the Sealed line, if any."""
     raws = []
     title_seen = False
@@ -882,6 +1026,12 @@ def phase_lines(text):
                                  % (suffix, SL.line_check(body)))
         label_text = m2.group(1) if m2.group(1) is not None else m2.group(2)
         label = tuple(int(p) for p in label_text.split("."))   # §11 item 6: parts compared as integers
+        if len(label) > LABEL_PARTS_MAX:          # §12 NESTING-DEPTH, after LINE-CHECK and before NUMBERING (§13)
+            raise CompileRefusal("NESTING-DEPTH", line=ln, detail="a label of %d parts" % len(label))
+        if "ref-parts" in ALT:                    # the other reading: references are bounded too
+            for tok in tokenize(stmt_text[:-1]):
+                if tok.kind == "ref" and len(tok.val) > LABEL_PARTS_MAX:
+                    raise CompileRefusal("NESTING-DEPTH", line=ln, detail="a reference of %d parts" % len(tok.val))
         if not numbering_ok(prev, label):
             raise CompileRefusal("NUMBERING", line=ln, detail="label %s after %s" % (
                 ".".join(map(str, label)), ".".join(map(str, prev)) if prev else "nothing"))
@@ -891,32 +1041,145 @@ def phase_lines(text):
     return raws, sealed
 
 
+def expr_children(e):
+    k = e[0]
+    if k in ("num", "str", "bool", "seal", "var", "len"):
+        return ()
+    if k in ("paren", "neg", "abs", "sqrt", "intpart", "not"):
+        return (e[1],)
+    if k == "conv":
+        return (e[3],)
+    if k in ("bin", "cmp"):
+        return (e[2], e[3])
+    if k == "pred":
+        return (e[2],)
+    if k in ("quot", "max", "min", "and", "or", "copies"):
+        return (e[1], e[2])
+    if k == "item":
+        return (e[1],)            # X is the atom's name, not a node of its own
+    if k in ("cat", "list"):
+        return tuple(e[1])
+    raise AssertionError(k)
+
+
+def expr_depth(root):
+    """The depth of an expression's tree (§13 EXPRESSION-DEPTH, the second part), its root at 1.
+    Twin readings: parentheses and conversions are nodes; a concatenation is one node of k parts
+    (as §7 evaluates it); 'is not less than' is a not over a comparison (item 37); 'length of X'
+    and 'item U of X' hold X as a name, not a node. Iterative, for long operator chains."""
+    memo = {}
+    stack = [(root, False)]
+    while stack:
+        e, done = stack.pop()
+        if not done:
+            stack.append((e, True))
+            for c in expr_children(e):
+                stack.append((c, False))
+            continue
+        ds = [memo[id(c)] for c in expr_children(e)]
+        k = e[0]
+        if k == "cat" and "tree-cat-binary" in ALT:
+            d = ds[0]
+            for x in ds[1:]:
+                d = 1 + max(d, x)
+            memo[id(e)] = d
+            continue
+        if k == "len" and "tree-name-node" in ALT:
+            memo[id(e)] = 2
+            continue
+        own = 1
+        if (k == "paren" and "tree-no-paren" in ALT) or (k == "conv" and "tree-no-conv" in ALT) or \
+                (k == "not" and len(e) > 2 and "tree-isnot-one" in ALT):
+            own = 0
+        memo[id(e)] = own + (max(ds) if ds else 0)
+    return memo[id(root)]
+
+
+STMT_EXPRS = {"let": (2,), "set": (2,), "setitem": (1, 3), "inc": (3,), "incitem": (2, 4), "say": (1,),
+              "append": (1,), "must": (1,), "claim": (1,), "if": (1,), "unless": (1,), "otherwise_if": (1,),
+              "while": (1,), "for": (2, 3), "define": (3, 4, 5)}
+
+
+def stmt_depth(st, roots):
+    """The depth of a statement's tree, the statement node at level 1 (§13). An inline statement is
+    a node below its clause's statement (twin reading); under --alt tree-inline-root it is put on
+    roots and measured as a tree of its own."""
+    best = 0
+    for j in STMT_EXPRS.get(st[0], ()):
+        if st[j] is not None:
+            best = max(best, expr_depth(st[j]))
+    for part in inline_parts(st):
+        if "tree-inline-root" in ALT:
+            roots.append(part)
+        else:
+            best = max(best, stmt_depth(part, roots))
+    return 1 + best
+
+
+def check_tree(st):
+    """§13 phase 3: the tree's depth, checked after the parse."""
+    roots = [st]
+    while roots:
+        r = roots.pop()
+        d = stmt_depth(r, roots)
+        if d > TREE_DEPTH_MAX:
+            raise SyntaxFail("a statement tree %d deep" % d, code="EXPRESSION-DEPTH")
+
+
+def lexer_names(raws):
+    """--alt procs-lexer: every top-level clause beginning 'To' gives the words after it."""
+    names = set()
+    for (ln, line, label, text) in raws:
+        toks = tokenize(text)
+        if len(label) == 1 and toks and toks[0].kind == "word" and toks[0].low == "to":
+            words = []
+            for tok in toks[1:]:
+                if tok.kind != "word":
+                    break
+                words.append(tok.low)
+            if words:
+                names.add(" ".join(words))
+    return names
+
+
 def phase_syntax(raws):
-    """§11 G3 phase 3: statement syntax, in clause order; within a clause SYNTAX or LEX (the first
-    offending position), then PROCEDURE-NAME, then UNKNOWN-PROCEDURE. Returns the clauses."""
+    """§13 phase 3: clause by clause; within a clause LEX (the statement is read into tokens whole
+    first), then the parse (SYNTAX or EXPRESSION-DEPTH's nesting part, met left to right), then
+    the tree's depth, then PROCEDURE-NAME, then UNKNOWN-PROCEDURE. The procedure names are those
+    of the top-level To clauses that parse (§12 'collected from top-level clauses'; twin reading
+    for a To that does not parse). Returns the clauses and the procedure names."""
     parsed = []
     for (ln, line, label, text) in raws:
+        toks = tokenize(text)
+        if toks and toks[-1].kind == "err" and "lex-lazy" not in ALT:          # §13: LEX first
+            parsed.append((None, "LEX", "%r begins no token" % toks[-1].text[:12]))
+            continue
         try:
-            toks = tokenize(text)
             if not toks:
                 raise SyntaxFail("an empty statement")
-            parsed.append((Parser(toks).statement(), None, None))
-        except SyntaxFail as e:                                    # §11 item 8
-            parsed.append((None, "LEX" if e.at_err else "SYNTAX", str(e)))
-    names = set(p[0][1] for p in parsed if p[0] is not None and p[0][0] == "to")
+            st = Parser(toks).statement()
+            check_tree(st)
+            parsed.append((st, None, None))
+        except SyntaxFail as e:
+            parsed.append((None, e.code, str(e)))
+    if "procs-lexer" in ALT:
+        names = lexer_names(raws)
+    else:
+        names = set(p[0][1] for raw, p in zip(raws, parsed)
+                    if p[0] is not None and p[0][0] == "to" and (len(raw[2]) == 1 or "procs-all" in ALT))
     clauses = []
-    for i, ((ln, line, label, text), (stmt, code, detail)) in enumerate(zip(raws, parsed)):
+    for i, ((ln, line, label, text), (st, code, detail)) in enumerate(zip(raws, parsed)):
         cid = i + 1
         if code is not None:
             raise CompileRefusal(code, line=ln, clause=cid, detail=detail)
-        if stmt[0] == "to" and stmt[1].split(" ")[0] in RESERVED:  # §11 items 20, 21
+        if st[0] == "to" and st[1].split(" ")[0] in RESERVED:      # §11 items 20, 21
             raise CompileRefusal("PROCEDURE-NAME", line=ln, clause=cid,
-                                 detail="'%s' begins with a reserved word" % stmt[1])
-        for s in [stmt] + inline_parts(stmt):
-            if s[0] == "perform" and s[1] not in names:
-                raise CompileRefusal("UNKNOWN-PROCEDURE", line=ln, clause=cid, detail=s[1])
-        clauses.append(Clause(cid, label, ln, line, stmt))
-    return clauses
+                                 detail="'%s' begins with a reserved word" % st[1])
+        for part in [st] + inline_parts(st):
+            if part[0] == "perform" and part[1] not in names:      # §13: the name alone, or Perform
+                raise CompileRefusal("UNKNOWN-PROCEDURE", line=ln, clause=cid, detail=part[1])
+        clauses.append(Clause(cid, label, ln, line, st))
+    return clauses, names
 
 
 # ---------------------------------------------------------------- values
@@ -1090,7 +1353,7 @@ class Program(object):
 
 
 class Compiler(object):
-    def __init__(self, clauses, seal_words):
+    def __init__(self, clauses, seal_words, proc_names):
         self.clauses = clauses
         self.seal_bytes = seal_words.encode("ascii")
         self.label_map = {}
@@ -1108,16 +1371,17 @@ class Compiler(object):
         self.proc_defined = {}
         self.rule_compiled = {}
         self.rule_type = {}
-        # pre-collection: rule names, procedure names, certificate targets (§11 item 47)
+        self.loop_depth = 0                 # §12 LOOP-NESTING: While/For loops around the clause
+        self.all_var_names = set()          # for --alt visible-global
+        # pre-collection: rule names, certificate targets (§11 item 47); the procedure names are
+        # phase 3's, collected from top-level To clauses (§12)
         self.rule_defs = {}
-        self.proc_names = set()
+        self.proc_names = set(proc_names)
         self.cert_ids = set()
         for cl in clauses:
             s = cl.stmt
             if s[0] == "define":
                 self.rule_defs.setdefault(s[2], []).append(cl)
-            elif s[0] == "to":
-                self.proc_names.add(s[1])
             for c in [s] + inline_parts(s):
                 if c[0] == "claim" and c[2][0] == "certificate":
                     tgt = self.label_map.get(c[2][1])
@@ -1205,8 +1469,11 @@ class Compiler(object):
                 self.refuse("REDECLARED", "%s is visible in an enclosing scope" % name)
         if name in self.rule_defs:                          # §11 item 47: any rule, wherever defined
             self.refuse("REDECLARED", "%s names a rule" % name)
-        if name.lower() in self.proc_defined:               # §11 item 47: a procedure already defined
+        if "rule-var-lower" in ALT and name.lower() in set(r.lower() for r in self.rule_defs):
+            self.refuse("REDECLARED", "%s names a rule (lowercased)" % name)
+        if name.lower() in self.proc_defined:               # §11 item 47, §13: a procedure already defined
             self.refuse("REDECLARED", "%s names a procedure" % name)
+        self.all_var_names.add(name.lower())
         v = Var(name, self.n_vars, t, counter)
         self.n_vars += 1
         self.scopes[-1][name] = v
@@ -1296,28 +1563,45 @@ class Compiler(object):
             ch.arms.append((cond, c, self.compile_arm(cl, s[2])))
             return ch
         if k == "while":
+            if "loop-parts-first" not in ALT:
+                self.loop_place()                       # LOOP-NESTING: the place first, as a To's (twin reading)
+            cond = self.cbool(s[1])                     # §13: C, then N
             n_max = s[2]
             if n_max < 1 or n_max > FUEL_MAX:           # §11 item 19
                 self.refuse("FUEL", "bound %d" % n_max)
-            cond = self.cbool(s[1])
+            if "loop-parts-first" in ALT:
+                self.loop_place()
+            self.loop_depth += 1
             body = self.compile_block(cl.children)
+            self.loop_depth -= 1
             return self.x_while(c, cond, n_max, body)
         if k == "for":
-            tlo, flo = self.cexpr(s[2])
+            if "loop-parts-first" not in ALT:
+                self.loop_place()
+            post = "for-bounds-post" in ALT
+            tlo, flo = self.cexpr(s[2])                 # §13: A, then B, then the counter
+            if tlo != "I" and not post:                 # a requirement on A, checked at A (§13 refinement 2)
+                self.refuse("TYPE", "For bounds must be Int")
             thi, fhi = self.cexpr(s[3])
             if tlo != "I" or thi != "I":
                 self.refuse("TYPE", "For bounds must be Int")
             self.scopes.append({})
             var = self.declare(s[1], "I", counter=True)
+            if "loop-parts-first" in ALT:
+                self.loop_place()
+            self.loop_depth += 1
             body = self.compile_block(cl.children)
+            self.loop_depth -= 1
             self.scopes.pop()
             return self.x_for(c, flo, fhi, var.vid, body)
         if k == "to":
-            if len(cl.label) != 1:
+            if len(cl.label) != 1:                      # §13: the place, then the name, then the body
                 self.refuse("PROCEDURE-PLACE")
             name = s[1]
             if name in self.proc_defined:
                 self.refuse("REDECLARED", "procedure '%s' defined twice" % name)
+            if "visible-global" in ALT and name in self.all_var_names:
+                self.refuse("REDECLARED", "procedure '%s' names a variable declared before it" % name)
             if any(r.lower() == name for r in self.rule_defs):
                 self.refuse("REDECLARED", "procedure '%s' names a rule" % name)
             # §5's rule ("a name that is visible") applied to the converse of §11 item 47: a
@@ -1331,7 +1615,10 @@ class Compiler(object):
             # a procedure body sees the top-level variables declared textually before it
             self.scopes = [dict(saved[0])]
             self.in_proc = cl
+            saved_loops = self.loop_depth
+            self.loop_depth = 0                         # §12: a procedure body starts again at 0
             proc.body = self.compile_block(cl.children)
+            self.loop_depth = saved_loops
             self.scopes = saved
             self.in_proc = None
             self.proc_defined[name] = proc
@@ -1362,14 +1649,14 @@ class Compiler(object):
             f = self.coerce(t, f, var.type)
             return self.x_assign(c, var.vid, var.type, f)
         if k == "setitem":
-            ti, fi = self.cexpr(s[1])
+            ti, fi = self.cexpr(s[1])                   # §13: I, then X, then E
+            if ti != "I":                               # an index is an Int, checked at the index
+                self.refuse("TYPE", "an index must be Int")
             var = self.lookup(s[2])
             if var.counter:                             # §11 item 29: before the list type
                 self.refuse("LOOP-VARIABLE", s[2])
             if not is_list(var.type):
                 self.refuse("TYPE", "%s is not a list" % s[2])
-            if ti != "I":
-                self.refuse("TYPE", "an index must be Int")
             et = var.type[1]
             tv, fv = self.cexpr(s[3])
             fv = self.coerce(tv, fv, et)
@@ -1385,14 +1672,14 @@ class Compiler(object):
             fn = ARITH[var.type]["+" if s[1] > 0 else "-"]
             return self.x_inc(c, var.vid, var.type, f, fn)
         if k == "incitem":
-            ti, fi = self.cexpr(s[2])
+            ti, fi = self.cexpr(s[2])                   # §13: I, then X, then E
+            if ti != "I":
+                self.refuse("TYPE", "an index must be Int")
             var = self.lookup(s[3])
             if var.counter:                             # §11 item 29: before the list type
                 self.refuse("LOOP-VARIABLE", s[3])
             if not is_list(var.type):
                 self.refuse("TYPE", "%s is not a list" % s[3])
-            if ti != "I":
-                self.refuse("TYPE", "an index must be Int")
             et = var.type[1]
             if et not in NUMERIC:
                 self.refuse("TYPE", "Increase/Decrease needs numbers")
@@ -1470,16 +1757,16 @@ class Compiler(object):
     def compile_define(self, cl):
         s = cl.stmt
         name = s[2]                             # DEFINE-PLACE was phase 5
-        if name.lower() in self.proc_names:
-            self.refuse("REDECLARED", "rule %s names a procedure" % name)
         targets = set()
-        for r in s[1]:
+        for r in s[1]:                          # §13: the references, then the name, the value, the proviso
             tgt = self.label_map.get(r)
             if tgt is None:
                 self.refuse("UNKNOWN-CLAUSE", "notwithstanding " + fmt_ref(r))       # §11 item 33
             if tgt.stmt[0] != "define" or tgt.stmt[2] != name:
                 self.refuse("NOTWITHSTANDING-TARGET", fmt_ref(r))
             targets.add(tgt.id)
+        if name.lower() in self.proc_names:     # §13: no procedure's name (collected first, §12)
+            self.refuse("REDECLARED", "rule %s names a procedure" % name)
         tv, fv = self.cexpr(s[3])
         if is_list(tv):
             self.refuse("TYPE", "a rule is not a list")
@@ -1522,8 +1809,14 @@ class Compiler(object):
         return t, fa, fb
 
     # -- expressions
+    def loop_place(self):
+        if self.loop_depth + 1 > LOOP_NEST_MAX:
+            self.refuse("LOOP-NESTING", "more than %d loops nested" % LOOP_NEST_MAX)
+
     def cexpr(self, e):
         k = e[0]
+        if k == "paren":                        # a node of the tree (§13), nothing at run time
+            return self.cexpr(e[1])
         if k == "num":
             return self.c_num(e[1])
         if k == "str":
@@ -1542,10 +1835,10 @@ class Compiler(object):
                 return self.c_rule(name)
             self.refuse("UNDECLARED", name)
         if k == "item":
-            ti, fi = self.cexpr(e[1])
-            var = self.lookup_list(e[2])
+            ti, fi = self.cexpr(e[1])           # §13: I, then X; an index is an Int, checked at I
             if ti != "I":
                 self.refuse("TYPE", "an index must be Int")
+            var = self.lookup_list(e[2])
             vid = var.vid
 
             def item(rt):
@@ -1566,7 +1859,9 @@ class Compiler(object):
             return "I", length
         if k == "copies":
             tn, fn = self.cexpr(e[1])
-            tv, fv = self.cexpr(e[2])
+            if "copies-count-first" in ALT and tn != "I":
+                self.refuse("TYPE", "a count must be Int")
+            tv, fv = self.cexpr(e[2])           # post-order: both operands, then the checks (twin reading)
             if tn != "I":
                 self.refuse("TYPE", "a count must be Int")
             if tv not in ELEM_TYPES:
@@ -1613,7 +1908,7 @@ class Compiler(object):
             if t not in NUMERIC:
                 self.refuse("TYPE", "%s needs a number" % k)
             fn = ARITH[t][k]
-            if k == "neg" and 36 in ALT and e[1][0] == "num":     # a negative literal, 0 ops
+            if k == "neg" and 36 in ALT and unparen(e[1])[0] == "num":     # a negative literal, 0 ops
                 return t, const(fn(f(None)))
 
             def un(rt):
@@ -1689,8 +1984,10 @@ class Compiler(object):
                 return not v
             return "B", neg
         if k in ("and", "or"):
-            fa = self.cbool(e[1])
-            fb = self.cbool(e[2])
+            ta, fa = self.cexpr(e[1])           # §13: both operands typed before the operator's check
+            tb, fb = self.cexpr(e[2])
+            if ta != "B" or tb != "B":
+                self.refuse("TYPE", "a condition must be Bool")
             if 35 in ALT:                       # no short-circuit (§11 item 35, the other reading)
                 is_and = k == "and"
 
@@ -1983,6 +2280,12 @@ class Compiler(object):
         return run
 
 
+def unparen(e):
+    while e[0] == "paren":
+        e = e[1]
+    return e
+
+
 def promote(f, target):
     """An implicit promotion of an Int, counted right after its operand (§11 item 41, 42)."""
     fn = PROMOTE[target]
@@ -2104,9 +2407,9 @@ def compile_text(text, law_hex):
     2 lines, 3 statement syntax, 4 shape, 5 DEFINE-PLACE, 6 static semantics, 7 PRIORITY-CYCLE,
     8 SEAL-MISMATCH. The first refusal in the first phase that has one is raised."""
     raws, sealed = phase_lines(text)                    # 2
-    clauses = phase_syntax(raws)                        # 3
+    clauses, names = phase_syntax(raws)                 # 3
     words = SL.seal_words(law_hex)
-    comp = Compiler(clauses, words)
+    comp = Compiler(clauses, words, names)
     prog = comp.compile()                               # 4, 5, 6, 7
     if sealed is not None and sealed[1] != words:       # 8
         raise CompileRefusal("SEAL-MISMATCH", line=sealed[0], detail="Sealed %s, law seal words %s" % (sealed[1], words))
@@ -2155,17 +2458,14 @@ HEX64 = re.compile(r"^[0-9a-f]{64}$")
 def main(argv):
     argv = list(argv)
     if len(argv) >= 3 and argv[1] == "--alt":
-        try:
-            alts = set(int(x) for x in argv[2].split(",") if x)
-        except ValueError:
-            alts = None
+        alts = set(int(x) if x.isdigit() else x for x in argv[2].split(",") if x)
         if not alts or not alts <= set(ALT_READINGS):
-            sys.stderr.write("twin: --alt takes item numbers among %s\n" % sorted(ALT_READINGS))
+            sys.stderr.write("twin: --alt takes readings among %s\n" % ", ".join(sorted(map(str, ALT_READINGS))))
             return 2
         ALT.update(alts)
         del argv[1:3]
-        for n in sorted(alts):
-            sys.stderr.write("twin: alternative reading %d: %s\n" % (n, ALT_READINGS[n]))
+        for n in sorted(alts, key=str):
+            sys.stderr.write("twin: alternative reading %s: %s\n" % (n, ALT_READINGS[n]))
     if len(argv) not in (6, 7):
         sys.stderr.write("usage: python twin.py [--alt N,N...] PROGRAM.orl LAW_SEAL TEXT_SEAL OUTPUT_PATH "
                          "RECEIPT_PATH [TRACE_PATH]\n")

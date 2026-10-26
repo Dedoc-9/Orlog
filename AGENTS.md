@@ -1,10 +1,11 @@
 # AGENTS.md — working in Ørlǫg
 
 Ørlǫg is a prose programming language in which a program is a numbered legal text. Each clause is one statement, and
-the text spells a typed law exactly. One law runs byte-identically on a reference interpreter and on three backends:
+the text spells a typed law. One law is held to byte-identical output on a reference interpreter and three backends:
 Python, C99 and Rust. The door repairs, notes or refuses every byte that could read two ways. Every run writes a
-receipt and a hash chain of its events. Claims made in a program are checked during the run, and a court reads
-each claim's standing from the channel that supports it. Ørlǫg is off Verðandi's gate and has no authority there.
+receipt and a hash chain of its events. Claims made in a program are checked during the run, and a court reads each
+claim's standing from the channel that supports it. Ørlǫg lives in its own repository and has no authority anywhere
+else, Verðandi included.
 
 This file is the brief for a coding agent: what to read, what never to touch, what to run, and how to write a claim.
 It is plain Markdown in the [agents.md](https://agents.md/) format. A user's own instructions override it.
@@ -13,6 +14,13 @@ The rule under every rule: **integrity is not truth.** Ørlǫg computes integrit
 condition in one run. It cannot compute whether a condition says what its author meant. `declared ≠ verified`.
 `built ≠ adopted`. A claim's standing never exceeds its channel. Read the code, not the prose, and that includes this
 file.
+
+**Agreement is not grounding.** A green self-test, matching hashes, four executions agreeing, or the twin, the
+runtimes and the prosecutors agreeing: all of these are integrity. They rule out disagreement, and nothing more.
+Every verifier in this repository comes from one model family, so their agreement is consistency by construction.
+Treat what a generator makes, your own work here included, as a well-made fiction until something outside the
+program grounds it: a checked certificate, a cited result, or the owner's ratification. Disagreement is the signal.
+Never smooth one away to make a run agree, and never count agreement as proof.
 
 ## 1. Where the truth is
 
@@ -40,7 +48,7 @@ file.
 | `src/orlog/` | the door (`canon.py`), the clause tree and parser (`syntax.py`), types and the law (`sema.py`), seals and check syllables (`seal.py`), the reference (`interp.py`, `numeric_ref.py`), lowering and the three generators (`lower.py`, `gen_py.py`, `gen_c.py`, `gen_rs.py`, `rt_py.py`), the arbiter (`arbiter.py`), the court (`court.py`) |
 | `rt_c/`, `rt_rs/` | the C99 and Rust runtimes, each written by a separate author who did not read the other's work, each held to the vectors |
 | `vectors/` | `runtime-vectors.txt`, 20,015 lines generated from `numeric_ref.py` by `src/gen_vectors.py`: the contract every runtime meets |
-| `tests/` | `selftest.py` (every self-claim a row, every guard a plant), `compare_probes.py`, `diff_twin.py` and `diff_worker.py`, `fixtures/redteam/` |
+| `tests/` | `selftest.py` (every self-claim a row, every guard a plant), `compare_probes.py`, `diff_twin.py` and `diff_worker.py`, `asan_c.py`, `fixtures/redteam/`, `fixtures/e21/` |
 | `twin/` | the clean-room twin: a second interpreter written from the specification alone, its hand-worked probes, and `probes/settled.json` |
 | `court/` | the prosecutions, the red team (`redteam-eng/`), the judge and its record |
 | `examples/` | the corpus: Collatz, a certified gcd, leapfrog physics, chaos, defeasible law, the plankton parable, Aztec tilings, a falling body, three spellings of one law |
@@ -87,9 +95,9 @@ Set `PYTHONHASHSEED=0` and `PYTHONUTF8=1` for every run, and use `python -B`.
 |---|---|---|
 | anything | `python -B tests/selftest.py` (`--backends python` without compilers) | `ORLOG SELFTEST n/n`; read every FAIL line, and when a row fails, check first whether its expectation is stale |
 | the door (`canon.py`) | the self-test, then `python -B court/redteam-eng/doorfuzz.py 60000 5` | `0 distinct minimal counterexamples` |
-| the front end (`syntax.py`, `sema.py`, `front.py`) | the self-test; `python -B tests/compare_probes.py`; `python -B tests/diff_twin.py --n 3000 --seed 1` | the probes: 0 different (settled ones named); the differential run: every disagreement explained in `work/difftwin/report.md`. A new or removed compile code changes SPEC §13's table in the same change, and the self-test holds the table to the source |
+| the front end (`syntax.py`, `sema.py`, `front.py`) | the self-test; `python -B tests/compare_probes.py` and `python -B tests/compare_probes.py --dir probes3`; `python -B tests/diff_twin.py --n 3000 --seed 1` | the probes: 0 different (settled ones named); the differential run: every disagreement explained in `work/difftwin/report.md`. A new or removed compile code changes SPEC §13's table in the same change, and the self-test holds the table to the source |
 | the numeric semantics (`numeric_ref.py`) | `python -B src/gen_vectors.py`, then both runtimes' vector checks below, then the self-test | `RUNTIME VECTORS 20015 / 20015` from each runtime at both optimization levels (or the new count, said) |
-| the C runtime (`rt_c/`) | in `rt_c/`: `clang -std=c99 -pedantic -Wall -Wextra -O2 -ffp-contract=off -fno-fast-math test_rt.c -o test_rt.exe`, then `test_rt.exe ../vectors/runtime-vectors.txt`, then the same at `-O0` | `RUNTIME VECTORS 20015 / 20015` twice, outputs byte-identical |
+| the C runtime (`rt_c/`) | in `rt_c/`: `clang -std=c99 -pedantic -Wall -Wextra -O2 -ffp-contract=off -fno-fast-math test_rt.c -o test_rt.exe`, then `test_rt.exe ../vectors/runtime-vectors.txt`, then the same at `-O0`; then `python -B tests/asan_c.py` and `python -B tests/asan_c.py --plant`; then the self-test | `RUNTIME VECTORS 20015 / 20015` twice, outputs byte-identical; `ASAN C n/n clean`; `plant free-before-copy: CAUGHT`; the `memory` row flat and its plant caught. A text or list the runtime makes has one owner, a variable's slot or the temp stack (E21): never let a store free before it copies, and never add a maker of heap texts or lists that does not push onto the temp stack |
 | the Rust runtime (`rt_rs/`) | in `rt_rs/`: `rustc --edition 2021 -O test_rt.rs -o test_rt.exe`, then `test_rt.exe ../vectors/runtime-vectors.txt`, then the same without `-O` | `RUNTIME VECTORS 20015 / 20015` twice |
 | the event chain | `python -B src/check_chain.py` | the four heads each runtime's harness prints |
 | a generator or `lower.py` | the self-test | the corpus four-way identical; codegen identical under two hash seeds; every backend plant caught |
@@ -133,6 +141,12 @@ Before believing a surprising result, rerun clean: delete the stale `build/` cac
   the source.
 - **An optimizer can fold a NaN test.** Decide NaN on the bits.
 - **A compiler flag can miss its target.** FMA flags did not fuse Ørlǫg's generated C; an explicit `fma()` plant did.
+- **A build cache serves the old build.** Twice a check picked a cached source by its law's seal words, and both
+  times it got the wrong file. The FMA row counted a plant's FMA, and the red team's `memleak.py` reported the leak
+  unchanged after its repair. Measure the build you just made, never one you find; clear the cache before believing
+  a result that did not change.
+- **A repair is only as wide as what it measured.** E21 named texts; the C runtime's author had also named lists
+  (finding 8). The lists leaked until a measurement looked.
 - **One model family wrote every independent part:** the twin, both runtimes, the prosecutors and the reference.
   Their agreement shows consistency, not truth.
 

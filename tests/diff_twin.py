@@ -8,7 +8,8 @@ converse is not claimed: agreement on every text tried shows neither is right. B
 so they share priors (the verification paradox this language exists for): the run finds slips and undecided
 readings, never a misreading both make.
 
-Seeds: examples/, examples/spellings/, twin/probes/, twin/inputs/, tests/fixtures/redteam/. Each mutant is one to
+Seeds: examples/, examples/spellings/, twin/probes/, twin/probes3/, twin/inputs/, tests/fixtures/redteam/,
+tests/fixtures/e21/. Each mutant is one to
 three mutations of a seed (lines deleted, doubled, swapped, moved or relabelled; tokens deleted, doubled, replaced,
 inserted, swapped or recased; numbers replaced by edge values; lines spliced from another seed; Title, Note and
 Sealed lines inserted, a Sealed line sometimes with the true seal words; periods and check suffixes changed). A
@@ -64,8 +65,8 @@ def sources_key():
 
 def seeds():
     paths = []
-    for pat in ("examples/*.orl", "examples/spellings/*.orl", "twin/probes/*.orl", "twin/inputs/*.orl",
-                "tests/fixtures/redteam/*.orl"):
+    for pat in ("examples/*.orl", "examples/spellings/*.orl", "twin/probes/*.orl", "twin/probes3/*.orl",
+                "twin/inputs/*.orl", "tests/fixtures/redteam/*.orl", "tests/fixtures/e21/*.orl"):
         paths += sorted(glob.glob(os.path.join(ROOT, pat)))
     out = []
     for p in paths:

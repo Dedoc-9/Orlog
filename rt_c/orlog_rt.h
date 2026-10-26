@@ -1025,14 +1025,69 @@ static inline void orl_s_list(int tag, const int64_t *slots, uint64_t n) {
     orl__s_put("]", 1);
 }
 
-/* A heap copy of the builder's bytes (never freed by the runtime). */
+/* ================================================================ text ownership (red team E21)
+
+   Before 2026-10-25 a text made by 'followed by' was copied to the heap and never freed, so a run's memory grew
+   with every text it ever built. Now every heap text has exactly one owner:
+   - a temporary (the result of 'followed by') is owned by the temp stack, and released when the statement that
+     made it ends: the generated code takes a mark before each clause statement and each While iteration, and
+     releases back to it after;
+   - a text variable owns one buffer, its slot. A store copies the value into the slot, reusing the buffer while
+     the value fits, and frees the old buffer only after the copy, so storing a variable's own text is safe.
+   Lists follow the same rule (rt_c finding 8, measured the same way): every new list (made, written as a literal,
+   or copied when a list variable is read) is a temporary on the temp stack, and a list variable owns its own
+   buffer, which a store copies into. The language refuses recursion, and lists hold only numbers and truth values,
+   so each variable has at most one live instance and one slot per variable id suffices (slots, and a procedure's
+   list locals, are static). Live heap text is then at most (text variables + the text temporaries along one chain
+   of active statements + the one builder) x 2^24 bytes, and live list memory at most (list variables + the list
+   temporaries along that chain) x 2^24 x 8 bytes, whatever the length of the run. None of this is visible in an
+   output or a receipt. */
+
+static void **orl__tmp = NULL;
+static size_t orl__tmp_n = 0, orl__tmp_cap = 0;
+static const uint8_t orl__empty[1] = {0};
+
+static inline size_t orl_tmp_mark(void) { return orl__tmp_n; }
+
+static inline void orl_tmp_release(size_t mark) {
+    while (orl__tmp_n > mark) free(orl__tmp[--orl__tmp_n]);
+}
+
+static inline void orl__tmp_push(void *p) {
+    if (orl__tmp_n == orl__tmp_cap) {
+        size_t cap = orl__tmp_cap != 0 ? orl__tmp_cap * 2 : 64;
+        orl__tmp = (void **)orl__regrow(orl__tmp, cap * sizeof *orl__tmp);
+        orl__tmp_cap = cap;
+    }
+    orl__tmp[orl__tmp_n++] = p;
+}
+
+/* A heap copy of the builder's bytes, owned by the temp stack. */
 static inline orl_text orl_s_take(void) {
     orl_text t;
     uint8_t *p = (uint8_t *)orl__alloc(orl__sb_len);
     if (orl__sb_len != 0) memcpy(p, orl__sb, orl__sb_len);
+    orl__tmp_push(p);
     t.p = p;
     t.n = orl__sb_len;
     return t;
+}
+
+typedef struct { uint8_t *p; uint32_t cap; } orl_tslot;
+
+/* Store a text into a variable that owns slot: copy first, free after. */
+static inline void orl_t_store(orl_text *var, orl_tslot *slot, orl_text v) {
+    if (v.n > slot->cap) {
+        uint8_t *p = (uint8_t *)orl__alloc(v.n);
+        memcpy(p, v.p, v.n);
+        free(slot->p);
+        slot->p = p;
+        slot->cap = v.n;
+    } else if (v.n != 0 && v.p != slot->p) {
+        memmove(slot->p, v.p, v.n);
+    }
+    var->p = v.n != 0 ? slot->p : orl__empty;
+    var->n = v.n;
 }
 
 /* ================================================================ Say */
@@ -1170,6 +1225,7 @@ static inline orl_list orl_l_new(int64_t n, int64_t fill, uint32_t c) {
     if ((uint64_t)n > ORL_LIST_MAX) { orl_refuse(ORL_LIST_TOO_LONG, c); return l; }
     l.cap = n != 0 ? (uint64_t)n : 4;
     l.v = (int64_t *)orl__alloc((size_t)l.cap * sizeof(int64_t));
+    orl__tmp_push(l.v);                 /* a new list is a temporary (E21, finding 8) */
     for (i = 0; i < (uint64_t)n; ++i) l.v[i] = fill;
     l.len = (uint64_t)n;
     return l;
@@ -1180,9 +1236,26 @@ static inline orl_list orl_l_from(uint64_t n, const int64_t *slots) {
     if (n > ORL_LIST_MAX) orl__fatal("list literal longer than 2^24");
     l.cap = n != 0 ? n : 4;
     l.v = (int64_t *)orl__alloc((size_t)l.cap * sizeof(int64_t));
+    orl__tmp_push(l.v);                 /* a new list is a temporary (E21, finding 8) */
     if (n != 0) memcpy(l.v, slots, (size_t)n * sizeof(int64_t));
     l.len = n;
     return l;
+}
+
+/* Store a list into a variable, which owns its buffer: the items are copied in (E21, finding 8). A list value read
+   from a variable is always a copy, so the source never is the destination's buffer. */
+static inline void orl_l_store(orl_list *var, orl_list t) {
+    if (var->v == NULL || t.len > var->cap) {
+        uint64_t cap = t.len != 0 ? t.len : 4;
+        int64_t *p = (int64_t *)orl__alloc((size_t)cap * sizeof(int64_t));
+        if (t.len != 0) memcpy(p, t.v, (size_t)t.len * sizeof(int64_t));
+        free(var->v);
+        var->v = p;
+        var->cap = cap;
+    } else if (t.len != 0 && t.v != var->v) {
+        memmove(var->v, t.v, (size_t)t.len * sizeof(int64_t));
+    }
+    var->len = t.len;
 }
 
 static inline orl_list orl_l_copy(const orl_list *s) {

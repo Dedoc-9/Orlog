@@ -1,0 +1,8 @@
+difftwin: 20353 texts (353 seeds, 20000 mutants; 0 mutants refused by the door and not compared); 18603 to run, 1750 memoized
+difftwin: both refused alike 19282; both ran alike 1023; disagree 48 in 6 signatures
+     24  COMPILE ref=EXPRESSION-DEPTH twin=SYNTAX
+     11  COMPILE ref=RUN twin=EXPRESSION-DEPTH
+     10  COMPILE ref=TYPE twin=UNDECLARED
+      1  COMPILE ref=LITERAL-RANGE twin=EXPRESSION-DEPTH
+      1  COMPILE ref=UNDECLARED twin=EXPRESSION-DEPTH
+      1  TIMEOUT

@@ -162,18 +162,18 @@ class Analysis:
             if s.els is not None:
                 self.body(s.els[1], s.els[0])
         elif isinstance(s, While):
+            self.enter_loop(c)              # its place first, as a To's (SPEC §14, the twin's round 3)
             self.want(c, s.cond, "bool")
             if not (1 <= s.fuel <= (1 << 62)):
                 self.err("FUEL", c, "a While's bound is between 1 and 2^62")
-            self.enter_loop(c)
             self.block(c.children)
             self.loop_depth -= 1
         elif isinstance(s, For):
+            self.enter_loop(c)              # its place first (SPEC §14)
             self.want(c, s.lo, "int")
             self.want(c, s.hi, "int")
             self.scopes.append({})
             s.var = self.declare(c, s.name, "int", loop=True)
-            self.enter_loop(c)
             self.block(c.children)
             self.loop_depth -= 1
             self.scopes.pop()

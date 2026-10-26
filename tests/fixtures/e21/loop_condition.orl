@@ -1,0 +1,7 @@
+Note: E21 ownership. Temporaries made by a While condition are released every iteration; empty texts are stored.
+§1 Let t be "".
+§2 Let e be "".
+§3 Set e to e followed by "".
+§4 While t followed by e is not "aaaa", at most 10 times, do the following.
+§4.1 Set t to t followed by "a".
+§5 Say t followed by e followed by "|".

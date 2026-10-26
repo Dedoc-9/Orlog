@@ -1,0 +1,4 @@
+SETTLED ed-missing-atom: the twin read SYNTAX; SPEC §14, item 6 settles EXPRESSION-DEPTH, which the reference gives
+SETTLED ed-tree-paren-node: the twin read EXPRESSION-DEPTH; SPEC §14, item 7 settles a run (COMPLETED), which the reference gives
+SETTLED w-copies-count-post-order: the twin read UNDECLARED; SPEC §14, item 9 settles TYPE, which the reference gives
+PROBES probes3 125/128 identical between the twin's hand-worked expectations and the reference; 3 settled against the twin's reading; 0 different

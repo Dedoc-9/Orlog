@@ -170,3 +170,35 @@ python -B plants.py                                    (about a minute; builds i
 ```
 
 Set `PYTHONHASHSEED=0` for the Python runs, and `PYTHONUTF8=1` when output is redirected.
+
+## 2026-10-25, later: text and list ownership (red team E21; finding 8 above)
+
+Added by the reference's maintainer, not by this runtime's author. Finding 8 ("no release for lists or texts") is
+repaired in this header and in the C generator (`src/orlog/gen_c.py`, `src/orlog/lower.py`):
+- A text made by `followed by` (`orl_s_take`) and every new list (`orl_l_new`, `orl_l_from`, and so `orl_l_copy`)
+  is pushed on a temp stack. The generated code takes a mark (`orl_tmp_mark`) before each clause statement and each
+  While iteration, and releases back to it (`orl_tmp_release`) afterwards.
+- A text variable owns a static slot (`orl_tslot`; `orl_t_store` copies, then frees). A list variable owns its
+  buffer (`orl_l_store` copies in). A procedure's list locals are static.
+- The bound rests on the language's rules of no recursion and no text in a list:
+  - live text ≤ (text variables + the text temporaries along one chain of active statements + the builder) × 2^24
+    bytes;
+  - live list memory ≤ (list variables + the list temporaries along that chain) × 2^24 × 8 bytes.
+
+MEASURED here, 2026-10-25 (files in `evidence/`):
+- `RUNTIME VECTORS 20015 / 20015` at -O2 and at -O0, the two outputs byte-identical (`e21-rt_c-vectors-O2.txt`).
+- The red team's `memleak.py`, a 16 MiB text rebuilt N times (Python's peak was 113 MiB throughout;
+  `e21-memleak-before.txt`, `e21-memleak-after.txt`):
+
+  | | N = 5 | N = 20 | N = 40 |
+  |---|---|---|---|
+  | C peak commit, before | 130 MiB | 370 MiB | 691 MiB |
+  | C peak commit, after | 58 MiB | 58 MiB | 58 MiB |
+
+- A 2,000,000-item list stored N times: 77 and 505 MiB at N = 4 and 32 before (measured on commit 7186e50), and
+  46 and 46 MiB after (`e21-lists-before.txt`, `e21-lists-after.txt`).
+- `python -B tests/asan_c.py`: 29/29 programs clean under -fsanitize=address and byte-identical to the reference.
+  Its plant, a store that frees before it copies, is caught as heap-use-after-free (`e21-asan.txt`,
+  `e21-asan-plant.txt`).
+- The self-test's E21 rows: four fixtures identical on all four executions; memory flat; the plant (temporaries
+  never released) caught.

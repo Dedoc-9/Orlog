@@ -1,0 +1,10 @@
+Note: E21 ownership. A variable stored into itself, through a rule that returns its own text, shrunk and grown.
+§1 Let t be "abc".
+§2 Set t to t.
+§3 Set t to t followed by t.
+§4 Define r as t.
+§5 Set t to r.
+§6 Let u be r followed by "!".
+§7 Set t to "x".
+§8 Set t to u.
+§9 Say t followed by "|" followed by u.

@@ -1,0 +1,6 @@
+Note: E21 ownership. A procedure's text local, rebuilt on every call; its slot is reused, never lost.
+§1 To greet, do the following.
+§1.1 Let s be "hello, " followed by "world".
+§1.2 Say s followed by "".
+§2 For each i from 1 to 3, do the following.
+§2.1 Perform greet.

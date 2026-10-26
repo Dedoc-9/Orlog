@@ -581,7 +581,88 @@ real refusals). The set of accepted texts and their canonical forms cannot chang
 The red team's door fuzz, rerun after the change, finds 0 counterexamples in 60,000 lines (seed 5, MEASURED).
 Code changed.
 
-**The differential run.** `tests/diff_twin.py` (results below).
+**The differential run.** `tests/diff_twin.py`. (This line first read "results below", and no results followed: the
+twin's third round found it. The results are in §14.)
+
+## 14. Amendments v0.4 (2026-10-25), settling the twin's third round (twin/probes3/EXPECTED.md)
+
+The twin's author updated the twin to §12 and §13, reading nothing but this specification, RUNTIME-SPEC.md and the
+two shared modules, and wrote 128 new probes by hand. The reference met 124 of them as first run. The twin named
+twelve places where it found §12 and §13 undecided, and the four differences were all among them. Each is settled
+below. The three readings settled against the twin are in `twin/probes3/settled.json`. After these, the reference
+meets 125 probes as worked and 3 as settled (`python tests/compare_probes.py --dir probes3`).
+
+1. **Only a top-level To defines a procedure** (§12). A nested To defines nothing: it is refused PROCEDURE-PLACE in
+   phase 6. So a call to its name is UNKNOWN-PROCEDURE (phase 3), and a Define of its name is not REDECLARED by it.
+   §13's "no To clause defines" means no top-level one. (The twin's reading, already the reference's.)
+2. **A To that does not parse defines nothing.** A top-level clause defines a procedure only when its statement is a
+   well-formed To. (The twin's reading, already the reference's.)
+3. **Every atom counts toward EXPRESSION-DEPTH**: every form of §4's atom, including `true`, `false`,
+   `this law's seal`, `item … of` and `a list of … copies of`, and not only §13's five examples. (The twin's reading,
+   already the reference's.)
+4. **Only a written not counts**, that is `not` and `it is not the case that`. The not inside `is not <test>`, an
+   Unless's not and a Define's `unless` are counted operations at run time, but they add nothing to the nesting
+   count. (The twin's reading, already the reference's.)
+5. **The count, defined once.** The nesting count at a position is the number of atom positions, unary minuses and
+   written nots that the left-to-right parse is inside when it reaches that position, the position itself
+   included. This is the "path" §13 meant. On the left operand of `is not even` the two descriptions now agree,
+   because the implicit not is not counted (item 4). (The twin's reading, already the reference's.)
+6. **The count rises on entering an atom position**, before what stands there is read. So twenty-four `(` followed
+   by `)` is EXPRESSION-DEPTH, not SYNTAX. Against the twin: the bound guards the parser's own recursion, so it must
+   hold before the parser goes deeper.
+7. **The statement's tree is the parse tree** (the nodes of `src/orlog/syntax.py`, once the statement has parsed).
+   This is against the twin on parentheses only. In that tree:
+   - parentheses group and make no node;
+   - `a followed by b followed by c` is one node over its parts;
+   - `is not <test>` (`is not less than` and its kin) is a not node over the test, and so is a Define's `unless C`.
+     An Unless statement's not is added after the check, so it is not in the tree;
+   - an inline statement is a child of its clause's statement;
+   - conversions are nodes;
+   - the X of `item I of X` and `length of X` is part of its node, not a child.
+
+   The 64-level bound protects the stages that walk this tree (checking, lowering, generating), and none of them
+   recurses on parentheses.
+8. **A loop's place first.** A While or a For checks LOOP-NESTING before its own parts, as a To checks its place
+   before its name. Code changed: the twin's reading.
+9. **Which checks belong to a part.** A requirement belongs to a part when the statement or phrase names that part's
+   type: an index, a count (`a list of N copies of V`), a bound, a condition, a stored value. It is checked when the
+   part is reached. An operator's own check is a relation between its operands (unification, comparison, the
+   integers of quotient and remainder, the truth values of `and` and `or`), so it comes after them.
+   - `a list of 1.5 copies of y` is TYPE, from the count. This is against the twin.
+   - A For's lower bound has its Int requirement checked at that bound. This is the twin's reading, already the
+     reference's.
+10. **Item 47 is its bullets.** "One name may not stand for a variable and a procedure" summarizes §13's bullets
+    ("already defined", "visible") and adds nothing to them. So a procedure may take the name of a variable that is
+    no longer visible. (The twin's reading, already the reference's.)
+11. **Rules and variables are compared as spelled.** Identifiers are case-sensitive (§2). Only a procedure's name,
+    being lowercased words, is compared lowercased. (The twin's reading, already the reference's.)
+12. **NESTING-DEPTH is about labels.** A reference with more than 24 parts names no clause, so it is UNKNOWN-CLAUSE in
+    phase 6. (The twin's reading, already the reference's.)
+
+**Dead rules the twin found.** No canonical text reaches these; they stay, marked:
+- Within one clause, PROCEDURE-NAME before UNKNOWN-PROCEDURE, and EXPRESSION-DEPTH before PROCEDURE-NAME. Only a To
+  can be PROCEDURE-NAME, and a To holds no call and no expression.
+- §12's "a procedure body starts again at 0". A To stands only at the top level, where the depth is 0 anyway, and a
+  nested To is refused before its body is walked.
+- Phase 1 and the arbiter's rules concern raw bytes and comparisons, not canonical text. The door's rows and the
+  arbiter's rows hold them.
+
+**The differential run** (`python -B tests/diff_twin.py --n 20000 --seed 1 --minimize`):
+- §13's run, against the round-2 twin: 20,221 texts. 18,749 were refused alike, 1,185 ran byte-identically and 287
+  disagreed:
+  - 282 because that twin predated §12 and §13 (LEX first, the depth bounds, a RecursionError);
+  - 1 artifact of the harness, since fixed (a zero law seal's words are `babab-babab-babab-babab`);
+  - 4 orders within a statement, settled in §13.
+- This round's runs, against the round-3 twin, MEASURED here:
+  - seed 1, with §13's seeds: 20,221 texts. 19,036 were refused alike, 1,185 ran byte-identically and **0
+    disagreed**;
+  - seed 2, with this round's probes and the E21 fixtures added as seeds: 20,353 texts. 19,282 were refused alike,
+    1,023 ran byte-identically and 48 disagreed:
+    - 47 are the three readings settled against the twin above (items 6, 7 and 9), as mutants of their probes;
+    - 1 exceeded the run's time limit. Run again without the limit, both implementations refuse it FUEL-EXHAUSTED
+      after 270,000,669 operations, with byte-identical receipts.
+- Agreement on these samples is consistency between two readers of one text (§8 of DOCTRINE.md); it is not a proof
+  that either reads the text rightly.
 
 ## 10. What the canonical text is
 

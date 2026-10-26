@@ -1,0 +1,2 @@
+lists: N=4   exit 0  c99 peak commit   46 MiB
+lists: N=32  exit 0  c99 peak commit   46 MiB

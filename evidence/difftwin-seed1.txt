@@ -1,0 +1,2 @@
+difftwin: 20221 texts (221 seeds, 20000 mutants; 0 mutants refused by the door and not compared); 20221 to run, 0 memoized
+difftwin: both refused alike 19036; both ran alike 1185; disagree 0 in 0 signatures

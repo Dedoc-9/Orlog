@@ -1,0 +1,1033 @@
+{
+ "ed-23-minuses-pass": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "292cc1fb7da3ebe4039933a589336c0557d669f5630373ed22582a98e1b9d528"
+ },
+ "ed-23-nots-pass": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "0fc087052fc0cd7ab3baa64c02393dbc2ce98c8faa91e81ede14053fe4c59539"
+ },
+ "ed-23-parens-pass": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "c18de127a38b26632d84f06ce73b7840285a6a76afa40e6976874ff30ca67515"
+ },
+ "ed-23-phrases-pass": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "05496b1f5db4eae039ead35bc807500ae18902bfe5f35cf503be089cfff79ef1"
+ },
+ "ed-24-minuses": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "b13a254440fdae943f9bf91e1dba571bea62835a9907a6c7ff73b975d59dcb12"
+ },
+ "ed-24-nots": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "e786f2b06ae811256a88f0cb2ac19376e9b66e86a8e8f458be9eb824e81606b6"
+ },
+ "ed-24-parens": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "ed10c35a17c5d5081bd04ca1906c17d5929da95644ef963852cf985736f6f47a"
+ },
+ "ed-24-phrases": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "f977b83c01fad2caafc5f76c1fb51a1bb16c707b0a42e1b6b8ce8b3c07e27290"
+ },
+ "ed-63-terms-pass": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "29b199fa31413ab1d12b0e9c808c2de73f683514ad7bd04fcb468f0f8908e75a"
+ },
+ "ed-64-terms": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "bfd5a847fc3339278ce3ae9b57bd59873fa5cc20619cdbf7b50d7308462dad79"
+ },
+ "ed-after-earlier-syntax": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "37aafa3538e008c13935850598d69796c6c05311d2a97a865346c3e9203728c1"
+ },
+ "ed-before-unknown-procedure": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "8c4fb33d93ed971937ba99c280202b9a2f5b4b0829955b7f74ea1fffab38b8b4"
+ },
+ "ed-clause-1-before-syntax-clause-2": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "0bc1bc17caf05bca37e2f1f93ae09c43e712b87730959084e7060dde51bd458d"
+ },
+ "ed-is-not-left-operand": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "d92b24433217dc096782247c0342b6c7ed5a19cd2c241c548e43ce2bebaf0352"
+ },
+ "ed-is-not-not-counted": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "cb40b63a56d38f4e3dd619c54b79b537c2e9e3ce0f396380f5481ec1143accf6"
+ },
+ "ed-item-counts": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "f817e72677cce876bbb700f01a006405671af98477b233355931d9bff248a1c0"
+ },
+ "ed-met-before-later-syntax": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "1b40728f2b2c5632d16cc73658d489b3e20f3ec42380c205aecf8de639837a84"
+ },
+ "ed-missing-atom": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "c992d7730044074c5834484e3d2517cb2a6da0d0bfe1cca0fb2cf3ff03e67bff"
+ },
+ "ed-mixed-24-pass": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "822ed16cc090d343495d0f3f078ad04e32ec339b9cc17c4d4f0702edbeceff60"
+ },
+ "ed-mixed-25": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "a5ae02826acdaec2a33537d43ff8e2244a79de1b646ed47a41c7f6090a78cac8"
+ },
+ "ed-tree-before-unknown-procedure": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "b247ce8a236393960b29761c71678902154a4a89d50bbcf520c32ee461b478f3"
+ },
+ "ed-tree-cat-one-node": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "e7e2d57e0ac5327d55ce98550b948b5ad829711ed1b1930307fcb7e600a8d093"
+ },
+ "ed-tree-checked-after-parse": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "7c4affdc06166458efbb61ed0e22ffce32087f379ed5555c34466d452b27a00c"
+ },
+ "ed-tree-conversions": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "79bc0dabc40f327f27bd3bcd43e03ce7e7238eec72799485cc2aae219b6c4c53"
+ },
+ "ed-tree-inline-below-clause": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "dc42f3b5550fc68471923cdb96bc86e62035970e69931ed3c31882a9e93424fc"
+ },
+ "ed-tree-is-not-two-nodes": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "54d7e02f844bca51552aa458051bf63f0e37ca99169f3e8a5c391463985db5ac"
+ },
+ "ed-tree-length-name": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "729690578382c5577c5f721c1bb9c2d13f03532c96fdddec0c09a349865a072a"
+ },
+ "ed-tree-paren-node": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "e41c29f45fca259b0eee3a7334e1d250965d6158a0d65fa5b991ef5d9a788ad4"
+ },
+ "ed-true-counts": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "d1a6ad7ddf4cde470b029520873ed4a6ebf651d5d23ab3d71bc8017d29cdff5b"
+ },
+ "ed-unless-not-not-counted": {
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "70e71356294558161a382ce349aa03768b792420ce5846c1daf5fa69d7ab2a5f"
+ },
+ "i29-append-to-counter": {
+  "items": [
+   "\u00a713 item 29"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "64697170ca3bc41eb162ddcb9b00a50f4ecada99a33206b8821481d7310095d1"
+ },
+ "i29-decrease-item-of-counter": {
+  "items": [
+   "\u00a713 item 29"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "fd5c491be8835647e83f160cc25cbcae90a17f128cf43e044cbd27b145e6aedc"
+ },
+ "i29-remove-from-counter": {
+  "items": [
+   "\u00a713 item 29"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "8282ccd34b20fe8e5bb2abe376f8ae1b956c0375a84f41718f202f93f8ca2e78"
+ },
+ "i47-counter-named-procedure": {
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "c0dbde5522d034be1e31cbaf17e857cacccea304b4251af1e5c0cd600401127a"
+ },
+ "i47-define-named-as-nested-to": {
+  "items": [
+   "\u00a712 procedures",
+   "\u00a713 item 47"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "e3b70534dbcacc7ae67861e3ab284f27bf0622a2f66613f6073879e95cb94d62"
+ },
+ "i47-define-then-procedure": {
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "07323b13571f8f7294634213a6e2cb880b524fdb796a836fd1407728b245636b"
+ },
+ "i47-local-in-own-body": {
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "1b3b60af9d214f88110b74daef6c93c893c890c7d5813c58f53537821b0b0390"
+ },
+ "i47-multiword-name-and-variable": {
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "e1e0ace8407f2875a36b60b3c4a9c2a77bda18eb9f8889117fee5626e7b6f9af"
+ },
+ "i47-own-call-in-block": {
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "f873b9b8904c7d33920b1033b8a4a96848e909e425f564f04f97951bd75badea"
+ },
+ "i47-procedure-after-invisible-variable": {
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "088d62333592789884605090da27932dc671ce4ea1314677a2a88f05d60b9d27"
+ },
+ "i47-procedure-after-visible-variable": {
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "29161c2eba530d9f07265adfb8a466558098a7c8d1e72b52b4bb8c1faffe3449"
+ },
+ "i47-procedure-then-define-case": {
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "42e480db2e5f82db1692e09d79a0bb9d3b63758bea575c5bea2a5e2e96eb27f5"
+ },
+ "i47-rule-and-variable-case-sensitive": {
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "10dfebc56d3f19477d3e50fd0d607c5566b58a71b5b7ce8dc2d37102d756259a"
+ },
+ "i47-variable-after-procedure-upper": {
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "56b18da6511fede0e066672276979741cde3d8fc65750cec74a8d7b7a6fd8366"
+ },
+ "i47-variable-in-later-procedure": {
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "926f9cbe091cafbb8420767d721b30fad39b19c56c01f829fb24321baf8059ad"
+ },
+ "i48-item-of-rule": {
+  "items": [
+   "\u00a713 item 48"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "806075f7ebe0f65f79bb03be2a603af572d4045a86499befb89c7d09c4207e72"
+ },
+ "i48-length-of-rule": {
+  "items": [
+   "\u00a713 item 48"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "a8106365d63f296da44a7603f1c869683502a63a33d0675594c3fecac77bd4c1"
+ },
+ "i48-remove-from-rule": {
+  "items": [
+   "\u00a713 item 48"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "a7d5336e1a9e08d7f64b5cbb19ca7325c716294fb070911407ba2af20b0057bb"
+ },
+ "i48-set-item-of-rule": {
+  "items": [
+   "\u00a713 item 48"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "20f11ed01cc865d86bf054182058b461b5604ce812a5739afe22a025090cd8e6"
+ },
+ "ln-16-pass": {
+  "items": [
+   "\u00a712 LOOP-NESTING"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "20a569f11c7ae07ebd0b12e7e42f78d9840951aadeec513513c0d6629d13a27c"
+ },
+ "ln-17-mixed": {
+  "items": [
+   "\u00a712 LOOP-NESTING"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "d6ede2ee50ed5284489bd7fb473e3b96b46ffbf663a0790e330fbb53cc1c3bed"
+ },
+ "ln-ifs-do-not-count": {
+  "items": [
+   "\u00a712 LOOP-NESTING"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "801f0216a40700556924ede999f095aa37adabbf1c8ee86ec11a1fd366e8fe86"
+ },
+ "ln-place-before-condition": {
+  "items": [
+   "\u00a712 LOOP-NESTING",
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "aeaadd05cfe0d0c2437c83bbe9be99ae5970ebbdabbaf217de489d457c57de8e"
+ },
+ "ln-procedure-body": {
+  "items": [
+   "\u00a712 LOOP-NESTING"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "a04360e1d0747d628d754967e7943d1c5f51898d208e4cb9c62108032e0b40ee"
+ },
+ "ln-siblings-do-not-nest": {
+  "items": [
+   "\u00a712 LOOP-NESTING"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "b2fb03430f7647b617a766d69b0a97d8d82ce04536928c7721240f961c5ee166"
+ },
+ "nested-to-empty-block": {
+  "items": [
+   "\u00a712 procedures",
+   "\u00a713 phase 4"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "dba789ec6d563edf0a093e4f97b0bb2058a7f02ff2d43f56df0614d070b63816"
+ },
+ "nested-to-place": {
+  "items": [
+   "\u00a712 procedures"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "6fa76d064452400b05cd0e94a269a3e5154174315e6281a3054aeba85179d53c"
+ },
+ "p2-bad-check-after-sealed": {
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "28527d47af6491e5059d8f4c2af2c8bc445f8dc0254d150a3dee146adbe3a513"
+ },
+ "p2-depth-24-passes": {
+  "items": [
+   "\u00a712 NESTING-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "1530c361eacf64e8e2dcff2f1769d6d19e65c9cb54c06716fe9af0f28dc4b5bc"
+ },
+ "p2-depth-25-refused": {
+  "items": [
+   "\u00a712 NESTING-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "28321033d7a12254d32b61b1f072925f74bbf9b9daae6bdf82e34747cd79cfee"
+ },
+ "p2-depth-before-numbering": {
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "9b9458956f4e783a80d547a801838c922b646b2cfcc3d4e87010f95b65674fd6"
+ },
+ "p2-line-check-before-depth": {
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "5fd0267af39005d458f4e0d35b85c28a9a344bbd336ca47d34a1d93d03f08635"
+ },
+ "p2-line-check-line-1-before-line-form-line-9": {
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "4d1cbf33c7859e1b88f72636aa1574bceaec4fc9b5a6c4b98959bf19f58d2eaa"
+ },
+ "p2-no-period-after-sealed": {
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "abf75928f15fab8d8a5d29c7c133cdfb395505d89412f8289d50615bf4333171"
+ },
+ "p2-numbering-line-before-depth-line": {
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "ee17b4cb03e93bab882a56cb446e0e8c3bd76a3d64ac882e020fb9e755c36a07"
+ },
+ "p2-period-inside-literal": {
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "3e29758f49d5b48caa767e4915b9c77c64f61b00df090c0d996be3395cc3cd34"
+ },
+ "p2-reference-of-25-parts": {
+  "items": [
+   "\u00a712 NESTING-DEPTH"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "991b03b1f87d5088ee9e2fd4a530b3e1f7220c6bd007001d2170a980e49f16b0"
+ },
+ "p2-seal-place-before-depth": {
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "4fca8b8c292aee5f76f0a55716a90349336a59eb4d555696738883a2bdecd4b7"
+ },
+ "p2-sealed-prefix-opens": {
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "0e35516c546a13bcd3dc678d502a7d2d3a37da9ad0bbaf9f8df6b8f24f0e75b4"
+ },
+ "p2-second-sealed-malformed": {
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "d66b824ac539992ee564cd143c289a5fbf9dea7b93a97f3a451cb40ea0ecf1de"
+ },
+ "p2-title-after-note-after-sealed": {
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "708352d7d2d094944c7e6fb4f753e3b193c7c231bedbafe27a644ba0ee5061e0"
+ },
+ "p3-call-holds-a-number": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "4e71f1f0578c1e32c391575354021620859832c980dc9d3fbeb10fe4b95c5055"
+ },
+ "p3-call-in-arm-to-semicolon": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "58177a331dcde8c6d8de968afb9744d9b63152211ed47ea892af1f077ab4afd6"
+ },
+ "p3-call-reserved-first-word": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "fe947410eca6401f98ce4675d752e7980d6ac8dd64be1c2bbc6d3893d4ea98b9"
+ },
+ "p3-call-to-nested-to": {
+  "items": [
+   "\u00a712 procedures",
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "84e2df07c2ba5e31e6aea484944c24c6a864b61ac7a96c4187a2a80264590484"
+ },
+ "p3-lex-at-the-end": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "51014b68ae4fa4ec9a6db0e911f85c1658df2ec4e7f8fd7cd7474f82175cb182"
+ },
+ "p3-lex-before-syntax": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "bd155eae087a65cce62ce4e480c35be0df68f7ea9215b609946ff0de8e58b9e6"
+ },
+ "p3-malformed-to-defines-nothing": {
+  "items": [
+   "\u00a712 procedures",
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "035755cd3006424848ca817e75a125d9f930cb68a3fa794a9603c5552ce06eb4"
+ },
+ "p3-name-alone-unknown": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "fc8d63e1947a0da45a9f668fa183146aaffa453ae4ff7c3e6d1050bcf774317e"
+ },
+ "p3-perform-fly-away-1": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "561752c33983d130d386ce566307ba1f548a332a117bcd32b3183b34025d88aa"
+ },
+ "p3-perform-nothing": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "5525f9a0aec5fbb9b7a94d69a32f45016840abeb1b5e4974b6a3bf64deecb8fe"
+ },
+ "p3-perform-the-name": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "b6989a34902494f385423c9d7eebe93e9c3eb2cfaee083be3fd03101b251c79c"
+ },
+ "p3-procedure-name-of-nested-to": {
+  "items": [
+   "\u00a712 procedures",
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "723acbd737fb5822e444ad2a9b08141049047332a8476b1a538cde97a49cead5"
+ },
+ "p3-syntax-before-procedure-name": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "579f85a43c4272e471dd3c6dbc6d97fe8c42bb6ccda04841d224313df55b1557"
+ },
+ "p3-syntax-before-unknown-procedure": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "169ad7b124317d9f59ea359b61d7e9846d4f4c6f63d202166a5040360c29cf8d"
+ },
+ "p3-syntax-clause-1-before-lex-clause-2": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "59eaf8d61f7a3e738c6975a18be554bada57f5980ab9882fbbacb52f7f89fdf9"
+ },
+ "p3-to-spacing": {
+  "items": [
+   "\u00a712 procedures"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "f8a3fcbeb8dcf601277cb907058bb0254c46d2c7ad33d95fef478ae23959973d"
+ },
+ "p3-to-without-name": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "9b02fe5d8da0e9877c4b37827877f2ebf33229fadd28d5d6df8ed93a21e27011"
+ },
+ "p3-unknown-call-in-arm-never-run": {
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "73785a224a11b709bfa92422972e2c3fddd5cdc863e9a15c596c8f467615a5a0"
+ },
+ "ref-leading-zero-certificate": {
+  "items": [
+   "\u00a712 references"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "3c6a41b87674a389ef0b258527b89e8e97b0395f2a8551112828d3fab54c9fd2"
+ },
+ "ref-leading-zero-given": {
+  "items": [
+   "\u00a712 references"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "920dc4ff59f57082f4d16c417b02b4a03dc6086ca43c6b530b92b092f49afb23"
+ },
+ "ref-leading-zero-notwithstanding": {
+  "items": [
+   "\u00a712 references"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "ecd17a302fa96ce1c218c736aecc9d8642280a97110ba568c4f87d91fe9d6718"
+ },
+ "w-agreement-written-order": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "462431b4df992a153a3a81b169755332f5d5736a8e4f1ab2d6b9259fe5498461"
+ },
+ "w-and-check-before-later-operand": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "0cdfeb3f3e88c767d1e28991158827c48c5f5f44ad2c12b834eafb2bed8087b8"
+ },
+ "w-and-types-both-operands": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "00d31e7b4e6ae3fc5640857020b273cb98b6077f924b1fa18bf802ae80fb6a0c"
+ },
+ "w-append-value-before-list": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "4e6e73850e25691bfed8d3eea1f80d84687d78fc9172df76023d21cacb9f22e6"
+ },
+ "w-claim-condition-before-oracle": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "48ce219b740d4af1c558f9862a9212c88edbc604f83bc3e3aa1f63dfb7792234"
+ },
+ "w-claim-oracle-before-premises": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "4f62f5932b392d542e9a131631b0472a14a16b7d5caf20a5aa73e593edf5e3f1"
+ },
+ "w-copies-count-post-order": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "5345ad7e775f8e66e596e48f084ba32173f6b4d9bb74f5426766d07aead4c2c4"
+ },
+ "w-define-name-before-value": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "9eead34be5a6e0f143786e8c38288b10087b135cbe5af07650d7a5f55b621dc7"
+ },
+ "w-define-one-type-at-value": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "ddf4d63e1700d55b3d7c7b7c799c73cda7e26f5dbd5ce063276014282740763f"
+ },
+ "w-define-references-before-name": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "87454021fdc03a3542e1e19df7c06a9f96a6ef78702dc0aec273bf4b6fcd301e"
+ },
+ "w-define-target-before-value": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "9ad18174b985a35d6db1ee7de4d4c359a19b1b60bfc34873af5a74dc427e0c54"
+ },
+ "w-define-value-before-proviso": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "dfd841d8928e2a15c4843028ba13b8de4da0bbb6d3c6f55a0bb00848455298e8"
+ },
+ "w-for-bound-before-counter": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "1625c81fe8087f86bc943645680b384a1ef3729619d7117b595195d5f595e168"
+ },
+ "w-for-counter-last": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "eaed226fc085890713f2d90a2c3e09dde7d2ccda4121d12f2638240f0100f0b9"
+ },
+ "w-for-lower-bound-type-at-once": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "eaf4916ae8f882a263063354a230bb8da4acd376be117e75e6f50539d094c5a2"
+ },
+ "w-for-upper-bound-before-counter": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "ee173db8878c100989daf977e4c7fde7b8736b5215edd4ce457c406b77484871"
+ },
+ "w-increase-item-numbers-before-value": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "c29ad1315e7e77af71b4732e652459b59e747f618850d350f789d6993787a5e7"
+ },
+ "w-increase-number-before-value": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "462f52d876f4fb56194563c96831b8c9f21c515f93e6cbb2a4faa772578fa459"
+ },
+ "w-item-index-before-list": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "f580ae3ae3bfa30a828621aea1bb8d7faa96e2c98eb1614da3a015175acc19f8"
+ },
+ "w-let-expression-before-name": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "9854282d242991e7ade5c1319579c1a68bf491d869657bc1dff62f250056c167"
+ },
+ "w-literal-range-in-written-order": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "52cba6e6b838b435928d134851dd35258437261ba3366165a945e66a8ff323c3"
+ },
+ "w-operator-check-before-next-operand": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "f27e60d59e00b3c23f838c4870aacbaf2a14488ffd6b40bff7bf208e842219b6"
+ },
+ "w-quotient-types-both-operands": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "a65cbd7e74e7c093ab116b210a5d7d49f938f550dca1e9879b185a48dfb53c5e"
+ },
+ "w-set-item-index-before-counter": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "24644402bbe116e080d71c2549e2092aa59ba01a0ae043f0d6fd39d51ee87694"
+ },
+ "w-set-item-list-before-value": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "8a54bcf49769f8a74cdf155e2cd719757b9931a1912a894367c471b87db3963b"
+ },
+ "w-to-name-before-body": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "d11017b8ddb6dbf7b0e47e81798216e8d999c9fc3a721c6e88ed00f081c1ad32"
+ },
+ "w-to-place-before-name": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "88e07c376e81f89125cb13d1b8334ac53f0460969248b7b0acaddc1c814c6229"
+ },
+ "w-to-walked-before-define": {
+  "items": [
+   "\u00a713 phase 6",
+   "\u00a713 item 47"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "a40d89955fa30b6eef8fbc48b9352a2d356bedaf9405249b07e5b07417c0fc3d"
+ },
+ "w-while-condition-before-fuel": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "560825a4d92002877cbd67f123b8ea719bb19182b80a893b1cf0fe2697afd3ef"
+ },
+ "w-while-undeclared-before-fuel": {
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "c08a0eaf0f97f1b04032be21ac9fd31adb1b27b020ee0b71767eb7ad6a74fc2e"
+ },
+ "x-define-place-before-loop-nesting": {
+  "items": [
+   "\u00a713 phase table"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "0ef6c9fcb8cbd6de03b58a6f65ef880c2746d4f58a80837e895d3bdd34475935"
+ },
+ "x-empty-block-before-loop-nesting": {
+  "items": [
+   "\u00a713 phase table"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "a362fac4e096d30538111a732286ad619f8bef3aad8f0238966b64e34fb8feb7"
+ },
+ "x-expression-depth-before-literal-range": {
+  "items": [
+   "\u00a713 phase table"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "5c4d1265529872d82a8c96718519f541839b91f188e73dbf4b3153e4dbb1bb47"
+ },
+ "x-expression-depth-before-orphan": {
+  "items": [
+   "\u00a713 phase table"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "5b6affb656e73f11533dc8d51b569be107737693badc3a1954739e7c13ccf7bf"
+ },
+ "x-loop-nesting-before-later-type": {
+  "items": [
+   "\u00a713 phase table"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "43a0fd357eec6e2089d59e2ae97069606f74d9bb6e70b41fda3afb63ccd1783d"
+ },
+ "x-nesting-depth-before-lex": {
+  "items": [
+   "\u00a713 phase table"
+  ],
+  "law_seal": "UNKNOWN",
+  "seal_words": "UNKNOWN",
+  "text_seal": "c8c07ca286ba8b1df017a6b3711f573dd47be2058ec5709dfdc61308e7e2bfa1"
+ }
+}

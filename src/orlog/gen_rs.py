@@ -92,6 +92,8 @@ class RsGen:
             self.w(d, "rt.ops += %d;" % ins[1])
         elif op == "const":
             self.w(d, "%s = %s;" % (ins[1], rlit(ins[2], ins[3])))
+        elif op in ("tmark", "trelease"):
+            pass                        # the C backend's temp stack (E21); Rust owns its texts by value
         elif op == "read":
             vi = ins[2]
             if isinstance(vi.type, tuple) or vi.type == "text":

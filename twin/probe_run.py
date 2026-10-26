@@ -1,15 +1,20 @@
 #!/usr/bin/env python3
-"""Run the twin on every probe of twin/probes/ (by its manifest.json).
+"""Run the twin on every probe of a probe folder (by its manifest.json).
 
-usage: python probe_run.py [--check] [--seals FILE.json] [--alt N,N...]
+usage: python probe_run.py [--dir probes|probes3] [--check] [--settled] [--alts] [--seals FILE.json] [--alt N,...]
 
-The law seal is 64 zeros (the probes' law seals are UNKNOWN to the twin), or the probe's entry
-in --seals FILE.json ({"NAME": "<64 hex>"}), for instance the reference's seals, to compare
-trace heads too. The text seal is the sha256 of the file. For each probe it writes
-twin/probes/out/NAME.out, NAME.receipt and NAME.trace, or NAME.refused holding the compile
-refusal's code. --check compares every result with twin/probes/expected.json (worked by hand,
-see EXPECTED.md) and prints each difference; --alt passes the twin's --alt through.
-Exit status 0, or 1 when --check found a difference.
+--dir picks the folder under twin/ (default probes, the round-2 probes; probes3 holds the round-3
+probes for SPEC §12 and §13). The law seal is 64 zeros (the probes' law seals are UNKNOWN to the
+twin), or the probe's entry in --seals FILE.json ({"NAME": "<64 hex>"}), for instance the
+reference's seals, to compare trace heads too. The text seal is the sha256 of the file. For each
+probe it writes DIR/out/NAME.out, NAME.receipt and NAME.trace, or NAME.refused holding the compile
+refusal's code. --check compares every result with DIR/expected.json (worked by hand, see
+EXPECTED.md) and prints each difference; --alt passes the twin's --alt through.
+--settled (with --check) replaces an expectation by the code DIR/settled.json records for it (the
+readings SPEC §13 settled against the twin), and marks a settled code of the door, which the twin
+does not implement, as such. --alts runs each probe whose expectation names an "alt_key" with
+--alt alt_key and compares the result with its hand-worked "alt_expect".
+Exit status 0, or 1 when a comparison found a difference (door codes under --settled excepted).
 """
 import hashlib
 import json
@@ -19,18 +24,19 @@ import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-PROBES = os.path.join(HERE, "probes")
-OUT = os.path.join(PROBES, "out")
 TWIN = os.path.join(HERE, "twin.py")
 ZERO_SEAL = "0" * 64
 REFUSED_RE = re.compile(r"twin: compile refused (\S+)")
+DOOR_CODES = set("BYTES-NOT-UTF8 BIDI-CONTROL CONTROL-CHAR INVISIBLE-CHAR DASH-AMBIGUOUS NON-ASCII-CODE "
+                 "UNTERMINATED-TEXT QUOTE-BOUNDARY".split())          # SPEC §13, phase 1
 
 
-def run_probe(name, law, alt):
-    path = os.path.join(PROBES, name + ".orl")
+def run_probe(probes, name, law, alt):
+    out_dir = os.path.join(probes, "out")
+    path = os.path.join(probes, name + ".orl")
     with open(path, "rb") as fh:
         text_seal = hashlib.sha256(fh.read()).hexdigest()
-    paths = dict((ext, os.path.join(OUT, name + "." + ext)) for ext in ("out", "receipt", "trace", "refused"))
+    paths = dict((ext, os.path.join(out_dir, name + "." + ext)) for ext in ("out", "receipt", "trace", "refused"))
     for p in paths.values():
         if os.path.exists(p):
             os.remove(p)
@@ -49,7 +55,7 @@ def run_probe(name, law, alt):
         with open(paths["refused"], "wb") as fh:
             fh.write((m.group(1) + "\n").encode("ascii"))
         return {"refused": m.group(1)}
-    return {"error": "exit %d: %s" % (res.returncode, err.strip())}
+    return {"error": "exit %d: %s" % (res.returncode, err.strip().splitlines()[-1] if err.strip() else "")}
 
 
 def read_text(p):
@@ -112,40 +118,61 @@ def describe(got):
     return got.get("error", "?")
 
 
+def arg(argv, flag, default=None):
+    return argv[argv.index(flag) + 1] if flag in argv else default
+
+
+def load(path):
+    with open(path, "rb") as fh:
+        return json.loads(fh.read().decode("utf-8"))
+
+
 def main(argv):
     check = "--check" in argv
-    seals = {}
-    alt = None
-    if "--seals" in argv:
-        with open(argv[argv.index("--seals") + 1], "rb") as fh:
-            seals = json.loads(fh.read().decode("utf-8"))
-    if "--alt" in argv:
-        alt = argv[argv.index("--alt") + 1]
-    with open(os.path.join(PROBES, "manifest.json"), "rb") as fh:
-        manifest = json.loads(fh.read().decode("utf-8"))
-    expected = {}
-    if check:
-        with open(os.path.join(PROBES, "expected.json"), "rb") as fh:
-            expected = json.loads(fh.read().decode("utf-8"))
-    os.makedirs(OUT, exist_ok=True)
-    n_diff = 0
-    n_ref = 0
+    probes = os.path.join(HERE, arg(argv, "--dir", "probes"))
+    seals = load(arg(argv, "--seals")) if "--seals" in argv else {}
+    alt = arg(argv, "--alt")
+    manifest = load(os.path.join(probes, "manifest.json"))
+    expected = load(os.path.join(probes, "expected.json")) if (check or "--alts" in argv) else {}
+    settled = {}
+    if "--settled" in argv and os.path.exists(os.path.join(probes, "settled.json")):
+        settled = load(os.path.join(probes, "settled.json"))
+    os.makedirs(os.path.join(probes, "out"), exist_ok=True)
+    n_diff = n_ref = n_door = 0
     for name in sorted(manifest):
-        law = seals.get(name, ZERO_SEAL)
-        got = run_probe(name, law, alt)
+        got = run_probe(probes, name, seals.get(name, ZERO_SEAL), alt)
         if "refused" in got:
             n_ref += 1
         line = "%-48s %s" % (name, describe(got))
         if check:
-            diffs = compare(name, got, expected[name])
-            if diffs:
+            exp = expected[name]
+            if name in settled:
+                exp = {"refused": settled[name]["settled"]}
+                line += "   [settled: %s]" % settled[name]["settled"]
+            diffs = compare(name, got, exp)
+            if diffs and name in settled and settled[name]["settled"] in DOOR_CODES:
+                n_door += 1
+                line += "   DIFFERS (a door code; the twin takes canonical text): " + "; ".join(diffs)
+            elif diffs:
                 n_diff += 1
                 line += "   DIFFERS: " + "; ".join(diffs)
         print(line)
     print("%d probes: %d refused at compile time, %d ran%s" % (
         len(manifest), n_ref, len(manifest) - n_ref,
-        ("; %d differ from expected.json" % n_diff) if check else ""))
-    return 1 if (check and n_diff) else 0
+        ("; %d differ from expected.json%s" % (n_diff, (", %d more on a door code" % n_door) if n_door else ""))
+        if check else ""))
+    n_alt_diff = 0
+    if "--alts" in argv:
+        alts = [n for n in sorted(manifest) if "alt_key" in expected[n]]
+        for name in alts:
+            exp = expected[name]
+            got = run_probe(probes, name, seals.get(name, ZERO_SEAL), exp["alt_key"])
+            diffs = compare(name, got, exp["alt_expect"])
+            n_alt_diff += 1 if diffs else 0
+            print("%-48s --alt %-18s %s%s" % (name, exp["alt_key"], describe(got),
+                                               ("   DIFFERS: " + "; ".join(diffs)) if diffs else ""))
+        print("%d probes run under their other reading; %d differ from alt_expect" % (len(alts), n_alt_diff))
+    return 1 if (n_diff or n_alt_diff) else 0
 
 
 if __name__ == "__main__":

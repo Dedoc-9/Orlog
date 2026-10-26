@@ -1,0 +1,4 @@
+The seed-2 TIMEOUT case (the Aztec mutant in difftwin-seed2-report.md), run again without a time limit (tests/diff_worker.py):
+ref: status REFUSED FUEL-EXHAUSTED 15 | output-bytes 19 | output-sha256 f39223d47875f73bfa8936f0b44d798a24040e68a885adeabce596e8697ce724 | events 192 | trace-head 64d182312b53641119daa1dc209baa3377503e94ba681bb5f8d5d79cf231ce15 | ops 270000669 | claims 1
+twin: status REFUSED FUEL-EXHAUSTED 15 | output-bytes 19 | output-sha256 f39223d47875f73bfa8936f0b44d798a24040e68a885adeabce596e8697ce724 | events 192 | trace-head 64d182312b53641119daa1dc209baa3377503e94ba681bb5f8d5d79cf231ce15 | ops 270000669 | claims 1
+receipts without their backend line identical: True

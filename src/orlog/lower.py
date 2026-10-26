@@ -46,6 +46,7 @@ class Lowered:
         self.main = Fn("orl_main", "main")
         self.cur = None
         self.clause_id = 0
+        self.marks = 0
         # names first: a procedure or a rule may use a rule (red team E2a, E2b: these crashed when assigned late)
         self.rule_fn = {name: "rule_%d" % cls[0].id for name, cls in self.an.rules.items()}
         for c in self.prog.top:
@@ -87,11 +88,20 @@ class Lowered:
             self.cur.locals[vi.id] = vi.type
         return vi
 
+    def mark(self):
+        """A mark on the temp stack (red team E21). Only the C backend acts on it: the temporaries a statement made
+        are released back to its mark when it ends. Python and Rust own their texts by value and emit nothing."""
+        name = "m%d" % self.marks
+        self.marks += 1
+        self.emit("tmark", name)
+        return name
+
     # ---------------------------------------------- statements
     def seq(self, clauses):
         for c in clauses:
             if c.absorbed or isinstance(c.stmt, (Define, ProcDef, Decimals)):
                 continue
+            m = self.mark()
             if c.cost_tracked:
                 s = self.temp("u64")
                 self.emit("snap", s)
@@ -99,6 +109,7 @@ class Lowered:
                 self.emit("cost_add", c.id, s)
             else:
                 self.stmt(c, c.stmt)
+            self.emit("trelease", m)
 
     def body(self, c, b):
         if isinstance(b, tuple) and b[0] == BLOCK:
@@ -156,11 +167,13 @@ class Lowered:
             self.emit("set_u64", n, 0)
 
             def loop_body():
+                m = self.mark()      # one iteration's temporaries, its condition's among them (E21)
                 self.emit("tick")
                 cnd = self.expr(cid, s.cond)
                 self.emit("break_unless", cnd)
                 self.emit("fuel", n, s.fuel, cid)
                 self.seq(c.children)
+                self.emit("trelease", m)
             self.emit("loop", self.sub(loop_body))
         elif isinstance(s, For):
             self.emit("tick")

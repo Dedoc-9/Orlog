@@ -1,5 +1,12 @@
 # ØRLǪG OL-0 clean-room twin: notes on the specification
 
+**Status, 2026-10-25 (third round).** `twin.py` now follows SPEC §12 and §13 wherever they reach a canonical
+text (it still has no door). The round-3 probes, what §12 and §13 still leave open, and the rules no canonical text
+can reach are in `probes3/EXPECTED.md` (`python probe_run.py --dir probes3 --check`, and `--alts` for the other
+readings, which are `--alt` names such as `procs-all` or `tree-no-paren`). `--alt lex-lazy` restores the round-2
+reading that §13 settled against the twin; `python probe_run.py --check --settled` reads `probes/settled.json`.
+The round-2 status below and the round-one record are kept as written.
+
 **Status, 2026-10-25 (second round).** SPEC v0.1 §11 settled every item below with one reading, and `twin.py`
 now follows §11. Item 37's default is now the reading that `--alt 37` gave in round one, so `--alt 37` now gives
 the round-one reading. What §11 still leaves open, and the probes that test each §11 item, are in

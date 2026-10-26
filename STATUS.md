@@ -15,9 +15,19 @@ push.
 5. **ADMISSION.md**: the proposed admission record. Not admitted.
 
 ## Measured here (2026-10-25, in the repository)
-- `python -B tests/selftest.py`: **ORLOG SELFTEST 140/140** (reference, python, c99, rust). Two consecutive runs,
+- `python -B tests/selftest.py`: **ORLOG SELFTEST 147/147** (reference, python, c99, rust). Two consecutive runs,
   the second on the first's build cache, byte-identical: `evidence/selftest-run.txt` and `selftest-run2.txt`, sha256
-  b808c1ea69c21c69….
+  538538240d77a706….
+- Twin round 3 is merged (`twin/`, `twin/probes3/`), and SPEC §14 settles its twelve findings.
+  - Probes: 125/128 met as worked and 3 as settled (`twin/probes3/settled.json`); round 2 still 161 + 2.
+  - Differential runs against the new twin: 0 disagreements on 20,221 mutants (seed 1). With the new probes as
+    seeds, all 48 disagreements are accounted for (seed 2): 47 are the three settled readings, and 1 timeout runs
+    identically without a limit (`evidence/difftwin-*`).
+- E21 and rt_c finding 8, the C backend's memory, are repaired. All figures are in `evidence/e21-*.txt`:
+  - a 16 MiB text rebuilt 5, 20 and 40 times now peaks at 58 MiB each time, where it peaked at 130, 370 and 691 MiB;
+  - a 2,000,000-item list stored 4 and 32 times peaks at 46 and 46 MiB, where it peaked at 77 and 505 MiB;
+  - the vectors pass 20,015 / 20,015 at -O2 and -O0;
+  - AddressSanitizer is clean on 29/29 programs, and its plant is caught.
 - `python -B tests/compare_probes.py`: 161/163 of the twin's hand-worked probes met as worked, 2 met as §13 settled
   them against the twin (`twin/probes/settled.json`), 0 different (`evidence/probes-run.txt`).
 - `python -B tests/diff_twin.py --n 20000 --seed 1 --minimize` (run in scratch, before the §13 order repairs):
@@ -41,13 +51,15 @@ push.
   Left out of the move: `build/`, `work/`, executables, `upstream/` (clones of Dentatus, Ursprung and
   executable-epistemics), `r1a-work/` and `research/dl*` (downloaded papers), the fuzz output.
 
+- C memory (E21, finding 8): a text or list has one owner, a variable's static slot or the temp stack, released
+  per statement and per While iteration (`rt_c/orlog_rt.h`, `gen_c.py`, `lower.py`; `tests/asan_c.py`, the E21
+  fixtures and the memory row are new).
+
 ## Still open
-- **Twin round 3** (a clean-room agent updating twin/twin.py to §12–§13 and writing hand-worked probes in
-  twin/probes3/) stopped at the session limit having written nothing. Start it again in this repository's `twin/`,
-  under the clean-room rule in AGENTS.md §3; then rerun its probes, compare the reference with them, rerun
-  tests/diff_twin.py, and treat its ambiguity findings as attacks on §13.
-- Court record for the second round: add E7–E26, the twin's rounds 2 and 3 and the differential run to
+- The twin holds its own readings on the three probes settled against it (SPEC §14 items 6, 7, 9). Whether its
+  author adopts §14 is a fourth round's question.
+- Court record for the second round: add E7–E26, E21's repair, the twin's rounds 2 and 3 and the differential runs to
   court/build_record.py, add the revised claims, rerun `python -B court/build_record.py && python -B court/judge.py`,
   update RECORD.md.
-- DOCTRINE: add the stage "T10, one code per refused text" with its evidence; update §5's counts and defect table.
+- DOCTRINE: update §5's counts and defect table (T10 is written).
 - The owner's rulings on DOCTRINE §9 (fork 2, where it lives, is settled: this repository).

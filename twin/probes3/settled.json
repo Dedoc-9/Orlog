@@ -1,0 +1,21 @@
+{
+  "ed-missing-atom": {
+    "twin": "SYNTAX",
+    "settled": "EXPRESSION-DEPTH",
+    "amendment": "SPEC §14, item 6",
+    "reason": "The nesting count rises on entering each atom position, before what stands there is read. The bound guards the parser's own recursion, so it must hold before the parser goes deeper; counting only an atom actually read would let a text recurse first and refuse after."
+  },
+  "ed-tree-paren-node": {
+    "twin": "EXPRESSION-DEPTH",
+    "settled": null,
+    "run": {"status": "COMPLETED", "output": "63\n", "output_bytes": 3, "events": 1, "ops": 63, "claims": []},
+    "amendment": "SPEC §14, item 7",
+    "reason": "The statement's tree is the parse tree, in which parentheses only group and make no node. The 64-level bound protects the stages that walk that tree (checking, lowering, generating), and none of them recurses on parentheses, which are bounded by the nesting count instead."
+  },
+  "w-copies-count-post-order": {
+    "twin": "UNDECLARED",
+    "settled": "TYPE",
+    "amendment": "SPEC §14, item 9",
+    "reason": "The count of 'a list of N copies of V' is a part whose type the phrase names, like an index or a bound (§13 refinement 2), so its Int requirement is checked when the count is reached, before V. An operator's own check (unification, comparison, the integers of quotient, the truth values of and and or) is a relation between its operands and comes after them."
+  }
+}

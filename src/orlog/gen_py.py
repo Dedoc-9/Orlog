@@ -66,6 +66,8 @@ class PyGen:
             self.w(d, "%s = list(%s)" % (ins[1], src) if isinstance(vi.type, tuple) else "%s = %s" % (ins[1], src))
         elif op == "write":
             self.w(d, "%s = %s" % (self.var(ins[1]), ins[2]))
+        elif op in ("tmark", "trelease"):
+            pass                        # the C backend's temp stack (E21); Python owns its texts by value
         elif op == "copy":
             self.w(d, "%s = %s" % (ins[1], ins[2]))
         elif op == "set_u64":

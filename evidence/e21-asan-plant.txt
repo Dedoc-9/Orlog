@@ -1,0 +1,1 @@
+plant free-before-copy: CAUGHT -- exit 1: ==35528==ERROR: AddressSanitizer: heap-use-after-free on address 0x1230be8a0150 at pc 0x7ffea603b35c bp 0x00b1408fec10 sp 0x00b1408fec58

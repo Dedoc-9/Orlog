@@ -11,6 +11,40 @@ are checked while it runs, and a court reports what each claim rests on.
 > condition held in a run, and what supports that claim. It cannot show that a condition says what its author meant:
 > the intent is not in the text.
 
+## A green build is a statement about the build
+
+The checks that make a system look healthy compare it with itself: tests with their expectations, backends with each
+other, hashes with hashes, replays with recordings. Every one of them can pass while the system rests on nothing.
+A generator can produce an open world, an asset pipeline or a codebase in which every check is green and every
+subsystem confirms its neighbour, and the whole can still stand on an invariant nobody ever grounded. A generator is a
+consistency machine, not a truth machine. Until something outside it grounds its output, treat that output as a
+well-made fiction. (This is the oracle problem: [DOCTRINE.md](DOCTRINE.md) §0 and §1 T0.)
+
+Ørlǫg is built to keep these apart in the language itself, and it never lets one stand in for another:
+- **Integrity: do the four executions agree, byte for byte?** Ørlǫg computes this. Agreement can only ever rule out
+  disagreement.
+- **Formal truth: did each written condition hold in this run?** Ørlǫg computes this. It says nothing about whether
+  the condition was the right one to write.
+- **Standing: what does a claim rest on?** The program's own computation, a checked certificate, a cited theorem, or
+  a person's ratification recorded outside the program. Ørlǫg reports this, and a claim that rests only on the
+  program's own computation can never be grounded, whoever signs it.
+
+[The Plankton example](#the-paradox-it-was-built-around) is the trap at its smallest. Three claims, all true, all
+agreeing on every backend, each resting only on the next: every integrity check is green. The court reports all
+three CIRCULAR and names the cycle.
+
+**Ørlǫg turns the same suspicion on itself.**
+- **Its guards are tested by breaking them.** For each guard, the self-test plants the defect that guard exists to
+  catch, and requires the catch: a C remainder that truncates, a Rust fixed-point multiply that floors, a reference
+  that truncates its quotient, temporaries the C runtime never releases.
+- **Its own verifiers are not independent.** The clean-room twin, both runtimes, the prosecutors and the reference
+  were all written by one model family. Their agreement shows consistency, not truth; that is the paradox this
+  language was built around, applied to this repository first. What such verifiers can do is disagree. In three
+  rounds, the twin's hand-worked probes found defects in the reference and readings the specification had left
+  open (SPEC §11, §13, §14). Each disagreement is settled in writing, and no agreement is ever counted as proof.
+- **Its author's intent is not consulted.** Ørlǫg judges only what is written. What its author meant is not in the
+  text, so it is never checked and never assumed.
+
 **How to read this README.** Nothing here is claimed beyond what is shown, unless marked otherwise. A statement about
 behaviour names the evidence file that records it. Anything else carries a grade: **MEASURED** (seen in a recorded
 run, on one host), **DECLARED** (a design commitment, not proven), **NOT_MEASURED**, or **SPECULATIVE**. "Here"
@@ -88,7 +122,7 @@ ratification apart, and it never reports a standing higher than the channel behi
 ## What is shown, and where
 
 All of the following is MEASURED here, on 2026-10-25. The self-test's recorded summary, in
-[`evidence/selftest-run.txt`](evidence/selftest-run.txt), reads `ORLOG SELFTEST 140/140  (backends: python,c99,rust)`.
+[`evidence/selftest-run.txt`](evidence/selftest-run.txt), reads `ORLOG SELFTEST 147/147  (backends: python,c99,rust)`.
 Two consecutive runs gave byte-identical output ([`evidence/selftest-run2.txt`](evidence/selftest-run2.txt)).
 
 | what | evidence |
@@ -98,7 +132,10 @@ Two consecutive runs gave byte-identical output ([`evidence/selftest-run2.txt`](
 | Three spellings of one program (words, symbols, phrases) give three text seals and one law seal. A byte-mangled copy (BOM, CRLF, curly quotes, NBSP, ×) is repaired to the same law seal, each repair noted | the `spellings` rows |
 | The door repairs typographic variants and notes each repair. It refuses bidi controls, confusable letters in code, ambiguous dashes and bytes that are not UTF-8, and it keeps text literals byte for byte. A second pass over repaired texts changes nothing. (That each repair rule preserves meaning is DECLARED, rule by rule) | the `door` rows |
 | A defect planted in each backend is caught and located at its first divergent event. A defect planted in the reference reads REFERENCE-DISSENT | the `plant` rows |
-| The specification is held to the code: its table of refusal codes equals the 43 the front end can raise, and a clean-room twin's 163 hand-worked probes are met (161 as worked, 2 as settled in SPEC §13) | the `spec` rows; [`evidence/probes-run.txt`](evidence/probes-run.txt) |
+| The specification is held to the code. Its table of refusal codes equals the 43 the front end can raise. The clean-room twin's hand-worked probes are met: 163 from its second round (161 as worked, 2 as settled in SPEC §13) and 128 from its third (125 as worked, 3 as settled in SPEC §14) | the `spec` rows; [`evidence/probes-run.txt`](evidence/probes-run.txt), [`evidence/probes3-run.txt`](evidence/probes3-run.txt) |
+| On 20,221 mutated programs, the reference and the twin refuse with the same code or run byte-identically, every time. With the third round's probes added as seeds, every disagreement found is one of the three readings settled against the twin in SPEC §14 | [`evidence/difftwin-seed1.txt`](evidence/difftwin-seed1.txt), [`evidence/difftwin-seed2.txt`](evidence/difftwin-seed2.txt) |
+| The C backend's memory stays flat however many texts and lists a run makes. A 16 MiB text rebuilt 5, 20 and 40 times peaks at 58 MiB each time; before red team finding E21 was repaired it peaked at 130, 370 and 691 MiB. A 2,000,000-item list stored 4 and 32 times peaks at 46 MiB both times, where it had peaked at 77 and 505 MiB | [`evidence/e21-memleak-before.txt`](evidence/e21-memleak-before.txt), [`e21-memleak-after.txt`](evidence/e21-memleak-after.txt), [`e21-lists-before.txt`](evidence/e21-lists-before.txt), [`e21-lists-after.txt`](evidence/e21-lists-after.txt); the `memory` row |
+| The C backend runs clean under AddressSanitizer on 29 programs, and a store planted to free before it copies is caught | [`evidence/e21-asan.txt`](evidence/e21-asan.txt), [`e21-asan-plant.txt`](evidence/e21-asan-plant.txt) |
 
 Each `plant` row plants a defect and requires the self-test to catch it, so that guard is shown to bite, not merely
 to pass.
@@ -112,8 +149,9 @@ to pass.
 - **Independence.** The twin, both runtimes, the prosecutors and the reference were all written by one model family.
   Their agreement shows consistency, not truth.
 - **Time, speed, security.** NOT_MEASURED.
-- **Memory in the C backend.** The C runtime never frees a text it builds (red team finding E21, MEASURED by the red
-  team, not repaired). A long run that builds many texts can exhaust memory.
+- **Memory beyond what is measured.** The bound on the C backend's text and list memory comes from the program, not
+  from how long it runs (shown above), and it is DECLARED in general. The stack, the code and the host's allocator are
+  outside it.
 - **Novelty.** The mechanisms are prior art: certifying algorithms and the LCF discipline, Fitting's semantics,
   Dung's argumentation, IEEE 754 and more. Whether the combination is new is SPECULATIVE. The graded case, with its
   prior-art search, is in [DOCTRINE.md](DOCTRINE.md) §6.

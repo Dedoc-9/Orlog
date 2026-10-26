@@ -1,0 +1,1342 @@
+{
+ "ed-23-minuses-pass": {
+  "basis": "\u00a713",
+  "claims": [],
+  "events": 1,
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "ops": 24,
+  "output": "-1\n",
+  "output_bytes": 3,
+  "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28",
+  "status": "COMPLETED",
+  "what": "23 unary minuses and a number: 24"
+ },
+ "ed-23-nots-pass": {
+  "basis": "\u00a713",
+  "claims": [],
+  "events": 1,
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "ops": 25,
+  "output": "false\n",
+  "output_bytes": 6,
+  "output_sha256": "2ed27c1421e6928dbe13dbfdb5c59e1045b30341fe7ebe05700006bc5ac572c0",
+  "status": "COMPLETED",
+  "what": "23 nots over 1 = 1: 24 on the path to each 1"
+ },
+ "ed-23-parens-pass": {
+  "basis": "\u00a713",
+  "claims": [],
+  "events": 2,
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "ops": 2,
+  "output": "5\n",
+  "output_bytes": 2,
+  "output_sha256": "f0b5c2c2211c8d67ed15e75e656c7862d086e9245420892a7de62cd9ec582a06",
+  "status": "COMPLETED",
+  "what": "23 nested parentheses around a name: 24 on the path"
+ },
+ "ed-23-phrases-pass": {
+  "basis": "\u00a713",
+  "claims": [],
+  "events": 1,
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "ops": 24,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "status": "COMPLETED",
+  "what": "23 nested phrases and a number: 24"
+ },
+ "ed-24-minuses": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "24 unary minuses and a number: 25"
+ },
+ "ed-24-nots": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "24 nots: 25"
+ },
+ "ed-24-parens": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "24 nested parentheses around a name: 25"
+ },
+ "ed-24-phrases": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "24 nested phrases: 25"
+ },
+ "ed-63-terms-pass": {
+  "basis": "\u00a713",
+  "claims": [],
+  "events": 1,
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "ops": 63,
+  "output": "63\n",
+  "output_bytes": 3,
+  "output_sha256": "eecd262c3ecab667b61ebb70835f3b181a1d1530d3ebc0ef99a3a8dc3d5b193f",
+  "status": "COMPLETED",
+  "what": "Say with 63 terms joined by plus: the tree is 64 deep"
+ },
+ "ed-64-terms": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "with 64 terms: 65 deep"
+ },
+ "ed-after-earlier-syntax": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "SYNTAX",
+  "what": "a SYNTAX fault before the deep part"
+ },
+ "ed-before-unknown-procedure": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "EXPRESSION-DEPTH before UNKNOWN-PROCEDURE in one clause"
+ },
+ "ed-clause-1-before-syntax-clause-2": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "clause order across clauses"
+ },
+ "ed-is-not-left-operand": {
+  "alt": "EXPRESSION-DEPTH, if the not of item 37 were on the tree path to every atom below it (a path a left-to-right reading has passed before the not is written)",
+  "alt_expect": {
+   "refused": "EXPRESSION-DEPTH"
+  },
+  "alt_key": "depth-isnot-tree",
+  "basis": "twin reading",
+  "claims": [],
+  "events": 1,
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "ops": 3,
+  "output": "true\n",
+  "output_bytes": 5,
+  "output_sha256": "a17fcf0a2f50e2d495e4f90ce263410edc183add6c62699a2facbccf60410f74",
+  "status": "COMPLETED",
+  "what": "23 parentheses around the left operand of 'is not even'"
+ },
+ "ed-is-not-not-counted": {
+  "alt": "EXPRESSION-DEPTH, if the not that item 37 puts around the test were one of 'the nots'",
+  "alt_expect": {
+   "refused": "EXPRESSION-DEPTH"
+  },
+  "alt_key": "depth-isnot",
+  "basis": "twin reading",
+  "claims": [],
+  "events": 1,
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "ops": 3,
+  "output": "false\n",
+  "output_bytes": 6,
+  "output_sha256": "2ed27c1421e6928dbe13dbfdb5c59e1045b30341fe7ebe05700006bc5ac572c0",
+  "status": "COMPLETED",
+  "what": "the not of 'is not less than' on the right operand's path"
+ },
+ "ed-item-counts": {
+  "alt": "COMPLETED, if only \u00a713's five kinds (number, text, name, parenthesized expression, phrase) were counted",
+  "alt_expect": {
+   "claims": [],
+   "events": 2,
+   "ops": 27,
+   "output": "1\n",
+   "output_bytes": 2,
+   "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+   "status": "COMPLETED"
+  },
+  "alt_key": "depth-atoms5",
+  "basis": "twin reading",
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "24 nested 'item ... of' around a number: is 'item' an atom?"
+ },
+ "ed-met-before-later-syntax": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "the nesting part is met left to right, before a later SYNTAX"
+ },
+ "ed-missing-atom": {
+  "alt": "EXPRESSION-DEPTH, if the count were taken on entering an atom position",
+  "alt_expect": {
+   "refused": "EXPRESSION-DEPTH"
+  },
+  "alt_key": "depth-entry",
+  "basis": "twin reading",
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "refused": "SYNTAX",
+  "what": "24 '(' then ')': a 25th atom is expected but absent"
+ },
+ "ed-mixed-24-pass": {
+  "basis": "\u00a713",
+  "claims": [],
+  "events": 1,
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "ops": 19,
+  "output": "true\n",
+  "output_bytes": 5,
+  "output_sha256": "a17fcf0a2f50e2d495e4f90ce263410edc183add6c62699a2facbccf60410f74",
+  "status": "COMPLETED",
+  "what": "6 nots, 6 parentheses, 6 minuses, 5 phrases and a number: 24"
+ },
+ "ed-mixed-25": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "the same with a seventh minus: 25"
+ },
+ "ed-tree-before-unknown-procedure": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "the tree's depth before UNKNOWN-PROCEDURE"
+ },
+ "ed-tree-cat-one-node": {
+  "alt": "EXPRESSION-DEPTH, if 'followed by' were a left-associative binary node",
+  "alt_expect": {
+   "refused": "EXPRESSION-DEPTH"
+  },
+  "alt_key": "tree-cat-binary",
+  "basis": "twin reading",
+  "claims": [],
+  "events": 1,
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "ops": 64,
+  "output": "1111111111111111111111111111111111111111111111111111111111111111\n",
+  "output_bytes": 65,
+  "output_sha256": "88095ece32a68a2c42cce91e501e931f5eeba2820b959cb8da99abe1700c4150",
+  "status": "COMPLETED",
+  "what": "64 parts joined by 'followed by'"
+ },
+ "ed-tree-checked-after-parse": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "SYNTAX",
+  "what": "a 64-term tree whose parse fails at its end: SYNTAX"
+ },
+ "ed-tree-conversions": {
+  "alt": "COMPLETED, if conversions were not nodes of the tree",
+  "alt_expect": {
+   "claims": [],
+   "events": 1,
+   "ops": 64,
+   "output": "1.0\n",
+   "output_bytes": 4,
+   "output_sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+   "status": "COMPLETED"
+  },
+  "alt_key": "tree-no-conv",
+  "basis": "twin reading",
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "63 conversions in a row"
+ },
+ "ed-tree-inline-below-clause": {
+  "alt": "COMPLETED, if an inline statement rooted its own tree",
+  "alt_expect": {
+   "claims": [],
+   "events": 1,
+   "ops": 64,
+   "output": "63\n",
+   "output_bytes": 3,
+   "output_sha256": "eecd262c3ecab667b61ebb70835f3b181a1d1530d3ebc0ef99a3a8dc3d5b193f",
+   "status": "COMPLETED"
+  },
+  "alt_key": "tree-inline-root",
+  "basis": "twin reading",
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "an inline Say of 63 terms in an If arm"
+ },
+ "ed-tree-is-not-two-nodes": {
+  "alt": "COMPLETED, if 'is not less than' were one node",
+  "alt_expect": {
+   "claims": [],
+   "events": 1,
+   "ops": 64,
+   "output": "false\n",
+   "output_bytes": 6,
+   "output_sha256": "2ed27c1421e6928dbe13dbfdb5c59e1045b30341fe7ebe05700006bc5ac572c0",
+   "status": "COMPLETED"
+  },
+  "alt_key": "tree-isnot-one",
+  "basis": "twin reading",
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "'is not less than' with a right operand of 62 terms"
+ },
+ "ed-tree-length-name": {
+  "alt": "EXPRESSION-DEPTH, if the name in 'length of X' were a node below the phrase",
+  "alt_expect": {
+   "refused": "EXPRESSION-DEPTH"
+  },
+  "alt_key": "tree-name-node",
+  "basis": "twin reading",
+  "claims": [],
+  "events": 2,
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "ops": 66,
+  "output": "63\n",
+  "output_bytes": 3,
+  "output_sha256": "eecd262c3ecab667b61ebb70835f3b181a1d1530d3ebc0ef99a3a8dc3d5b193f",
+  "status": "COMPLETED",
+  "what": "63 terms, the first 'the length of xs': is xs a node?"
+ },
+ "ed-tree-paren-node": {
+  "alt": "COMPLETED, if parentheses were not nodes of the tree",
+  "alt_expect": {
+   "claims": [],
+   "events": 1,
+   "ops": 63,
+   "output": "63\n",
+   "output_bytes": 3,
+   "output_sha256": "eecd262c3ecab667b61ebb70835f3b181a1d1530d3ebc0ef99a3a8dc3d5b193f",
+   "status": "COMPLETED"
+  },
+  "alt_key": "tree-no-paren",
+  "basis": "twin reading",
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "63 terms, the first parenthesized: is '( )' a node of the tree?"
+ },
+ "ed-true-counts": {
+  "alt": "COMPLETED, if true were not counted (it is none of \u00a713's five kinds)",
+  "alt_expect": {
+   "claims": [],
+   "events": 1,
+   "ops": 1,
+   "output": "true\n",
+   "output_bytes": 5,
+   "output_sha256": "a17fcf0a2f50e2d495e4f90ce263410edc183add6c62699a2facbccf60410f74",
+   "status": "COMPLETED"
+  },
+  "alt_key": "depth-atoms5",
+  "basis": "twin reading",
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "24 parentheses around true: is 'true' an atom?"
+ },
+ "ed-unless-not-not-counted": {
+  "alt": "EXPRESSION-DEPTH, if Unless's not (counted at run time, item 15) were on the path",
+  "alt_expect": {
+   "refused": "EXPRESSION-DEPTH"
+  },
+  "alt_key": "depth-implicit-not",
+  "basis": "twin reading",
+  "claims": [],
+  "events": 1,
+  "items": [
+   "\u00a713 EXPRESSION-DEPTH"
+  ],
+  "ops": 4,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "status": "COMPLETED",
+  "what": "the implicit not of Unless on its condition's path"
+ },
+ "i29-append-to-counter": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 item 29"
+  ],
+  "refused": "TYPE",
+  "what": "Append to a For counter"
+ },
+ "i29-decrease-item-of-counter": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 item 29"
+  ],
+  "refused": "LOOP-VARIABLE",
+  "what": "Decrease item of a For counter"
+ },
+ "i29-remove-from-counter": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 item 29"
+  ],
+  "refused": "TYPE",
+  "what": "Remove from a For counter"
+ },
+ "i47-counter-named-procedure": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "refused": "REDECLARED",
+  "what": "a For counter Go after To go"
+ },
+ "i47-define-named-as-nested-to": {
+  "alt": "REDECLARED, if every To clause's name were collected",
+  "alt_expect": {
+   "refused": "REDECLARED"
+  },
+  "alt_key": "procs-all",
+  "basis": "twin reading",
+  "items": [
+   "\u00a712 procedures",
+   "\u00a713 item 47"
+  ],
+  "refused": "PROCEDURE-PLACE",
+  "what": "a Define named as a nested To"
+ },
+ "i47-define-then-procedure": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "refused": "REDECLARED",
+  "what": "Define go, then To go"
+ },
+ "i47-local-in-own-body": {
+  "basis": "\u00a713",
+  "claims": [],
+  "events": 2,
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "ops": 3,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "status": "COMPLETED",
+  "what": "a local of the procedure's own name inside its body"
+ },
+ "i47-multiword-name-and-variable": {
+  "basis": "\u00a713",
+  "claims": [],
+  "events": 2,
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "ops": 3,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "status": "COMPLETED",
+  "what": "To go home beside a variable go"
+ },
+ "i47-own-call-in-block": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "refused": "PERFORM-BEFORE-DEFINITION",
+  "what": "a procedure calling itself from an inline arm"
+ },
+ "i47-procedure-after-invisible-variable": {
+  "alt": "REDECLARED, if 'one name may not stand for a variable and a procedure' covered variables no longer visible",
+  "alt_expect": {
+   "refused": "REDECLARED"
+  },
+  "alt_key": "visible-global",
+  "basis": "twin reading",
+  "claims": [],
+  "events": 2,
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "ops": 4,
+  "output": "2\n",
+  "output_bytes": 2,
+  "output_sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+  "status": "COMPLETED",
+  "what": "To go after a go whose block has ended"
+ },
+ "i47-procedure-after-visible-variable": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "refused": "REDECLARED",
+  "what": "To go after Let Go"
+ },
+ "i47-procedure-then-define-case": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "refused": "REDECLARED",
+  "what": "To go, then Define Go (compared lowercased)"
+ },
+ "i47-rule-and-variable-case-sensitive": {
+  "alt": "REDECLARED, if a variable were compared with rule names lowercased",
+  "alt_expect": {
+   "refused": "REDECLARED"
+  },
+  "alt_key": "rule-var-lower",
+  "basis": "twin reading",
+  "claims": [],
+  "events": 2,
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "ops": 4,
+  "output": "3\n",
+  "output_bytes": 2,
+  "output_sha256": "1121cfccd5913f0a63fec40a6ffd44ea64f9dc135c66634ba001d10bcf4302a2",
+  "status": "COMPLETED",
+  "what": "Let R beside Define r"
+ },
+ "i47-variable-after-procedure-upper": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "refused": "REDECLARED",
+  "what": "Let GO after To go"
+ },
+ "i47-variable-in-later-procedure": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 item 47"
+  ],
+  "refused": "REDECLARED",
+  "what": "a later procedure's local named as an earlier procedure"
+ },
+ "i48-item-of-rule": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 item 48"
+  ],
+  "refused": "UNDECLARED",
+  "what": "item of a rule name"
+ },
+ "i48-length-of-rule": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 item 48"
+  ],
+  "refused": "UNDECLARED",
+  "what": "length of a rule name"
+ },
+ "i48-remove-from-rule": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 item 48"
+  ],
+  "refused": "UNDECLARED",
+  "what": "Remove from a rule name"
+ },
+ "i48-set-item-of-rule": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 item 48"
+  ],
+  "refused": "UNDECLARED",
+  "what": "Set item of a rule name"
+ },
+ "ln-16-pass": {
+  "basis": "\u00a712",
+  "claims": [],
+  "events": 17,
+  "items": [
+   "\u00a712 LOOP-NESTING"
+  ],
+  "ops": 33,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "status": "COMPLETED",
+  "what": "16 nested For loops"
+ },
+ "ln-17-mixed": {
+  "basis": "\u00a712",
+  "items": [
+   "\u00a712 LOOP-NESTING"
+  ],
+  "refused": "LOOP-NESTING",
+  "what": "17 nested loops, While and For alternating"
+ },
+ "ln-ifs-do-not-count": {
+  "basis": "\u00a712",
+  "claims": [],
+  "events": 17,
+  "items": [
+   "\u00a712 LOOP-NESTING"
+  ],
+  "ops": 40,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "status": "COMPLETED",
+  "what": "16 loops with 7 If blocks between them"
+ },
+ "ln-place-before-condition": {
+  "alt": "UNDECLARED, if a loop's own parts were checked before its nesting",
+  "alt_expect": {
+   "refused": "UNDECLARED"
+  },
+  "alt_key": "loop-parts-first",
+  "basis": "twin reading",
+  "items": [
+   "\u00a712 LOOP-NESTING",
+   "\u00a713 phase 6"
+  ],
+  "refused": "LOOP-NESTING",
+  "what": "the 17th loop's condition is undeclared"
+ },
+ "ln-procedure-body": {
+  "basis": "\u00a712",
+  "claims": [],
+  "events": 18,
+  "items": [
+   "\u00a712 LOOP-NESTING"
+  ],
+  "ops": 36,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "status": "COMPLETED",
+  "what": "a procedure of 16 nested loops performed inside a loop"
+ },
+ "ln-siblings-do-not-nest": {
+  "basis": "\u00a712",
+  "claims": [],
+  "events": 0,
+  "items": [
+   "\u00a712 LOOP-NESTING"
+  ],
+  "ops": 17,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "status": "COMPLETED",
+  "what": "17 loops in sequence"
+ },
+ "nested-to-empty-block": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a712 procedures",
+   "\u00a713 phase 4"
+  ],
+  "refused": "EMPTY-BLOCK",
+  "what": "a nested To without children: EMPTY-BLOCK (phase 4)"
+ },
+ "nested-to-place": {
+  "basis": "\u00a712",
+  "items": [
+   "\u00a712 procedures"
+  ],
+  "refused": "PROCEDURE-PLACE",
+  "what": "a nested To is parsed and refused"
+ },
+ "p2-bad-check-after-sealed": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "refused": "SEAL-PLACE",
+  "what": "after the Sealed line: SEAL-PLACE before LINE-CHECK"
+ },
+ "p2-depth-24-passes": {
+  "basis": "\u00a712",
+  "claims": [],
+  "events": 1,
+  "items": [
+   "\u00a712 NESTING-DEPTH"
+  ],
+  "ops": 24,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "status": "COMPLETED",
+  "what": "a label of 24 parts is allowed"
+ },
+ "p2-depth-25-refused": {
+  "basis": "\u00a712",
+  "items": [
+   "\u00a712 NESTING-DEPTH"
+  ],
+  "refused": "NESTING-DEPTH",
+  "what": "a label of 25 parts"
+ },
+ "p2-depth-before-numbering": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "refused": "NESTING-DEPTH",
+  "what": "one line both 25 parts deep and misnumbered: NESTING-DEPTH first"
+ },
+ "p2-line-check-before-depth": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "refused": "LINE-CHECK",
+  "what": "one line: LINE-CHECK is listed before NESTING-DEPTH"
+ },
+ "p2-line-check-line-1-before-line-form-line-9": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "refused": "LINE-CHECK",
+  "what": "\u00a713's own example"
+ },
+ "p2-no-period-after-sealed": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "refused": "LINE-FORM",
+  "what": "a clause line without its period after the Sealed line: LINE-FORM first"
+ },
+ "p2-numbering-line-before-depth-line": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "refused": "NUMBERING",
+  "what": "one pass, line by line: NUMBERING on line 2 before NESTING-DEPTH on line 3"
+ },
+ "p2-period-inside-literal": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "refused": "LINE-FORM",
+  "what": "the line ends with a quote, its period inside the literal"
+ },
+ "p2-reference-of-25-parts": {
+  "alt": "NESTING-DEPTH, if the bound on a label's parts also bounded references",
+  "alt_expect": {
+   "refused": "NESTING-DEPTH"
+  },
+  "alt_key": "ref-parts",
+  "basis": "twin reading",
+  "items": [
+   "\u00a712 NESTING-DEPTH"
+  ],
+  "refused": "UNKNOWN-CLAUSE",
+  "what": "a reference (not a label) of 25 parts names no clause"
+ },
+ "p2-seal-place-before-depth": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "refused": "SEAL-PLACE",
+  "what": "after the Sealed line, SEAL-PLACE is listed before NESTING-DEPTH"
+ },
+ "p2-sealed-prefix-opens": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "refused": "SEAL-FORM",
+  "what": "'Sealed: ' opens a Sealed line; what follows is malformed"
+ },
+ "p2-second-sealed-malformed": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "refused": "SEAL-FORM",
+  "what": "a second Sealed line that is malformed: SEAL-FORM before SEAL-PLACE"
+ },
+ "p2-title-after-note-after-sealed": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 2"
+  ],
+  "refused": "TITLE-PLACE",
+  "what": "the Sealed line is content, a Note is not"
+ },
+ "p3-call-holds-a-number": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "SYNTAX",
+  "what": "\u00a713's own example"
+ },
+ "p3-call-in-arm-to-semicolon": {
+  "basis": "\u00a713",
+  "claims": [],
+  "events": 1,
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "ops": 2,
+  "output": "2\n",
+  "output_bytes": 2,
+  "output_sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+  "status": "COMPLETED",
+  "what": "an inline arm's call ends at ';'"
+ },
+ "p3-call-reserved-first-word": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "SYNTAX",
+  "what": "a call in an Unless arm beginning with a reserved word"
+ },
+ "p3-call-to-nested-to": {
+  "alt": "PROCEDURE-PLACE, if every To clause's name were collected (\u00a713: 'a name no To clause defines')",
+  "alt_expect": {
+   "refused": "PROCEDURE-PLACE"
+  },
+  "alt_key": "procs-all",
+  "basis": "twin reading",
+  "items": [
+   "\u00a712 procedures",
+   "\u00a713 phase 3"
+  ],
+  "refused": "UNKNOWN-PROCEDURE",
+  "what": "procedures are collected from top-level clauses, so a nested To's name is no procedure"
+ },
+ "p3-lex-at-the-end": {
+  "alt": "SYNTAX under the round-2 reading",
+  "alt_expect": {
+   "refused": "SYNTAX"
+  },
+  "alt_key": "lex-lazy",
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "LEX",
+  "what": "a SYNTAX fault early, an unreadable '?' last"
+ },
+ "p3-lex-before-syntax": {
+  "alt": "SYNTAX under the round-2 reading (first offending position)",
+  "alt_expect": {
+   "refused": "SYNTAX"
+  },
+  "alt_key": "lex-lazy",
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "LEX",
+  "what": "the statement is read into tokens whole: '@' is LEX though '=' fails first"
+ },
+ "p3-malformed-to-defines-nothing": {
+  "alt": "SYNTAX, if the lexer collected the words after 'To' whether or not the clause parses",
+  "alt_expect": {
+   "refused": "SYNTAX"
+  },
+  "alt_key": "procs-lexer",
+  "basis": "twin reading",
+  "items": [
+   "\u00a712 procedures",
+   "\u00a713 phase 3"
+  ],
+  "refused": "UNKNOWN-PROCEDURE",
+  "what": "a call (clause 1) of a name whose top-level To (clause 2) does not parse"
+ },
+ "p3-name-alone-unknown": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "UNKNOWN-PROCEDURE",
+  "what": "\u00a713's own example: the name alone, defined nowhere"
+ },
+ "p3-perform-fly-away-1": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "SYNTAX",
+  "what": "\u00a713's own example"
+ },
+ "p3-perform-nothing": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "SYNTAX",
+  "what": "a Perform with nothing after it"
+ },
+ "p3-perform-the-name": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "SYNTAX",
+  "what": "the filler 'the' is not part of a call"
+ },
+ "p3-procedure-name-of-nested-to": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a712 procedures",
+   "\u00a713 phase 3"
+  ],
+  "refused": "PROCEDURE-NAME",
+  "what": "a nested To is parsed: PROCEDURE-NAME (phase 3) before PROCEDURE-PLACE (phase 6)"
+ },
+ "p3-syntax-before-procedure-name": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "SYNTAX",
+  "what": "a To with a reserved first word that does not parse"
+ },
+ "p3-syntax-before-unknown-procedure": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "SYNTAX",
+  "what": "an unknown call and a syntax fault in one clause"
+ },
+ "p3-syntax-clause-1-before-lex-clause-2": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "SYNTAX",
+  "what": "across clauses, clause order decides"
+ },
+ "p3-to-spacing": {
+  "basis": "\u00a712",
+  "claims": [],
+  "events": 1,
+  "items": [
+   "\u00a712 procedures"
+  ],
+  "ops": 2,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "status": "COMPLETED",
+  "what": "spacing inside ', do the following' and the name does not matter"
+ },
+ "p3-to-without-name": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "SYNTAX",
+  "what": "a To with no name"
+ },
+ "p3-unknown-call-in-arm-never-run": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 3"
+  ],
+  "refused": "UNKNOWN-PROCEDURE",
+  "what": "UNKNOWN-PROCEDURE is static, run or not"
+ },
+ "ref-leading-zero-certificate": {
+  "basis": "\u00a712",
+  "claims": [
+   "claim 0 2 1 1 1 1 1"
+  ],
+  "events": 2,
+  "items": [
+   "\u00a712 references"
+  ],
+  "ops": 3,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "status": "COMPLETED",
+  "what": "a certificate of \u00a701 names \u00a71"
+ },
+ "ref-leading-zero-given": {
+  "basis": "\u00a712",
+  "claims": [
+   "claim 0 1 1 1 0 0 0",
+   "claim 1 2 1 1 0 0 0"
+  ],
+  "events": 2,
+  "items": [
+   "\u00a712 references"
+  ],
+  "ops": 2,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "status": "COMPLETED",
+  "what": "given \u00a701 names \u00a71"
+ },
+ "ref-leading-zero-notwithstanding": {
+  "basis": "\u00a712",
+  "claims": [],
+  "events": 1,
+  "items": [
+   "\u00a712 references"
+  ],
+  "ops": 2,
+  "output": "2\n",
+  "output_bytes": 2,
+  "output_sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+  "status": "COMPLETED",
+  "what": "notwithstanding \u00a7001 names \u00a71"
+ },
+ "w-agreement-written-order": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "AGREEMENT-TARGET",
+  "what": "agreement of a later clause and a missing one"
+ },
+ "w-and-check-before-later-operand": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "TYPE",
+  "what": "(true and 1) or y: the and's check completes first"
+ },
+ "w-and-types-both-operands": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "UNDECLARED",
+  "what": "1 and y: both operands typed before and's own check"
+ },
+ "w-append-value-before-list": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "UNDECLARED",
+  "what": "Append y (UNDECLARED) to an Int (TYPE)"
+ },
+ "w-claim-condition-before-oracle": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "UNDECLARED",
+  "what": "an undeclared condition, a certificate of \u00a79"
+ },
+ "w-claim-oracle-before-premises": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "CERTIFICATE-TARGET",
+  "what": "a later certificate target, an unknown premise"
+ },
+ "w-copies-count-post-order": {
+  "alt": "TYPE, if the count's Int requirement were checked when the count is reached, as an index's is",
+  "alt_expect": {
+   "refused": "TYPE"
+  },
+  "alt_key": "copies-count-first",
+  "basis": "twin reading",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "UNDECLARED",
+  "what": "a list of 1.5 copies of y"
+ },
+ "w-define-name-before-value": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "note": "Text changed after the first run: its first text passed for the reason of w-to-walked-before-define.",
+  "refused": "REDECLARED",
+  "what": "Define go (a later procedure's name) as y"
+ },
+ "w-define-one-type-at-value": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "TYPE",
+  "what": "the one-type relation is checked at the value, before the proviso"
+ },
+ "w-define-references-before-name": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "note": "Text changed after the first run: see the correction of w-to-walked-before-define.",
+  "refused": "UNKNOWN-CLAUSE",
+  "what": "a Define naming a later procedure, notwithstanding \u00a79"
+ },
+ "w-define-target-before-value": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "NOTWITHSTANDING-TARGET",
+  "what": "notwithstanding a Define of another name; value undeclared"
+ },
+ "w-define-value-before-proviso": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "TYPE",
+  "what": "a TYPE value, an undeclared proviso"
+ },
+ "w-for-bound-before-counter": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "UNDECLARED",
+  "what": "For i (REDECLARED) from y (UNDECLARED)"
+ },
+ "w-for-counter-last": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "UNDECLARED",
+  "what": "For i (a rule's name) from 1 to y"
+ },
+ "w-for-lower-bound-type-at-once": {
+  "alt": "UNDECLARED, if the bounds' Int requirement were checked after both bounds",
+  "alt_expect": {
+   "refused": "UNDECLARED"
+  },
+  "alt_key": "for-bounds-post",
+  "basis": "twin reading",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "TYPE",
+  "what": "For from 1.5 (TYPE) to y (UNDECLARED)"
+ },
+ "w-for-upper-bound-before-counter": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "TYPE",
+  "what": "For i (REDECLARED) from 1 to 2.5 (TYPE)"
+ },
+ "w-increase-item-numbers-before-value": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "TYPE",
+  "what": "Increase item of a Bool list (TYPE) by y"
+ },
+ "w-increase-number-before-value": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "TYPE",
+  "what": "Increase a Text (TYPE) by y (UNDECLARED)"
+ },
+ "w-item-index-before-list": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "TYPE",
+  "what": "item 1.5 (TYPE) of y (UNDECLARED)"
+ },
+ "w-let-expression-before-name": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "TYPE",
+  "what": "Let x (REDECLARED) be a TYPE fault"
+ },
+ "w-literal-range-in-written-order": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "LITERAL-RANGE",
+  "what": "LITERAL-RANGE (left operand) before UNDECLARED"
+ },
+ "w-operator-check-before-next-operand": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "TYPE",
+  "what": "(1 plus true) plus z: post-order"
+ },
+ "w-quotient-types-both-operands": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "UNDECLARED",
+  "what": "the quotient of 1.5 by y"
+ },
+ "w-set-item-index-before-counter": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "TYPE",
+  "what": "Set item 1.5 (TYPE) of a counter (LOOP-VARIABLE)"
+ },
+ "w-set-item-list-before-value": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "TYPE",
+  "what": "Set item of an Int (TYPE) to y (UNDECLARED)"
+ },
+ "w-to-name-before-body": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "REDECLARED",
+  "what": "a To named as a visible variable, its body undeclared"
+ },
+ "w-to-place-before-name": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "PROCEDURE-PLACE",
+  "what": "a nested To named as a visible variable"
+ },
+ "w-to-walked-before-define": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6",
+   "\u00a713 item 47"
+  ],
+  "note": "Corrected: first worked as UNKNOWN-CLAUSE (the Define's references before its name), which overlooked that the walk reaches the To at clause 1 first, and that 'a procedure may not take the lowercased name of any rule. Rules are collected first' (\u00a713). The twin's REDECLARED was right; this was the first text of w-define-references-before-name.",
+  "refused": "REDECLARED",
+  "what": "To go (clause 1) walked before Define go notwithstanding \u00a79 (clause 2): the To meets the rule's name first"
+ },
+ "w-while-condition-before-fuel": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "TYPE",
+  "what": "While 1 (TYPE), at most 0 times (FUEL)"
+ },
+ "w-while-undeclared-before-fuel": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase 6"
+  ],
+  "refused": "UNDECLARED",
+  "what": "While y, at most 5*10^18 times (FUEL)"
+ },
+ "x-define-place-before-loop-nesting": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase table"
+  ],
+  "refused": "DEFINE-PLACE",
+  "what": "DEFINE-PLACE (phase 5) before LOOP-NESTING (phase 6)"
+ },
+ "x-empty-block-before-loop-nesting": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase table"
+  ],
+  "refused": "EMPTY-BLOCK",
+  "what": "the 17th loop has no children: EMPTY-BLOCK (phase 4)"
+ },
+ "x-expression-depth-before-literal-range": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase table"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "EXPRESSION-DEPTH (phase 3) before LITERAL-RANGE (6)"
+ },
+ "x-expression-depth-before-orphan": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase table"
+  ],
+  "refused": "EXPRESSION-DEPTH",
+  "what": "EXPRESSION-DEPTH (phase 3) before ORPHAN-OTHERWISE"
+ },
+ "x-loop-nesting-before-later-type": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase table"
+  ],
+  "refused": "LOOP-NESTING",
+  "what": "LOOP-NESTING in walk order, before a later TYPE"
+ },
+ "x-nesting-depth-before-lex": {
+  "basis": "\u00a713",
+  "items": [
+   "\u00a713 phase table"
+  ],
+  "refused": "NESTING-DEPTH",
+  "what": "NESTING-DEPTH (phase 2, line 2) before LEX (phase 3, clause 1)"
+ }
+}

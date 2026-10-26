@@ -751,6 +751,89 @@ def order_rows():
     plant("item-target-before-index", bool(planted), "under the pre-§13 order: %s" % "; ".join(planted))
 
 
+E21_GROW = ["§1 Let t be \"x\".", "§2 For each i from 1 to 22, do the following.", "§2.1 Set t to t followed by t.",
+            "§3 For each k from 1 to %d, do the following.", "§3.1 Set t to t followed by \"\".", "§4 Say \"done\"."]
+E21_LISTS = ["§1 Let xs be a list of 1000000 copies of 1.", "§2 Let ys be a list of 1 copies of 0.",
+             "§3 For each k from 1 to %d, do the following.", "§3.1 Set ys to xs.", "§4 Say the length of ys."]
+E21_UNRELEASED = "while (orl__tmp_n > mark) free(orl__tmp[--orl__tmp_n]);"
+
+
+def child_peak(cmd, cwd):
+    """(exit status, peak memory in bytes) of one child process: peak commit on Windows; elsewhere the children's
+    peak resident size, which is a maximum over every child so far (so the larger run is measured last)."""
+    import subprocess
+    if os.name == "nt":
+        import ctypes
+        import ctypes.wintypes as wt
+
+        class PMC(ctypes.Structure):
+            _fields_ = [("cb", wt.DWORD), ("PageFaultCount", wt.DWORD), ("PeakWorkingSetSize", ctypes.c_size_t),
+                        ("WorkingSetSize", ctypes.c_size_t), ("QuotaPeakPagedPoolUsage", ctypes.c_size_t),
+                        ("QuotaPagedPoolUsage", ctypes.c_size_t), ("QuotaPeakNonPagedPoolUsage", ctypes.c_size_t),
+                        ("QuotaNonPagedPoolUsage", ctypes.c_size_t), ("PagefileUsage", ctypes.c_size_t),
+                        ("PeakPagefileUsage", ctypes.c_size_t)]
+        p = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        p.wait()
+        pmc = PMC()
+        pmc.cb = ctypes.sizeof(PMC)
+        ok = ctypes.windll.psapi.GetProcessMemoryInfo(wt.HANDLE(int(p._handle)), ctypes.byref(pmc), pmc.cb)
+        return p.returncode, (pmc.PeakPagefileUsage if ok else -1)
+    import resource
+    r = subprocess.run(cmd, cwd=cwd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    kb = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss
+    return r.returncode, kb if sys.platform == "darwin" else kb * 1024
+
+
+def e21_peaks(plant, template):
+    """Peak memory of the C backend on a program run with 4, then 32 rebuilds (red team E21, rt_c finding 8)."""
+    import shutil
+    import subprocess
+    from orlog.arbiter import generate
+    from orlog.lower import Lowered
+    peaks = []
+    for n in (4, 32):
+        lines = [l % n if "%d" in l else l for l in template]
+        src = generate("c99", Lowered(compile_bytes(prog(*lines))))
+        if plant:
+            assert E21_UNRELEASED in src
+            src = src.replace(E21_UNRELEASED, "(void)mark;")
+        tmp = tempfile.mkdtemp(prefix="orlog-e21-")
+        try:
+            with open(os.path.join(tmp, "p.c"), "wb") as fh:
+                fh.write(src.encode("utf-8"))
+            subprocess.run(["clang"] + C_FLAGS + ["p.c", "-o", "p.exe"], cwd=tmp, capture_output=True)
+            rc, pk = child_peak([os.path.join(tmp, "p.exe"), "out.bin", "receipt.txt"], tmp)
+            peaks.append((rc, pk))
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+    return peaks
+
+
+def e21_rows(arb, backends):
+    """The C runtime's text ownership (red team E21): the fixtures agree four ways, and memory stays flat."""
+    for p in sorted(os.listdir(os.path.join(ROOT, "tests", "fixtures", "e21"))):
+        comp, w, ref = arb.arbitrate(read("tests/fixtures/e21/" + p), "e21-" + p)
+        ok = comp.ok and not w["dissenting"] and len(w["agreeing"]) == len(arb.backends)
+        row(ok, "E21 %s: runs byte-identically on the reference and [%s]" % (p, ",".join(w.get("agreeing", []))),
+            "" if ok else str(w.get("refusal") or w.get("mismatch_notes"))[:300])
+    if "c99" not in backends:
+        return
+    MB = 1 << 20
+    (r1, a), (r2, b) = e21_peaks(False, E21_GROW)
+    (r3, c), (r4, e) = e21_peaks(False, E21_LISTS)
+    ok = r1 == r2 == r3 == r4 == 0 and 0 < a and 0 < c and b - a < 16 * MB and e - c < 16 * MB
+    row(ok, "memory: the C backend's peak is flat as a run rebuilds a 4 MiB text 4 and then 32 times (%d and %d MiB) "
+        "and stores a 1,000,000-item list 4 and then 32 times (%d and %d MiB); red team E21 and rt_c finding 8: it "
+        "grew by every text and list a run made" % (a // MB, b // MB, c // MB, e // MB),
+        "exit %d, %d, %d, %d" % (r1, r2, r3, r4))
+    (r1, a), (r2, b) = e21_peaks(True, E21_GROW)
+    (r3, c), (r4, e) = e21_peaks(True, E21_LISTS)
+    caught = r1 == r2 == r3 == r4 == 0 and b - a >= 16 * MB and e - c >= 16 * MB
+    plant("c99-temporaries-never-released", caught, "with the temporaries never released, as before the repair, "
+          "the text run's peak grows from %d to %d MiB and the list run's from %d to %d MiB"
+          % (a // MB, b // MB, c // MB, e // MB))
+
+
 SPEC_CODE_RE = re.compile(r"`([A-Z][A-Z0-9-]+)`")
 
 
@@ -791,6 +874,11 @@ def spec_rows():
     row(error is None and not diffs and same + len(kept) == total, "spec: the twin's %d hand-worked probes: %d met "
         "as the twin worked them, %d as SPEC §13 settled them against the twin's reading (twin/probes/settled.json), "
         "%d different" % (total, same, len(kept), len(diffs)), error or "; ".join(d[0] for d in diffs))
+    same, kept, diffs, total, error = compare_probes.compare(folder="probes3")
+    row(error is None and not diffs and same + len(kept) == total, "spec: the twin's %d round-3 probes (SPEC §12, §13): "
+        "%d met as the twin worked them, %d as SPEC §14 settled them against the twin's reading "
+        "(twin/probes3/settled.json), %d different" % (total, same, len(kept), len(diffs)),
+        error or "; ".join(d[0] for d in diffs))
     table, raised = spec_phase_codes(), source_codes()
     row(table == raised and len(raised) > 40, "spec: SPEC §13's phase table lists exactly the %d compile refusal codes "
         "the front end can raise" % len(raised), "only in the table: %s; only in the code: %s" % (
@@ -882,6 +970,7 @@ def main():
     court_rows(arb, workdir)
     redteam_rows(arb)
     redteam_v2_rows(arb, workdir, backends)
+    e21_rows(arb, backends)
     law_plants(arb)
     backend_plants(workdir, backends)
     reference_dissent_plant(workdir, backends)

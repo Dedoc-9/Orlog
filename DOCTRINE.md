@@ -232,6 +232,28 @@ lineage, for the owner to rule on.
   - The explicit-fma plant is localized at its first fused operation by the trace.
 - **Prior art.** Rosinski & Williamson 1997.
 
+### T10. One code for each refused text (SPEC §11 G3, completed in §13 and §14)
+
+- **The theorem under discussion.** For every text, the compile result (acceptance, or exactly one refusal code) is a
+  function of the text alone. It is fixed by the specification, not by how an implementation happens to walk the
+  text.
+- **Mechanism.**
+  - Eight phases in a total order, with every code in exactly one (SPEC §13's table). A self-test row holds the
+    table to the codes the source can raise, and a plant shows the row bites.
+  - An order within each phase. Within a statement, written order, post-order (§13). §14 sharpens it: which checks
+    belong to a part, a loop's place first, and the nesting count and the statement's tree each defined once.
+- **Evidence.** MEASURED here (`evidence/`):
+  - the clean-room twin's hand-worked probes are all met: 163 from its second round and 128 from its third, five of
+    them as settled against the twin, each with its reason;
+  - differential runs against the round-3 twin: 0 disagreements on 20,221 mutants (seed 1). With the third round's
+    probes as seeds, every disagreement is one of the three readings §14 settled against the twin (seed 2);
+  - a row of 15 two-fault texts for the order within a statement, and its plant.
+- **Does not show.**
+  - That the reference parser is a predictive reader of §4 (DECLARED, §13).
+  - That the twin and the reference differ nowhere beyond the five settled readings: the runs sample texts, they do
+    not enumerate them.
+  - Truth: two readers from one model family agreeing is consistency.
+
 ---
 
 ## 2. The lineage this inherits (each item also has prior art outside the lineage: N25)
@@ -362,12 +384,19 @@ Edition 1's list stands, and the court adds:
 - **The language is bounded.** Clauses nest at most 24 deep, loops at most 16 within one body, expressions at most 24
   deep as SPEC §13 counts them, and lists hold at most 2^24 items. These bounds are deliberate, sized to the hosts'
   limits. §12 stated the expression bound one too generously; §13 states it as the code measures it.
-- **The C runtime never frees a text (red team E21, not repaired).** A text built at run time is copied to the heap
-  and never released, so the C backend's memory grows with every text a run builds: the red team measured a peak of
-  130, 370 and 691 MiB at N = 5, 20 and 40 rebuilds of a 16 MiB text, against 113 MiB for Python. A run that
-  exhausts memory does not finish, and the arbiter reports the C backend as dissenting. No receipt of a run that
-  finishes is affected. Repairing it needs ownership in the C text type (reference counting in the runtime and the
-  generator) and a fresh vector run: a next rung.
+- **Memory in the C backend (red team E21 and rt_c finding 8; repaired 2026-10-25).**
+  - *Before.* A text made by `followed by`, and every list made or copied, stayed on the heap until the run ended,
+    so the C backend's memory grew with every one it ever made. The red team measured 130, 370 and 691 MiB at
+    N = 5, 20 and 40 rebuilds of a 16 MiB text, against 113 MiB for Python.
+  - *The repair.* Every heap text and list now has one owner: a variable's slot, or the temp stack, which is
+    released when each statement ends. No recursion and no text in a list mean one slot per variable suffices.
+  - *Measured* (`evidence/e21-*.txt`, `rt_c/NOTES.md`):
+    - the same text runs peak at 58 MiB;
+    - a 2,000,000-item list stored 4 and 32 times peaks at 46 and 46 MiB, against 77 and 505 MiB before.
+  - *The bound.* Live text is at most (text variables + the text temporaries along one chain of active statements
+    + the builder) × 2^24 bytes, and lists likewise with × 8. The bound is DECLARED in general and MEASURED for
+    these programs. It covers texts and lists, not the stack, the code or the host's allocator.
+  - A run that still exhausts memory does not finish, and the arbiter reports the C backend as dissenting.
 - **Which of two faults is reported.** SPEC §13 fixes it everywhere but in one place: within a statement, SYNTAX and
   the nesting part of EXPRESSION-DEPTH are met in the order of a left-to-right predictive reading of the grammar.
   That the reference parser is such a reader is DECLARED.
@@ -394,7 +423,6 @@ Edition 1's list stands, and the court adds:
    - a call is any statement whose first word is not reserved;
    - one name never stands for a variable and a procedure, or a rule and a procedure.
 8. **Next rungs**, each its own admission record:
-   - ownership of texts in the C runtime (E21);
    - big integers and rationals;
    - capability inputs;
    - Freivalds and Blum–Luby–Rubinfeld library certificates;

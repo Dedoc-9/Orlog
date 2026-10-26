@@ -95,7 +95,17 @@ class CGen:
             else:
                 self.w(d, "%s = %s;" % (ins[1], self.var(vi)))
         elif op == "write":
-            self.w(d, "%s = %s;" % (self.var(ins[1]), ins[2]))
+            vi = ins[1]
+            if vi.type == "text":       # the variable's slot owns its text: copy in, then free (E21)
+                self.w(d, "orl_t_store(&%s, &g_ts%d, %s);" % (self.var(vi), vi.id, ins[2]))
+            elif isinstance(vi.type, tuple):    # a list variable owns its buffer: copy in (E21, finding 8)
+                self.w(d, "orl_l_store(&%s, %s);" % (self.var(vi), ins[2]))
+            else:
+                self.w(d, "%s = %s;" % (self.var(vi), ins[2]))
+        elif op == "tmark":
+            self.w(d, "size_t %s = orl_tmp_mark();" % ins[1])
+        elif op == "trelease":
+            self.w(d, "orl_tmp_release(%s);" % ins[1])
         elif op == "copy":
             self.w(d, "%s = %s;" % (ins[1], ins[2]))
         elif op == "set_u64":
@@ -258,7 +268,8 @@ class CGen:
         self.types = dict(f.temps)
         self.w(0, "%s {" % sig)
         for vid, t in sorted(f.locals.items()):
-            self.w(1, "%s v%d = %s;" % (ctype(t), vid, default(t)))
+            # a list local owns its buffer across calls (static: no recursion, so one live instance) (E21)
+            self.w(1, "%s%s v%d = %s;" % ("static " if isinstance(t, tuple) else "", ctype(t), vid, default(t)))
         for name, t in f.temps:
             self.w(1, "%s %s = %s;" % (ctype(t), name, default(t)))
         self.block(1, f.body)
@@ -278,6 +289,10 @@ class CGen:
                                                                         ", ".join("%du" % c for c in claims) or "0u"))
         for v in low.top_vars:
             self.w(0, "static %s g_v%d = %s;" % (ctype(v.type), v.id, default(v.type)))
+        # one slot per text variable, static even for locals: no recursion, so one live instance of each (E21)
+        for v in comp.an.vars:
+            if v.type == "text":
+                self.w(0, "static orl_tslot g_ts%d = {NULL, 0};" % v.id)
         for c in low.cost_clauses:
             self.w(0, "static uint64_t g_cost%d = 0;" % c)
         for c, f in low.procs:
