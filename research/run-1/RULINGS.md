@@ -107,11 +107,32 @@ reproduce the output chain.
 ### R6. What the input log is to the court
 | option | entails | design |
 |---|---|---|
-| **a. Data, never a channel** | a claim whose condition reads a port stays a claim of the program's computation and is never GROUNDED; the court shows the log's seal as provenance: "rests on input log <seal>, unratified" | replayable is not admissible (DOCTRINE T12, limit 4). A log is a value chosen by whoever ran the session, and it can never raise a standing |
+| **a. Data, never a channel** | in a run whose law declares any port, no claim is GROUNDED, whatever its channel and whatever is ratified; the court shows the log's seal as provenance: "rests on input log <seal>, unratified" | replayable is not admissible (DOCTRINE T12, limit 4). A log is a value chosen by whoever ran the session, and it can never raise a standing |
 | b. Testimony | a person may ratify a log's seal ("this is what the sensor recorded"); a claim over that log could be GROUNDED only with both its own seal and the log's ratified | the supplier's word becomes explicit and signed, as the ledger makes a ratification. That is a court change, in the territory of typed terminals (DOCTRINE §9, fork 9) |
 
-**Recommended: a for RUN-1; b as a later fork.** **Falsifier:** a claim that reads a port and reads GROUNDED with no
-ratification of the log.
+**Recommended: a for RUN-1; b as a later fork.**
+- **Falsifier:** a claim in a run whose law declares a port that reads GROUNDED. The acceptance row: a claim that reads
+  only `x`, where `x` is updated from a port, rests on the owner and has its own seal ratified, must read UNGROUNDED.
+  The narrow wording below is that row's plant, and must be caught.
+- **Sound, not complete.** Rule a never reads a false GROUNDED, but it also withholds grounding from a claim that
+  depends on no port at all. That is a known limit. The backward slice (fork 4) lifts it: a claim whose evaluation
+  provably depends on no port could be groundable again.
+- **Time and randomness add no second case.** No runtime reads a clock, the environment or entropy (RUNTIME-SPEC §1).
+  Under RUN-1 they could enter only as ports (D7), so they fall under this same rule.
+
+*Amended 2026-10-26, before any ruling.* The first wording read: "a claim whose condition reads a port stays a claim of
+the program's computation and is never GROUNDED". It misses dependence through state. A claim about `x` never reads the
+port, but its truth depends on the log once `x` is updated from the port, and the court sees only direct, declared
+dependence (L10). `research/run-1/r6_indirect.py` measures this in version 0, with the port played by a variable set
+once from a literal (`evidence/run1-r6-indirect.txt`):
+- the claim's condition reads `x` alone;
+- its truth turns on the stand-in, holding at 1 and 2 and refuted at the 17th tick at 6;
+- with its own seal ratified it reads GROUNDED. That is legitimate in version 0, where the value is in the ratified law
+  and a different value gives a different claim seal.
+
+With a real port the law and the claim seal stay the same for every log, so the narrow wording would let that claim
+read GROUNDED over a log nobody vouched for. A control shows the narrow check itself works: it does withhold grounding
+from a claim that reads the stand-in directly.
 
 ### R7. A twin round before the backends
 | option | entails | design |
@@ -163,7 +184,8 @@ Proposed record:
   - COMPAT-0 HELD after 1a and after 1b;
   - a recorded 1,000-tick log gives byte-identical receipt 1 on all four executions;
   - each plant caught: a dropped `'N'` event, located at its first divergent event; a backend that parses decimal
-    input; a misaligned log entry, refused rather than shifted; a tick over its budget that runs on.
+    input; a misaligned log entry, refused rather than shifted; a tick over its budget that runs on; R6's narrow
+    wording, which lets a claim that depends on a port only through state read GROUNDED.
 - **Scope:** `src/`, `rt_c/`, `rt_rs/`, `tests/`, SPEC §15, a RUNTIME-SPEC section for v1, a new
   `vectors/input-vectors.txt`. `runtime-vectors.txt` is untouched.
 - **Exit:** the discriminator met; the twin's round settled; the self-test green twice and byte-identical.

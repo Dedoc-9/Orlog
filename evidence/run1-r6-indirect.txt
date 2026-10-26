@@ -1,0 +1,18 @@
+# command: python -B research/run-1/r6_indirect.py, run twice: the two outputs byte-identical
+# tree: c797af4 plus the uncommitted R6 amendment that adds this file (src/ unchanged since b4eaf11)
+# host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; 2026-10-26; PYTHONHASHSEED=0 PYTHONUTF8=1
+# RUN-1 is not built: the port is a stand-in, a variable set once from a literal. Facts 1 to 4 and the control are
+# MEASURED with version 0; what they mean for a law with real ports is argued in research/run-1/RULINGS.md, R6
+== R6, measured with version 0: `thrust`, set once from a literal, stands in for a port
+  thrust 1: law 3d480e3b9470, claim seal fbd8055f136d, run COMPLETED (NONE), evaluation true in 20 of 20 evaluations
+  thrust 2: law e409383149e1, claim seal cb4f2b019bfc, run COMPLETED (NONE), evaluation true in 20 of 20 evaluations
+  thrust 6: law bdf8c92a6b6b, claim seal 43e63120ef21, run REFUSED CLAIM-REFUTED 5 (NONE), evaluation REFUTED at evaluation 17 (REFUSED CLAIM-REFUTED 5)
+1. the claim's condition reads: x; it does not read `thrust`
+2. its truth depends on `thrust` through state: thrust 1 true in 20 of 20 evaluations; thrust 2 true in 20 of 20 evaluations; thrust 6 REFUTED at evaluation 17 (REFUSED CLAIM-REFUTED 5)
+3. version 0 binds a ratification to the value: thrust 1's and thrust 2's claim seals differ: True; thrust 1's ratification applied to thrust 2's law: grounding UNGROUNDED
+4. with its own seal ratified, thrust 2's claim reads GROUNDED (version 0: the value is in the law the person ratified)
+the two wordings of R6, with `thrust` as the port:
+  narrow, 'a claim whose condition reads a port': withholds grounding: False (the claim would read GROUNDED over any log)
+  coarse, 'a law that declares any port': withholds grounding: True
+control: a claim that reads `thrust` directly (x plus thrust is at most 102) reads thrust, x; the narrow rule withholds grounding: True
+R6 INDIRECT DEPENDENCE SHOWN: the narrow rule misses dependence through state; the coarse rule does not (sound, not complete)
