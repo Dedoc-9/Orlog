@@ -1,6 +1,6 @@
 Title: Three Masses on Two Springs, Run Forward and Back.
 Note: Q31.32 fixed point. Position Verlet with rounding that is symmetric under negation is exactly reversible (Levesque and Verlet 1993).
-Note: Each spring's impulse is computed once and applied in an equal and opposite pair, so the total momentum cannot change by a single bit (Newton's third law, Noether's translation symmetry).
+Note: Each spring's impulse is computed once and applied in an equal and opposite pair, so the total momentum cannot change by a single bit (Newton's third law: each impulse is applied as +J and -J).
 §1 Let x be the list 0.0, 1.0 and 2.5.
 §2 Let v be the list 0.25, -0.5 and 0.125.
 §3 Let x0 be x.

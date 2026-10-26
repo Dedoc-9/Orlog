@@ -1,0 +1,30 @@
+# command: clang -std=c99 -pedantic -Wall -Wextra -O2 -ffp-contract=off -fno-fast-math rt_c/test_rt.c -o work/evidence-runs/test_rt_c_O2.exe (no warnings); test_rt_c_O2.exe vectors/runtime-vectors.txt work/evidence-runs/chain-c-O2
+# tree: fc19339 plus the uncommitted changes of the round that adds this file
+# host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; 2026-10-25; PYTHONHASHSEED=0 PYTHONUTF8=1
+RUNTIME VECTORS 20015 / 20015
+EVENT CHAIN (law seal = SHA-256("law"))
+head0 0cc0deef006a60381a23a0e869077ebae76e4ecca00696b16f2878b4b62f97ca
+head1 4accb3403d8415a2b4d8e81dda37d99ea98dbe20366a240cfd2b7faa1df268c4
+head2 22d273a90da5710475ffdb2c745f19fabd69bd215390a0ec29593f5d28fd1992
+head3 bd0494368f0ffb775791853f0d178c10470402a5b7e642b1ba75969e4dfb6ad9
+---- chain-receipt.txt
+orlog-receipt 0
+backend c99
+law-seal 8f1f74adf65864c86d3d471ea8ca9e329d4282489edc156c99604264090774bf
+text-seal 982d9e3eb996f559e633f4d194def3761d909f5a3b647d1a851fead67c32c9d1
+status REFUSED OVERFLOW 3
+output-bytes 6
+output-sha256 5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03
+events 3
+trace-head bd0494368f0ffb775791853f0d178c10470402a5b7e642b1ba75969e4dfb6ad9
+ops 0
+claims 0
+end
+---- chain-trace.txt
+1 S 1 68656c6c6f0a 4accb3403d8415a2b4d8e81dda37d99ea98dbe20366a240cfd2b7faa1df268c4
+2 A 2 0000000049000000000000002a 22d273a90da5710475ffdb2c745f19fabd69bd215390a0ec29593f5d28fd1992
+3 R 3 4f564552464c4f57 bd0494368f0ffb775791853f0d178c10470402a5b7e642b1ba75969e4dfb6ad9
+----
+CHAIN FILES CONSISTENT WITH THE HEADS
+EXTRA CHECKS 34 / 34
+exit 0

@@ -16,7 +16,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(ROOT, "src"))
 
 from orlog.arbiter import Arbiter, BACKENDS, witness_artifact, parse_receipt  # noqa: E402
-from orlog.court import panel, court_artifact, read_ledger, claim_seals  # noqa: E402
+from orlog.court import panel, court_artifact, read_ledger, claim_seals, LedgerBroken  # noqa: E402
 from orlog.front import compile_bytes  # noqa: E402
 from orlog.seal import stamp  # noqa: E402
 
@@ -59,9 +59,14 @@ def cmd_run(a):
             print("%-18s REFUSED %s at line %s" % (name, w["refusal"]["code"], w["refusal"]["line"]))
             worst = max(worst, 1)
             continue
+        if ref is None:                     # the host's budget stopped the reference: no verdict, no receipt
+            print("%-18s law %s  %s" % (name, comp.seal_words, w["mismatch_notes"][0]["detail"]))
+            worst = max(worst, 3)
+            continue
         line = "%-18s law %s  ref %s  agree [%s]  dissent [%s] %s" % (
             name, comp.seal_words, w["reference"]["status"], ",".join(w["agreeing"]), ",".join(w["dissenting"]),
-            w["dissent_kind"])
+            w["dissent_kind"]) + ("  did not build [%s]" % ",".join(w["build_failed"]) if w["build_failed"] else "")
+        line += "  stopped by the host [%s]" % ",".join(w["stopped"]) if w.get("stopped") else ""
         print(line)
         for n in w["mismatch_notes"]:
             print("    NOTE %s" % json.dumps(n, sort_keys=True))
@@ -72,19 +77,27 @@ def cmd_run(a):
             art = witness_artifact(w)
             with open(os.path.join(a.witness, name + ".witness.json"), "wb") as fh:
                 fh.write(json.dumps(art, indent=1, sort_keys=True, ensure_ascii=True).encode("ascii"))
-        if w["dissenting"]:
+        if w["dissenting"] or w.get("build_failed") or w.get("stopped"):
             worst = max(worst, 2)
     return worst
 
 
 def cmd_court(a):
     wd = a.workdir or os.path.join(ROOT, "build", "runs")
-    arb = Arbiter(wd)
+    arb = Arbiter(wd, backends=tuple(a.backends.split(",")) if a.backends else BACKENDS)
     comp, w, ref = arb.arbitrate(read(a.file), os.path.splitext(os.path.basename(a.file))[0])
     if not comp.ok:
         print("REFUSED", w["refusal"])
         return 1
-    p = panel(comp, w, parse_receipt(ref.receipt()), read_ledger(a.ledger or DEFAULT_LEDGER))
+    if ref is None:
+        print(w["mismatch_notes"][0]["detail"])
+        return 3
+    try:
+        ledger = read_ledger(a.ledger or DEFAULT_LEDGER)
+    except LedgerBroken as e:               # fail closed: no reading of a broken ledger, never a traceback
+        print(str(e))
+        return 1
+    p = panel(comp, w, parse_receipt(ref.receipt()), ledger)
     for r in p["rows"]:
         print("%s  %s" % (r["clause"], r["text"][:110]))
         for k in ("channel", "integrity", "evaluation", "theorem", "ratification", "cost", "cost_reading",
@@ -169,6 +182,7 @@ def main(argv=None):
     p.add_argument("--show", action="store_true")
     p = sub.add_parser("court")
     p.add_argument("file")
+    p.add_argument("--backends")
     p.add_argument("--ledger")
     p.add_argument("--workdir")
     p.add_argument("--json")

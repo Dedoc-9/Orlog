@@ -6,9 +6,12 @@
   (S1–S10).
 - **Novelty prosecution:** `prosecution-novelty.md`. Findings N1–N25: 4 DEFEATS, 18 NARROWS, 3 NO-PRIOR-ART-FOUND.
 - **Engineering red team:** `redteam-eng/`. Reproducers E1–E22. Its written findings arrive separately; the
-  reproducers were processed directly.
-- **Clean-room twin:** `../twin/NOTES.md`. An independent interpreter written from SPEC.md alone, and its 62 notes on
-  ambiguity.
+  reproducers were processed directly. *(Note, 2026-10-25: the written findings are `redteam-eng/FINDINGS.md`, E1–E26.
+  They arrived after this record, whose second round is still to be written.)*
+- **Clean-room twin:** `../twin/NOTES.md`. An interpreter written from SPEC.md and RUNTIME-SPEC.md, and its 62 notes on
+  ambiguity. *(Corrected 2026-10-25, prosecutor F8: this line called the twin "an independent interpreter written from
+  SPEC.md alone". It imports the reference's `numeric_ref.py` and `seal.py`, so its agreement on numbers and seals is
+  shared code; it is independent of the reference's code path, not of the specification or its author.)*
 - **Defence:** none was needed. No finding was rebutted: each was conceded, repaired, or both.
 - **Judge:** the court engine. `judge.py` decides `record.json`, written by `build_record.py`, under Dung's grounded
   semantics. The verdict is in `VERDICT.txt`.
@@ -53,7 +56,7 @@
 | E1 | defect | **Repaired.** Equality types its operands once (row). |
 | E2 | defect | **Repaired.** Rule function names are assigned before any lowering (rows). |
 | E3 | defect | **Repaired.** Absorbed clauses obey the children rule (rows). |
-| E10 | defect | **Repaired.** Constant-depth If chains; NESTING-DEPTH 24; LOOP-NESTING 16. Rows at the limits on four executions. |
+| E10 | defect | **Repaired.** Constant-depth If chains; NESTING-DEPTH 24; LOOP-NESTING 16. Rows at the limits on four executions. *(Corrected 2026-10-25, prosecutor F17: only LOOP-NESTING had a four-way row at its limit; NESTING-DEPTH had its refusal at 25. The four-way row at 24 was added then.)* |
 | E13, E15 | defect | **Repaired.** One seal line; one oracle per claim (rows). |
 | E16 | defect | **Repaired.** Procedures collected top-level and case-insensitively (rows). |
 | E17 | defect | **Repaired.** Code refuses non-ASCII before normalizing (rows). |
@@ -62,7 +65,12 @@
 | twin 1–62 | ambiguities | Each settled in SPEC §11. |
 
 ## What the court established about the method
-- The prosecutors' MEASURED claims were re-run before conceding. L12, L17 and L16 reproduced here.
+- The prosecutors' MEASURED claims were re-run before conceding. L12, L17 and L16 reproduced here. *(Note,
+  2026-10-25, prosecutor F22: the logic prosecution's own scripts and outputs were kept in a session scratch folder,
+  not in this repository, so L16's 1526 of 6000 cannot be rerun from this tree.)*
 - Two of edition 1's falsifiers fired against edition 1 itself, as stated: T3's (L6) and T9's (L16). That is the
   apparatus working.
 - Every repair is held by a self-test row. Where a defect could return silently, it is also held by a plant.
+  *(Note, 2026-10-25, prosecutor F6: at commit fc19339, E18 and E22, both repaired, had no row. The next revision added
+  both, E18's with a plant. By this record's own rule the finding defeats the edition-2 implementation claim
+  (ed2-IMPL) as it stood; it is to be entered with the second round's record, beside the revised claim.)*

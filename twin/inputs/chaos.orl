@@ -1,6 +1,6 @@
 Title: A Chaotic Orbit as a Magnifying Glass.
-Note: x becomes x times x minus 2 (the Chebyshev map, conjugate to the logistic map at r = 4), which doubles a small error at each step.
-Note: A one-ulp difference in any single operation of any backend reaches the whole value within about 60 steps, so the printed bits fingerprint every rounding of the run. Prior art: Rosinski and Williamson 1997 used chaotic sensitivity to validate climate-model ports.
+Note: x becomes x times x minus 2 (the Chebyshev map, conjugate to the logistic map at r = 4), which doubles a small error per step on average.
+Note: A difference repeated at every step (an FMA, say) reaches the printed value; a single one-ulp difference is erased about a quarter of the time (court L16), so the trace, not the output, fingerprints each rounding. Prior art: Rosinski and Williamson 1997 used chaotic sensitivity to validate climate-model ports.
 §1 Decimals are floats.
 §2 Let x be 0.1234567.
 §3 For each n from 1 to 3000, do the following.

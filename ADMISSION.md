@@ -28,8 +28,11 @@ channel they rest on, with self-certification detected rather than trusted?
 ## Evidence that motivates it
 - The paradox: Löb, Montague, the DPI, Aumann, correlated judges.
 - The lineage's laws: GEN-005, GEN-008, law 12, Urðr L28 and L56, HERMENEUTICS-0.
-- The prior art's gap: R2 and R3 found no stated contract of byte-identical output across those three hosts with a
-  declared authority.
+- The prior art's gap, as the court narrowed it (DOCTRINE §6, "not found"; the court ruled the stronger form OUT,
+  ed1-NF, N13, N17, N18): no search found every run's output and receipt held identical across Python, C99 and Rust
+  with a reference interpreter as authority and mismatches localized to the first divergent event. That is absence of
+  evidence, not evidence of novelty; Dafny and Scala.js are the nearest prior art. (Corrected 2026-10-25, prosecutor
+  F16: this line had restated the claim the court ruled out.)
 
 ## Discriminator
 What separates "works" from "seems to work":
@@ -39,10 +42,14 @@ What separates "works" from "seems to work":
 - a reference plant that must read REFERENCE-DISSENT;
 - a court plant that must not ground a cycle;
 - law plants that must make claims refuse;
-- a clean-room twin written from the spec alone.
+- a clean-room twin written from the specification, importing the reference's arithmetic and seals (its agreement on
+  those is shared code);
+- since 2026-10-25, rows that test what agreement measures: a lowering defect caught only by the reference, a
+  front-end defect that passes all four executions (a monitored negative), and the vectors held to a derivation that
+  never imports the reference.
 
 ## Scope (may change)
-This repository only: src, rt_c, rt_rs, tests, examples, twin, docs, court, evidence. Nothing else.
+This repository only: src, rt_c, rt_rs, tests, vectors, examples, twin, court, evidence, research. Nothing else.
 
 ## Exit condition
 - `tests/selftest.py` passes, with all backends present, on a clean run.

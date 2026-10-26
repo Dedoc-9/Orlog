@@ -15,16 +15,20 @@ output file, the receipt and refusals.
 - **C:** one header `orlog_rt.h`, every function `static`, ISO C99 only. It must compile warning-free with
   `clang -std=c99 -pedantic -Wall -Wextra -O2 -ffp-contract=off -fno-fast-math`. No compiler extensions:
   no `__int128`, no `__builtin_*`, no `#pragma` other than `STDC FP_CONTRACT OFF`. Only the standard library
-  (`stdint.h stdio.h stdlib.h string.h math.h float.h limits.h`). Begin with
-  `#if FLT_EVAL_METHOD != 0` → `#error`, and `#pragma STDC FP_CONTRACT OFF`. 128-bit products and quotients are
+  (`stdint.h stdio.h stdlib.h string.h math.h float.h limits.h`). Include `<float.h>` first, then
+  `#if FLT_EVAL_METHOD != 0` → `#error` (before `<float.h>` the macro is undefined and the test passes vacuously),
+  and `#pragma STDC FP_CONTRACT OFF`. 128-bit products and quotients are
   built from `uint64_t` halves. Signed overflow must never occur (it is undefined in C): test before you add.
   `INT64_MIN % -1` and `INT64_MIN / -1` are undefined in C: never evaluate them.
 - **Rust:** one file `orlog_rt.rs`, standard library only, no crates, no `unsafe`. It must compile warning-free
   with `rustc --edition 2021 -O`. It is pasted at the top of a generated program (`mod rt { ... }` is NOT used:
   the generated `main` follows in the same file), so it must not define `main`. `i128`/`u128` are allowed.
 - **Both:** files opened in binary mode; output and receipt written with LF only; no locale, no clock, no
-  environment variable read, no randomness. Exit status 0 for a completed or refused run; 2 only when a file
-  cannot be opened (message on stderr).
+  environment variable read, no randomness. Exit status 0 for a completed or refused run. Otherwise, with a message
+  on stderr: 2 when a file cannot be opened or written (both runtimes), and in Rust also for wrong usage or a seal
+  argument that is not 64 hex digits; 3 in C for a misuse of the runtime by the generated code or an allocation that
+  fails. None of these is a refusal of the contract, and none writes a receipt that claims one. (Amended 2026-10-25
+  to what both runtimes do: prosecutor F29.)
 
 ## 2. Numeric functions
 
@@ -100,8 +104,8 @@ One builder per runtime. `orl_s_reset()`, `orl_s_lit(p, n)` (raw UTF-8 bytes), `
 `orl_s_f(x)`, `orl_s_b(v)`, `orl_s_t(orl_text)`, `orl_s_list(tag, const int64_t *slots, uint64_t n)` (tag `I X F B`;
 floats stored as their bits). Each append refuses `TEXT-TOO-LONG` (clause = the clause given to the last
 `orl_s_reset(c)`, so `orl_s_reset` takes `c`) if the builder would exceed 2²⁴ bytes. `orl_text orl_s_take(void)`
-returns a heap copy. Rust: `rt.s_reset(c)`, `rt.s_lit(&[u8])`, `rt.s_i(i64)`, `rt.s_x(i64)`, `rt.s_f(f64)`,
-`rt.s_b(bool)`, `rt.s_t(&[u8])`, `rt.s_list(tag: u8, &[i64])`, `rt.s_take() -> Vec<u8>`.
+returns a heap copy owned by the temp stack (§4a). Rust: `rt.s_reset(c)`, `rt.s_lit(&[u8])`, `rt.s_i(i64)`,
+`rt.s_x(i64)`, `rt.s_f(f64)`, `rt.s_b(bool)`, `rt.s_t(&[u8])`, `rt.s_list(tag: u8, &[i64])`, `rt.s_take() -> Vec<u8>`.
 
 `orl_say(c)`: the line is the builder's bytes plus one LF (0x0A). Refuse `OUTPUT-TOO-LONG` if total output would
 exceed 2³⁰ bytes. Write the line to the output file, add it to the running SHA-256 of all output, then emit event
@@ -109,6 +113,29 @@ exceed 2³⁰ bytes. Write the line to the output file, add it to the running SH
 
 C type: `typedef struct { const uint8_t *p; uint32_t n; } orl_text;` with `orl_text orl_t_lit(const char *p,
 uint32_t n)` (wraps, no copy) and `int orl_t_eq(orl_text a, orl_text b)` (byte equality).
+
+## 4a. Ownership (C; red team E21 and rt_c finding 8, added 2026-10-25)
+
+Before E21's repair, a text made by `followed by` and every list made or copied stayed on the heap until the run
+ended. Now every heap text and list the C runtime makes has exactly one owner, a variable's slot or the temp stack:
+- **The temp stack.** `size_t orl_tmp_mark(void)` and `void orl_tmp_release(size_t mark)`. `orl_s_take`, `orl_l_new`
+  and `orl_l_from` (and so `orl_l_copy`) push what they make onto it. The generated code takes a mark before each
+  clause statement and each While iteration, and releases back to it after.
+- **A text variable** owns one buffer, its slot: `typedef struct { uint8_t *p; uint32_t cap; } orl_tslot;` and
+  `void orl_t_store(orl_text *var, orl_tslot *slot, orl_text v)`. A store copies the value into the slot, reusing the
+  buffer while the value fits, and frees the old buffer only after the copy, so storing a variable's own text is safe.
+- **A list variable** owns its buffer: `void orl_l_store(orl_list *var, orl_list t)` copies the items in. A list read
+  from a variable is always a copy, so the source is never the destination's buffer.
+- **Slots are static**, one per variable id. That is sound because the language refuses recursion, so each variable
+  has at most one live instance, and lists hold only numbers and truth values.
+- **The bound.** Live heap text is at most (text variables + the text temporaries along one chain of active statements
+  + the builder) × 2²⁴ bytes, and live list memory at most (list variables + the list temporaries along that chain) ×
+  2²⁴ × 8 bytes, however long the run. DECLARED in general; measured on two programs (`evidence/e21-*.txt`).
+- **Rule.** Never let a store free before it copies, and never add a maker of heap texts or lists that does not push
+  onto the temp stack. None of this is visible in an output or a receipt.
+
+Rust and Python own their values by scope (`Vec<u8>`, `Vec<i64>`, Python objects); the generated mark and release
+are no-ops there.
 
 ## 5. The event hash chain
 
@@ -139,7 +166,7 @@ Rust: `rt.ev_assign_i(c, var, v)` and so on; lists as `&[i64]`.
 - `orl_init(int argc, char **argv, const char *backend, const char *law_hex, const char *text_hex,
   uint32_t n_claims, const uint32_t *claim_clause)`: argv[1] output path, argv[2] receipt path, optional argv[3]
   trace path. Rust: `Rt::init(backend: &str, law_hex: &str, text_hex: &str, claim_clause: &[u32]) -> Rt`
-  (reads `std::env::args()`).
+  (reads `std::env::args_os()`).
 - `orl_claim(id, c, int result, uint64_t cost, uint32_t ref_clause, uint64_t ref_cost)`: emit `'C'`; accumulate per
   claim id (ids are 0-based): evaluations += 1, trues += result, cost += cost, and store ref_clause and ref_cost
   (latest). If result is 0, `orl_refuse("CLAIM-REFUTED", c)`.
@@ -183,5 +210,5 @@ A harness (`test_rt.c` / `test_rt.rs`) that reads `vectors/runtime-vectors.txt`,
 runtime (a refusal is observed by the harness, e.g. by a test hook that records the code instead of exiting), and
 prints `RUNTIME VECTORS <passed> / <total>` and every failing line. Pass means 20015 / 20015. Plus an event-chain
 check: law seal = SHA-256("law"); events `'S'` clause 1 payload `hello\n`, `'A'` clause 2 payload var 0 + Int 42,
-`'R'` clause 3 payload `OVERFLOW`; print the three heads. The reference values are produced by
-`src/check_chain.py` in this folder.
+`'R'` clause 3 payload `OVERFLOW`; print head0 and the head after each event, four heads in all. The reference values
+are produced by `src/check_chain.py`.

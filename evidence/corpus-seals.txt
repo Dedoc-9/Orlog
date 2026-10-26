@@ -1,0 +1,18 @@
+# command: python -B tests/corpus_seals.py 83eb044 fc19339 (prosecutor F25)
+# tree: fc19339 plus the uncommitted changes of the round that adds this file
+# host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; 2026-10-25; PYTHONHASHSEED=0 PYTHONUTF8=1
+law seals of the 11 corpus programs (first 16 hex digits)
+  examples/aztec.orl                   1a9d69077e5f8b7b  1a9d69077e5f8b7b  1a9d69077e5f8b7b
+  examples/chaos.orl                   babaf50065335543  babaf50065335543  babaf50065335543
+  examples/collatz.orl                 02ca2f73f977effa  02ca2f73f977effa  02ca2f73f977effa
+  examples/fall.orl                    81cb74ad782ff846  81cb74ad782ff846  81cb74ad782ff846
+  examples/gcd_certificate.orl         97187841d73fa965  97187841d73fa965  97187841d73fa965
+  examples/leapfrog.orl                42cd40bd5b7326b2  42cd40bd5b7326b2  42cd40bd5b7326b2
+  examples/legal.orl                   e2d07905ed4a917c  e2d07905ed4a917c  e2d07905ed4a917c
+  examples/plankton.orl                cec2b29dba29191c  cec2b29dba29191c  cec2b29dba29191c
+  examples/spellings/phrases.orl       fc88a8ebc65eb159  fc88a8ebc65eb159  fc88a8ebc65eb159
+  examples/spellings/symbols.orl       fc88a8ebc65eb159  fc88a8ebc65eb159  fc88a8ebc65eb159
+  examples/spellings/words.orl         fc88a8ebc65eb159  fc88a8ebc65eb159  fc88a8ebc65eb159
+front end of 83eb044 (83eb044): 11 of 11 law seals equal to this tree's
+front end of fc19339 (fc19339): 11 of 11 law seals equal to this tree's
+exit 0

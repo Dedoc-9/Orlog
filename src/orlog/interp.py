@@ -28,6 +28,17 @@ class Stop(Exception):
         self.code, self.clause = code, clause
 
 
+class HostStop(Exception):
+    """The host's budget of counted operations ran out. Not a refusal: the law said nothing, so there is no receipt
+    and no event. Checked at every statement's entry, and no statement runs unbounded (expressions and rules hold no
+    loops, and a loop's body is never empty), so a stop comes at the first statement past the budget, the same on
+    every host (the use-case review found that nothing bounded a run, 2026-10-25)."""
+
+    def __init__(self, ops, budget):
+        Exception.__init__(self, "STOPPED-BY-HOST after %d counted operations (budget %d)" % (ops, budget))
+        self.ops, self.budget = ops, budget
+
+
 def enc_slot(v, t):
     if t in ("int", "fix"):
         return struct.pack(">q", v)
@@ -71,9 +82,10 @@ def receipt_text(backend, law_hex, text_hex, status, out_len, out_sha, events, h
 
 
 class Interp:
-    def __init__(self, prog, an, law_hex, text_hex, trace=False):
+    def __init__(self, prog, an, law_hex, text_hex, trace=False, budget=None):
         self.prog, self.an = prog, an
         self.law_hex, self.text_hex = law_hex, text_hex
+        self.budget = budget
         self.ops = 0
         self.env = {}
         self.head = hashlib.sha256(b"orlog-trace-0" + bytes.fromhex(law_hex)).digest()
@@ -136,6 +148,8 @@ class Interp:
 
     def stmt(self, c, s):
         cid = c.id
+        if self.budget is not None and self.ops > self.budget:
+            raise HostStop(self.ops, self.budget)
         if isinstance(s, (Define, ProcDef, Decimals)):
             return
         if isinstance(s, Let):

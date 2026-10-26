@@ -1,15 +1,20 @@
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
 # Ørlǫg
 
 *Ørlǫg*, "primal law", is what the Norns laid down (Völuspá 20).
 
 Ørlǫg is a prose programming language. A program is a numbered legal text: each clause is one statement, and the
 text spells a typed law. One law compiles to Python, C99 and Rust, and the four executions (a reference
-interpreter and the three backends) are held to byte-identical output and run receipts. Claims written in a program
-are checked while it runs, and a court reports what each claim rests on.
+interpreter and the three backends) are held to byte-identical output and byte-identical run receipts (compared
+without the line that names the backend). Claims written in a program are checked while it runs, and a court reports
+what each claim rests on.
 
 > **The rule under every rule: integrity is not truth.** Ørlǫg can show that runs agree byte for byte, that a claim's
 > condition held in a run, and what supports that claim. It cannot show that a condition says what its author meant:
 > the intent is not in the text.
+
+**Author:** Daniel J. Dillberg · **Contact:** [bigdilly95@gmail.com](mailto:bigdilly95@gmail.com)
+**License:** [AGPL-3.0-only](LICENSE)
 
 ## A green build is a statement about the build
 
@@ -34,21 +39,30 @@ agreeing on every backend, each resting only on the next: every integrity check 
 three CIRCULAR and names the cycle.
 
 **Ørlǫg turns the same suspicion on itself.**
-- **Its guards are tested by breaking them.** For each guard, the self-test plants the defect that guard exists to
-  catch, and requires the catch: a C remainder that truncates, a Rust fixed-point multiply that floors, a reference
-  that truncates its quotient, temporaries the C runtime never releases.
+- **Its guards are tested by breaking them.** Where a guard could pass by accident, the self-test plants the defect
+  that guard exists to catch and requires the catch: a C remainder that truncates, a Rust fixed-point multiply that
+  floors, a reference that truncates its quotient, temporaries the C runtime never releases, a ledger read past a torn
+  line. Other guards are held by rows alone.
+- **Its own agreement is tested too.** A defect planted in the lowering, which the three backends share, moves all
+  three together, and only the reference catches it. A defect planted in the front end, which all four executions
+  share, slips past every one of them; only the clean-room twin, whose front end is its own, sees it. The self-test
+  keeps both results as rows, so that nobody later reads four-way agreement as more than it is
+  ([what agreement measures](#what-agreement-measures)).
 - **Its own verifiers are not independent.** The clean-room twin, both runtimes, the prosecutors and the reference
   were all written by one model family. Their agreement shows consistency, not truth; that is the paradox this
   language was built around, applied to this repository first. What such verifiers can do is disagree. In three
-  rounds, the twin's hand-worked probes found defects in the reference and readings the specification had left
-  open (SPEC §11, §13, §14). Each disagreement is settled in writing, and no agreement is ever counted as proof.
+  rounds (notes on 23 programs, then 163 and 128 hand-worked probes), the twin found defects in the reference and
+  readings the specification had left open (SPEC §11, §13, §14). Each disagreement is settled in writing, and no
+  agreement is ever counted as proof.
 - **Its author's intent is not consulted.** Ørlǫg judges only what is written. What its author meant is not in the
   text, so it is never checked and never assumed.
 
 **How to read this README.** Nothing here is claimed beyond what is shown, unless marked otherwise. A statement about
-behaviour names the evidence file that records it. Anything else carries a grade: **MEASURED** (seen in a recorded
-run, on one host), **DECLARED** (a design commitment, not proven), **NOT_MEASURED**, or **SPECULATIVE**. "Here"
-means one Windows 11 host with clang 22.1.8, rustc 1.96.1 and CPython 3.14.5.
+behaviour names the evidence file that records it. Anything else carries a grade, as AGENTS.md §6 defines them:
+**MEASURED** (seen in a recorded run, on one host), **OBSERVED** (seen once, not recorded), **ESTABLISHED** (a cited
+result), **DECLARED** (a design commitment, not proven), **NOT_MEASURED**, or **SPECULATIVE**. Each row's boundary is
+under "What is not claimed"; its falsifier is its evidence, run again. "Here" means one Windows 11 host with clang
+22.1.8, rustc 1.96.1 and CPython 3.14.5.
 
 ## A program
 
@@ -112,33 +126,69 @@ The court's reading, here (`python -B orl.py court examples/plankton.orl`, first
 
 The court computes support as a fixed point:
 - A claim supported in the least fixed point is WELL-FOUNDED.
-- A claim only in the greatest is CIRCULAR, and the court names its cycle. This is Fitting's Kripke–Kleene reading
-  of a Horn program: prior art, cited in [DOCTRINE.md](DOCTRINE.md) §1 T4.
+- A claim only in the greatest is CIRCULAR, and the court names the cycle when the claim lies on one. This is
+  Fitting's Kripke–Kleene reading of a Horn program: prior art, cited in [DOCTRINE.md](DOCTRINE.md) §1 T4.
 - A claim resting on the program's own computation can never be grounded, whoever ratifies it.
 
-Ørlǫg does not solve the paradox, and nothing could. It keeps integrity, a run's formal truth, and outside
-ratification apart, and it never reports a standing higher than the channel behind it.
+Ørlǫg does not solve the paradox. It keeps integrity, a run's formal truth, and outside ratification apart, and it
+never reports a standing higher than the channel behind it.
+
+## What agreement measures
+
+Agreement measures what the agreeing executions do not share. A defect in a layer they share moves them together, and
+their agreement then measures the sharing. Each row is bound to the evidence that records it; a row that says nothing
+checks a layer states an absence, which no run can measure, so it is DECLARED.
+
+| layer | shared by | what four-way agreement shows there | what does check it | evidence |
+|---|---|---|---|---|
+| the front end: door, parser, type checker, law bytes | all four executions | **nothing.** A defect planted there (every `plus` read as `minus`) slips past all four, which agree | the clean-room twin, whose front end is its own; claims whose certificates refuse a wrong result | the self-test's `independence (MONITORED NEGATIVE …)` row, kept on purpose: the day the front end gains real diversity, it must flip to expect detection |
+| lowering and the three generators | the three backends | **real evidence.** A defect planted there moves all three together against the reference: REFERENCE-DISSENT | the reference, which never lowers. Trust moves to the reference here, it is not spread | the `independence: … shared lowering` row |
+| arithmetic | one definition, written as separate code (exact rationals in the reference, bit-level code in the runtimes) | **method diversity.** But the reference generated all 20,015 vectors, so alone they define the arithmetic rather than check it | since 2026-10-25, a second derivation that never imports the reference, 113 hand-worked cases and two published SHA-256 digests; three planted mistakes that the reference and its vectors would share are caught | [`evidence/vectors-independent.txt`](evidence/vectors-independent.txt); the `independence: … runtime vectors` row |
+| the comparison itself (the arbiter) | everything | **not diversified.** It has produced a false agreement (a lenient receipt check), dissents that were failed builds, and false dissents when runs shared a work folder, all repaired | its own rows and plants | [`evidence/race-after.txt`](evidence/race-after.txt); the arbiter rows |
+| the specification and the authors | everything | **nothing.** One model family wrote every part from one SPEC.md | nothing in this repository (DECLARED, an absence) | Knight & Leveson (1986): independently written versions fail together where a shared specification was misread |
+
+The twin is independent of the reference's code path, not of the specification or its author: it reads the same
+SPEC.md and imports the reference's arithmetic and seals. Its agreement shows code-path independence and nothing more.
+The full table is [DOCTRINE.md](DOCTRINE.md) §1 T11.
+
+## Where the ground ends
+
+Non-circular is not as far as the court goes. A claim is GROUNDED only when it rests on a channel that can carry outside
+information (a certificate, a theorem or the owner), a person has ratified its own seal in a ledger the program cannot
+write, and every claim it is declared to rest on is grounded too. A finite, acyclic tree that bottoms out in the
+program's own computation or an unratified citation reads WELL-FOUNDED but UNGROUNDED: it rests on nothing, and the
+court says so.
+
+That answers Agrippa's trilemma the only way a closed program can: no regress (claims are finite), circles flagged, and
+the stopping point made explicit and signed. The trusted base is therefore social, not mechanical, and the
+trustworthiness of Ørlǫg's ground is not auditable by reading code. Its limits, in the order they matter: terminals are
+untyped (a checked certificate, a cited theorem and testimony all need the same ratification); there is no inference
+step (every node needs its own signature, which invites rubber-stamping); and only declared support is seen, so until
+a backward slice lands, GROUNDED is a claim about the declared graph, not the real one. [DOCTRINE.md](DOCTRINE.md) §1
+T12 gives each limit with its remedy.
 
 ## What is shown, and where
 
 All of the following is MEASURED here, on 2026-10-25. The self-test's recorded summary, in
-[`evidence/selftest-run.txt`](evidence/selftest-run.txt), reads `ORLOG SELFTEST 147/147  (backends: python,c99,rust)`.
-Two consecutive runs gave byte-identical output ([`evidence/selftest-run2.txt`](evidence/selftest-run2.txt)).
+[`evidence/selftest-run.txt`](evidence/selftest-run.txt), reads `ORLOG SELFTEST 161/161  (backends: python,c99,rust)`.
+Two consecutive runs gave byte-identical output ([`evidence/selftest-run2.txt`](evidence/selftest-run2.txt)). With
+`--backends python` and no compiler, it reads `151/151` ([`evidence/selftest-python-only.txt`](evidence/selftest-python-only.txt)).
 
 | what | evidence |
 |---|---|
 | The corpus gives byte-identical outputs and receipts on the reference and on the Python, C99 and Rust backends. It is 11 programs, among them chaotic float orbits, fixed-point physics, a certified gcd, defeasible rules, Aztec tilings and three spellings of one law | `evidence/selftest-run.txt`, the `corpus` rows |
-| The C99 and Rust runtimes each reproduce all 20,015 conformance vectors generated from the exact-rational reference. They were written by separate authors, each recording that it did not read the other's code | [`rt_c/NOTES.md`](rt_c/NOTES.md), [`rt_rs/NOTES.md`](rt_rs/NOTES.md) |
+| The C99 and Rust runtimes each reproduce all 20,015 conformance vectors generated from the exact-rational reference, at two optimization levels each, with byte-identical output. They were written by separate authors of one model family, each recording that it did not read the other's code. The vectors themselves agree with a second derivation that never imports the reference, and with 113 hand-worked cases | [`evidence/rt_c-vectors-O2.txt`](evidence/rt_c-vectors-O2.txt), [`-O0`](evidence/rt_c-vectors-O0.txt), [`evidence/rt_rs-vectors-O.txt`](evidence/rt_rs-vectors-O.txt), [`-O0`](evidence/rt_rs-vectors-O0.txt), [`evidence/vectors-independent.txt`](evidence/vectors-independent.txt); [`rt_c/NOTES.md`](rt_c/NOTES.md), [`rt_rs/NOTES.md`](rt_rs/NOTES.md) |
 | Three spellings of one program (words, symbols, phrases) give three text seals and one law seal. A byte-mangled copy (BOM, CRLF, curly quotes, NBSP, ×) is repaired to the same law seal, each repair noted | the `spellings` rows |
 | The door repairs typographic variants and notes each repair. It refuses bidi controls, confusable letters in code, ambiguous dashes and bytes that are not UTF-8, and it keeps text literals byte for byte. A second pass over repaired texts changes nothing. (That each repair rule preserves meaning is DECLARED, rule by rule) | the `door` rows |
-| A defect planted in each backend is caught and located at its first divergent event. A defect planted in the reference reads REFERENCE-DISSENT | the `plant` rows |
-| The specification is held to the code. Its table of refusal codes equals the 43 the front end can raise. The clean-room twin's hand-worked probes are met: 163 from its second round (161 as worked, 2 as settled in SPEC §13) and 128 from its third (125 as worked, 3 as settled in SPEC §14) | the `spec` rows; [`evidence/probes-run.txt`](evidence/probes-run.txt), [`evidence/probes3-run.txt`](evidence/probes3-run.txt) |
-| On 20,221 mutated programs, the reference and the twin refuse with the same code or run byte-identically, every time. With the third round's probes added as seeds, every disagreement found is one of the three readings settled against the twin in SPEC §14 | [`evidence/difftwin-seed1.txt`](evidence/difftwin-seed1.txt), [`evidence/difftwin-seed2.txt`](evidence/difftwin-seed2.txt) |
-| The C backend's memory stays flat however many texts and lists a run makes. A 16 MiB text rebuilt 5, 20 and 40 times peaks at 58 MiB each time; before red team finding E21 was repaired it peaked at 130, 370 and 691 MiB. A 2,000,000-item list stored 4 and 32 times peaks at 46 MiB both times, where it had peaked at 77 and 505 MiB | [`evidence/e21-memleak-before.txt`](evidence/e21-memleak-before.txt), [`e21-memleak-after.txt`](evidence/e21-memleak-after.txt), [`e21-lists-before.txt`](evidence/e21-lists-before.txt), [`e21-lists-after.txt`](evidence/e21-lists-after.txt); the `memory` row |
+| A defect planted in each backend is caught and located at its first divergent event. A defect planted in the reference reads REFERENCE-DISSENT when two or more backends run | the `plant` rows |
+| A run that does not finish says so. A backend that did not build is counted neither agreeing nor dissenting, and every claim reads INCOMPLETE. A run past the host's budget of counted operations is STOPPED-BY-HOST at the same operation every time, with no receipt and no refusal. A ledger torn in mid-line is refused whole, LEDGER-BROKEN at its line | the `arbiter`, `host budget` and `ledger` rows |
+| Parts of the specification are held to the code. Its table of refusal codes equals the set of 43 the front end can raise (the set, not each code's phase or order). The clean-room twin's hand-worked probes are met: 163 from its second round (161 as worked, 2 as settled in SPEC §13) and 128 from its third (125 as worked, 3 as settled in SPEC §14) | the `spec` rows; [`evidence/probes-run.txt`](evidence/probes-run.txt), [`evidence/probes3-run.txt`](evidence/probes3-run.txt) |
+| On 20,221 programs (221 seeds and 20,000 mutants), the reference and the twin refuse with the same code or run byte-identically, every time. With the round-3 probes and the E21 fixtures added as seeds (20,353 programs), 47 of 48 disagreements are the three readings settled against the twin in SPEC §14; the 48th timed out and, run again without a limit, gave byte-identical receipts | [`evidence/difftwin-seed1.txt`](evidence/difftwin-seed1.txt), [`evidence/difftwin-seed2.txt`](evidence/difftwin-seed2.txt), [`evidence/difftwin-seed2-timeout.txt`](evidence/difftwin-seed2-timeout.txt) |
+| On two programs, the C backend's memory did not grow with the run. A 16 MiB text rebuilt 5, 20 and 40 times peaks at 58 MiB each time; before red team finding E21 was repaired it peaked at 130, 370 and 691 MiB. A 2,000,000-item list stored 4 and 32 times peaks at 46 MiB both times, where it had peaked at 77 and 505 MiB. (The `memory` row measures smaller versions of both. Flat in general is DECLARED: see below) | [`evidence/e21-memleak-before.txt`](evidence/e21-memleak-before.txt), [`e21-memleak-after.txt`](evidence/e21-memleak-after.txt), [`e21-lists-before.txt`](evidence/e21-lists-before.txt), [`e21-lists-after.txt`](evidence/e21-lists-after.txt), [`e21-lists-rerun.txt`](evidence/e21-lists-rerun.txt) |
 | The C backend runs clean under AddressSanitizer on 29 programs, and a store planted to free before it copies is caught | [`evidence/e21-asan.txt`](evidence/e21-asan.txt), [`e21-asan-plant.txt`](evidence/e21-asan-plant.txt) |
 
 Each `plant` row plants a defect and requires the self-test to catch it, so that guard is shown to bite, not merely
-to pass.
+to pass. One plant is declared equivalent (a rewrite that changes nothing), and is never counted as caught.
 
 ## What is not claimed
 
@@ -147,8 +197,11 @@ to pass.
 - **The reference's correctness.** The reference interpreter is the authority by declaration (DECLARED). The
   backends are held to it, and nothing holds it to the world.
 - **Independence.** The twin, both runtimes, the prosecutors and the reference were all written by one model family.
-  Their agreement shows consistency, not truth.
-- **Time, speed, security.** NOT_MEASURED.
+  Their agreement shows consistency, not truth. Four-way agreement does not test the front end, which all four
+  executions share ([what agreement measures](#what-agreement-measures)).
+- **That GROUNDED reaches the world.** It reaches a person's ratification of exact bytes, over the support the author
+  declared ([where the ground ends](#where-the-ground-ends)).
+- **Time, speed, security.** NOT_MEASURED. A host stop (STOPPED-BY-HOST) is a budget running out, not a verdict.
 - **Memory beyond what is measured.** The bound on the C backend's text and list memory comes from the program, not
   from how long it runs (shown above), and it is DECLARED in general. The stack, the code and the host's allocator are
   outside it.
@@ -160,8 +213,9 @@ The full list is [DOCTRINE.md](DOCTRINE.md) §8.
 
 ## Run it
 
-Python 3, standard library only. clang (C99) and rustc build the C and Rust backends; `--backends python` runs
-without them. Set `PYTHONHASHSEED=0` for every run, and `PYTHONUTF8=1` on Windows.
+Python 3, standard library only. clang (C99) and rustc build the C and Rust backends. `orl.py run`, `orl.py court`
+and the self-test take `--backends python` and then need no compiler; a backend whose compiler is missing is reported
+as not built, never as agreeing. Set `PYTHONHASHSEED=0` for every run, and `PYTHONUTF8=1` on Windows.
 
 ```bash
 python -B tests/selftest.py
@@ -180,15 +234,19 @@ python -B orl.py court examples/plankton.orl
 - [AGENTS.md](AGENTS.md): the working brief (what to read, never touch, run, and how to write a claim).
 - [STATUS.md](STATUS.md): where the work stands.
 - [DOCTRINE.md](DOCTRINE.md): each stage's theorem, as an adversarial court narrowed it.
-- [SPEC.md](SPEC.md) and [RUNTIME-SPEC.md](RUNTIME-SPEC.md): the language, read with its amendments (§11–§13).
-- [court/RECORD.md](court/RECORD.md): every finding against the design, and its disposition.
+- [SPEC.md](SPEC.md) and [RUNTIME-SPEC.md](RUNTIME-SPEC.md): the language, read with its amendments (§11–§14).
+- [court/RECORD.md](court/RECORD.md): the first court's findings against the design, and their disposition.
+- [research/roadmap-debate/VERDICT.md](research/roadmap-debate/VERDICT.md): the next steps, ranked by foundational
+  value, after a debate between an architect, a use-case skeptic and a documentation prosecutor.
+- [research/ragnarok/VERDICT.md](research/ragnarok/VERDICT.md): a proposed counterworld search, argued by a proponent
+  and an adversary, with a prior-art survey.
 
 **Status.** Research. It is not admitted to or registered in any other system, and its specification is DECLARED.
 It continues a line of earlier work:
-[executable-epistemics](https://github.com/Dedoc-9/executable-epistemics) →
+[executable-epistemics](https://github.com/Dedoc-9/executable-epistemics) → Semiotic core →
 [Dentatus](https://github.com/Dedoc-9/Dentatus) → [Ursprung](https://github.com/Dedoc-9/Ursprung) → Urðr →
 Verðandi → Ørlǫg.
 
 ## License
 
-GNU Affero General Public License v3: [LICENSE](LICENSE).
+[AGPL-3.0-only](LICENSE): the GNU Affero General Public License, version 3, and no later version.

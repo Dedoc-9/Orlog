@@ -5,7 +5,7 @@ it: the exact refusal, clause or divergent event the defect caused, not merely "
 (the owner's kill-witness ruling: a catch needs a defect-specific causal witness). A plant that
 changes nothing is reported EQUIVALENT and asserted to stay so (an honest miss, never counted caught).
 
-  python tests/selftest.py [--backends python,c99,rust] [--quick]
+  python tests/selftest.py [--backends python,c99,rust]
 """
 import argparse
 import contextlib
@@ -26,6 +26,7 @@ from orlog import seal as SEAL  # noqa: E402
 from orlog import sema as SEMA  # noqa: E402
 from orlog.arbiter import Arbiter, C_FLAGS, witness_artifact, parse_receipt, receipt_core  # noqa: E402
 from orlog.front import compile_bytes  # noqa: E402
+from orlog.interp import Interp  # noqa: E402
 
 ROWS = []
 
@@ -379,7 +380,8 @@ def fma_rows(workdir):
         r = subprocess.run([exe], capture_output=True, text=True)
         outs[mode] = r.stdout.strip()
     row(outs["fast"] != outs["off"], "fma measured: a naive C loop x*x-2 under -ffp-contract=fast -march=native "
-        "ends at %s after 3000 steps, against %s unfused (chaos magnifies one fused rounding)"
+        "ends at %s after 3000 steps, against %s unfused (a fused rounding repeated at every step, which chaos "
+        "magnifies)"
         % (outs["fast"], outs["off"]))
     # The source is generated here, not looked up in the build cache: the cache also holds the c99-explicit-fma
     # plant's copy of chaos (same law, an fma() call added), and a reused cache once listed it first, so the row
@@ -420,8 +422,14 @@ def reference_dissent_plant(workdir, backends):
     arb = Arbiter(workdir, backends=backends, reference_patch=reference_truncates_quotient)
     comp, w, ref = arb.arbitrate(fixture, "plant-ref-quot")
     ok = w["dissent_kind"] == "REFERENCE-DISSENT" if len(backends) >= 2 else bool(w["dissenting"])
-    plant("reference-quotient-truncates", ok, "dissent kind %s: [%s] agree with each other against the reference; "
-          "the reference is still kept, by declaration" % (w["dissent_kind"], ",".join(w["dissenting"])))
+    if len(backends) >= 2:
+        witness = "dissent kind %s: [%s] agree with each other against the reference" % (
+            w["dissent_kind"], ",".join(w["dissenting"]))
+    else:       # one backend cannot agree with another: REFERENCE-DISSENT needs two (prosecutor F56)
+        witness = "dissent kind %s: [%s] dissents from the reference; with one backend the kind cannot be " \
+                  "REFERENCE-DISSENT, which needs two backends agreeing against it" % (
+                      w["dissent_kind"], ",".join(w["dissenting"]))
+    plant("reference-quotient-truncates", ok, witness + "; the reference is still kept, by declaration")
 
 
 # ------------------------------------------------------------------ the court
@@ -593,6 +601,12 @@ def redteam_rows(arb):
     c = compile_bytes(prog(*over))
     row(not c.ok and c.error.code == "LOOP-NESTING", "bounds: 17 nested loops are refused LOOP-NESTING",
         "" if not c.ok else "compiled")
+    at_limit = ["§" + ".".join(["1"] * k) + " If true, do the following." for k in range(1, 24)]
+    at_limit.append("§" + ".".join(["1"] * 24) + " Say 1.")
+    comp, w, ref = arb.arbitrate(prog(*at_limit), "rt-limit-24-deep")
+    ok = comp.ok and not w["dissenting"] and len(w["agreeing"]) == len(arb.backends) and bytes(ref.out) == b"1\n"
+    row(ok, "bounds: clauses 24 deep (the NESTING-DEPTH limit) run byte-identically on the reference and [%s]"
+        % ",".join(w.get("agreeing", [])), "" if comp.ok else str(comp.error))
     tall = ["§" + ".".join(["1"] * k) + " If true, do the following." for k in range(1, 25)]
     tall.append("§" + ".".join(["1"] * 25) + " Say 1.")
     c = compile_bytes(prog(*tall))
@@ -689,6 +703,275 @@ def redteam_v2_rows(arb, workdir, backends):
     cond = [r.get("condition", "") for r in p["rows"]]
     row(len(cond) == 2 and cond[0].startswith("CONSTANT") and not cond[1], "court: a claim that reads no variable "
         "is marked CONSTANT and one that reads the run is not (red team E5)", str(cond))
+
+
+# ------------------------------------------------------------------ what agreement measures (tests of a claim)
+def load_twin():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("orlog_twin", os.path.join(ROOT, "twin", "twin.py"))
+    twin = importlib.util.module_from_spec(spec)
+    saved, sys.dont_write_bytecode = sys.dont_write_bytecode, True
+    try:
+        spec.loader.exec_module(twin)
+    finally:
+        sys.dont_write_bytecode = saved
+    return twin
+
+
+def flip_plus(node, seen):
+    """The front-end plant: every 'plus' the parser built becomes a minus."""
+    from orlog.syntax import Node, Bin
+    if isinstance(node, Node):
+        if id(node) in seen:
+            return
+        seen.add(id(node))
+        if isinstance(node, Bin) and node.op == "+":
+            node.op = "-"
+        for k in node.fields:
+            flip_plus(getattr(node, k, None), seen)
+    elif isinstance(node, (list, tuple)):
+        for x in node:
+            flip_plus(x, seen)
+
+
+def run_python(*args):
+    import subprocess
+    env = dict(os.environ, PYTHONHASHSEED="0", PYTHONUTF8="1")
+    return subprocess.run([sys.executable, "-B"] + list(args), capture_output=True, text=True, encoding="utf-8",
+                          env=env)
+
+
+def independence_rows(workdir, backends):
+    """Tests of a claim, not of the code (README, 'What agreement measures'). Each plant is a defect in a layer that
+    some of the executions share, and each row records which executions can see it. A row that expects a defect to
+    slip past them guards against anyone later reading four-way agreement as more than it is."""
+    from orlog import front, lower
+    # the lowering: the three backends share it; the reference does not lower
+    saved_emit = lower.Lowered.emit
+
+    def emit(self, *ins):
+        saved_emit(self, *ins)
+        if ins and ins[0] == "call" and isinstance(ins[2], str) and ins[2].endswith("_mul"):
+            saved_emit(self, "tick")                  # one operation too many at every multiplication
+    lower.Lowered.emit = emit
+    try:
+        comp, w, ref = Arbiter(workdir, backends=backends).arbitrate(read("examples/collatz.orl"), "ind-lowering")
+    finally:
+        lower.Lowered.emit = saved_emit
+    m = re.search(rb"\nops (\d+)\n", ref.receipt()) if ref is not None else None
+    ref_ops = int(m.group(1)) if m else -1
+    ops = sorted({int(w["backends"][b]["ops"]) for b in w["dissenting"]})
+    # the witness: traces and outputs equal, and every backend counts exactly one operation more per multiplication
+    # executed: collatz's orbit of 27 has 111 steps, 41 of them 3n+1
+    witness = ops == [ref_ops + 41] and all(x.get("first_divergent_event") is None for x in w["mismatch_notes"])
+    if len(backends) >= 2:
+        ok = witness and w["dissent_kind"] == "REFERENCE-DISSENT" and sorted(w["dissenting"]) == sorted(backends)
+        moved = "moves [%s] together, %s: they agree with each other against the reference" % (
+            ",".join(w["dissenting"]), w["dissent_kind"])
+    else:
+        ok = witness and w["dissenting"] == list(backends)
+        moved = "makes [%s] dissent from the reference, %s (one backend has no other to agree with)" % (
+            ",".join(w["dissenting"]), w["dissent_kind"])
+    row(ok, "independence: a defect planted in the shared lowering (one operation counted too many at every "
+        "multiplication) %s, the one execution that does not lower" % moved,
+        "traces and outputs equal; the receipt's ops reads %d in the reference and %s in the backends: 41 more, one "
+        "per 3n+1 step of the orbit of 27" % (ref_ops, ",".join(map(str, ops))))
+    # the front end: all four executions share it; the clean-room twin has its own
+    saved_parse = front.parse_program
+
+    def parse(text):
+        p = saved_parse(text)
+        seen = set()
+        for c in p.clauses:
+            flip_plus(c.stmt, seen)
+        return p
+    front.parse_program = parse
+    try:
+        comp, w, ref = Arbiter(workdir, backends=backends).arbitrate(read("examples/fall.orl"), "ind-frontend")
+    finally:
+        front.parse_program = saved_parse
+    planted_out = bytes(ref.out) if ref is not None else None
+    good = compile_bytes(read("examples/fall.orl"))
+    twin = load_twin()
+    rt, status = twin.execute(twin.compile_text(read("examples/fall.orl").decode("utf-8"), good.law_seal),
+                              good.law_seal)
+    clean = Interp(good.prog, good.an, good.law_seal, good.text_seal).run()
+    four_agree = comp.ok and w["dissent_kind"] == "NONE" and len(w["agreeing"]) == len(backends)
+    twin_sees = bytes(rt.out) != planted_out and bytes(rt.out) == bytes(clean.out)
+    row(four_agree and twin_sees, "independence (MONITORED NEGATIVE: it passes when the defect slips past): a defect "
+        "planted in the shared front end (every 'plus' read as 'minus') passes all %d executions, which agree "
+        "[reference,%s]; only the clean-room twin, whose front end is its own, differs from them, and it equals the "
+        "unplanted reference. Their agreement does not test the front end. The day the front end gains real "
+        "diversity this row must flip to expect detection; it is not a failure to delete"
+        % (len(backends) + 1, ",".join(w["agreeing"])),
+        "" if four_agree else "the four executions no longer agree under a front-end defect: if the front end has "
+        "gained diversity, flip this row to expect detection (README, 'What agreement measures')")
+    # the arithmetic: numeric_ref generated every vector; a derivation that never imports it holds them
+    r = run_python(os.path.join(ROOT, "tests", "vectors_independent.py"))
+    lines = r.stdout.splitlines()
+    planted = [l for l in lines if l.startswith("plant ")]
+    caught = [l for l in planted if ": CAUGHT;" in l]
+    m1 = re.search(r"^1\. derivation vs the vectors: (\d+) of (\d+) lines derived, (\d+) differ", r.stdout, re.M)
+    m2 = re.search(r"^2\. hand table: (\d+) cases", r.stdout, re.M)
+    ok = (r.returncode == 0 and bool(lines) and lines[-1].startswith("VECTORS AGREE") and m1 and m2
+          and m1.group(3) == "0" and len(planted) == len(caught) == 5)
+    row(ok, "independence: the runtime vectors, every one generated by numeric_ref, agree with a second derivation "
+        "that never imports it (%s of %s lines derived, 0 differ), with %s hand-worked cases and with two published "
+        "SHA-256 digests; its %d plants caught, three of them mistakes that numeric_ref and its vectors would share "
+        "(tests/vectors_independent.py)" % (m1.group(1) if m1 else "?", m1.group(2) if m1 else "?",
+                                            m2.group(1) if m2 else "?", len(caught)),
+        "" if ok else (r.stdout[-600:] + r.stderr[-600:]))
+
+
+def isolation_rows(backends):
+    """The arbiter's purity: arbitrations sharing a work folder cannot see each other's files."""
+    import concurrent.futures
+    import shutil
+    import tempfile
+    wd = os.path.join(ROOT, "build", "selftest-isolation")
+    shutil.rmtree(wd, ignore_errors=True)
+    os.makedirs(wd)
+    a_src, b_src = prog("§1 Let x be 6.", "§2 Say x times 7."), prog("§1 Let y be 5.", "§2 Say y plus 1.")
+    real = tempfile.mkdtemp
+
+    def run_two(fake):
+        used = []
+
+        def mk(*args, **kw):
+            d = fake(*args, **kw) if kw.get("prefix") == "arb-" else real(*args, **kw)
+            if kw.get("prefix") == "arb-":
+                used.append(d)
+            return d
+        tempfile.mkdtemp = mk
+        try:
+            for src in (a_src, b_src):
+                Arbiter(wd, backends=backends).arbitrate(src, "iso")
+        finally:
+            tempfile.mkdtemp = real
+        return used
+    used = run_two(real)
+    ok = len(used) == 2 and used[0] != used[1] and not any(os.path.exists(d) for d in used)
+    # the folders' names are random, so the detail gives counts: a row's text must be the same on every run
+    row(ok, "arbiter: each arbitration runs in a folder of its own inside the work folder, removed afterwards (two "
+        "arbitrations, two folders, none left)", "" if ok else "%d folder(s) for %d arbitrations, %d distinct, %d left" % (
+            len(used), 2, len(set(used)), sum(1 for d in used if os.path.exists(d))))
+
+    def one(k):
+        try:
+            comp, w, ref = Arbiter(wd, backends=backends).arbitrate(a_src if k % 2 else b_src, "race")
+            return "BUILD-FAILED" if w["build_failed"] else w["dissent_kind"]
+        except Exception as e:
+            return "TRACEBACK " + type(e).__name__
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
+        outs = list(ex.map(one, range(16)))
+    counts = {}
+    for o in outs:
+        counts[o] = counts.get(o, 0) + 1
+    left = [x for x in os.listdir(wd) if x.startswith("arb-")]
+    row(counts == {"NONE": 16} and not left, "arbiter: 16 arbitrations of two different programs at once in one work "
+        "folder all agree, and no run folder is left (the use-case review's race, which once gave false dissents)",
+        "%s; %d left" % (counts, len(left)))
+    shared = os.path.join(wd, "arb-shared")
+
+    def constant(*args, **kw):
+        os.makedirs(shared, exist_ok=True)
+        return shared
+    used = run_two(constant)
+    plant("arbiter-shares-a-run-folder", len(used) == 2 and used[0] == used[1],
+          "under the plant both arbitrations ran in %s, so the row's two folders are one" % os.path.basename(shared))
+
+
+def honesty_rows(workdir, backends):
+    """What a run that did not finish may say: a backend that did not build, a run the host stopped, a torn ledger."""
+    if "c99" in backends:
+        arb = Arbiter(workdir, backends=backends, mutate=mutate_with("c99", lambda s: s + "\nthis is not C\n"))
+        comp, w, ref = arb.arbitrate(read("examples/collatz.orl"), "hon-build-failed")
+        p = COURT.panel(comp, w, parse_receipt(ref.receipt()), [])
+        integ = sorted({r["integrity"] for r in p["rows"]})
+        others = sorted(b for b in backends if b != "c99")
+        ok = (w["build_failed"] == ["c99"] and "c99" not in w["agreeing"] + w["dissenting"]
+              and sorted(w["agreeing"]) == others and w["dissent_kind"] == "BUILD-FAILED"
+              and integ == ["INCOMPLETE (did not build: c99)"] and p["summary"]["sandwich"].startswith("VACUOUS"))
+        row(ok, "arbiter: a backend that did not build is counted neither agreeing nor dissenting: BUILD-FAILED, every "
+            "claim's integrity INCOMPLETE (did not build: c99), the sandwich VACUOUS",
+            "%s %s %s %s" % (w["dissent_kind"], w["build_failed"], integ, p["summary"]["sandwich"][:40]))
+    runaway = prog("§1 Let n be 0.", "§2 For each i from 1 to 1000000000, do the following.",
+                   "§2.1 Increase n by 1.", "§3 Say n.")
+    stops = []
+    for _ in range(2):
+        comp, w, ref = Arbiter(workdir, backends=backends, ops_budget=10 ** 5).arbitrate(runaway, "hon-runaway")
+        stops.append((ref is None, w["dissent_kind"], w.get("stopped"), (w["mismatch_notes"] or [{}])[0].get("detail")))
+    comp, w, ref = Arbiter(workdir, backends=backends, ops_budget=10 ** 5).arbitrate(read("examples/collatz.orl"),
+                                                                                   "hon-within")
+    within = ref is not None and w["dissent_kind"] == "NONE"
+    ok = (stops[0] == stops[1] and stops[0][0] and stops[0][1] == "STOPPED-BY-HOST" and stops[0][2] == ["reference"]
+          and within)
+    row(ok, "host budget: a loop of 10^9 iterations under a budget of 10^5 counted operations is stopped by the host "
+        "at the same operation twice (%s): STOPPED-BY-HOST, no receipt, not a refusal; a program within the budget "
+        "runs and agrees" % stops[0][3], "" if ok else str(stops))
+    torn = os.path.join(workdir, "torn.jsonl")
+    with open(torn, "wb") as fh:
+        fh.write(b'{"by": "x", "kind": "theorem", "name": "t", "note": "n"}\n{"kind": "claim", "claim_se')
+    try:
+        COURT.read_ledger(torn)
+        refused = None
+    except COURT.LedgerBroken as e:
+        refused = str(e)
+    r = run_python(os.path.join(ROOT, "orl.py"), "court", os.path.join(ROOT, "examples", "collatz.orl"), "--ledger",
+                   torn, "--backends", backends[0], "--workdir", workdir)
+    ok = (refused is not None and refused.startswith("LEDGER-BROKEN at line 2") and r.returncode == 1
+          and r.stdout.startswith("LEDGER-BROKEN at line 2") and not r.stderr.strip())
+    row(ok, "ledger: a ledger torn in mid-line is refused whole, LEDGER-BROKEN at line 2, by the reader and by "
+        "'orl.py court' (exit 1, no traceback); none of it is read", "" if ok else "%s | exit %s | %s" % (
+            refused, r.returncode, (r.stdout + r.stderr)[-300:]))
+
+    def skip_torn(path):            # the other wrong reading: keep what parses, drop the rest without a word
+        kept = []
+        for line in open(path, "rb").read().split(b"\n"):
+            try:
+                kept.append(json.loads(line))
+            except ValueError:
+                pass
+        return kept
+    kept = skip_torn(torn)
+    plant("ledger-skips-torn-lines", len(kept) == 1, "a reader that skips what does not parse returns %d entry and "
+          "drops line 2 without a word, so the row's refusal is absent" % len(kept))
+
+
+def e18_e22_rows(workdir):
+    """Two repairs from the red team's report that had no row (prosecutor F6)."""
+    raw = read("tests/fixtures/redteam/E18_door_not_idempotent.raw")
+    c = CANON.canonicalize(raw)
+    ok = c.text is None and any(e["rule"] == "QUOTE-BOUNDARY" for e in c.events)
+    row(ok, "door: the red team's E18 bytes (an NBSP, 'Note:', a quote, an NBSP, a quote) are refused QUOTE-BOUNDARY; "
+        "the door once repaired them into a text that a second pass repaired again (red team E18)",
+        "" if ok else str([e["rule"] for e in c.events]))
+    CANON.QUOTE_BOUNDARY_CHECK = False
+    try:
+        p1 = CANON.canonicalize(raw)
+        p2 = CANON.canonicalize(p1.text.encode("utf-8")) if p1.text is not None else None
+    finally:
+        CANON.QUOTE_BOUNDARY_CHECK = True
+    caught = p2 is not None and (p2.text != p1.text or bool(p2.repairs))
+    plant("door-not-idempotent-on-E18", caught, "without the QUOTE-BOUNDARY check the door accepts E18 as %r, and a "
+          "second pass makes it %r with %s" % (p1.text, p2.text if p2 else None,
+                                               [e["rule"] for e in p2.events] if p2 else None))
+    led = os.path.join(workdir, "e22.jsonl")
+    if os.path.exists(led):
+        os.remove(led)
+    orl = os.path.join(ROOT, "orl.py")
+    r1 = run_python(orl, "ratify", os.path.join(ROOT, "tests", "fixtures", "redteam", "E22_ratify_non_claim.orl"),
+                    "--claim", "§1", "--note", "self-test", "--ledger", led)
+    refused = r1.returncode == 1 and "no claim there" in r1.stdout and not os.path.exists(led)
+    control = os.path.join(workdir, "e22_control.orl")
+    with open(control, "wb") as fh:
+        fh.write(prog("§1 Let x be 1.", "§2 We claim that x equals 1."))
+    r2 = run_python(orl, "ratify", control, "--claim", "§2", "--note", "self-test control", "--ledger", led)
+    entries = COURT.read_ledger(led) if os.path.exists(led) else []
+    wrote = r2.returncode == 0 and len(entries) == 1 and entries[0].get("kind") == "claim"
+    row(refused and wrote, "ratify: --claim §1 on the red team's E22 file (a Say whose text holds '(claim y') is "
+        "refused and writes nothing, while --claim §2 on a real claim writes one entry (red team E22)",
+        "" if refused and wrote else "%s | %s | %d entries" % (r1.stdout.strip(), r2.stdout.strip(), len(entries)))
 
 
 ORDER_CASES = [         # SPEC §13, within a statement: each text holds two faults, the first written is reported
@@ -970,6 +1253,10 @@ def main():
     court_rows(arb, workdir)
     redteam_rows(arb)
     redteam_v2_rows(arb, workdir, backends)
+    e18_e22_rows(workdir)
+    honesty_rows(workdir, backends)
+    isolation_rows(backends)
+    independence_rows(workdir, backends)
     e21_rows(arb, backends)
     law_plants(arb)
     backend_plants(workdir, backends)

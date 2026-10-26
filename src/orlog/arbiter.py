@@ -22,7 +22,7 @@ import sys
 import tempfile
 
 from .front import compile_bytes
-from .interp import Interp
+from .interp import HostStop, Interp
 from .lower import Lowered
 from . import gen_py, gen_c, gen_rs
 
@@ -84,6 +84,21 @@ def receipt_core(b):
     return core
 
 
+def publish(path, data):
+    """Write a cache file whole or not at all: to a name of its own, then renamed into place. Two processes that
+    build the same source write the same bytes, so whichever rename lands, the file is complete; a rename refused
+    because the file is in use leaves the copy already there."""
+    tmp = "%s.tmp-%d-%s" % (path, os.getpid(), os.urandom(4).hex())
+    with open(tmp, "wb") as fh:
+        fh.write(data)
+    try:
+        os.replace(tmp, path)
+    except OSError:
+        if not os.path.exists(path):
+            raise
+        os.remove(tmp)
+
+
 def generate(backend, low):
     if backend == "python":
         return gen_py.generate(low)
@@ -94,10 +109,16 @@ def generate(backend, low):
     raise ValueError(backend)
 
 
+OPS_BUDGET = 10 ** 8        # counted operations the reference may run before the host stops it (about 1-2 minutes)
+RUN_TIMEOUT = 600           # seconds a backend program may run: a wall-clock backstop, host-dependent
+
+
 class Arbiter:
-    def __init__(self, workdir, backends=BACKENDS, mutate=None, c_flags=None, reference_patch=None):
+    def __init__(self, workdir, backends=BACKENDS, mutate=None, c_flags=None, reference_patch=None,
+                 ops_budget=OPS_BUDGET, timeout=RUN_TIMEOUT):
         self.workdir = workdir
         self.backends = backends
+        self.ops_budget, self.timeout = ops_budget, timeout
         self.mutate = mutate or (lambda backend, src: src)
         self.c_flags = c_flags or C_FLAGS
         self.reference_patch = reference_patch
@@ -114,8 +135,7 @@ class Arbiter:
         name = "%s-%s" % (backend, key)
         srcpath = os.path.join(cache, name + ext)
         if not os.path.exists(srcpath):
-            with open(srcpath, "wb") as fh:
-                fh.write(src.encode("utf-8"))
+            publish(srcpath, src.encode("utf-8"))
         if backend == "python":
             return [sys.executable, "-I", "-B", os.path.join("cache", name + ext)], "interpreted", key
         exe_rel = os.path.join("cache", name + ".exe")
@@ -130,26 +150,39 @@ class Arbiter:
         # the system temp path is ASCII (true on this host; NOT_MEASURED elsewhere).
         tmp = tempfile.mkdtemp(prefix="orlog-build-")
         try:
-            shutil.copyfile(srcpath, os.path.join(tmp, name + ext))
+            # from the source in memory, never the shared cache file another build may be renaming into place
+            with open(os.path.join(tmp, name + ext), "wb") as fh:
+                fh.write(src.encode("utf-8"))
             r = subprocess.run(cmd, capture_output=True, text=True, cwd=tmp)
             built = os.path.join(tmp, name + ".exe")
             if r.returncode != 0 or not os.path.exists(built):
                 raise RuntimeError("%s build failed:\n%s" % (backend, (r.stdout + r.stderr)[-4000:]))
-            shutil.copyfile(built, os.path.join(cache, name + ".exe"))
+            with open(built, "rb") as fh:
+                publish(os.path.join(cache, name + ".exe"), fh.read())
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
         return [exe_rel], "built", key
 
-    def run(self, cmd, tag, trace=False):
+    def run(self, cmd, tag, trace=False, cwd=None):
+        """Run one backend program. Its files live in cwd, which an arbitration makes fresh for itself: a verdict
+        must depend on nothing but its own runs (in a shared folder, concurrent runs read each other's files)."""
+        cwd = cwd or self.workdir
         names = (tag + ".out", tag + ".receipt", tag + ".trace")
-        out, rec, trc = (os.path.join(self.workdir, n) for n in names)
+        out, rec, trc = (os.path.join(cwd, n) for n in names)
         for p in (out, rec, trc):
             if os.path.exists(p):
                 os.remove(p)
         env = dict(os.environ, PYTHONHASHSEED="0", PYTHONUTF8="1")
-        exe = cmd[0] if cmd[0] == sys.executable else os.path.join(self.workdir, cmd[0])
-        args = [exe] + cmd[1:] + list(names[:2]) + ([names[2]] if trace else [])
-        r = subprocess.run(args, capture_output=True, env=env, cwd=self.workdir)
+        if cmd[0] == sys.executable:        # the script path is relative to the work folder: make it so from cwd
+            rest = cmd[1:-1] + [os.path.relpath(os.path.join(self.workdir, cmd[-1]), cwd)]
+            args = [cmd[0]] + rest + list(names[:2]) + ([names[2]] if trace else [])
+        else:
+            args = [os.path.join(self.workdir, cmd[0])] + cmd[1:] + list(names[:2]) + ([names[2]] if trace else [])
+        try:
+            r = subprocess.run(args, capture_output=True, env=env, cwd=cwd, timeout=self.timeout)
+        except subprocess.TimeoutExpired:   # a wall-clock backstop, reported as the host's stop, never a dissent
+            return {"exit": None, "stopped": "timeout after %d s (a wall clock: host-dependent)" % self.timeout,
+                    "stderr": "", "out": None, "receipt": None, "trace": None}
         res = {"exit": r.returncode, "stderr": r.stderr.decode("utf-8", "replace")[-2000:]}
         res["out"] = open(out, "rb").read() if os.path.exists(out) else None
         res["receipt"] = open(rec, "rb").read() if os.path.exists(rec) else None
@@ -164,49 +197,66 @@ class Arbiter:
             w["refusal"] = {"code": comp.error.code, "line": comp.error.line, "message": comp.error.msg}
             w["door"] = comp.canon.events
             return comp, w, None
-        ref = self.reference(comp, trace=False)
+        try:
+            ref = self.reference(comp, trace=False)
+        except HostStop as e:               # the host's budget, not a verdict: nothing is compared or held
+            w.update({"stopped": ["reference"], "build_failed": [], "agreeing": [], "dissenting": [],
+                      "dissent_kind": "STOPPED-BY-HOST", "backends": {}, "mismatch_notes": [
+                          {"backend": "reference", "kind": "STOPPED-BY-HOST", "detail": str(e)}],
+                      "seals": {"raw": comp.raw_seal, "text": comp.text_seal, "law": comp.law_seal,
+                                "law_words": comp.seal_words}})
+            return comp, w, None
         low = Lowered(comp)
         results = {}
-        for b in self.backends:
-            src = self.mutate(b, generate(b, low))
-            try:
-                cmd, how, key = self.build(b, src)
-            except RuntimeError as e:
-                results[b] = {"build": "FAILED", "error": str(e)}
-                continue
-            r = self.run(cmd, "%s-%s" % (name, b))
-            r.update({"build": how, "source_sha256": sha(src.encode("utf-8")), "cmd": cmd})
-            results[b] = r
-        ref_core = receipt_core(ref.receipt())
-        agree, dissent = [], []
-        for b, r in results.items():
-            ok = (r.get("receipt") is not None and receipt_core(r["receipt"]) == ref_core and ref_core is not None
-                  and r.get("out") == bytes(ref.out) and r.get("exit") == 0)
-            (agree if ok else dissent).append(b)
-        notes = []
-        if dissent:
-            ref_t = self.reference(comp, trace=True)
-            for b in dissent:
-                r = results[b]
-                if r.get("build") == "FAILED":
-                    notes.append({"backend": b, "kind": "BUILD-FAILED", "detail": r["error"][-600:]})
+        # Every run of this arbitration lives in a folder of its own, removed at the end: the verdict depends on its
+        # own runs and nothing else in the work folder (concurrent arbitrations in one folder had read each other's
+        # files, giving false dissents: the use-case review's race probe, 2026-10-25).
+        rundir = tempfile.mkdtemp(prefix="arb-", dir=self.workdir)
+        try:
+            for b in self.backends:
+                src = self.mutate(b, generate(b, low))
+                try:
+                    cmd, how, key = self.build(b, src)
+                except (RuntimeError, OSError) as e:    # OSError: the compiler is not there at all
+                    results[b] = {"build": "FAILED", "error": "%s: %s" % (type(e).__name__, e)}
                     continue
-                again = self.run(r["cmd"], "%s-%s-trace" % (name, b), trace=True)
-                notes.append(self.localize(comp, b, ref_t, again))
-        # the kind is read over the backends that built; a failed build is reported, never a vote (red team E8)
-        built = [b for b in self.backends if results.get(b, {}).get("build") != "FAILED"]
-        failed = [b for b in self.backends if results.get(b, {}).get("build") == "FAILED"]
-        built_dissent = [b for b in dissent if b in built]
-        if not dissent:
-            kind = "NONE"
-        elif not built_dissent:
+                r = self.run(cmd, "%s-%s" % (name, b), cwd=rundir)
+                r.update({"build": how, "source_sha256": sha(src.encode("utf-8")), "cmd": cmd})
+                results[b] = r
+            ref_core = receipt_core(ref.receipt())
+            agree, dissent = [], []
+            failed = [b for b in self.backends if results.get(b, {}).get("build") == "FAILED"]
+            stopped = [b for b in self.backends if results.get(b, {}).get("stopped")]
+            built = [b for b in self.backends if b not in failed and b not in stopped]
+            for b in built:
+                r = results[b]
+                ok = (r.get("receipt") is not None and receipt_core(r["receipt"]) == ref_core and ref_core is not None
+                      and r.get("out") == bytes(ref.out) and r.get("exit") == 0)
+                (agree if ok else dissent).append(b)
+            notes = [{"backend": b, "kind": "BUILD-FAILED", "detail": results[b]["error"][-600:]} for b in failed]
+            notes += [{"backend": b, "kind": "STOPPED-BY-HOST", "detail": results[b]["stopped"]} for b in stopped]
+            if dissent:
+                ref_t = self.reference(comp, trace=True)
+                for b in dissent:
+                    again = self.run(results[b]["cmd"], "%s-%s-trace" % (name, b), trace=True, cwd=rundir)
+                    notes.append(self.localize(comp, b, ref_t, again))
+        finally:
+            shutil.rmtree(rundir, ignore_errors=True)
+        # The kind is read over the backends that built. A failed build is reported in build_failed, never counted
+        # as a dissent, and never as agreement either: the court holds no claim while one is missing (red team E8;
+        # the documentation prosecution's F2, which found failed builds still listed as dissenting).
+        # A backend the host stopped (its wall-clock backstop) is likewise neither a dissent nor an agreement.
+        if dissent:
+            kind = ("REFERENCE-DISSENT" if len(dissent) == len(built) and len(built) >= 2 and self._agree_among(
+                [results[b] for b in dissent]) else "BACKEND-DISSENT")
+        elif stopped:
+            kind = "STOPPED-BY-HOST"
+        elif failed:
             kind = "BUILD-FAILED"
-        elif len(built_dissent) == len(built) and len(built) >= 2 and self._agree_among(
-                [results[b] for b in built_dissent]):
-            kind = "REFERENCE-DISSENT"
         else:
-            kind = "BACKEND-DISSENT"
+            kind = "NONE"
         w["build_failed"] = failed
+        w["stopped"] = stopped
         w.update({
             "seals": {"raw": comp.raw_seal, "text": comp.text_seal, "law": comp.law_seal, "law_words": comp.seal_words},
             "door": [e for e in comp.canon.events],
@@ -223,7 +273,7 @@ class Arbiter:
         return comp, w, ref
 
     def reference(self, comp, trace):
-        it = Interp(comp.prog, comp.an, comp.law_seal, comp.text_seal, trace=trace)
+        it = Interp(comp.prog, comp.an, comp.law_seal, comp.text_seal, trace=trace, budget=self.ops_budget)
         if self.reference_patch:
             with self.reference_patch():
                 return it.run()

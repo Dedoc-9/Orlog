@@ -144,17 +144,34 @@ def claim_seal(law_seal, claim_id, claim_law):
                           claim_law.encode("ascii")).hexdigest()
 
 
+class LedgerBroken(Exception):
+    """A ledger line that is not one whole JSON object (a write torn by a crash, say). The court then reads nothing:
+    it fails closed with LEDGER-BROKEN, never a traceback and never a partial ledger (the foundations review found a
+    torn last line raised JSONDecodeError and broke every reading, 2026-10-25)."""
+
+    def __init__(self, line, why):
+        Exception.__init__(self, "LEDGER-BROKEN at line %d: %s" % (line, why))
+        self.line, self.why = line, why
+
+
 def read_ledger(path):
     entries = []
     try:
         with open(path, "rb") as fh:
-            for i, line in enumerate(fh.read().decode("utf-8").splitlines(), 1):
-                if line.strip():
-                    e = json.loads(line)
-                    e["_line"] = i
-                    entries.append(e)
+            data = fh.read()
     except FileNotFoundError:
-        pass
+        return entries
+    for i, raw in enumerate(data.split(b"\n"), 1):
+        if not raw.strip():
+            continue
+        try:
+            e = json.loads(raw.decode("utf-8"))
+        except (UnicodeDecodeError, ValueError) as err:
+            raise LedgerBroken(i, "%s: %s" % (type(err).__name__, err))
+        if not isinstance(e, dict):
+            raise LedgerBroken(i, "a line is not a JSON object")
+        e["_line"] = i
+        entries.append(e)
     return entries
 
 
@@ -197,7 +214,14 @@ def panel(comp, witness, ref_receipt_lines, ledger=()):
             row["channel"] = "theorem \"%s\"" % o[1]
         else:
             row["channel"] = "the owner"
-        row["integrity"] = "AGREED" if agreed else ("CONTESTED" if witness.get("backends") else "REFERENCE-ONLY")
+        if agreed:
+            row["integrity"] = "AGREED"
+        elif (witness.get("build_failed") or witness.get("stopped")) and not witness.get("dissenting"):
+            row["integrity"] = "INCOMPLETE (%s)" % "; ".join(
+                ["did not build: " + ",".join(witness["build_failed"])] * bool(witness.get("build_failed")) +
+                ["stopped by the host: " + ",".join(witness["stopped"])] * bool(witness.get("stopped")))
+        else:
+            row["integrity"] = "CONTESTED" if witness.get("backends") else "REFERENCE-ONLY"
         if r["evals"] == 0:
             row["evaluation"] = "UNREACHED"
         elif r["trues"] < r["evals"]:
@@ -252,7 +276,9 @@ def panel(comp, witness, ref_receipt_lines, ledger=()):
             row["support"] = "UNSUPPORTED"
         row["grounding"] = "GROUNDED" if k in gr_lo else "UNGROUNDED"
         out.append(row)
-    if not agreed:
+    if not agreed and (witness.get("build_failed") or witness.get("stopped")) and not witness.get("dissenting"):
+        sandwich = "VACUOUS (not every execution finished the run: a backend did not build or was stopped)"
+    elif not agreed:
         sandwich = "VACUOUS (the backends did not all agree)"
     elif not sup_lo:
         sandwich = "VACUOUS (no claim is well-founded)"

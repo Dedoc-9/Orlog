@@ -47,7 +47,7 @@
 [PASS] spec: within a statement, written order, post-order (SPEC §13): 15 texts of two faults each report the one written first
 [PASS] plant item-target-before-index: CAUGHT -- under the pre-§13 order: item I of X: I before X: UNDECLARED, not TYPE
 [PASS] firewall: a verdict-shaped key in a witness is refused (executable-epistemics)
-[PASS] codegen: the law bytes and all three generated sources for the corpus are identical under PYTHONHASHSEED 0 and 424242 (sha256 12f95b0fa5b7d3a9)
+[PASS] codegen: the law bytes and all three generated sources for the corpus are identical under PYTHONHASHSEED 0 and 424242 (sha256 1bb9a89b724702af)
 [PASS] corpus aztec: reference and [c99,python,rust] byte-identical (outputs and receipts)
 [PASS] corpus chaos: reference and [c99,python,rust] byte-identical (outputs and receipts)
 [PASS] corpus collatz: reference and [c99,python,rust] byte-identical (outputs and receipts)
@@ -116,6 +116,7 @@
 [PASS] red team E25b_parser_recursion_and: refused EXPRESSION-DEPTH
 [PASS] bounds: 16 nested loops (the LOOP-NESTING limit) run byte-identically on the reference and [c99,python,rust]
 [PASS] bounds: 17 nested loops are refused LOOP-NESTING
+[PASS] bounds: clauses 24 deep (the NESTING-DEPTH limit) run byte-identically on the reference and [c99,python,rust]
 [PASS] bounds: clauses 25 deep are refused NESTING-DEPTH
 [PASS] bounds: a 600-arm If chain runs byte-identically on the reference and [c99,python,rust] (constant-depth lowering)
 [PASS] arbiter: receipts agree byte for byte without their second line, and only that line: a renamed backend agrees; a CR LF receipt, one without its final LF and one with an extra line do not (red team E7) -- [True, True, True, True, True]
@@ -129,6 +130,19 @@
 [PASS] bounds: 16 nested loops around 23 nested parenthesized 'and's, both bounds at their limits, run byte-identically on the reference and [c99,python,rust] (red team E24)
 [PASS] bounds: one more parenthesis is refused EXPRESSION-DEPTH, as SPEC §13 counts it (atoms, minuses and nots on the path, the atom included; over 24 refused)
 [PASS] court: a claim that reads no variable is marked CONSTANT and one that reads the run is not (red team E5) -- ['CONSTANT: it reads no variable, so it cannot depend on the run (if it always holds it is a tautology airlock: Semiotic core TRIAGE, red team E5)', '']
+[PASS] door: the red team's E18 bytes (an NBSP, 'Note:', a quote, an NBSP, a quote) are refused QUOTE-BOUNDARY; the door once repaired them into a text that a second pass repaired again (red team E18)
+[PASS] plant door-not-idempotent-on-E18: CAUGHT -- without the QUOTE-BOUNDARY check the door accepts E18 as ' Note:"\xa0"\n', and a second pass makes it ' Note:" "\n' with ['R-SPACE']
+[PASS] ratify: --claim §1 on the red team's E22 file (a Say whose text holds '(claim y') is refused and writes nothing, while --claim §2 on a real claim writes one entry (red team E22)
+[PASS] arbiter: a backend that did not build is counted neither agreeing nor dissenting: BUILD-FAILED, every claim's integrity INCOMPLETE (did not build: c99), the sandwich VACUOUS -- BUILD-FAILED ['c99'] ['INCOMPLETE (did not build: c99)'] VACUOUS (not every execution finished th
+[PASS] host budget: a loop of 10^9 iterations under a budget of 10^5 counted operations is stopped by the host at the same operation twice (STOPPED-BY-HOST after 100002 counted operations (budget 100000)): STOPPED-BY-HOST, no receipt, not a refusal; a program within the budget runs and agrees
+[PASS] ledger: a ledger torn in mid-line is refused whole, LEDGER-BROKEN at line 2, by the reader and by 'orl.py court' (exit 1, no traceback); none of it is read
+[PASS] plant ledger-skips-torn-lines: CAUGHT -- a reader that skips what does not parse returns 1 entry and drops line 2 without a word, so the row's refusal is absent
+[PASS] arbiter: each arbitration runs in a folder of its own inside the work folder, removed afterwards (two arbitrations, two folders, none left)
+[PASS] arbiter: 16 arbitrations of two different programs at once in one work folder all agree, and no run folder is left (the use-case review's race, which once gave false dissents) -- {'NONE': 16}; 0 left
+[PASS] plant arbiter-shares-a-run-folder: CAUGHT -- under the plant both arbitrations ran in arb-shared, so the row's two folders are one
+[PASS] independence: a defect planted in the shared lowering (one operation counted too many at every multiplication) moves [c99,python,rust] together, REFERENCE-DISSENT: they agree with each other against the reference, the one execution that does not lower -- traces and outputs equal; the receipt's ops reads 1164 in the reference and 1205 in the backends: 41 more, one per 3n+1 step of the orbit of 27
+[PASS] independence (MONITORED NEGATIVE: it passes when the defect slips past): a defect planted in the shared front end (every 'plus' read as 'minus') passes all 4 executions, which agree [reference,c99,python,rust]; only the clean-room twin, whose front end is its own, differs from them, and it equals the unplanted reference. Their agreement does not test the front end. The day the front end gains real diversity this row must flip to expect detection; it is not a failure to delete
+[PASS] independence: the runtime vectors, every one generated by numeric_ref, agree with a second derivation that never imports it (20006 of 20015 lines derived, 0 differ), with 113 hand-worked cases and with two published SHA-256 digests; its 5 plants caught, three of them mistakes that numeric_ref and its vectors would share (tests/vectors_independent.py)
 [PASS] E21 list_ownership.orl: runs byte-identically on the reference and [c99,python,rust]
 [PASS] E21 loop_condition.orl: runs byte-identically on the reference and [c99,python,rust]
 [PASS] E21 procedure_local.orl: runs byte-identically on the reference and [c99,python,rust]
@@ -139,10 +153,10 @@
 [PASS] plant law-leapfrog-asymmetric-drift (a bias not symmetric under negation): CAUGHT -- exact return fails and the reversibility claim refuses at §17 in the reference and [c99,python,rust]: REFUSED CLAIM-REFUTED 31
 [PASS] plant c99-remainder-truncates: CAUGHT -- first divergent event 3, a Say at §3: reference 320a, backend 2d310a
 [PASS] plant c99-max-rewritten-as-macro: EQUIVALENT, as declared -- same rule (a > b ? a : b), so no witness exists
-[PASS] fma measured: a naive C loop x*x-2 under -ffp-contract=fast -march=native ends at 0.053875170363670462 after 3000 steps, against -1.9945547358643969 unfused (chaos magnifies one fused rounding)
+[PASS] fma measured: a naive C loop x*x-2 under -ffp-contract=fast -march=native ends at 0.053875170363670462 after 3000 steps, against -1.9945547358643969 unfused (a fused rounding repeated at every step, which chaos magnifies)
 [PASS] fma measured: Orlog's generated C for chaos.orl has 0 FMA instructions under the same flags (each rounded intermediate is observed by the NaN canonicalization, so it cannot be fused)
 [PASS] plant c99-explicit-fma (x*x-2 fused by fma()): CAUGHT -- first divergent event 5, an assignment at §3.1: the fused and the twice-rounded x part there
 [PASS] plant python-quotient-floors: CAUGHT -- first divergent event 4, a Say at §4: reference 340a, backend 330a
 [PASS] plant rust-fixed-multiply-floors: CAUGHT -- first divergent event 53 (E at §9.3.1)
 [PASS] plant reference-quotient-truncates: CAUGHT -- dissent kind REFERENCE-DISSENT: [c99,python,rust] agree with each other against the reference; the reference is still kept, by declaration
-ORLOG SELFTEST 147/147  (backends: python,c99,rust)
+ORLOG SELFTEST 161/161  (backends: python,c99,rust)

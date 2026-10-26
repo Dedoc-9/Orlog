@@ -1,0 +1,21 @@
+# command: python -B tests/vectors_independent.py, run twice: the two outputs byte-identical
+# tree: fc19339 plus the uncommitted changes of the round that adds this file
+# host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; 2026-10-25; PYTHONHASHSEED=0 PYTHONUTF8=1
+== vectors vectors/runtime-vectors.txt: 20015 lines, sha256 841240b72cb58041
+fence  tests/numeric_oracle.py imports fractions, holds no float: HELD
+1. derivation vs the vectors: 20006 of 20015 lines derived, 0 differ
+     Int       5328 lines over 11 ops (i_abs i_add i_div i_isqrt i_max i_min i_mul i_neg i_quot i_rem i_sub)
+     Fix       4427 lines over 13 ops (x_abs x_add x_div x_from_i x_max x_min x_mul x_neg x_round x_sqrt x_sub x_to_f x_trunc)
+     Float     9913 lines over 15 ops (f_abs f_add f_div f_eq f_from_i f_lt f_max f_min f_mul f_neg f_round f_sqrt f_sub f_to_x f_trunc)
+     printing   338 lines over 3 ops (fmt_f fmt_i fmt_x)
+     not derived: 9 lines (sha256): written by hashlib from the generator; two are checked against published digests below, and the runtimes' own SHA-256 code is held to all of them
+   numeric_ref vs the derivation on the same arguments: 0 of 20006 differ
+2. hand table: 113 cases worked by hand, each against the derivation and numeric_ref; 105 of them are in the vectors; the smallest subnormal's print by its worked properties: 0 failure(s)
+3. published SHA-256 digests (empty message, 'abc'): EQUAL
+plant vector-corrupted: CAUGHT; line 11060 (f_add f:0000000000000000 f:3FF0000000000000 => f:3FF0000000000000, last bit flipped): the derivation named line 11060
+plant reference-rounds-half-away: CAUGHT; the derivation disagrees with the planted numeric_ref on 34 argument sets; the hand table fails 11 case(s); first x_mul x:10737418240 x:1: want x:2, got x:3
+plant reference-keeps-nan-payloads: CAUGHT; the derivation disagrees with the planted numeric_ref on 219 argument sets; the hand table fails 3 case(s); first f_neg f:7FF8000000000000: want f:7FF8000000000000, got f:FFF8000000000000
+plant reference-truncates-remainder: CAUGHT; the derivation disagrees with the planted numeric_ref on 536 argument sets; the hand table fails 4 case(s); first i_quot i:-7 i:2: want i:-4, got i:-3
+plant fence-breached: CAUGHT; an added import of numeric_ref: ['import orlog.numeric_ref']; an added float literal: ['float literal 0.3333']
+does not show: that the specification is right, or that its authors read IEEE 754 rightly. One model family wrote numeric_ref, the derivation and this table, and a misreading of the specification shared by all three passes; the hand cases are the only witnesses worked outside a program, and they are few.
+VECTORS AGREE WITH THE DERIVATION, THE HAND TABLE AND THE PUBLISHED DIGESTS

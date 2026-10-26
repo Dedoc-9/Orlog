@@ -7,7 +7,7 @@
  "chaos": {
   "law_seal": "babaf50065335543f35d84f22cef167e0f0bfb8553a4d6d5b8d62a64c28e8220",
   "seal_words": "ropup-zihab-kihug-jijag",
-  "text_seal": "5f6989aabdaaf1a51b254a1beda929ea59e18bd1b38c5ce8990d7000b5873b53"
+  "text_seal": "67a0ebc27cf74874834ca3db51276526e4e43f4a7d58ce9dcefb9b957dffd857"
  },
  "collatz": {
   "law_seal": "02ca2f73f977effa676b7baffcda9890360f489b209d2e6e48fa31e313aea2fe",
@@ -22,7 +22,7 @@
  "leapfrog": {
   "law_seal": "42cd40bd5b7326b2b8b1a58d70551116d6a21e189a06363143a8bcb790f8873c",
   "seal_words": "harat-hafut-jotug-fipuf",
-  "text_seal": "8ecb5c6d9b5a725b0f4c4b0bdfdb0ca5f1ed4b0f2bc1e590ec54154ed1d8d3be"
+  "text_seal": "5aecd009e358c8fa92c6d6f62f0fe5be57ec841ed19e1c894995dff4081145b4"
  },
  "legal": {
   "law_seal": "e2d07905ed4a917cbca715b16101ec7e766150a4c575ba6be13727ef7c634beb",

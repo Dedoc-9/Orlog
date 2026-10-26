@@ -7,8 +7,10 @@ Three classes of action, each recorded with its rule, place and bytes:
   REFUSE  the bytes are not repaired, because no rule can show a repair is safe
 
 The principle: repair what the grammar interprets, preserve what the program outputs,
-refuse what neither can vouch for. Canonicalization is a retraction: canon(canon(x)) ==
-canon(x) with no repairs (checked by the self-test, not assumed).
+refuse what neither can vouch for. Canonicalization is meant to be a retraction:
+canon(canon(x)) == canon(x) with no repairs. That is DECLARED; the self-test checks it on texts
+that needed repairs, and the red team's door fuzz samples it (prosecutor F27: this line had said
+"checked by the self-test, not assumed", which no finite check can make true of every input).
 """
 import hashlib
 import unicodedata

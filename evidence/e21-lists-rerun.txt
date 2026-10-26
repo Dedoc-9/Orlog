@@ -1,0 +1,6 @@
+# command: python -B tests/e21_list_leak.py (prosecutor F15: the script, tracked from this round)
+# tree: fc19339 plus the uncommitted changes of the round that adds this file
+# host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; 2026-10-25; PYTHONHASHSEED=0 PYTHONUTF8=1
+lists: N=4   exit 0  c99 peak commit   46 MiB
+lists: N=32  exit 0  c99 peak commit   46 MiB
+exit 0

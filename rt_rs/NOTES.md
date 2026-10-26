@@ -4,6 +4,12 @@ Written 2026-10-25 against `RUNTIME-SPEC.md` (DECLARED 2026-10-25) and `src/orlo
 `rt_c/` was read. `vectors/runtime-vectors.txt` and `numeric_ref.py` were not edited (their sha256 after the work:
 `841240b7…f204`, the spec's value, and `dd831475…5f47`).
 
+*Note (the maintainer, 2026-10-25, prosecutor F38 and F20):* the tracked `numeric_ref.py` hashes `eacac3dd…`,
+unchanged since commit 83eb044; the `dd831475…` above was the file in the scratch folder at the time of writing, and
+nothing records what differed. The vectors regenerate from the tracked file byte-identically (sha256 `841240b7…`).
+The vector runs are recorded in `evidence/rt_rs-vectors-O.txt` and `evidence/rt_rs-vectors-O0.txt` (20015 / 20015
+both ways, byte-identical, no warning).
+
 ## What is here
 
 | file | what |
@@ -39,7 +45,8 @@ Written 2026-10-25 against `RUNTIME-SPEC.md` (DECLARED 2026-10-25) and `src/orlo
 Does not show: any other platform, CPU or rustc version; the safeguard of F1 rests on `black_box`, which Rust
 documents as best-effort, so the vectors must be run again on every new toolchain. `check_smoke.py` and the runtime
 were written by one author from one reading of the spec: they agree, which shows consistency, not that the reading is
-the C author's. The C runtime is the independent witness.
+the C author's. The C runtime is the independent witness. *(Note, the maintainer, 2026-10-25, prosecutor F37: a
+separate witness, of one model family with this author.)*
 
 ## How it is built
 

@@ -5,8 +5,8 @@ the disagreement is a finding: neither is presumed right. Numeric meaning is def
 [`src/orlog/numeric_ref.py`](src/orlog/numeric_ref.py) (exact rationals) and by [RUNTIME-SPEC.md](RUNTIME-SPEC.md) §2–§7;
 this document defines everything else.
 
-**Read the amendments with the body.** §11 (v0.1), §12 (v0.2) and §13 (v0.3) amend §1–§10. Where they differ, the
-amendment governs, and the later amendment governs the earlier.
+**Read the amendments with the body.** §11 (v0.1), §12 (v0.2), §13 (v0.3) and §14 (v0.4) amend §1–§10. Where they
+differ, the amendment governs, and the later amendment governs the earlier.
 
 A program is a sequence of lines of canonical text (UTF-8, LF). A run produces output bytes and a receipt. Two runs of
 one law agree only if both are byte-identical.
@@ -292,8 +292,9 @@ The square root of an Int is ⌊√n⌋; of a Fix it is isqrt(raw · 2^32); of a
 
 ## 11. Amendments v0.1 (2026-10-25), settling the clean-room twin's 62 notes
 
-The clean-room twin (`twin/NOTES.md`), written from this specification alone, named 62 places where a literal reader
-could go two ways. Each is settled below. The number is the twin's. "Code changed" marks where the implementation was
+The clean-room twin (`twin/NOTES.md`), written from this specification and RUNTIME-SPEC.md with the reference's
+`numeric_ref.py` and `seal.py` imported (so its agreement on numbers and seals is shared code: prosecutor F8), named 62
+places where a literal reader could go two ways. Each is settled below. The number is the twin's. "Code changed" marks where the implementation was
 changed to meet the reading, rather than the reading chosen to meet the implementation.
 
 **General**
@@ -441,12 +442,23 @@ changed to meet the reading, rather than the reading chosen to meet the implemen
   `backend <name>`, and every line must end with LF (E7).
 - The dissent kind is read over the backends that built. A failed build is reported in `build_failed` and never
   counted as a dissent (E8).
+  - *Code changed, 2026-10-25 (prosecutor F2):* the arbiter had still added a failed build to the dissenting backends,
+    and a compiler that is not installed raised instead of being reported. A failed build, a missing compiler
+    included, is now counted neither as a dissent nor as an agreement; the court reads every claim's integrity
+    INCOMPLETE and the sandwich VACUOUS.
 - Compilers and programs see relative ASCII paths, with their working directory set (E11).
+- *Added 2026-10-25, after the foundations review (`research/roadmap-debate/`):*
+  - Each arbitration runs in a folder of its own, removed after it, so arbitrations sharing a work folder cannot read
+    each other's files. (Two programs arbitrated at once in one folder had produced false dissents.)
+  - The reference runs under a host budget of counted operations. Past it, the run is STOPPED-BY-HOST: the law said
+    nothing, so there is no receipt, no refusal, and no agreement or dissent. A backend's run is bounded by a wall
+    clock, which depends on the host and is labelled so.
 
 ## 13. Amendments v0.3 (2026-10-25), settling the twin's second round (twin/probes/EXPECTED.md)
 
 The twin's author wrote 163 probes by hand from v0.1, each with its expected result, and named the points where v0.1
-still left a reader two ways. The reference met 155 of them as first run. Each difference and each open point is
+still left a reader two ways. The reference met 155 of them as first run (OBSERVED: that run's output was not kept).
+Each difference and each open point is
 settled below. "Code changed" marks a reading the implementation was changed to meet; "against the twin" marks the
 two readings settled the other way, recorded probe by probe in `twin/probes/settled.json` (the twin's own
 `expected.json` is left as its author wrote it). After these changes the reference meets 161 probes and the two
@@ -455,8 +467,9 @@ settled ones (`python tests/compare_probes.py`).
 **Precedence.** §11, §12 and this section amend the body. Where they differ from it, the amendment governs, and a
 later amendment governs an earlier one. (The twin found the body still stating rules §11 had replaced.)
 
-**G3, completed.** Every compile refusal belongs to exactly one phase. The first refusal in the first phase that has
-one is reported, and within a phase the order is the one given here.
+**G3, completed.** Every compile refusal belongs to exactly one phase, except INTERNAL, which marks a defect in the
+implementation rather than a verdict on the text (its row reads phase "none"). The first refusal in the first phase
+that has one is reported, and within a phase the order is the one given here.
 
 | phase | order within the phase | codes |
 |---|---|---|
@@ -587,7 +600,8 @@ twin's third round found it. The results are in §14.)
 ## 14. Amendments v0.4 (2026-10-25), settling the twin's third round (twin/probes3/EXPECTED.md)
 
 The twin's author updated the twin to §12 and §13, reading nothing but this specification, RUNTIME-SPEC.md and the
-two shared modules, and wrote 128 new probes by hand. The reference met 124 of them as first run. The twin named
+two shared modules, and wrote 128 new probes by hand. The reference met 124 of them as first run
+(`evidence/probes3-first-run.txt`). The twin named
 twelve places where it found §12 and §13 undecided, and the four differences were all among them. Each is settled
 below. The three readings settled against the twin are in `twin/probes3/settled.json`. After these, the reference
 meets 125 probes as worked and 3 as settled (`python tests/compare_probes.py --dir probes3`).
@@ -610,8 +624,11 @@ meets 125 probes as worked and 3 as settled (`python tests/compare_probes.py --d
 6. **The count rises on entering an atom position**, before what stands there is read. So twenty-four `(` followed
    by `)` is EXPRESSION-DEPTH, not SYNTAX. Against the twin: the bound guards the parser's own recursion, so it must
    hold before the parser goes deeper.
-7. **The statement's tree is the parse tree** (the nodes of `src/orlog/syntax.py`, once the statement has parsed).
-   This is against the twin on parentheses only. In that tree:
+7. **The statement's tree is the tree its parse builds**, defined here: every construct is one node whose children
+   are its written operands, in written order, except as the bullets below say. `src/orlog/syntax.py` is the
+   reference's implementation of this tree, not its definition. (This item first defined the tree as the nodes of
+   `syntax.py`, code a twin may not read: prosecutor F10.) This is against the twin on parentheses only. In that
+   tree:
    - parentheses group and make no node;
    - `a followed by b followed by c` is one node over its parts;
    - `is not <test>` (`is not less than` and its kin) is a not node over the test, and so is a Define's `unless C`.
@@ -648,14 +665,17 @@ meets 125 probes as worked and 3 as settled (`python tests/compare_probes.py --d
   arbiter's rows hold them.
 
 **The differential run** (`python -B tests/diff_twin.py --n 20000 --seed 1 --minimize`):
-- §13's run, against the round-2 twin: 20,221 texts. 18,749 were refused alike, 1,185 ran byte-identically and 287
-  disagreed:
+- §13's run, against the round-2 twin (OBSERVED in the session's scratch folder before the move to this repository;
+  its output was not kept, and it cannot be rerun, since the twin is now the round-3 twin): 20,221 texts. 18,749
+  were refused alike, 1,185 ran byte-identically and 287 disagreed:
   - 282 because that twin predated §12 and §13 (LEX first, the depth bounds, a RecursionError);
   - 1 artifact of the harness, since fixed (a zero law seal's words are `babab-babab-babab-babab`);
   - 4 orders within a statement, settled in §13.
 - This round's runs, against the round-3 twin, MEASURED here:
-  - seed 1, with §13's seeds: 20,221 texts. 19,036 were refused alike, 1,185 ran byte-identically and **0
-    disagreed**;
+  - seed 1, with §13's seeds: 20,221 texts (221 seeds and 20,000 mutants). 19,036 were refused alike, 1,185 ran
+    byte-identically and **0 disagreed** (`evidence/difftwin-seed1.txt`). Today's `diff_twin.py` always adds this
+    round's probes and the E21 fixtures as seeds, so this run cannot be reproduced with it: run now, seed 1 meets the
+    readings settled against the twin among its disagreements (prosecutor F5);
   - seed 2, with this round's probes and the E21 fixtures added as seeds: 20,353 texts. 19,282 were refused alike,
     1,023 ran byte-identically and 48 disagreed:
     - 47 are the three readings settled against the twin above (items 6, 7 and 9), as mutants of their probes;
@@ -669,8 +689,11 @@ meets 125 probes as worked and 3 as settled (`python tests/compare_probes.py --d
 The door ([`src/orlog/canon.py`](src/orlog/canon.py)) maps raw bytes to canonical text and records every action as
 REPAIR, NOTE or REFUSE:
 - **Never changed:** text-literal contents.
-- **Repaired outside literals:** typographic variants (curly delimiters, NBSP, tab, U+2212, U+00D7, U+00F7, ≤ ≥ ≠,
-  NFC), line terminators, the BOM, and trailing spaces and blank lines.
+- **Repaired outside literals:** typographic variants (curly delimiters, NBSP, tab, U+2212, the hyphens U+2010 and
+  U+2011, U+00D7, U+00F7, ≤ ≥ ≠, a curly apostrophe in code), NFC in free text only (§12), line terminators, the BOM,
+  and trailing spaces and blank lines.
 - **Refused:** bytes that are not UTF-8, bidi controls, invisible characters in code, non-ASCII letters in code, and
   ambiguous dashes.
-- The door is a retraction: canonical text passes through unchanged.
+- The door is meant to be a retraction, canonical text passing through unchanged. That is DECLARED: the self-test
+  checks idempotence on texts that needed repairs, and the red team's fuzz found no counterexample in 60,000 lines
+  (`evidence/doorfuzz-60000-5.txt`).

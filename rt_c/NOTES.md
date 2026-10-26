@@ -13,7 +13,7 @@ below was run on one Windows host: clang 22.1.8, target `x86_64-pc-windows-msvc`
 | `smoke.c` | a stand-in for a generated program: init, builder, say, every event kind, must, claims, finish (`-DSMOKE_REFUSE`: ends refused) |
 | `check_smoke.py` | rebuilds a smoke run's expected output, events, chain and receipt from the spec's encodings (struct, hashlib) and numeric_ref's own values and formatters, without the C runtime, and compares them byte for byte |
 | `plants.py` | planted defects: 26 one-line changes to copies of the header, each of which must be caught by a witness, plus an unchanged control that must pass |
-| `run-O2.txt`, `run-O0.txt`, `plants-run.txt`, `check_chain-output.txt`, `build-O*.log` | the outputs of the last runs (the build logs are the compiler's whole output: empty) |
+| `run-O2.txt`, `run-O0.txt`, `plants-run.txt`, `check_chain-output.txt`, `build-O*.log` | the outputs of the last runs (the build logs are the compiler's whole output: empty). *Dated 2026-10-25 (prosecutor F34):* recorded at commit 83eb044, before E21 changed the header; run again on the changed header they are identical (the prosecutor's re-run; for the vectors, `evidence/rt_c-vectors-O2.txt` and `-O0.txt`) |
 | `chain-*.txt`, `smoke-*.txt` | the files those runs wrote (receipts, traces, outputs) |
 
 ## Results
@@ -83,6 +83,11 @@ any smoke byte or any plant verdict that differs on a re-run.
    draws `-Wunused-function`, so a generated program that uses part of the runtime would not compile warning-free.
    An unused `static inline` function in a header draws nothing. The C header must therefore be `#include`d, not
    pasted into the program's own file: in the main file even `static inline` draws the warning.
+   *Note (the maintainer, 2026-10-25, prosecutor F33):* `src/orlog/gen_c.py` pastes the header into each generated
+   program all the same, so a generated program compiled under the contract's flags draws `-Wunused-function` (57
+   warnings for collatz.c, observed by the prosecutor). The arbiter builds with `-Wno-unused-function` (`C_FLAGS` in
+   `arbiter.py`), so its builds are silent. The decision stands for the header used as a library; the generator
+   departs from it.
 3. **`_CRT_SECURE_NO_WARNINGS`** is defined on `_WIN32` before the first include. On this host `fopen` otherwise
    draws `-Wdeprecated-declarations` (measured). The header must come before any other header.
 4. **Int to double** (`f_from_i`, `x_to_f`): the integer is rounded to at most 53 bits by integer arithmetic (ties to
@@ -111,6 +116,10 @@ any smoke byte or any plant verdict that differs on a re-run.
 13. **`orl_ops`** is `static`, which suits a program that is one translation unit.
 14. **Added beyond the contract**: `orl_l_free`. The contract has no way to release a list or an `orl_s_take` copy
     (finding 8).
+    *Note (the maintainer, 2026-10-25, prosecutor F35):* since E21's repair the runtime frees temporaries when each
+    statement ends and replaced buffers on each store, and the contract says so (RUNTIME-SPEC §4a). `orl_l_free`
+    stays, and the generator does not call it. Its comment in `orlog_rt.h` ("the runtime never frees one") is stale,
+    and is to be corrected with the header's next change, so that the recorded runs of this round stay of one header.
 
 ## Findings about the spec and numeric_ref
 
@@ -151,6 +160,10 @@ receive a signalling NaN (the fixed pairs stop before the sNaNs), and the longes
 the 1077 a negative subnormal prints. The extra checks cover the second.
 
 ## Commands (from `...\scratchpad\orlog\rt_c\`, Git Bash or cmd)
+
+*Note (the maintainer, 2026-10-25, prosecutor F36):* the scratch folder is gone; the project lives in its repository.
+Run these from the repository's root as AGENTS.md §4 gives them, with the chain folder as the harness's second
+argument, so that the tracked `rt_c/chain-*.txt` are not rewritten.
 
 ```
 clang -std=c99 -pedantic -Wall -Wextra -O2 -ffp-contract=off -fno-fast-math test_rt.c -o test_rt.exe
@@ -195,8 +208,12 @@ MEASURED here, 2026-10-25 (files in `evidence/`):
   | C peak commit, before | 130 MiB | 370 MiB | 691 MiB |
   | C peak commit, after | 58 MiB | 58 MiB | 58 MiB |
 
-- A 2,000,000-item list stored N times: 77 and 505 MiB at N = 4 and 32 before (measured on commit 7186e50), and
-  46 and 46 MiB after (`e21-lists-before.txt`, `e21-lists-after.txt`).
+- A 2,000,000-item list stored N times: 77 and 505 MiB at N = 4 and 32 before, and 46 and 46 MiB after
+  (`e21-lists-before.txt`, `e21-lists-after.txt`). *Corrected 2026-10-25 (prosecutor F15):* this line said the
+  figures before were "measured on commit 7186e50". The script imports `child_peak` from `tests/selftest.py`, which
+  7186e50 does not have, so it was run from the work folder against the runtime before finding 8's repair, not on
+  that commit unmodified. The script is tracked from the next round as `tests/e21_list_leak.py`, and gives 46 and 46
+  MiB again (`evidence/e21-lists-rerun.txt`).
 - `python -B tests/asan_c.py`: 29/29 programs clean under -fsanitize=address and byte-identical to the reference.
   Its plant, a store that frees before it copies, is caught as heap-use-after-free (`e21-asan.txt`,
   `e21-asan-plant.txt`).

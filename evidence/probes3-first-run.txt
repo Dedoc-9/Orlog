@@ -1,0 +1,12 @@
+# the reference against the twin round 3 hand-worked probes, as first run, before the code change of SPEC 14 item 8;
+# taken during round 3 (before commit fc19339) with python -B tests/compare_probes.py --dir probes3, kept in the ignored
+# work/ folder, and tracked from the following round (prosecutor F26); the tree it ran on was never committed
+DIFF ed-missing-atom (items ['§13 EXPRESSION-DEPTH']): 24 '(' then ')': a 25th atom is expected but absent
+     refused: twin expects 'SYNTAX', reference gives 'EXPRESSION-DEPTH'
+DIFF ed-tree-paren-node (items ['§13 EXPRESSION-DEPTH']): 63 terms, the first parenthesized: is '( )' a node of the tree?
+     refused: twin expects 'EXPRESSION-DEPTH', reference gives None
+DIFF ln-place-before-condition (items ['§12 LOOP-NESTING', '§13 phase 6']): the 17th loop's condition is undeclared
+     refused: twin expects 'LOOP-NESTING', reference gives 'UNDECLARED'
+DIFF w-copies-count-post-order (items ['§13 phase 6']): a list of 1.5 copies of y
+     refused: twin expects 'UNDECLARED', reference gives 'TYPE'
+PROBES probes3 124/128 identical between the twin's hand-worked expectations and the reference; 0 settled against the twin's reading; 4 different
