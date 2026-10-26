@@ -1,0 +1,89 @@
+IN        E1             redteam              E1 equality with promotion crashed the compiler (court/redteam-eng/)
+IN        E10            redteam              E10 deep If chains broke the Python backend and the lowering's recursion (court/redteam-eng/)
+IN        E13            redteam              E13 a second seal line silently overrode the first (court/redteam-eng/)
+IN        E15            redteam              E15 a second oracle silently overrode the first (court/redteam-eng/)
+IN        E16            redteam              E16 procedure names were collected case-sensitively and from nested clauses (court/redteam-eng/)
+IN        E17            redteam              E17 NFC in code turned a Kelvin sign into K and a Greek question mark into ; (court/redteam-eng/)
+IN        E2             redteam              E2 rules in procedures or rules crashed the lowering (court/redteam-eng/)
+IN        E3             redteam              E3 children of an inline Otherwise were never checked or run (court/redteam-eng/)
+IN        L1             prosecution-logic    L1 IMPRECISION (court/prosecution-logic.md)
+IN        L10            prosecution-logic    L10 OVERREACH (court/prosecution-logic.md)
+IN        L11            prosecution-logic    L11 IMPRECISION (court/prosecution-logic.md)
+IN        L12            prosecution-logic    L12 FATAL (court/prosecution-logic.md)
+IN        L13            prosecution-logic    L13 OVERREACH (court/prosecution-logic.md)
+IN        L14            prosecution-logic    L14 IMPRECISION (court/prosecution-logic.md)
+IN        L15            prosecution-logic    L15 IMPRECISION (court/prosecution-logic.md)
+IN        L16            prosecution-logic    L16 FATAL (court/prosecution-logic.md)
+IN        L17            prosecution-logic    L17 OVERREACH (court/prosecution-logic.md)
+IN        L18            prosecution-logic    L18 OVERREACH (court/prosecution-logic.md)
+IN        L19            prosecution-logic    L19 IMPRECISION (court/prosecution-logic.md)
+IN        L2             prosecution-logic    L2 OVERREACH (court/prosecution-logic.md)
+IN        L20            prosecution-logic    L20 IMPRECISION (court/prosecution-logic.md)
+IN        L3             prosecution-logic    L3 FATAL (court/prosecution-logic.md)
+IN        L4             prosecution-logic    L4 OVERREACH (court/prosecution-logic.md)
+IN        L5             prosecution-logic    L5 OVERREACH (court/prosecution-logic.md)
+IN        L6             prosecution-logic    L6 FATAL (court/prosecution-logic.md)
+IN        L7             prosecution-logic    L7 OVERREACH (court/prosecution-logic.md)
+IN        L8             prosecution-logic    L8 OVERREACH (court/prosecution-logic.md)
+IN        L9             prosecution-logic    L9 IMPRECISION (court/prosecution-logic.md)
+IN        N1             prosecution-novelty  N1 DEFEATS (court/prosecution-novelty.md)
+IN        N10            prosecution-novelty  N10 NARROWS (court/prosecution-novelty.md)
+IN        N11            prosecution-novelty  N11 NARROWS (court/prosecution-novelty.md)
+IN        N12            prosecution-novelty  N12 NARROWS (court/prosecution-novelty.md)
+IN        N13            prosecution-novelty  N13 NARROWS (court/prosecution-novelty.md)
+IN        N14            prosecution-novelty  N14 NARROWS (court/prosecution-novelty.md)
+IN        N15            prosecution-novelty  N15 NARROWS (court/prosecution-novelty.md)
+IN        N16            prosecution-novelty  N16 NARROWS (court/prosecution-novelty.md)
+IN        N17            prosecution-novelty  N17 NARROWS (court/prosecution-novelty.md)
+IN        N18            prosecution-novelty  N18 NARROWS (court/prosecution-novelty.md)
+IN        N19            prosecution-novelty  N19 NARROWS (court/prosecution-novelty.md)
+IN        N2             prosecution-novelty  N2 DEFEATS (court/prosecution-novelty.md)
+IN        N20            prosecution-novelty  N20 NARROWS (court/prosecution-novelty.md)
+IN        N21            prosecution-novelty  N21 NARROWS (court/prosecution-novelty.md)
+IN        N22            prosecution-novelty  N22 NO-PRIOR-ART-FOUND (court/prosecution-novelty.md)
+IN        N23            prosecution-novelty  N23 NO-PRIOR-ART-FOUND (court/prosecution-novelty.md)
+IN        N24            prosecution-novelty  N24 NO-PRIOR-ART-FOUND (court/prosecution-novelty.md)
+IN        N25            prosecution-novelty  N25 NARROWS (court/prosecution-novelty.md)
+IN        N3             prosecution-novelty  N3 DEFEATS (court/prosecution-novelty.md)
+IN        N4             prosecution-novelty  N4 DEFEATS (court/prosecution-novelty.md)
+IN        N5             prosecution-novelty  N5 NARROWS (court/prosecution-novelty.md)
+IN        N6             prosecution-novelty  N6 NARROWS (court/prosecution-novelty.md)
+IN        N7             prosecution-novelty  N7 NARROWS (court/prosecution-novelty.md)
+IN        N8             prosecution-novelty  N8 NARROWS (court/prosecution-novelty.md)
+IN        N9             prosecution-novelty  N9 NARROWS (court/prosecution-novelty.md)
+IN        TW37           twin                 twin note 37: 'is not E' op count underdetermined by SPEC v0
+IN        TW38           twin                 twin note 38: a float literal beyond binary64 crashed the compiler
+IN        ed1-T5         doctrine             edition 1: Fixed and floating point are deterministic by construction under the declared envelope; four-way byte identity here; Orlog's generated C has no FMA under contraction-allowing flags.
+IN        ed2-IMPL       doctrine             edition 2: edition 2 implementation: each repaired finding is held by a self-test row (and a plant where a defect could return silently); four-way identity on the corpus, refusals and red-team fixtures
+IN        ed2-P          doctrine             edition 2: applications and the combination may be new; mechanisms are prior art; nearest neighbour Lara (2026)
+IN        ed2-T0         doctrine             edition 2: what is computed (integrity, formal truth per run) and what is not (intent); no theorem instantiated
+IN        ed2-T1         doctrine             edition 2: certificates checked at run time (certifying algorithms; LCF discipline); no construct refers to the checker
+IN        ed2-T2         doctrine             edition 2: standing never exceeds channel; grounding binds to the claim's own seal; computation never grounds
+IN        ed2-T3         doctrine             edition 2: a counted reading (CHEAPER / NOT CHEAPER / CLAUSE NOT RUN) at this input; not little-oh
+IN        ed2-T4         doctrine             edition 2: circular support as Fitting's Kripke-Kleene undefined set (prior art), VACUOUS rule, declared premises only
+IN        ed2-T5         doctrine             edition 2: determinism by construction; four-way identity here; 0 FMA in generated C; floats in identity a fork
+IN        ed2-T6         doctrine             edition 2: the door never moves a literal boundary, refuses non-ASCII in code before normalizing; retraction DECLARED
+IN        ed2-T7         doctrine             edition 2: reversibility and momentum are properties of the update (Newton III, not Noether)
+IN        ed2-T8         doctrine             edition 2: three spellings, one law-seal (one program); names are in the law; prior art ALGOL 60, Dhall, Unison
+IN        ed2-T9         doctrine             edition 2: chaos magnifies a recurring difference; a single one-ulp difference is erased about a quarter of the time
+OUT       ed1-IMPL       doctrine             edition 1 implementation: every program the spec admits compiles, and runs identically on four executions; every invalid one is refused
+OUT       ed1-NF         doctrine             edition 1: Not found in prior art: a stated byte-identical Python/C99/Rust contract with a declared authority and localized mismatch notes.
+OUT       ed1-P1         doctrine             edition 1: Pioneering (speculative): self-certification reported as gfp minus lfp, with a sandwich-closed certificate.
+OUT       ed1-P2         doctrine             edition 1: Pioneering (speculative): per-certificate reflection expressible, wholesale reflection inexpressible, as a language-level answer to Loeb's obstacle.
+OUT       ed1-P3         doctrine             edition 1: Pioneering (speculative): oracle channels typed by provenance so 'zero external bits' is computed; ratification outside program text.
+OUT       ed1-P4         doctrine             edition 1: Pioneering (speculative): deterministic operation counting enforces a check's cost below its computation's.
+OUT       ed1-P5         doctrine             edition 1: Pioneering (speculative): prose as a measured lossless spelling compiled to three hosts, each run carrying its own receipt and event chain.
+OUT       ed1-S0         doctrine             edition 1 section 0: the horns cite Loeb, Montague, Aumann as theorems at work
+OUT       ed1-S2         doctrine             edition 1 section 2: what Orlog does that the lineage did not (unqualified)
+OUT       ed1-S5         doctrine             edition 1 section 5: 78/78 and 9 plants (typed counts)
+OUT       ed1-S7         doctrine             edition 1 section 7: Kleene and Damm wording
+OUT       ed1-S8         doctrine             edition 1 section 8: the non-claims in one place
+OUT       ed1-T0         doctrine             edition 1: Byte-identical receipts across the reference, Python, C99 and Rust show integrity on this host; standing is non-factive and no truth predicate exists in the language.
+OUT       ed1-T1         doctrine             edition 1: Per-certificate explicit reflection is expressible and wholesale reflection is not (Artemov's Logic of Proofs against Loeb's theorem).
+OUT       ed1-T2         doctrine             edition 1: A claim by computation carries no external bits (data processing inequality); GROUNDED requires a ledger line the program cannot write.
+OUT       ed1-T3         doctrine             edition 1: A certificate whose counted cost is at most half its clause's reads cheap; it is GROUNDED only with a ratified determinacy theorem (Blum 1988 little-oh, bounded by Urdr L28).
+OUT       ed1-T4         doctrine             edition 1: Claims in gfp minus lfp of the support operator are exactly the circularly supported ones; when lfp equals gfp every self-consistent trust assignment gives the same standing.
+OUT       ed1-T6         doctrine             edition 1: The door repairs only bytes the grammar reads identically, preserves literal contents, refuses the rest, and is a retraction.
+OUT       ed1-T7         doctrine             edition 1: Fixed-point position Verlet is exactly reversible and pairwise impulses conserve momentum exactly; both are runtime oracles.
+OUT       ed1-T8         doctrine             edition 1: Prose is a lossless spelling of a typed law: three spellings give one law-seal.
+OUT       ed1-T9         doctrine             edition 1: A chaotic map magnifies a one-ulp difference to the whole value; with traces, divergence is localized at the first differing operation.

@@ -1,0 +1,12 @@
+orlog-receipt 0
+backend c99
+law-seal 8f1f74adf65864c86d3d471ea8ca9e329d4282489edc156c99604264090774bf
+text-seal 982d9e3eb996f559e633f4d194def3761d909f5a3b647d1a851fead67c32c9d1
+status REFUSED OVERFLOW 3
+output-bytes 6
+output-sha256 5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03
+events 3
+trace-head bd0494368f0ffb775791853f0d178c10470402a5b7e642b1ba75969e4dfb6ad9
+ops 0
+claims 0
+end

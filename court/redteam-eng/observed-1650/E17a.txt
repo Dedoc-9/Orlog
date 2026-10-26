@@ -1,0 +1,4 @@
+$ -B orl.py run court/redteam-eng/E17a_kelvin_identifier.orl --backends python,c99 --workdir court/redteam-eng/work --show
+E17a_kelvin_identifier law mahup-sozar-somaj-lomah  ref COMPLETED  agree [c99,python]  dissent [] NONE
+1
+[exit 0]

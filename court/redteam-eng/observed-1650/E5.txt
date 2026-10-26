@@ -1,0 +1,14 @@
+$ -B orl.py court court/redteam-eng/E5_court_tautology_certificate.orl --workdir court/redteam-eng/work --ledger court/redteam-eng/E5-fixture-ledger.jsonl
+§3  We claim that true, by the certificate of §2 under the theorem "T".
+    channel       certificate of §2 under the theorem "T"
+    integrity     AGREED
+    evaluation    true in 1 of 1 evaluations
+    ratification  determinacy theorem ratified, ledger line 1
+    cost          check 0 ops / certified clause 2 ops
+    cost_reading  cheap (at most 1/2, this input)
+    plants        none declared
+    external_bits only through the ratification ledger
+    support       WELL-FOUNDED
+    grounding     GROUNDED
+summary {"circular": 0, "claims": 1, "grounded": 1, "ledger_entries": 1, "sandwich_closed": true, "unsupported": 0, "well_founded": 1}
+[exit 0]

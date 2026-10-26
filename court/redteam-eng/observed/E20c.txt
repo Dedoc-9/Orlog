@@ -1,0 +1,3 @@
+$ -B orl.py check court/redteam-eng/E20c_label_ref_as_integer.orl
+REFUSED UNKNOWN-CLAUSE at line 3: §3: there is no §2
+[exit 1]

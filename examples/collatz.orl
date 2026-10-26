@@ -1,0 +1,12 @@
+Title: The Collatz Witness.
+Note: The orbit of 27 under the Collatz map, and a claim about its length whose oracle is cited, not ratified.
+§1 Let n be 27.
+§2 Let steps be 0.
+§3 Let peak be n.
+§4 While n is not 1, at most 1000 times, do the following.
+§4.1 If n is even, set n to n divided by 2; otherwise set n to 3 times n plus 1.
+§4.2 Increase steps by 1.
+§4.3 Set peak to the larger of peak and n.
+§5 Say "steps: " followed by steps followed by ", peak: " followed by peak.
+§6 We claim that steps equals 111, by the theorem "OEIS A006577: the stopping time of 27 is 111".
+§7 It must hold that peak is at least 27.

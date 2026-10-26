@@ -1,0 +1,3 @@
+$ -B orl.py check court/redteam-eng/E16e_to_no_space.orl
+REFUSED UNKNOWN-PROCEDURE at line 3: no procedure is defined as 'To greet'
+[exit 1]

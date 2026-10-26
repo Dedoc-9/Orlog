@@ -1,0 +1,29 @@
+plant                              vectors                        heads  files  extra  smoke   verdict
+control                            RUNTIME VECTORS 20015 / 20015  ok     ok     34 / 34 ok      PASSES (as it must)
+x_mul ties round up                RUNTIME VECTORS 19997 / 20015  ok     ok     34 / 34 ok      CAUGHT
+x_div ties round up                RUNTIME VECTORS 20013 / 20015  ok     ok     34 / 34 ok      CAUGHT
+x_round ties round up              RUNTIME VECTORS 20010 / 20015  ok     ok     34 / 34 ok      CAUGHT
+i_quot truncates                   RUNTIME VECTORS 19747 / 20015  ok     ok     34 / 34 ok      CAUGHT
+i_rem truncates                    RUNTIME VECTORS 19747 / 20015  ok     ok     34 / 34 ok      CAUGHT
+i_div checks overflow first        RUNTIME VECTORS 19418 / 20015  ok     ok     34 / 34 ok      CAUGHT
+isqrt off by one                   RUNTIME VECTORS 20011 / 20015  ok     ok     34 / 34 ok      CAUGHT
+f_from_i ties away                 RUNTIME VECTORS 20013 / 20015  ok     ok     34 / 34 ok      CAUGHT
+int-to-double exactness ignored    RUNTIME VECTORS 19988 / 20015  ok     ok     34 / 34 ok      CAUGHT
+f_round ties away                  RUNTIME VECTORS 20006 / 20015  ok     ok     34 / 34 ok      CAUGHT
+f_to_x scales by 2^31              RUNTIME VECTORS 19890 / 20015  ok     ok     34 / 34 ok      CAUGHT
+f_max as fmax                      RUNTIME VECTORS 19965 / 20015  ok     ok     34 / 34 ok      CAUGHT
+f_div by zero not canonical        RUNTIME VECTORS 20007 / 20015  ok     ok     33 / 34 ok      CAUGHT
+fmt_x integral prints .1           RUNTIME VECTORS 20002 / 20015  ok     ok     33 / 34 ok      CAUGHT
+fmt_f wrong 5^13                   RUNTIME VECTORS 19930 / 20015  ok     ok     33 / 34 FAIL    CAUGHT
+fmt_f drops the sign of -0.0       RUNTIME VECTORS 19949 / 20015  ok     ok     32 / 34 FAIL    CAUGHT
+SHA-256 K[0] wrong                 RUNTIME VECTORS 20006 / 20015  DIFF   ok     34 / 34 FAIL    CAUGHT
+wrapper passes clause + 1          RUNTIME VECTORS 19960 / 20015  ok     ok     34 / 34 ok      CAUGHT
+chain clause little-endian         RUNTIME VECTORS 20015 / 20015  DIFF   ok     34 / 34 FAIL    CAUGHT
+say hashes no LF                   RUNTIME VECTORS 20015 / 20015  ok     BAD    34 / 34 FAIL    CAUGHT
+F events not canonical             RUNTIME VECTORS 20015 / 20015  ok     ok     34 / 34 FAIL    CAUGHT
+B events not 0/1                   RUNTIME VECTORS 20015 / 20015  ok     ok     33 / 34 ok      CAUGHT
+claim cost not summed              RUNTIME VECTORS 20015 / 20015  ok     ok     34 / 34 FAIL    CAUGHT
+builder limit off by one           RUNTIME VECTORS 20015 / 20015  ok     ok     32 / 34 ok      CAUGHT
+output limit off by one            RUNTIME VECTORS 20015 / 20015  ok     ok     32 / 34 ok      CAUGHT
+l_get accepts index 0              RUNTIME VECTORS 20015 / 20015  ok     ok     33 / 34 ok      CAUGHT
+PLANTS: every plant caught, control clean

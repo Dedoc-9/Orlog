@@ -1,0 +1,16 @@
+* text=auto eol=lf
+
+# Byte-exact files: a program's seals and the vectors' sha256 are of exact bytes, and the red team's observations and
+# the runtimes' recorded runs are kept as captured. Git must never convert them.
+*.orl -text
+*.raw -text
+vectors/runtime-vectors.txt -text
+court/redteam-eng/observed/** -text
+court/redteam-eng/observed-1650/** -text
+rt_c/*.txt -text
+rt_c/*.log -text
+evidence/** -text
+
+*.png binary
+*.pdf binary
+*.exe binary

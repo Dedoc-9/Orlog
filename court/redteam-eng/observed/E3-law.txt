@@ -1,0 +1,7 @@
+$ -B -c "import sys; sys.path.insert(0, 'src'); from orlog.front import compile_bytes; c = compile_bytes(open(sys.argv[1], 'rb').read()); sys.stdout.write(c.law.decode())" court/redteam-eng/E3_hidden_children.orl
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys; sys.path.insert(0, 'src'); from orlog.front import compile_bytes; c = compile_bytes(open(sys.argv[1], 'rb').read()); sys.stdout.write(c.law.decode())
+                                                                                                                                                      ^^^^^
+AttributeError: 'Compiled' object has no attribute 'law'. Did you mean: 'raw'?
+[exit 1]

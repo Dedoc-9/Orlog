@@ -1,0 +1,3 @@
+$ -B orl.py run court/redteam-eng/E2b_rule_uses_rule.orl --backends python,c99 --workdir court/redteam-eng/work
+E2b_rule_uses_rule law bilam-tagog-luzaj-pojol  ref COMPLETED  agree [c99,python]  dissent [] NONE
+[exit 0]

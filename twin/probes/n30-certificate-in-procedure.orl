@@ -1,0 +1,6 @@
+§1 Let s be 0.
+§2 To bump, do the following.
+§2.1 Increase s by 1.
+§3 Bump.
+§4 Bump.
+§5 We claim that s = 2, by the certificate of §2.1.

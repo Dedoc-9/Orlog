@@ -1,0 +1,5 @@
+$ -B orl.py check court/redteam-eng/E17b_greek_question_mark.orl
+door NOTE   LITERAL-NOT-NFC        L2 C20 22cdbe206f74686572776973652c207361792022 -> 22cdbe206f74686572776973652c207361792022  (a text literal is not in NFC; kept byte for byte, because it is output)
+door REFUSE NON-ASCII-CODE         L2 C21 cdbe -> -  (U+037E GREEK QUESTION MARK in code: identifiers and keywords are ASCII (UTS #39 confusables are refused, not guessed))
+REFUSED NON-ASCII-CODE at line 2: U+037E GREEK QUESTION MARK in code: identifiers and keywords are ASCII (UTS #39 confusables are refused, not guessed)
+[exit 1]

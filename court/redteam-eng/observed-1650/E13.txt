@@ -1,0 +1,6 @@
+$ -B orl.py check court/redteam-eng/E13_two_seals.orl
+raw-seal  0be910b2850a023ccf3e212144dbf25bf23c19fef328ac9154951f5092b41cde
+text-seal 0be910b2850a023ccf3e212144dbf25bf23c19fef328ac9154951f5092b41cde
+law-seal  cf5e62a7b4e3a21dabeb67ba8592c3135bf6ec54861c3ad37e8f20c369c7d846 (sutiv-kapol-rigog-pamit)
+clauses 1, claims 0, line checks verified 0
+[exit 0]

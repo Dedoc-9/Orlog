@@ -1,0 +1,3 @@
+$ -B orl.py check court/redteam-eng/E3b_hidden_children_crash.orl
+REFUSED UNEXPECTED-CHILDREN at line 3: §3 has sub-clauses but does not say 'do the following'
+[exit 1]

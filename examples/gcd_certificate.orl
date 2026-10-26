@@ -1,0 +1,25 @@
+Title: The Greatest Common Divisor, with Its Certificate.
+Note: Extended Euclid on two consecutive Fibonacci numbers (Euclid's worst case) finds g and the Bezout coefficients.
+Note: The claim does not re-run Euclid; it checks the certificate, a different and cheaper computation (a certifying algorithm).
+§1 Let a be 102334155.
+§2 Let b be 63245986.
+§3 Let old_r be a.
+§4 Let r be b.
+§5 Let old_s be 1.
+§6 Let s be 0.
+§7 Let old_t be 0.
+§8 Let t be 1.
+§9 While r is not 0, at most 200 times, do the following.
+§9.1 Let q be the quotient of old_r by r.
+§9.2 Let next_r be old_r minus q times r.
+§9.3 Set old_r to r.
+§9.4 Set r to next_r.
+§9.5 Let next_s be old_s minus q times s.
+§9.6 Set old_s to s.
+§9.7 Set s to next_s.
+§9.8 Let next_t be old_t minus q times t.
+§9.9 Set old_t to t.
+§9.10 Set t to next_t.
+§10 Let g be old_r.
+§11 Say "gcd: " followed by g followed by ", Bezout coefficients " followed by old_s followed by " and " followed by old_t.
+§12 We claim that a times old_s plus b times old_t equals g and g is positive and the remainder of a by g is zero and the remainder of b by g is zero, by the certificate of §9 under the theorem "Bezout characterization: a positive common divisor of a and b that is an integer combination of a and b is their greatest common divisor".

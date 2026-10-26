@@ -1,0 +1,3 @@
+$ -B -c "import re; t = open('SPEC.md', encoding='utf-8').read(); print({k: k in t for k in ('NESTING-DEPTH', 'LOOP-NESTING', 'QUOTE-BOUNDARY')})"
+{'NESTING-DEPTH': False, 'LOOP-NESTING': False, 'QUOTE-BOUNDARY': False}
+[exit 0]

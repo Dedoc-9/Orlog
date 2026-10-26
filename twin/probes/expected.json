@@ -1,0 +1,1746 @@
+{
+ "g3-cycle-before-seal": {
+  "items": [
+   "G3"
+  ],
+  "reading": "11",
+  "refused": "PRIORITY-CYCLE",
+  "what": "phase 7 (PRIORITY-CYCLE) before phase 8 (SEAL-MISMATCH)"
+ },
+ "g3-define-place-before-static": {
+  "items": [
+   "G3"
+  ],
+  "reading": "11",
+  "refused": "DEFINE-PLACE",
+  "what": "phase 5 (DEFINE-PLACE, clause 3) before phase 6 (TYPE, clause 1)"
+ },
+ "g3-let-expression-first": {
+  "alt": "REDECLARED, if the declared name were checked before its expression",
+  "items": [
+   "G3"
+  ],
+  "reading": "twin",
+  "refused": "UNDECLARED",
+  "what": "Let x (REDECLARED) be y (UNDECLARED): the expression is checked first"
+ },
+ "g3-lex-then-syntax": {
+  "alt": "SYNTAX, if unreadable characters were set aside until a parse succeeded",
+  "items": [
+   "G3",
+   "8"
+  ],
+  "reading": "twin",
+  "refused": "LEX",
+  "what": "an unreadable token before a misplaced one"
+ },
+ "g3-line-order-check": {
+  "alt": "LINE-FORM, if phase 2's code list were passes over all lines",
+  "items": [
+   "G3"
+  ],
+  "reading": "twin",
+  "refused": "LINE-CHECK",
+  "what": "phase 2 goes line by line: LINE-CHECK on line 1 before LINE-FORM on line 2"
+ },
+ "g3-line-order-numbering": {
+  "alt": "LINE-FORM, if phase 2's code list were passes over all lines",
+  "items": [
+   "G3"
+  ],
+  "reading": "twin",
+  "refused": "NUMBERING",
+  "what": "the same with NUMBERING on line 2 and LINE-FORM on line 3"
+ },
+ "g3-lines-before-syntax": {
+  "items": [
+   "G3"
+  ],
+  "reading": "11",
+  "refused": "NUMBERING",
+  "what": "phase 2 (NUMBERING, line 2) before phase 3 (SYNTAX, clause 1)"
+ },
+ "g3-literal-range-is-static": {
+  "alt": "LITERAL-RANGE, if literals were range-checked while reading tokens (phase 3)",
+  "items": [
+   "G3",
+   "38"
+  ],
+  "reading": "twin",
+  "refused": "SYNTAX",
+  "what": "LITERAL-RANGE (clause 1) is static semantics, so SYNTAX (clause 2) wins"
+ },
+ "g3-orphan-before-empty": {
+  "items": [
+   "G3"
+  ],
+  "reading": "11",
+  "refused": "ORPHAN-OTHERWISE",
+  "what": "one clause both orphaned and empty: ORPHAN-OTHERWISE is listed first"
+ },
+ "g3-perform-order-is-static": {
+  "items": [
+   "G3",
+   "22"
+  ],
+  "reading": "11",
+  "refused": "ORPHAN-OTHERWISE",
+  "what": "PERFORM-BEFORE-DEFINITION is static (phase 6): phase 4's ORPHAN-OTHERWISE wins"
+ },
+ "g3-procedure-name-clause-order": {
+  "alt": "SYNTAX, if phase 3's code list were passes over all clauses",
+  "items": [
+   "G3",
+   "20"
+  ],
+  "reading": "twin",
+  "refused": "PROCEDURE-NAME",
+  "what": "PROCEDURE-NAME (clause 1) before SYNTAX (clause 3), clause order"
+ },
+ "g3-shape-preorder": {
+  "alt": "UNEXPECTED-CHILDREN, if 'tree order' were breadth-first",
+  "items": [
+   "G3"
+  ],
+  "reading": "twin",
+  "refused": "ORPHAN-OTHERWISE",
+  "what": "'tree order' as depth-first pre-order: the orphan at \u00a71.1 comes before \u00a72's children"
+ },
+ "g3-shape-tree-order": {
+  "alt": "ORPHAN-OTHERWISE, if phase 4's code list were passes over the tree",
+  "items": [
+   "G3"
+  ],
+  "reading": "twin",
+  "refused": "UNEXPECTED-CHILDREN",
+  "what": "phase 4 in tree order: UNEXPECTED-CHILDREN (clause 1) before ORPHAN-OTHERWISE (clause 4)"
+ },
+ "g3-static-before-cycle": {
+  "items": [
+   "G3"
+  ],
+  "reading": "11",
+  "refused": "TYPE",
+  "what": "phase 6 (TYPE, clause 3) before phase 7 (PRIORITY-CYCLE)"
+ },
+ "g3-syntax-before-shape": {
+  "items": [
+   "G3"
+  ],
+  "reading": "11",
+  "refused": "SYNTAX",
+  "what": "phase 3 (SYNTAX, clause 2) before phase 4 (EMPTY-BLOCK, clause 1)"
+ },
+ "g3-syntax-then-lex": {
+  "alt": "LEX, if a statement were read into tokens whole before parsing",
+  "items": [
+   "G3",
+   "8"
+  ],
+  "reading": "twin",
+  "refused": "SYNTAX",
+  "what": "a misplaced token before an unreadable one: the first offending position decides"
+ },
+ "g3-unknown-procedure-before-shape": {
+  "items": [
+   "G3"
+  ],
+  "reading": "11",
+  "refused": "UNKNOWN-PROCEDURE",
+  "what": "UNKNOWN-PROCEDURE is phase 3, before phase 4's ORPHAN-OTHERWISE"
+ },
+ "g3-unknown-procedure-clause-order": {
+  "alt": "SYNTAX, if phase 3's code list were passes over all clauses",
+  "items": [
+   "G3"
+  ],
+  "reading": "twin",
+  "refused": "UNKNOWN-PROCEDURE",
+  "what": "phase 3 goes clause by clause: UNKNOWN-PROCEDURE (clause 1) before SYNTAX (clause 2)"
+ },
+ "g4-count-after-operands": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "G4"
+  ],
+  "ops": 2,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "REFUSED DIVISION-BY-ZERO 1",
+  "what": "plus is counted after its operands, so the refusal inside them comes at ops 2"
+ },
+ "g4-rule-counts-first": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "G4",
+   "6"
+  ],
+  "ops": 4,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "REFUSED DIVISION-BY-ZERO 3",
+  "what": "a rule use counts before its provisos; the refusal names the using clause"
+ },
+ "n02-note-no-space": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "2"
+  ],
+  "ops": 1,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "Note: takes any text"
+ },
+ "n02-sealed-lowercase": {
+  "items": [
+   "2"
+  ],
+  "reading": "11",
+  "refused": "LINE-FORM",
+  "what": "'sealed: ' is not the exact prefix"
+ },
+ "n02-sealed-no-space": {
+  "alt": "SEAL-FORM, if any line starting 'Sealed:' were a Sealed line",
+  "items": [
+   "2",
+   "5"
+  ],
+  "reading": "twin",
+  "refused": "LINE-FORM",
+  "what": "'Sealed:' without its space is not the exact 'Sealed: '"
+ },
+ "n02-title-empty": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "2"
+  ],
+  "ops": 1,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "Title: with no text"
+ },
+ "n02-title-lowercase": {
+  "items": [
+   "2"
+  ],
+  "reading": "11",
+  "refused": "LINE-FORM",
+  "what": "prefixes are case-sensitive: 'title:' is no Title line"
+ },
+ "n02-title-no-space": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "2"
+  ],
+  "ops": 1,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "Title: takes any text, no space needed"
+ },
+ "n03-title-after-clause": {
+  "items": [
+   "3"
+  ],
+  "reading": "11",
+  "refused": "TITLE-PLACE",
+  "what": "a Title after a clause"
+ },
+ "n03-title-after-note": {
+  "alt": "TITLE-PLACE, if a Note counts as content",
+  "claims": [],
+  "events": 1,
+  "items": [
+   "3"
+  ],
+  "ops": 1,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "reading": "twin",
+  "status": "COMPLETED",
+  "what": "a Title after a Note: is a Note 'content'?"
+ },
+ "n03-two-titles": {
+  "items": [
+   "3"
+  ],
+  "reading": "11",
+  "refused": "TITLE-PLACE",
+  "what": "a second Title"
+ },
+ "n04-clause-after-sealed": {
+  "items": [
+   "4"
+  ],
+  "reading": "11",
+  "refused": "SEAL-PLACE",
+  "what": "a clause after the Sealed line"
+ },
+ "n04-junk-after-sealed": {
+  "items": [
+   "4",
+   "G3"
+  ],
+  "reading": "11",
+  "refused": "LINE-FORM",
+  "what": "a malformed line after the Sealed line: LINE-FORM is checked first"
+ },
+ "n04-note-after-sealed": {
+  "items": [
+   "4",
+   "5"
+  ],
+  "reading": "11",
+  "refused": "SEAL-MISMATCH",
+  "what": "a Note may follow the Sealed line; the words then mismatch the law (phase 8)"
+ },
+ "n04-second-sealed": {
+  "items": [
+   "4"
+  ],
+  "reading": "11",
+  "refused": "SEAL-PLACE",
+  "what": "a second Sealed line"
+ },
+ "n04-title-after-sealed": {
+  "items": [
+   "3",
+   "4",
+   "G3"
+  ],
+  "reading": "11",
+  "refused": "TITLE-PLACE",
+  "what": "a Title after the Sealed line: TITLE-PLACE is checked before SEAL-PLACE"
+ },
+ "n05-sealed-bad-letter": {
+  "items": [
+   "5"
+  ],
+  "reading": "11",
+  "refused": "SEAL-FORM",
+  "what": "'c' is not a proquint consonant"
+ },
+ "n05-sealed-mismatch": {
+  "items": [
+   "5"
+  ],
+  "reading": "11",
+  "refused": "SEAL-MISMATCH",
+  "what": "well formed, but not the law's words"
+ },
+ "n05-sealed-no-period": {
+  "items": [
+   "5"
+  ],
+  "reading": "11",
+  "refused": "SEAL-FORM",
+  "what": "no final period"
+ },
+ "n05-sealed-space-joined": {
+  "items": [
+   "5"
+  ],
+  "reading": "11",
+  "refused": "SEAL-FORM",
+  "what": "proquints joined by spaces"
+ },
+ "n05-sealed-three": {
+  "items": [
+   "5"
+  ],
+  "reading": "11",
+  "refused": "SEAL-FORM",
+  "what": "three proquints"
+ },
+ "n06-leading-zeros": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "6"
+  ],
+  "ops": 3,
+  "output": "1\n2\n",
+  "output_bytes": 4,
+  "output_sha256": "a6e2b7a040683432de03a18fd8a1939a2fdf82585b364bfc874bdd4095c4cae1",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "label parts compared as integers: \u00a701, \u00a71.01, \u00a7002 are 1, 1.1, 2"
+ },
+ "n06-section-and-period": {
+  "items": [
+   "6"
+  ],
+  "reading": "11",
+  "refused": "LINE-FORM",
+  "what": "'\u00a71.' is neither label form"
+ },
+ "n07-two-spaces": {
+  "items": [
+   "7"
+  ],
+  "reading": "11",
+  "refused": "LINE-FORM",
+  "what": "exactly one space after the label"
+ },
+ "n08-lex-character": {
+  "items": [
+   "8"
+  ],
+  "reading": "11",
+  "refused": "LEX",
+  "what": "a character that begins no token"
+ },
+ "n08-lex-dot": {
+  "items": [
+   "8"
+  ],
+  "reading": "11",
+  "refused": "LEX",
+  "what": "a second decimal point: '.' begins no token"
+ },
+ "n08-lex-unterminated": {
+  "items": [
+   "8"
+  ],
+  "reading": "11",
+  "refused": "LEX",
+  "what": "an unterminated text literal"
+ },
+ "n08-syntax": {
+  "items": [
+   "8"
+  ],
+  "reading": "11",
+  "refused": "SYNTAX",
+  "what": "a malformed statement"
+ },
+ "n09-mixed-labels": {
+  "claims": [],
+  "events": 3,
+  "items": [
+   "9"
+  ],
+  "ops": 3,
+  "output": "1\n2\n3\n",
+  "output_bytes": 6,
+  "output_sha256": "14c5e74c4b96ccef41cd94db73a9ec3348038ac094feca4fd897cecffa07cdae",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "the two label forms mixed"
+ },
+ "n10-longest-word": {
+  "items": [
+   "10"
+  ],
+  "reading": "11",
+  "refused": "SYNTAX",
+  "what": "longest match: 'times3' is one word, so the statement does not parse"
+ },
+ "n10-no-separators": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "10"
+  ],
+  "ops": 3,
+  "output": "13\n",
+  "output_bytes": 3,
+  "output_sha256": "1a252402972f6057fa53cc172b52b9ffca698e18311facd0f3b06ecaaef79e17",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "no separator between tokens"
+ },
+ "n11-colon": {
+  "items": [
+   "11"
+  ],
+  "reading": "11",
+  "refused": "SYNTAX",
+  "what": "':' begins nothing"
+ },
+ "n12-keywords-any-case": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "12"
+  ],
+  "ops": 3,
+  "output": "4\n",
+  "output_bytes": 2,
+  "output_sha256": "7de1555df0c2700329e815b93b32c571c3ea54dc967b89e81ab73b9972b72d1d",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "keywords in any case"
+ },
+ "n12-reserved-any-case": {
+  "items": [
+   "12"
+  ],
+  "reading": "11",
+  "refused": "SYNTAX",
+  "what": "'Sum' is reserved"
+ },
+ "n13-seal-phrase-and-s": {
+  "claims": [],
+  "events": 3,
+  "items": [
+   "13"
+  ],
+  "ops": 4,
+  "output": "5\ntrue\n",
+  "output_bytes": 7,
+  "output_sha256": "41fa93db86707a4aaca67dbe0deb71f40461c113f6c516524fa73edf7c9938a9",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "'s' is an identifier; this law's seal is a phrase (compared, not printed)"
+ },
+ "n15-unless-counts-not": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "15"
+  ],
+  "ops": 3,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "Unless counts its not: arm, not, Say"
+ },
+ "n16-unless-inline-otherwise": {
+  "items": [
+   "16"
+  ],
+  "reading": "11",
+  "refused": "SYNTAX",
+  "what": "Unless takes no inline otherwise"
+ },
+ "n16-unless-otherwise-attaches": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "16",
+   "15"
+  ],
+  "ops": 3,
+  "output": "2\n",
+  "output_bytes": 2,
+  "output_sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "an Otherwise clause attaches to an Unless"
+ },
+ "n16-unless-then": {
+  "items": [
+   "16"
+  ],
+  "reading": "11",
+  "refused": "SYNTAX",
+  "what": "Unless takes no then"
+ },
+ "n17-elseif-inline-otherwise": {
+  "items": [
+   "17"
+  ],
+  "reading": "11",
+  "refused": "SYNTAX",
+  "what": "an else-if arm takes no inline otherwise"
+ },
+ "n18-arm-claim-clause": {
+  "claims": [
+   "claim 0 2 1 1 1 0 0"
+  ],
+  "events": 1,
+  "items": [
+   "18"
+  ],
+  "ops": 3,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "an inline claim in an absorbed arm is declared at its own clause"
+ },
+ "n18-arm-condition-clause": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "18"
+  ],
+  "ops": 4,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "REFUSED DIVISION-BY-ZERO 3",
+  "what": "an absorbed arm's condition names its own clause (3, not 2)"
+ },
+ "n18-arm-statement-clause": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "18"
+  ],
+  "ops": 4,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "REFUSED DIVISION-BY-ZERO 3",
+  "what": "an absorbed arm's inline statement names its own clause"
+ },
+ "n19-bound-beyond-i64": {
+  "items": [
+   "19"
+  ],
+  "reading": "11",
+  "refused": "FUEL",
+  "what": "a bound beyond i64 is FUEL, not LITERAL-RANGE"
+ },
+ "n19-bound-max": {
+  "claims": [],
+  "events": 0,
+  "items": [
+   "19"
+  ],
+  "ops": 1,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "2^62 is allowed"
+ },
+ "n19-bound-over": {
+  "items": [
+   "19"
+  ],
+  "reading": "11",
+  "refused": "FUEL",
+  "what": "2^62 + 1"
+ },
+ "n19-decimal-bound": {
+  "items": [
+   "19"
+  ],
+  "reading": "11",
+  "refused": "SYNTAX",
+  "what": "a decimal While bound"
+ },
+ "n19-zero-bound": {
+  "items": [
+   "19"
+  ],
+  "reading": "11",
+  "refused": "FUEL",
+  "what": "a bound of 0"
+ },
+ "n20-name-reserved-the": {
+  "items": [
+   "20"
+  ],
+  "reading": "11",
+  "refused": "PROCEDURE-NAME",
+  "what": "a name beginning with 'the'"
+ },
+ "n20-name-statement-word": {
+  "items": [
+   "20"
+  ],
+  "reading": "11",
+  "refused": "PROCEDURE-NAME",
+  "what": "a name beginning with 'say'"
+ },
+ "n20-reserved-word-inside-name": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "20"
+  ],
+  "ops": 4,
+  "output": "1\n1\n",
+  "output_bytes": 4,
+  "output_sha256": "ad0fadf63cc7cd779ce475e345bf4063565b63a3c2efef1eebc89790aaa6acba",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "reserved words after the first are allowed"
+ },
+ "n21-call-reserved-first-word": {
+  "alt": "UNKNOWN-PROCEDURE (or PROCEDURE-NAME), if such a call were parsed as a name",
+  "items": [
+   "21",
+   "20"
+  ],
+  "reading": "twin",
+  "refused": "SYNTAX",
+  "what": "a call whose first word is reserved ('do the following' as an arm)"
+ },
+ "n21-name-do-the-following": {
+  "items": [
+   "21"
+  ],
+  "reading": "11",
+  "refused": "PROCEDURE-NAME",
+  "what": "the name 'do the following'"
+ },
+ "n22-mutual": {
+  "items": [
+   "22"
+  ],
+  "reading": "11",
+  "refused": "PERFORM-BEFORE-DEFINITION",
+  "what": "mutual recursion"
+ },
+ "n22-perform-before-definition": {
+  "items": [
+   "22"
+  ],
+  "reading": "11",
+  "refused": "PERFORM-BEFORE-DEFINITION",
+  "what": "a top-level call before the definition"
+ },
+ "n22-recursion": {
+  "items": [
+   "22"
+  ],
+  "reading": "11",
+  "refused": "PERFORM-BEFORE-DEFINITION",
+  "what": "a procedure performing itself"
+ },
+ "n23-given-three": {
+  "claims": [
+   "claim 0 1 1 1 0 0 0",
+   "claim 1 2 1 1 0 0 0",
+   "claim 2 3 1 1 0 0 0"
+  ],
+  "events": 3,
+  "items": [
+   "23",
+   "32"
+  ],
+  "ops": 3,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "given with three references, one of them the claim itself"
+ },
+ "n23-notwithstanding-four": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "23"
+  ],
+  "ops": 2,
+  "output": "5\n",
+  "output_bytes": 2,
+  "output_sha256": "f0b5c2c2211c8d67ed15e75e656c7862d086e9245420892a7de62cd9ec582a06",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "notwithstanding with four references"
+ },
+ "n24-define-unless-counts": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "24"
+  ],
+  "ops": 4,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "a Define's unless counts its not"
+ },
+ "n25-two-provisos": {
+  "items": [
+   "25"
+  ],
+  "reading": "11",
+  "refused": "SYNTAX",
+  "what": "provided that and unless together"
+ },
+ "n26-the-everywhere": {
+  "claims": [],
+  "events": 13,
+  "items": [
+   "26"
+  ],
+  "ops": 22,
+  "output": "7\n3\n3\n5\n",
+  "output_bytes": 8,
+  "output_sha256": "e69b2044cb9511361231e79de24c6ac125b8adc115ff9e4da21ef01308920e6a",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "the filler in every identifier position"
+ },
+ "n27-increase-item-parenthesized": {
+  "claims": [],
+  "events": 4,
+  "items": [
+   "27"
+  ],
+  "ops": 8,
+  "output": "[1, 7]\n",
+  "output_bytes": 7,
+  "output_sha256": "eac45f807cbf7f81c39e9cb5b45645a5669d8345a5050ab5de97fe1f2576733b",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "a parenthesized index"
+ },
+ "n27-set-item-unary": {
+  "items": [
+   "27"
+  ],
+  "reading": "11",
+  "refused": "SYNTAX",
+  "what": "the index of Set item is a unary"
+ },
+ "n28-define-in-arm": {
+  "items": [
+   "28"
+  ],
+  "reading": "11",
+  "refused": "SYNTAX",
+  "what": "a Define inside an inline arm"
+ },
+ "n28-while-in-arm": {
+  "items": [
+   "28"
+  ],
+  "reading": "11",
+  "refused": "SYNTAX",
+  "what": "a While inside an inline arm"
+ },
+ "n29-append-to-counter": {
+  "alt": "LOOP-VARIABLE, if item 29 covered every write",
+  "items": [
+   "29"
+  ],
+  "reading": "twin",
+  "refused": "TYPE",
+  "what": "Append to a For counter (not a set, increase or decrease)"
+ },
+ "n29-decrease-counter": {
+  "items": [
+   "29"
+  ],
+  "reading": "11",
+  "refused": "LOOP-VARIABLE",
+  "what": "Decrease a For counter"
+ },
+ "n29-increase-item-counter": {
+  "items": [
+   "29"
+  ],
+  "reading": "11",
+  "refused": "LOOP-VARIABLE",
+  "what": "Increase item of a For counter"
+ },
+ "n29-set-item-counter": {
+  "items": [
+   "29"
+  ],
+  "reading": "11",
+  "refused": "LOOP-VARIABLE",
+  "what": "Set item of a For counter: LOOP-VARIABLE before the list type"
+ },
+ "n30-certificate-absorbed": {
+  "items": [
+   "30"
+  ],
+  "reading": "11",
+  "refused": "CERTIFICATE-TARGET",
+  "what": "an absorbed Otherwise clause"
+ },
+ "n30-certificate-chain": {
+  "claims": [
+   "claim 0 4 1 1 0 2 3"
+  ],
+  "events": 3,
+  "items": [
+   "30"
+  ],
+  "ops": 5,
+  "output": "2\n",
+  "output_bytes": 2,
+  "output_sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "an If chain's counter covers its absorbed arms"
+ },
+ "n30-certificate-claim": {
+  "items": [
+   "30"
+  ],
+  "reading": "11",
+  "refused": "CERTIFICATE-TARGET",
+  "what": "a claim clause"
+ },
+ "n30-certificate-decimals": {
+  "items": [
+   "30"
+  ],
+  "reading": "11",
+  "refused": "CERTIFICATE-TARGET",
+  "what": "a Decimals clause"
+ },
+ "n30-certificate-define": {
+  "items": [
+   "30"
+  ],
+  "reading": "11",
+  "refused": "CERTIFICATE-TARGET",
+  "what": "a Define clause"
+ },
+ "n30-certificate-in-procedure": {
+  "claims": [
+   "claim 0 6 1 1 1 3 4"
+  ],
+  "events": 4,
+  "items": [
+   "30"
+  ],
+  "ops": 9,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "a clause inside a procedure body: its counter grows each run (2 + 2)"
+ },
+ "n30-certificate-later": {
+  "items": [
+   "30"
+  ],
+  "reading": "11",
+  "refused": "CERTIFICATE-TARGET",
+  "what": "a later target"
+ },
+ "n30-certificate-to": {
+  "items": [
+   "30"
+  ],
+  "reading": "11",
+  "refused": "CERTIFICATE-TARGET",
+  "what": "a To clause"
+ },
+ "n31-agreement-earlier-any": {
+  "claims": [
+   "claim 0 4 1 1 0 0 0"
+  ],
+  "events": 1,
+  "items": [
+   "31"
+  ],
+  "ops": 1,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "agreement of an earlier To and an earlier Define"
+ },
+ "n31-agreement-later": {
+  "items": [
+   "31"
+  ],
+  "reading": "11",
+  "refused": "AGREEMENT-TARGET",
+  "what": "a target that is not earlier"
+ },
+ "n31-agreement-same-clause": {
+  "claims": [
+   "claim 0 2 1 1 1 0 0"
+  ],
+  "events": 2,
+  "items": [
+   "31"
+  ],
+  "ops": 3,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "agreement of one clause with itself"
+ },
+ "n32-premise-inline-claim": {
+  "items": [
+   "32"
+  ],
+  "reading": "11",
+  "refused": "PREMISE-TARGET",
+  "what": "an If clause whose arm is a claim is not a claim clause"
+ },
+ "n32-premise-later-and-self": {
+  "claims": [
+   "claim 0 1 1 1 0 0 0",
+   "claim 1 2 1 1 0 0 0"
+  ],
+  "events": 2,
+  "items": [
+   "32"
+  ],
+  "ops": 2,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "premises later than the claim, and the claim itself"
+ },
+ "n33-unknown-agreement": {
+  "items": [
+   "33"
+  ],
+  "reading": "11",
+  "refused": "UNKNOWN-CLAUSE",
+  "what": "agreement with a missing clause"
+ },
+ "n33-unknown-certificate": {
+  "items": [
+   "33"
+  ],
+  "reading": "11",
+  "refused": "UNKNOWN-CLAUSE",
+  "what": "a certificate of a missing clause"
+ },
+ "n33-unknown-given": {
+  "items": [
+   "33"
+  ],
+  "reading": "11",
+  "refused": "UNKNOWN-CLAUSE",
+  "what": "given a missing clause"
+ },
+ "n33-unknown-notwithstanding": {
+  "items": [
+   "33"
+  ],
+  "reading": "11",
+  "refused": "UNKNOWN-CLAUSE",
+  "what": "notwithstanding a missing clause"
+ },
+ "n34-list-goes-on-before-item": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "34"
+  ],
+  "ops": 5,
+  "output": "[1, 6]\n",
+  "output_bytes": 7,
+  "output_sha256": "0f16334da44c39740370fd6fe9ef6e50c1004df1af4caa9f5edc73853f151217",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "'and' before 'item' continues the list"
+ },
+ "n34-list-goes-on-before-minus-and-the": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "34"
+  ],
+  "ops": 4,
+  "output": "[1, -2, 3]\n",
+  "output_bytes": 11,
+  "output_sha256": "3b8901140a9bacbe55633a7dbb232e26f6b5059def5f0e92893fe80a18e55cd1",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "',' before '-' and 'and' before 'the' continue the list"
+ },
+ "n34-list-goes-on-before-name": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "34"
+  ],
+  "ops": 3,
+  "output": "[1, 2]\n",
+  "output_bytes": 7,
+  "output_sha256": "1fb3ffcf3df89e31f56932d4a64a23eede8a2f6707898bf14d1fc42a78286868",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "'and' before a name continues the list"
+ },
+ "n34-list-stops-before-not": {
+  "items": [
+   "34"
+  ],
+  "reading": "11",
+  "refused": "TYPE",
+  "what": "'and not' ends the list, so 'and' joins a list and a Bool"
+ },
+ "n35-short-circuit": {
+  "claims": [],
+  "events": 3,
+  "items": [
+   "35"
+  ],
+  "ops": 6,
+  "output": "false\ntrue\n",
+  "output_bytes": 11,
+  "output_sha256": "b8c77a864147a827751b38954756ea3294b6e725092a22825bd82be8cff2ec1c",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "the right operand is not evaluated (it would be out of range)"
+ },
+ "n36-minus-on-literal-counted": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "36"
+  ],
+  "ops": 3,
+  "output": "-4\n",
+  "output_bytes": 3,
+  "output_sha256": "8fbfec21acf8f74313698199401f9eb352920bd889b4865b272e657167808aa0",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "-4 is a counted negation"
+ },
+ "n37-is-not-forms": {
+  "claims": [],
+  "events": 5,
+  "items": [
+   "37"
+  ],
+  "ops": 12,
+  "output": "true\ntrue\nfalse\nfalse\ntrue\n",
+  "output_bytes": 27,
+  "output_sha256": "0ff9850ba3cdaa76835231fc4e346bde8b1ea0f3ae55c3a9e4f080851b0d549a",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "is not E and is not equal to E: one op; is not less than, is not even: two"
+ },
+ "n37-is-not-nan": {
+  "claims": [],
+  "events": 5,
+  "items": [
+   "37",
+   "50"
+  ],
+  "ops": 10,
+  "output": "true\ntrue\nfalse\n",
+  "output_bytes": 16,
+  "output_sha256": "0823bd24a3b200a27310872ca7794008d70b316ae5841675b1acf789e4169aec",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "NaN: is not n is true; is not less than 1.0 is true; >= 1.0 is false"
+ },
+ "n38-fix-literal-max": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "38"
+  ],
+  "ops": 1,
+  "output": "2147483647.99999999976716935634613037109375\n",
+  "output_bytes": 44,
+  "output_sha256": "9adb003ebec5c61d0423dc8e3a7d7f14117725e823b1f7edfd56c7320e3087d8",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "the largest Fix, exactly"
+ },
+ "n38-fix-literal-over": {
+  "items": [
+   "38"
+  ],
+  "reading": "11",
+  "refused": "LITERAL-RANGE",
+  "what": "a Fix literal of 2^31"
+ },
+ "n38-fix-literal-rounds-over": {
+  "items": [
+   "38"
+  ],
+  "reading": "11",
+  "refused": "LITERAL-RANGE",
+  "what": "a Fix literal that rounds to raw 2^63"
+ },
+ "n38-float-literal-below-midpoint": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "38"
+  ],
+  "ops": 1,
+  "output": "179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.0\n",
+  "output_bytes": 312,
+  "output_sha256": "1733a5b6d410ce5f89bc7e8606dcb5658da0e51fd473563b37bb7c0f11bf6802",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "one below the midpoint rounds to DBL_MAX"
+ },
+ "n38-float-literal-huge": {
+  "items": [
+   "38"
+  ],
+  "reading": "11",
+  "refused": "LITERAL-RANGE",
+  "what": "10^309 as a Float literal"
+ },
+ "n38-float-literal-midpoint": {
+  "items": [
+   "38"
+  ],
+  "reading": "11",
+  "refused": "LITERAL-RANGE",
+  "what": "halfway between DBL_MAX and 2^1024 rounds (to even) to infinity"
+ },
+ "n39-bool-with-int": {
+  "items": [
+   "39"
+  ],
+  "reading": "11",
+  "refused": "TYPE",
+  "what": "Bool goes only with Bool"
+ },
+ "n39-fix-with-float": {
+  "items": [
+   "39"
+  ],
+  "reading": "11",
+  "refused": "TYPE",
+  "what": "Fix with Float"
+ },
+ "n39-int-with-fix": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "39",
+   "42"
+  ],
+  "ops": 3,
+  "output": "[1.0, 2.5]\n",
+  "output_bytes": 11,
+  "output_sha256": "57fc6378132ffaa4ac70e409d6bc137cdb5424c22c53e3811c70bb69f819623f",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "Int with Fix makes a Fix list; the Int item's promotion counts"
+ },
+ "n39-int-with-float": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "39"
+  ],
+  "ops": 3,
+  "output": "[1.0, 0.5]\n",
+  "output_bytes": 11,
+  "output_sha256": "047285899277c06b05e03e6a4f08ae56c764c6918e0518f1a25003a0dc7bdcce",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "Int with Float makes a Float list"
+ },
+ "n39-text-item": {
+  "items": [
+   "39"
+  ],
+  "reading": "11",
+  "refused": "TYPE",
+  "what": "a Text item"
+ },
+ "n40-promotion-exact": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "40"
+  ],
+  "ops": 3,
+  "output": "9007199254740992.0\n",
+  "output_bytes": 19,
+  "output_sha256": "c3834dac02e6c083ca45e7228ad877dbefd8953657593b08a1365cf78103af9a",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "2^53 is exact; the sum rounds"
+ },
+ "n40-promotion-inexact": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "40"
+  ],
+  "ops": 2,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "REFUSED INEXACT-CONVERSION 2",
+  "what": "2^53 + 1 promoted to Float"
+ },
+ "n41-promotion-before-right-operand": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "41"
+  ],
+  "ops": 2,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "REFUSED OVERFLOW 1",
+  "what": "the left promotion overflows before the right operand divides by zero"
+ },
+ "n41-promotion-counts": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "41"
+  ],
+  "ops": 6,
+  "output": "2.5\ntrue\n",
+  "output_bytes": 9,
+  "output_sha256": "88f1e0514a6c535cc3d248ffb6232c839a95a13caadabff7b18baf9e11b6ab58",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "promotions in an operator and a comparison are counted"
+ },
+ "n42-promotion-before-next-item": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "42"
+  ],
+  "ops": 2,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "REFUSED OVERFLOW 1",
+  "what": "a list item's promotion comes before the next item"
+ },
+ "n43-fix-as-fixed": {
+  "items": [
+   "43"
+  ],
+  "reading": "11",
+  "refused": "TYPE",
+  "what": "Fix as a fixed"
+ },
+ "n43-int-as-integer": {
+  "items": [
+   "43"
+  ],
+  "reading": "11",
+  "refused": "TYPE",
+  "what": "Int as an integer"
+ },
+ "n43-integer-part-of-int": {
+  "items": [
+   "43"
+  ],
+  "reading": "11",
+  "refused": "TYPE",
+  "what": "integer part of an Int"
+ },
+ "n44-length-of-text": {
+  "items": [
+   "44"
+  ],
+  "reading": "11",
+  "refused": "TYPE",
+  "what": "length of a Text"
+ },
+ "n45-int-and-fix-defines": {
+  "items": [
+   "45"
+  ],
+  "reading": "11",
+  "refused": "TYPE",
+  "what": "Define clauses of Int and Fix"
+ },
+ "n46-define-sees-earlier-variables": {
+  "items": [
+   "46"
+  ],
+  "reading": "11",
+  "refused": "UNDECLARED",
+  "what": "a Define cannot see a later variable"
+ },
+ "n46-define-uses-complete-rule": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "46"
+  ],
+  "ops": 4,
+  "output": "3\n",
+  "output_bytes": 2,
+  "output_sha256": "1121cfccd5913f0a63fec40a6ffd44ea64f9dc135c66634ba001d10bcf4302a2",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "a Define may use a rule completely defined before it"
+ },
+ "n46-define-uses-incomplete-rule": {
+  "items": [
+   "46"
+  ],
+  "reading": "11",
+  "refused": "RULE-BEFORE-DEFINITION",
+  "what": "a rule not completely defined before"
+ },
+ "n47-procedure-after-variable": {
+  "alt": "COMPLETED (ops 1, events 1), if item 47 restricted variables only",
+  "items": [
+   "47"
+  ],
+  "reading": "twin",
+  "refused": "REDECLARED",
+  "what": "a procedure named as a visible variable (the converse)"
+ },
+ "n47-variable-after-procedure": {
+  "items": [
+   "47"
+  ],
+  "reading": "11",
+  "refused": "REDECLARED",
+  "what": "a variable named (lowercased) as a procedure already defined"
+ },
+ "n47-variable-before-procedure": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "47"
+  ],
+  "ops": 4,
+  "output": "2\n",
+  "output_bytes": 2,
+  "output_sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "a local named as a procedure defined later is allowed"
+ },
+ "n47-variable-named-rule": {
+  "items": [
+   "47"
+  ],
+  "reading": "11",
+  "refused": "REDECLARED",
+  "what": "a variable named as a rule defined later"
+ },
+ "n48-append-to-rule": {
+  "items": [
+   "48"
+  ],
+  "reading": "11",
+  "refused": "UNDECLARED",
+  "what": "Append to a rule name"
+ },
+ "n48-increase-rule": {
+  "items": [
+   "48"
+  ],
+  "reading": "11",
+  "refused": "UNDECLARED",
+  "what": "Increase a rule name"
+ },
+ "n48-item-of-rule": {
+  "alt": "TYPE, if only writes to a rule name were UNDECLARED",
+  "items": [
+   "48"
+  ],
+  "reading": "twin",
+  "refused": "UNDECLARED",
+  "what": "item of a rule name (a read, not a write)"
+ },
+ "n48-set-rule": {
+  "items": [
+   "48"
+  ],
+  "reading": "11",
+  "refused": "UNDECLARED",
+  "what": "Set a rule name"
+ },
+ "n49-decimals-after-literal": {
+  "items": [
+   "49"
+  ],
+  "reading": "11",
+  "refused": "DECIMALS-PLACE",
+  "what": "Decimals after a decimal literal"
+ },
+ "n49-decimals-after-literal-in-procedure": {
+  "items": [
+   "49"
+  ],
+  "reading": "11",
+  "refused": "DECIMALS-PLACE",
+  "what": "after a decimal literal inside an earlier procedure"
+ },
+ "n49-decimals-nested": {
+  "items": [
+   "49"
+  ],
+  "reading": "11",
+  "refused": "DECIMALS-PLACE",
+  "what": "Decimals not at top level"
+ },
+ "n49-decimals-twice": {
+  "items": [
+   "49"
+  ],
+  "reading": "11",
+  "refused": "DECIMALS-PLACE",
+  "what": "Decimals twice"
+ },
+ "n50-signed-zero-and-nan": {
+  "claims": [],
+  "events": 7,
+  "items": [
+   "50"
+  ],
+  "ops": 15,
+  "output": "true\nfalse\nfalse\nfalse\nfalse\n",
+  "output_bytes": 29,
+  "output_sha256": "615873448a3275fe40306925f4d7e70793057f8829e35b6ba7fbd2ef23747b34",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "-0.0 is zero, not negative; NaN is none of the three"
+ },
+ "n51-static-closure": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "51"
+  ],
+  "ops": 3,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "\u00a74 overrides \u00a72 through the inapplicable \u00a73"
+ },
+ "n52-agreeing-values-not-counted": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "52"
+  ],
+  "ops": 2,
+  "output": "1\n",
+  "output_bytes": 2,
+  "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "three equal values: two comparisons, uncounted"
+ },
+ "n52-conflict-not-counted": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "52"
+  ],
+  "ops": 2,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "REFUSED RULE-CONFLICT 3",
+  "what": "the comparison behind RULE-CONFLICT is not counted"
+ },
+ "n53-event-e-index-and-tag": {
+  "claims": [],
+  "events": 4,
+  "items": [
+   "53",
+   "54"
+  ],
+  "ops": 8,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "COMPLETED",
+  "trace": [
+   [
+    "A",
+    1,
+    "000000004c42000000020100"
+   ],
+   [
+    "E",
+    2,
+    "0000000000000000000000024201"
+   ],
+   [
+    "A",
+    3,
+    "000000014c490000000200000000000000050000000000000006"
+   ],
+   [
+    "E",
+    4,
+    "000000010000000000000002490000000000000007"
+   ]
+  ],
+  "what": "event E carries the 1-based index and a tagged value (visible in the trace)"
+ },
+ "n55-increase-promotion-counts": {
+  "claims": [],
+  "events": 3,
+  "items": [
+   "55"
+  ],
+  "ops": 5,
+  "output": "2.5\n",
+  "output_bytes": 4,
+  "output_sha256": "686513ed91231892fbf0c4e72acee20264caa8538e8389157a942a808dba6531",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "Increase of a Fix by an Int: +1, promotion +1, add +1"
+ },
+ "n55-increase-promotion-refusal": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "55"
+  ],
+  "ops": 3,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "REFUSED OVERFLOW 2",
+  "what": "the promotion refuses before the add is counted"
+ },
+ "n56-unevaluated-claim": {
+  "claims": [
+   "claim 0 2 0 0 0 0 0"
+  ],
+  "events": 1,
+  "items": [
+   "56"
+  ],
+  "ops": 2,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "a claim never evaluated has ref clause and ref cost 0 0"
+ },
+ "n59-fix-as-integer": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "59"
+  ],
+  "ops": 5,
+  "output": "-3\n",
+  "output_bytes": 3,
+  "output_sha256": "0f90e0b3538d04df294950dcec75952d7e07f1bb044e73e795c410d677b3c268",
+  "reading": "11",
+  "status": "REFUSED INEXACT-CONVERSION 2",
+  "what": "-3.0 as an integer is -3; 2.5 refuses"
+ },
+ "n59-float-as-integer-inexact": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "59"
+  ],
+  "ops": 2,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "REFUSED INEXACT-CONVERSION 2",
+  "what": "2.5 as an integer"
+ },
+ "n59-float-as-integer-nan": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "59"
+  ],
+  "ops": 4,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "REFUSED NOT-FINITE 3",
+  "what": "NaN as an integer"
+ },
+ "n59-float-as-integer-overflow": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "59"
+  ],
+  "ops": 4,
+  "output": "4\n",
+  "output_bytes": 2,
+  "output_sha256": "7de1555df0c2700329e815b93b32c571c3ea54dc967b89e81ab73b9972b72d1d",
+  "reading": "11",
+  "status": "REFUSED OVERFLOW 3",
+  "what": "2^63 is integral and finite, then OVERFLOW"
+ },
+ "n60-float-sqrt-negative": {
+  "claims": [],
+  "events": 2,
+  "items": [
+   "60"
+  ],
+  "ops": 6,
+  "output": "NaN\n-0.0\n",
+  "output_bytes": 9,
+  "output_sha256": "58afae218ab41ad99969306e609f6dc2426060b212253dc666bdf69722d12eb6",
+  "reading": "11",
+  "status": "COMPLETED",
+  "what": "Float: NaN for a negative, -0.0 for -0.0"
+ },
+ "n60-negative-sqrt-fix": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "60"
+  ],
+  "ops": 3,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "REFUSED NEGATIVE-SQRT 1",
+  "what": "the square root of -0.25 (Fix)"
+ },
+ "n60-negative-sqrt-int": {
+  "claims": [],
+  "events": 1,
+  "items": [
+   "60"
+  ],
+  "ops": 3,
+  "output": "",
+  "output_bytes": 0,
+  "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reading": "11",
+  "status": "REFUSED NEGATIVE-SQRT 1",
+  "what": "the square root of -4"
+ }
+}

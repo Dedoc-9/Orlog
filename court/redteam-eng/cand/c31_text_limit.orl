@@ -1,0 +1,6 @@
+§1 Let t be "x".
+§2 For each i from 1 to 24, do the following.
+§2.1 Set t to t followed by t.
+§3 Let u be t followed by "".
+§4 Say "exactly 2^24 held".
+§5 Let v be t followed by "y".

@@ -1,0 +1,11 @@
+$ -B orl.py court court/redteam-eng/E4_court_inline_claim.orl --workdir court/redteam-eng/work --ledger court/redteam-eng/E5-fixture-ledger.jsonl
+§2  If x = 1, we claim that x = 1.
+    channel       computation
+    integrity     AGREED
+    evaluation    true in 1 of 1 evaluations
+    ratification  not admissible for this channel (R2, R3)
+    external_bits none beyond the text
+    support       WELL-FOUNDED
+    grounding     UNGROUNDED
+summary {"circular": 0, "claims": 1, "grounded": 0, "ledger_entries": 1, "sandwich": "CLOSED", "unreached": 0, "unsupported": 0, "well_founded": 1}
+[exit 0]

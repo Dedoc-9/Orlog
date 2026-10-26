@@ -1,0 +1,5 @@
+§1 Let b be false.
+§2 Define r as 3.
+§3 Notwithstanding §2, define r as 2, provided that b.
+§4 Notwithstanding §3, define r as 1.
+§5 Say r.

@@ -1,0 +1,6 @@
+$ -B orl.py check court/redteam-eng/E16d_to_named_to.orl
+raw-seal  64fd50d6236200b94dec7bafa26b1aea690c8cb993ccf5bafecd98b22777c625
+text-seal 64fd50d6236200b94dec7bafa26b1aea690c8cb993ccf5bafecd98b22777c625
+law-seal  0b4a315585cd3fe573cca28d70608447ef69add4215c5276629d1e393ba563ab (botap-gajij-milat-guzoj)
+clauses 3, claims 0, line checks verified 0
+[exit 0]

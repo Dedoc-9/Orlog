@@ -1,0 +1,14 @@
+Title: A Small Law with Exceptions.
+Note: Rules with provisos and overrides. The outcome never depends on the order the rules are written in: priority is the transitive closure of the notwithstanding clauses, which must be acyclic, and two maximal rules that disagree are refused, never settled by position.
+§1 Let income be 0.
+§2 Let resident be true.
+§3 Define rate as 20, provided that resident is true.
+§4 Define rate as 30, unless resident is true.
+§5 Notwithstanding §3, define rate as 10, provided that income is at most 12000 and resident is true.
+§6 Notwithstanding §5, define rate as 0, provided that income is at most 4000 and resident is true.
+§7 For each step from 0 to 6, do the following.
+§7.1 Set income to step times 3000.
+§7.2 Say "resident, income " followed by income followed by ": rate " followed by rate.
+§8 Set resident to false.
+§9 Set income to 3000.
+§10 Say "non-resident, income 3000: rate " followed by rate.

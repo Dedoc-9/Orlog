@@ -1,0 +1,3 @@
+SETTLED g3-syntax-then-lex: the twin read SYNTAX; SPEC §13, G3 phase 3 settles LEX, which the reference gives
+SETTLED n08-lex-unterminated: the twin read LEX; SPEC §13, G3 phase 1 settles UNTERMINATED-TEXT, which the reference gives
+PROBES 161/163 identical between the twin's hand-worked expectations and the reference; 2 settled against the twin's reading by SPEC §13; 0 different

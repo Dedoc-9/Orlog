@@ -1,0 +1,39 @@
+$ -B orl.py run court/redteam-eng/E2b_rule_uses_rule.orl --backends python,c99 --workdir court/redteam-eng/work
+Traceback (most recent call last):
+  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\orl.py", line 187, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\orl.py", line 182, in main
+    return {"check": cmd_check, "run": cmd_run, "court": cmd_court, "stamp": cmd_stamp, "ratify": cmd_ratify,
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            "ratify-theorem": cmd_ratify_theorem}[a.cmd](a)
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\orl.py", line 57, in cmd_run
+    comp, w, ref = arb.arbitrate(read(f), name)
+                   ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\arbiter.py", line 131, in arbitrate
+    low = Lowered(comp)
+  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\lower.py", line 56, in __init__
+    self.with_fn(f, lambda name=name: self.rule_body(name))
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\lower.py", line 66, in with_fn
+    thunk()
+    ~~~~~^^
+  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\lower.py", line 56, in <lambda>
+    self.with_fn(f, lambda name=name: self.rule_body(name))
+                                      ~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\lower.py", line 253, in rule_body
+    self.emit("if", mx[c.id], self.sub(eval_value), [])
+                              ~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\lower.py", line 80, in sub
+    thunk()
+    ~~~~~^^
+  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\lower.py", line 250, in eval_value
+    v = self.expr(cid, c.stmt.expr)
+  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\lower.py", line 304, in expr
+    a = self.expr(cid, e.a)
+  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\lower.py", line 284, in expr
+    self.emit("rule", t, self.rule_fn[e.rule], cid)
+                         ^^^^^^^^^^^^
+AttributeError: 'Lowered' object has no attribute 'rule_fn'
+[exit 1]

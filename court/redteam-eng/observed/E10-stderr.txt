@@ -1,0 +1,4 @@
+$ -B court/redteam-eng/show_stderr.py court/redteam-eng/E10_python_depth_if_chain_110.orl
+python backend exit 0; stderr tail:
+
+[exit 0]

@@ -1,0 +1,4 @@
+$ -B orl.py run court/redteam-eng/E10_python_depth_if_chain_110.orl court/redteam-eng/E10b_python_depth_nested_for_40.orl --backends python,c99,rust --workdir court/redteam-eng/work
+E10_python_depth_if_chain_110 law zubit-hahar-kovus-lidas  ref COMPLETED  agree [c99,python,rust]  dissent [] NONE
+E10b_python_depth_nested_for_40 REFUSED NESTING-DEPTH at line 25
+[exit 1]

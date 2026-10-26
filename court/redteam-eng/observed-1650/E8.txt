@@ -1,0 +1,4 @@
+$ -B court/redteam-eng/arbiter_masking.py
+run 1 backends python,c99:      dissenting ['c99', 'python']  kind REFERENCE-DISSENT
+run 2 + rust that fails to build: dissenting ['c99', 'python', 'rust']  kind BACKEND-DISSENT  (notes: ['DIVERGENCE', 'DIVERGENCE', 'BUILD-FAILED'])
+[exit 0]

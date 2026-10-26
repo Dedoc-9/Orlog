@@ -1,0 +1,10 @@
+§1 Let the xs be the list 1, 2 and 3.
+§2 Set item 1 of the xs to 7.
+§3 Increase item 2 of the xs by 1.
+§4 Append 9 to the xs.
+§5 Remove the last item of the xs.
+§6 Let the n be the length of the xs.
+§7 For each the i from 1 to the n, do the following.
+§7.1 Say item the i of the xs.
+§8 Define the r as 5.
+§9 Say the r.

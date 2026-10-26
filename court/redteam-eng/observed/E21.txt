@@ -1,0 +1,5 @@
+$ -B court/redteam-eng/memleak.py
+N=5   ref COMPLETED agree ['c99', 'python']  c99 peak commit  130 MiB (exit 0)  python peak commit  113 MiB (exit 0)
+N=20  ref COMPLETED agree ['c99', 'python']  c99 peak commit  370 MiB (exit 0)  python peak commit  113 MiB (exit 0)
+N=40  ref COMPLETED agree ['c99', 'python']  c99 peak commit  691 MiB (exit 0)  python peak commit  113 MiB (exit 0)
+[exit 0]

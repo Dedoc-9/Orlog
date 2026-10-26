@@ -1,0 +1,6 @@
+$ -B orl.py check court/redteam-eng/E20a_labels_plain.orl
+raw-seal  b10d0c7c64156287f899714d21bea21bc935738c13422e483bf1a2a7f3b382a4
+text-seal b10d0c7c64156287f899714d21bea21bc935738c13422e483bf1a2a7f3b382a4
+law-seal  5b5b022a5cf07061bb286583fc2a3722a539b5a454c1fbd87dbd5fe0fc3f4415 (jotir-bamop-jugub-ladod)
+clauses 3, claims 2, line checks verified 0
+[exit 0]

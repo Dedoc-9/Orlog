@@ -1,0 +1,3 @@
+$ -B -c "import sys; sys.path.insert(0, 'src'); from orlog.front import compile_bytes; from orlog.interp import Interp; c = compile_bytes(open(sys.argv[1], 'rb').read()); i = Interp(c.prog, c.an, c.law_seal, c.text_seal).run(); sys.stdout.write('reference status %s, output %r' % (i.status, bytes(i.out).decode()) + chr(10))" court/redteam-eng/E2b_rule_uses_rule.orl
+reference status COMPLETED, output '6\n'
+[exit 0]

@@ -1,0 +1,14 @@
+{
+  "g3-syntax-then-lex": {
+    "twin": "SYNTAX",
+    "settled": "LEX",
+    "amendment": "SPEC §13, G3 phase 3",
+    "reason": "A statement is read into tokens whole before it is parsed. The first character that begins no token is fixed by the lexical grammar alone (longest match), so the code does not depend on how a parser fails; the twin's 'first offending position' depends on where a parse fails, which needs the correct-prefix property of the parser, not shown for the reference."
+  },
+  "n08-lex-unterminated": {
+    "twin": "LEX",
+    "settled": "UNTERMINATED-TEXT",
+    "amendment": "SPEC §13, G3 phase 1",
+    "reason": "The door must know every literal's boundary before it repairs anything outside literals (T6): a line whose literal is not closed has no boundary, so the door refuses it in phase 1, before any line is read. The twin takes its input as canonical and has no door; the door's codes were not in SPEC v0.1 (the twin's own open point)."
+  }
+}

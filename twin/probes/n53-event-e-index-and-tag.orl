@@ -1,0 +1,4 @@
+§1 Let xs be the list true and false.
+§2 Set item 2 of xs to true.
+§3 Let ys be the list 5 and 6.
+§4 Increase item 2 of ys by 1.

@@ -1,0 +1,3 @@
+$ -B orl.py ratify court/redteam-eng/E22_ratify_non_claim.orl --claim §1 --note 'red-team probe: is this a claim?' --ledger court/redteam-eng/work/E22-ledger.jsonl
+no claim there (give --claim LABEL for a clause whose own statement is a claim, or --claim-id N)
+[exit 1]

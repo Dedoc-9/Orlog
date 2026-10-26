@@ -1,0 +1,14 @@
+orlog-receipt 0
+backend c99
+law-seal 8f6d5d392f1078b3fbc32cd7fce8a781b39a873e5bb4741a5918a88bca9dc6fe
+text-seal 92c787c163c8a498e6710e71a99c268c9a7430202ca8ddca2ddb9d25c9957a5d
+status COMPLETED
+output-bytes 1335
+output-sha256 8e6fae430f57c5f2f8010ab5125a68a2e0de69881e9de75f58ebd057c6853819
+events 36
+trace-head 10cf90452525785c25d24ea0a53460e262be9fe4c8fd46680ee1aed3a84c7b40
+ops 22
+claims 2
+claim 0 11 1 1 20 3 20
+claim 1 12 2 2 15 8 9
+end

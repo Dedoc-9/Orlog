@@ -1,0 +1,8 @@
+$ -B orl.py check court/redteam-eng/E1b_eq_note_twice.orl
+raw-seal  264813f0a8976a1f03a1188e6701e1488b202d9940f62e33f24bb01051639744
+text-seal 264813f0a8976a1f03a1188e6701e1488b202d9940f62e33f24bb01051639744
+law-seal  3cb15aea4d6f88e89fde8bfbd733dcb517942ae9523d8e301c46052a824efd64 (gufud-jorop-hujoz-mogom)
+note LITERAL-ROUNDED §2: 0.1 stored as 0.1000000000931322574615478515625 (nearest Q31.32, ties to even)
+note LITERAL-ROUNDED §2: 0.1 stored as 0.1000000000931322574615478515625 (nearest Q31.32, ties to even)
+clauses 2, claims 0, line checks verified 0
+[exit 0]

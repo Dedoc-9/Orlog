@@ -1,0 +1,4 @@
+§1 Let x be 1.
+§2 If x = 2, say "two".
+§3 Otherwise, say "not two".
+§3.1 Let y be 5.

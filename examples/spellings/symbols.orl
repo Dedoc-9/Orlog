@@ -1,0 +1,5 @@
+Title: One Law, Spelled in Symbols.
+Note: The same law as words.orl, in symbols and with the other label form.
+1. Let n be 27.
+2. Let m be 3 * n + 1.
+3. If m is even, say "even: " followed by m; otherwise say "odd: " followed by m.

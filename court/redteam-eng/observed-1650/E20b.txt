@@ -1,0 +1,6 @@
+$ -B orl.py check court/redteam-eng/E20b_labels_leading_zero.orl
+raw-seal  d6a339c7da80885977784389fe9a6d173965aa9526c42af35cb49886ec70bcee
+text-seal d6a339c7da80885977784389fe9a6d173965aa9526c42af35cb49886ec70bcee
+law-seal  7a4a910352124093d1cc11b8eade8766d58488a9726ff311be63f4acef9f018f (lonap-nahag-jamif-hafig)
+clauses 3, claims 2, line checks verified 0
+[exit 0]

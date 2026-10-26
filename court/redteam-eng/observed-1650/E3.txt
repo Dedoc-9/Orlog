@@ -1,0 +1,4 @@
+$ -B orl.py run court/redteam-eng/E3_hidden_children.orl --backends python,c99,rust --workdir court/redteam-eng/work --show
+E3_hidden_children law posad-nijoj-dojiz-kijup  ref COMPLETED  agree [c99,python,rust]  dissent [] NONE
+not two
+[exit 0]

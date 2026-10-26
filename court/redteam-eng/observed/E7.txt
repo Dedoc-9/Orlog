@@ -1,0 +1,5 @@
+$ -B court/redteam-eng/arbiter_plants.py
+receipt-crlf                 receipt byte-identical to the reference's (backend line aside): False  arbiter: agree ['c99', 'python'] dissent []
+receipt-no-final-newline     receipt byte-identical to the reference's (backend line aside): False  arbiter: agree ['c99', 'python'] dissent []
+receipt-extra-backend-line   receipt byte-identical to the reference's (backend line aside): False  arbiter: agree ['c99', 'python'] dissent []
+[exit 0]

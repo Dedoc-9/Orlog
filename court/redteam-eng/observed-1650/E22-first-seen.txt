@@ -1,0 +1,4 @@
+(copied from the console at about 16:58; the ledger file was later removed before the re-run)
+$ -B orl.py ratify court/redteam-eng/E22_ratify_non_claim.orl --claim §1 --note "red-team probe: is this a claim?" --ledger court/redteam-eng/work/E22-ledger.jsonl
+ratified claim §1 (76fcbd4d535771cc)
+{"by": "a person at this console", "claim_seal": "76fcbd4d535771cc30f8b59160ae3d0fa718b1e4f615d0ad170228b592bb1692", "clause": "1", "kind": "claim", "law_seal": "fa8ad583b60215349921e0c9c2d532da49511efb82e352275af00f54cefc260e", "note": "red-team probe: is this a claim?"}

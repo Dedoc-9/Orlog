@@ -1,0 +1,6 @@
+$ -B court/redteam-eng/door_retraction.py
+raw     '\xa0Note:"\xa0"'
+pass 1  ' Note:"\xa0"\n'  events [('REPAIR', 'R-SPACE'), ('REPAIR', 'R-FINAL-NEWLINE')]
+pass 2  ' Note:" "\n'  events [('REPAIR', 'R-SPACE')]
+fixed point: False
+[exit 0]

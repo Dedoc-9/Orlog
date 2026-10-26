@@ -1,0 +1,3 @@
+$ -B orl.py run court/redteam-eng/E1_eq_promotion_crash.orl --backends python,c99 --workdir court/redteam-eng/work
+E1_eq_promotion_crash law hosis-jofij-pipur-fobab  ref COMPLETED  agree [c99,python]  dissent [] NONE
+[exit 0]

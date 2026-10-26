@@ -1,0 +1,8 @@
+$ -B orl.py check court/redteam-eng/E9_door_curly_in_literal.orl
+door REPAIR R-QUOTE-DELIM          L1 C13 e2809c -> 22  (U+201C LEFT DOUBLE QUOTATION MARK delimits a text literal; the grammar reads it as ")
+door REPAIR R-QUOTE-DELIM          L1 C25 e2809d -> 22  (U+201D RIGHT DOUBLE QUOTATION MARK delimits a text literal; the grammar reads it as ")
+raw-seal  b8fa6d902234a35e80b9d051170e86f2c7024ad0dea17eaf3c43a5ce1264f52f
+text-seal 9b47cf3b8b8e9bb658dd1ca8ab2254099c7eeab6a7aa85bd5fcd0528a33a2feb
+law-seal  27b8dfa8b11b9ca814acaaf414cfdde9b4ef64b45c689feb241f54750a012d74 (fivum-tuvom-rahir-nufom)
+clauses 1, claims 0, line checks verified 0
+[exit 0]

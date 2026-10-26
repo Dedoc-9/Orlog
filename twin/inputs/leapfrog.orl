@@ -1,0 +1,35 @@
+Title: Three Masses on Two Springs, Run Forward and Back.
+Note: Q31.32 fixed point. Position Verlet with rounding that is symmetric under negation is exactly reversible (Levesque and Verlet 1993).
+Note: Each spring's impulse is computed once and applied in an equal and opposite pair, so the total momentum cannot change by a single bit (Newton's third law, Noether's translation symmetry).
+§1 Let x be the list 0.0, 1.0 and 2.5.
+§2 Let v be the list 0.25, -0.5 and 0.125.
+§3 Let x0 be x.
+§4 Let v0 be v.
+§5 Let h be 0.0078125.
+§6 Let k be 3.0.
+§7 Let rest be 1.0.
+§8 Let p0 be item 1 of v plus item 2 of v plus item 3 of v.
+§9 To step the masses, do the following.
+§9.1 For each i from 1 to 3, do the following.
+§9.1.1 Set item i of x to item i of x plus item i of v times h.
+§9.2 For each i from 1 to 2, do the following.
+§9.2.1 Let stretch be item (i plus 1) of x minus item i of x minus rest.
+§9.2.2 Let impulse be k times stretch times h times 2.0.
+§9.2.3 Increase item i of v by impulse.
+§9.2.4 Decrease item (i plus 1) of v by impulse.
+§9.3 For each i from 1 to 3, do the following.
+§9.3.1 Set item i of x to item i of x plus item i of v times h.
+§9.4 It must hold that item 1 of v plus item 2 of v plus item 3 of v equals p0.
+§10 For each n from 1 to 1000, do the following.
+§10.1 Step the masses.
+§11 Say "after 1000 steps: x = " followed by x followed by ", v = " followed by v.
+Note: Reversing the velocities reverses the momentum too, so the guard's reference value is reversed with them. (A first draft forgot this; the guard of §9.4 refused it on the first reversed step.)
+§12 For each i from 1 to 3, do the following.
+§12.1 Set item i of v to the negation of item i of v.
+§13 Set p0 to the negation of p0.
+§14 For each n from 1 to 1000, do the following.
+§14.1 Step the masses.
+§15 For each i from 1 to 3, do the following.
+§15.1 Set item i of v to the negation of item i of v.
+§16 Say "after reversal: x = " followed by x followed by ", v = " followed by v.
+§17 We claim that item 1 of x equals item 1 of x0 and item 2 of x equals item 2 of x0 and item 3 of x equals item 3 of x0 and item 1 of v equals item 1 of v0 and item 2 of v equals item 2 of v0 and item 3 of v equals item 3 of v0, by the theorem "Levesque and Verlet 1993: position Verlet in exact integer arithmetic with forces that depend only on positions is reversible bit for bit".

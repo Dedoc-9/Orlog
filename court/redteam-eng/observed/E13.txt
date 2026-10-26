@@ -1,0 +1,3 @@
+$ -B orl.py check court/redteam-eng/E13_two_seals.orl
+REFUSED SEAL-PLACE at line 3: a program has one seal line (red team E13)
+[exit 1]

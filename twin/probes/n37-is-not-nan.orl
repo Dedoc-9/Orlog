@@ -1,0 +1,6 @@
+§1 Decimals are floats.
+§2 Let z be 0.0.
+§3 Let n be z / z.
+§4 Say n is not n.
+§5 Say n is not less than 1.0.
+§6 Say n >= 1.0.

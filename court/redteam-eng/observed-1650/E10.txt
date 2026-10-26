@@ -1,0 +1,6 @@
+$ -B orl.py run court/redteam-eng/E10_python_depth_if_chain_110.orl court/redteam-eng/E10b_python_depth_nested_for_40.orl --backends python,c99,rust --workdir court/redteam-eng/work
+E10_python_depth_if_chain_110 law zubit-hahar-kovus-lidas  ref COMPLETED  agree [c99,rust]  dissent [python] BACKEND-DISSENT
+    NOTE {"backend": "python", "backend_payload": "(no event: the backend stopped)", "clause": "\u00a71", "event_kind": "A", "first_divergent_event": 1, "first_output_byte_differing": 0, "kind": "DIVERGENCE", "reference_payload": "0000000049000000000000006e", "replacement": "the reference's bytes are kept (declared authority); this backend's run is quarantined"}
+E10b_python_depth_nested_for_40 law kafuh-kojun-gajad-tavus  ref COMPLETED  agree [c99,rust]  dissent [python] BACKEND-DISSENT
+    NOTE {"backend": "python", "backend_payload": "(no event: the backend stopped)", "clause": "\u00a71", "event_kind": "A", "first_divergent_event": 1, "first_output_byte_differing": 0, "kind": "DIVERGENCE", "reference_payload": "00000000490000000000000001", "replacement": "the reference's bytes are kept (declared authority); this backend's run is quarantined"}
+[exit 2]

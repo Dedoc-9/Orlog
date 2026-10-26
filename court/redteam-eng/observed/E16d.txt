@@ -1,0 +1,3 @@
+$ -B orl.py check court/redteam-eng/E16d_to_named_to.orl
+REFUSED PROCEDURE-NAME at line 1: a procedure's name may not begin with a reserved word (so 'do the following' can never be a name: the twin's notes, 21)
+[exit 1]

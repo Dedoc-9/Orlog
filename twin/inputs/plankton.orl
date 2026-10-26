@@ -1,0 +1,9 @@
+Title: Plankton's Plan and His Robot.
+Note: Three claims that rest only on each other, beside one that rests on a theorem the owner could ratify.
+Note: Each of the three evaluates true and every backend agrees, yet none is supported: they lie in the greatest fixed point of support and not in the least. That gap is the robot saying "looks perfect, boss".
+§1 Let plan be 7.
+§2 Let robot be 7.
+§3 We claim that plan equals robot, by computation, given §4.
+§4 We claim that robot equals 7, by computation, given §5.
+§5 We claim that plan is positive, by computation, given §3.
+§6 We claim that plan times robot equals 49, by the theorem "the multiplication table: 7 times 7 is 49".

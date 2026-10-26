@@ -1,0 +1,4 @@
+$ -B orl.py run court/redteam-eng/E9_door_curly_in_literal.orl --backends python,c99 --workdir court/redteam-eng/work --show
+E9_door_curly_in_literal law fivum-tuvom-rahir-nufom  ref COMPLETED  agree [c99,python]  dissent [] NONE
+Use  to join
+[exit 0]

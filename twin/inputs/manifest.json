@@ -1,0 +1,117 @@
+{
+ "aztec": {
+  "law_seal": "1a9d69077e5f8b7b588317b4ea53664f68ed658b659935a75db15d392f00248e",
+  "seal_words": "dopit-kohal-luniz-motur",
+  "text_seal": "e317c26b31aad79569e3ee9f182ae8eeb0c92ab67789c06da14a53fa9ebcef90"
+ },
+ "chaos": {
+  "law_seal": "babaf50065335543f35d84f22cef167e0f0bfb8553a4d6d5b8d62a64c28e8220",
+  "seal_words": "ropup-zihab-kihug-jijag",
+  "text_seal": "5f6989aabdaaf1a51b254a1beda929ea59e18bd1b38c5ce8990d7000b5873b53"
+ },
+ "collatz": {
+  "law_seal": "02ca2f73f977effa676b7baffcda9890360f489b209d2e6e48fa31e313aea2fe",
+  "seal_words": "barap-futug-zojul-vuzup",
+  "text_seal": "592bc3e4123d8b9cb01ccd8372a57ac98a0e5079d135577229c5d11ef33eb976"
+ },
+ "gcd_certificate": {
+  "law_seal": "97187841d73fa96552652691085d9b1956d686ed017baedf9c60ad11898dcc28",
+  "seal_words": "nisim-lodad-tisuz-pojoj",
+  "text_seal": "305b2be09583196daca1fa8744bc5138a99eee03dab3fce04821d45c7cdb42fc"
+ },
+ "leapfrog": {
+  "law_seal": "42cd40bd5b7326b2b8b1a58d70551116d6a21e189a06363143a8bcb790f8873c",
+  "seal_words": "harat-hafut-jotug-fipuf",
+  "text_seal": "8ecb5c6d9b5a725b0f4c4b0bdfdb0ca5f1ed4b0f2bc1e590ec54154ed1d8d3be"
+ },
+ "legal": {
+  "law_seal": "e2d07905ed4a917cbca715b16101ec7e766150a4c575ba6be13727ef7c634beb",
+  "seal_words": "varib-lohaj-vujap-najus",
+  "text_seal": "14c3d5c4a27ea5c75a36dc7bede5c3d947e67a9876dd43451ee8bcfbe3a6f0e9"
+ },
+ "phrases": {
+  "law_seal": "fc88a8ebc65eb159327a6b4b8068de92c23448ef0ead60617aafd5861e52405f",
+  "seal_words": "zufam-pogor-siniv-rajin",
+  "text_seal": "33634aea1f1b6fed5d3b1ee656378edfe2ad2d14cf79709ebac945717bba88f1"
+ },
+ "plankton": {
+  "law_seal": "cec2b29dba29191c6705a75b676fde1a9f3cec3419d1925d439230e99293f250",
+  "seal_words": "suraf-rapit-romon-dohis",
+  "text_seal": "7110dcd6f8496f3662cd56affb7b9bc884b5eebb2665ce10540024d03a7f8c53"
+ },
+ "refuse-claim-refuted": {
+  "law_seal": "afa2aa257f0428ad484ff690d099a6f046d3b6af11159c31803fc96a451ce338",
+  "seal_words": "puvof-pomoj-lusah-fofot",
+  "text_seal": "ed8410caf2fd4b03815bfa56f5b4dd8fdad3e0e6550137b198e951162783d695"
+ },
+ "refuse-division-by-zero": {
+  "law_seal": "1e1702b24215d1bff41cad8b466d4c98c2ffce344925f962428728a50911c2c7",
+  "seal_words": "dumil-bapuf-hamij-takuz",
+  "text_seal": "bd2cf374a51403c34f918db41f33667ff1ce1db3b58a1989a0f230cf2c0e3378"
+ },
+ "refuse-empty-list": {
+  "law_seal": "61928e1291830dd5fa903733306a0f126df5c362786a0dd85e7e8ad5b968e103",
+  "seal_words": "kakif-mumif-nakag-bulij",
+  "text_seal": "d2ab82085fe126162741a532cfffeccfddae71b94acf2c33b64bebca53819681"
+ },
+ "refuse-fuel-exhausted": {
+  "law_seal": "de3ac7a9d82bce3fcf1e3851b31cec97843987e630fa148d77b67e29efc14e95",
+  "seal_words": "tumup-sivon-tobor-sumuz",
+  "text_seal": "27d60e9efacaffe81c367744d4d8504df4217c137d64a36d4baff1e96b51cf92"
+ },
+ "refuse-index-out-of-range": {
+  "law_seal": "951c46ffaf96010bd8fd30a339e4ea2215abe0400ebfea2084595740454e968b",
+  "seal_words": "nihis-hiruz-puvik-bahar",
+  "text_seal": "33e87310323e40f4280cb00337e9c1fb349f77f1a20fb3129b57c0eaa602fb6e"
+ },
+ "refuse-inexact-conversion": {
+  "law_seal": "ca2e0fc20a66f412d256eed4ace8fe67ccf512e9a4c045bc03d8e763fb9362a1",
+  "seal_words": "somov-buzaf-bonok-zibif",
+  "text_seal": "fb4383bd53076e70f06c97456005c663a91d2e11d16cef7b16528bc8ce0af22f"
+ },
+ "refuse-inexact-division": {
+  "law_seal": "b6fa9ea8d5999b62cfe05980ffe6e1e93b425316718921d37068f0f2d0d7a5fb",
+  "seal_words": "rirup-nupom-tikin-notof",
+  "text_seal": "4af06755131e3c10f8165f9a6fa1dda85561131edc16e84cb576b288ef7b13dd"
+ },
+ "refuse-must-failed": {
+  "law_seal": "05976d99d232e04b17d929d1082bd724fc57141145e7aa9e76d8ceafa1be57e1",
+  "seal_words": "bikil-kukin-tamuf-vadar",
+  "text_seal": "1dab601c7ee26e34804a2717b9040caffa9926ae2886d624aede30d7268f3207"
+ },
+ "refuse-negative-sqrt": {
+  "law_seal": "31a6c0d1248109e2c8678dccecb2820728251338607fb1823c03c1e3a146b15d",
+  "seal_words": "gakok-sagid-fifad-bolof",
+  "text_seal": "f0ffe07f87c8ea81b2b50109c4371dc38caefdbb781163619ba0ad049f4a4480"
+ },
+ "refuse-not-finite": {
+  "law_seal": "7803906d2767b8e168932c3d5af9cf598a861fb914cf7b0054fc893a1320b0f9",
+  "seal_words": "lobag-nadot-fitol-rogod",
+  "text_seal": "683f8161d28748b056ce87e0cfb8bd31af4e6255749b934d4e46eabc4127b877"
+ },
+ "refuse-overflow": {
+  "law_seal": "2e5c3a1a44a9a5087011431144da5acab0601d11ca2ef41b004d6e6ec455de05",
+  "seal_words": "funis-gomip-hifon-piham",
+  "text_seal": "2405d11b9d0524615585f9e78313bc2db640b4590454d398e9205428d1820f73"
+ },
+ "refuse-rule-conflict": {
+  "law_seal": "7c30413e7b73b475eca8aef871198e44504e07510927896f59dbcc865a661711",
+  "seal_words": "lubub-hahuv-lotug-riduj",
+  "text_seal": "ef86d73d6817bb65ac05afca406ea7a05c79a3b812a1a0fe0d156175a97b6530"
+ },
+ "refuse-rule-undefined": {
+  "law_seal": "6807504bd4e3f89189d65b7ad7686415e66eb2171f429b6709536f51fa2733a3",
+  "seal_words": "kobal-jadar-tigog-zofid",
+  "text_seal": "db1518c0ebb14da3874455cb3d1e53d4df416a0094132eb16651c531a577cbd1"
+ },
+ "symbols": {
+  "law_seal": "fc88a8ebc65eb159327a6b4b8068de92c23448ef0ead60617aafd5861e52405f",
+  "seal_words": "zufam-pogor-siniv-rajin",
+  "text_seal": "8539dbef8406ca944ff2311a4fe2a5231a5dbaf7b8ab3facfa452dfa35e59f18"
+ },
+ "words": {
+  "law_seal": "fc88a8ebc65eb159327a6b4b8068de92c23448ef0ead60617aafd5861e52405f",
+  "seal_words": "zufam-pogor-siniv-rajin",
+  "text_seal": "5fab85a9c40e3de9b5e3571b2dda084404831b10d85e9c57ddb25aa141da3c6f"
+ }
+}

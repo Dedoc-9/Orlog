@@ -1,0 +1,5 @@
+§1 Let x be 3.
+§2 Let y be 0.
+§3 For each k from 1 to 2, do the following.
+§3.1 Set y to x times x times x times x.
+§4 We claim that y = x times x times x times x, by the certificate of §3.1 under the theorem "T".

@@ -1,0 +1,626 @@
+{
+ "arguments": {
+  "E1": {
+   "by": "redteam",
+   "text": "E1 equality with promotion crashed the compiler (court/redteam-eng/)"
+  },
+  "E10": {
+   "by": "redteam",
+   "text": "E10 deep If chains broke the Python backend and the lowering's recursion (court/redteam-eng/)"
+  },
+  "E13": {
+   "by": "redteam",
+   "text": "E13 a second seal line silently overrode the first (court/redteam-eng/)"
+  },
+  "E15": {
+   "by": "redteam",
+   "text": "E15 a second oracle silently overrode the first (court/redteam-eng/)"
+  },
+  "E16": {
+   "by": "redteam",
+   "text": "E16 procedure names were collected case-sensitively and from nested clauses (court/redteam-eng/)"
+  },
+  "E17": {
+   "by": "redteam",
+   "text": "E17 NFC in code turned a Kelvin sign into K and a Greek question mark into ; (court/redteam-eng/)"
+  },
+  "E2": {
+   "by": "redteam",
+   "text": "E2 rules in procedures or rules crashed the lowering (court/redteam-eng/)"
+  },
+  "E3": {
+   "by": "redteam",
+   "text": "E3 children of an inline Otherwise were never checked or run (court/redteam-eng/)"
+  },
+  "L1": {
+   "by": "prosecution-logic",
+   "text": "L1 IMPRECISION (court/prosecution-logic.md)"
+  },
+  "L10": {
+   "by": "prosecution-logic",
+   "text": "L10 OVERREACH (court/prosecution-logic.md)"
+  },
+  "L11": {
+   "by": "prosecution-logic",
+   "text": "L11 IMPRECISION (court/prosecution-logic.md)"
+  },
+  "L12": {
+   "by": "prosecution-logic",
+   "text": "L12 FATAL (court/prosecution-logic.md)"
+  },
+  "L13": {
+   "by": "prosecution-logic",
+   "text": "L13 OVERREACH (court/prosecution-logic.md)"
+  },
+  "L14": {
+   "by": "prosecution-logic",
+   "text": "L14 IMPRECISION (court/prosecution-logic.md)"
+  },
+  "L15": {
+   "by": "prosecution-logic",
+   "text": "L15 IMPRECISION (court/prosecution-logic.md)"
+  },
+  "L16": {
+   "by": "prosecution-logic",
+   "text": "L16 FATAL (court/prosecution-logic.md)"
+  },
+  "L17": {
+   "by": "prosecution-logic",
+   "text": "L17 OVERREACH (court/prosecution-logic.md)"
+  },
+  "L18": {
+   "by": "prosecution-logic",
+   "text": "L18 OVERREACH (court/prosecution-logic.md)"
+  },
+  "L19": {
+   "by": "prosecution-logic",
+   "text": "L19 IMPRECISION (court/prosecution-logic.md)"
+  },
+  "L2": {
+   "by": "prosecution-logic",
+   "text": "L2 OVERREACH (court/prosecution-logic.md)"
+  },
+  "L20": {
+   "by": "prosecution-logic",
+   "text": "L20 IMPRECISION (court/prosecution-logic.md)"
+  },
+  "L3": {
+   "by": "prosecution-logic",
+   "text": "L3 FATAL (court/prosecution-logic.md)"
+  },
+  "L4": {
+   "by": "prosecution-logic",
+   "text": "L4 OVERREACH (court/prosecution-logic.md)"
+  },
+  "L5": {
+   "by": "prosecution-logic",
+   "text": "L5 OVERREACH (court/prosecution-logic.md)"
+  },
+  "L6": {
+   "by": "prosecution-logic",
+   "text": "L6 FATAL (court/prosecution-logic.md)"
+  },
+  "L7": {
+   "by": "prosecution-logic",
+   "text": "L7 OVERREACH (court/prosecution-logic.md)"
+  },
+  "L8": {
+   "by": "prosecution-logic",
+   "text": "L8 OVERREACH (court/prosecution-logic.md)"
+  },
+  "L9": {
+   "by": "prosecution-logic",
+   "text": "L9 IMPRECISION (court/prosecution-logic.md)"
+  },
+  "N1": {
+   "by": "prosecution-novelty",
+   "text": "N1 DEFEATS (court/prosecution-novelty.md)"
+  },
+  "N10": {
+   "by": "prosecution-novelty",
+   "text": "N10 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N11": {
+   "by": "prosecution-novelty",
+   "text": "N11 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N12": {
+   "by": "prosecution-novelty",
+   "text": "N12 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N13": {
+   "by": "prosecution-novelty",
+   "text": "N13 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N14": {
+   "by": "prosecution-novelty",
+   "text": "N14 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N15": {
+   "by": "prosecution-novelty",
+   "text": "N15 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N16": {
+   "by": "prosecution-novelty",
+   "text": "N16 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N17": {
+   "by": "prosecution-novelty",
+   "text": "N17 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N18": {
+   "by": "prosecution-novelty",
+   "text": "N18 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N19": {
+   "by": "prosecution-novelty",
+   "text": "N19 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N2": {
+   "by": "prosecution-novelty",
+   "text": "N2 DEFEATS (court/prosecution-novelty.md)"
+  },
+  "N20": {
+   "by": "prosecution-novelty",
+   "text": "N20 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N21": {
+   "by": "prosecution-novelty",
+   "text": "N21 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N22": {
+   "by": "prosecution-novelty",
+   "text": "N22 NO-PRIOR-ART-FOUND (court/prosecution-novelty.md)"
+  },
+  "N23": {
+   "by": "prosecution-novelty",
+   "text": "N23 NO-PRIOR-ART-FOUND (court/prosecution-novelty.md)"
+  },
+  "N24": {
+   "by": "prosecution-novelty",
+   "text": "N24 NO-PRIOR-ART-FOUND (court/prosecution-novelty.md)"
+  },
+  "N25": {
+   "by": "prosecution-novelty",
+   "text": "N25 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N3": {
+   "by": "prosecution-novelty",
+   "text": "N3 DEFEATS (court/prosecution-novelty.md)"
+  },
+  "N4": {
+   "by": "prosecution-novelty",
+   "text": "N4 DEFEATS (court/prosecution-novelty.md)"
+  },
+  "N5": {
+   "by": "prosecution-novelty",
+   "text": "N5 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N6": {
+   "by": "prosecution-novelty",
+   "text": "N6 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N7": {
+   "by": "prosecution-novelty",
+   "text": "N7 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N8": {
+   "by": "prosecution-novelty",
+   "text": "N8 NARROWS (court/prosecution-novelty.md)"
+  },
+  "N9": {
+   "by": "prosecution-novelty",
+   "text": "N9 NARROWS (court/prosecution-novelty.md)"
+  },
+  "TW37": {
+   "by": "twin",
+   "text": "twin note 37: 'is not E' op count underdetermined by SPEC v0"
+  },
+  "TW38": {
+   "by": "twin",
+   "text": "twin note 38: a float literal beyond binary64 crashed the compiler"
+  },
+  "ed1-IMPL": {
+   "by": "doctrine",
+   "text": "edition 1 implementation: every program the spec admits compiles, and runs identically on four executions; every invalid one is refused"
+  },
+  "ed1-NF": {
+   "by": "doctrine",
+   "text": "edition 1: Not found in prior art: a stated byte-identical Python/C99/Rust contract with a declared authority and localized mismatch notes."
+  },
+  "ed1-P1": {
+   "by": "doctrine",
+   "text": "edition 1: Pioneering (speculative): self-certification reported as gfp minus lfp, with a sandwich-closed certificate."
+  },
+  "ed1-P2": {
+   "by": "doctrine",
+   "text": "edition 1: Pioneering (speculative): per-certificate reflection expressible, wholesale reflection inexpressible, as a language-level answer to Loeb's obstacle."
+  },
+  "ed1-P3": {
+   "by": "doctrine",
+   "text": "edition 1: Pioneering (speculative): oracle channels typed by provenance so 'zero external bits' is computed; ratification outside program text."
+  },
+  "ed1-P4": {
+   "by": "doctrine",
+   "text": "edition 1: Pioneering (speculative): deterministic operation counting enforces a check's cost below its computation's."
+  },
+  "ed1-P5": {
+   "by": "doctrine",
+   "text": "edition 1: Pioneering (speculative): prose as a measured lossless spelling compiled to three hosts, each run carrying its own receipt and event chain."
+  },
+  "ed1-S0": {
+   "by": "doctrine",
+   "text": "edition 1 section 0: the horns cite Loeb, Montague, Aumann as theorems at work"
+  },
+  "ed1-S2": {
+   "by": "doctrine",
+   "text": "edition 1 section 2: what Orlog does that the lineage did not (unqualified)"
+  },
+  "ed1-S5": {
+   "by": "doctrine",
+   "text": "edition 1 section 5: 78/78 and 9 plants (typed counts)"
+  },
+  "ed1-S7": {
+   "by": "doctrine",
+   "text": "edition 1 section 7: Kleene and Damm wording"
+  },
+  "ed1-S8": {
+   "by": "doctrine",
+   "text": "edition 1 section 8: the non-claims in one place"
+  },
+  "ed1-T0": {
+   "by": "doctrine",
+   "text": "edition 1: Byte-identical receipts across the reference, Python, C99 and Rust show integrity on this host; standing is non-factive and no truth predicate exists in the language."
+  },
+  "ed1-T1": {
+   "by": "doctrine",
+   "text": "edition 1: Per-certificate explicit reflection is expressible and wholesale reflection is not (Artemov's Logic of Proofs against Loeb's theorem)."
+  },
+  "ed1-T2": {
+   "by": "doctrine",
+   "text": "edition 1: A claim by computation carries no external bits (data processing inequality); GROUNDED requires a ledger line the program cannot write."
+  },
+  "ed1-T3": {
+   "by": "doctrine",
+   "text": "edition 1: A certificate whose counted cost is at most half its clause's reads cheap; it is GROUNDED only with a ratified determinacy theorem (Blum 1988 little-oh, bounded by Urdr L28)."
+  },
+  "ed1-T4": {
+   "by": "doctrine",
+   "text": "edition 1: Claims in gfp minus lfp of the support operator are exactly the circularly supported ones; when lfp equals gfp every self-consistent trust assignment gives the same standing."
+  },
+  "ed1-T5": {
+   "by": "doctrine",
+   "text": "edition 1: Fixed and floating point are deterministic by construction under the declared envelope; four-way byte identity here; Orlog's generated C has no FMA under contraction-allowing flags."
+  },
+  "ed1-T6": {
+   "by": "doctrine",
+   "text": "edition 1: The door repairs only bytes the grammar reads identically, preserves literal contents, refuses the rest, and is a retraction."
+  },
+  "ed1-T7": {
+   "by": "doctrine",
+   "text": "edition 1: Fixed-point position Verlet is exactly reversible and pairwise impulses conserve momentum exactly; both are runtime oracles."
+  },
+  "ed1-T8": {
+   "by": "doctrine",
+   "text": "edition 1: Prose is a lossless spelling of a typed law: three spellings give one law-seal."
+  },
+  "ed1-T9": {
+   "by": "doctrine",
+   "text": "edition 1: A chaotic map magnifies a one-ulp difference to the whole value; with traces, divergence is localized at the first differing operation."
+  },
+  "ed2-IMPL": {
+   "by": "doctrine",
+   "text": "edition 2: edition 2 implementation: each repaired finding is held by a self-test row (and a plant where a defect could return silently); four-way identity on the corpus, refusals and red-team fixtures"
+  },
+  "ed2-P": {
+   "by": "doctrine",
+   "text": "edition 2: applications and the combination may be new; mechanisms are prior art; nearest neighbour Lara (2026)"
+  },
+  "ed2-T0": {
+   "by": "doctrine",
+   "text": "edition 2: what is computed (integrity, formal truth per run) and what is not (intent); no theorem instantiated"
+  },
+  "ed2-T1": {
+   "by": "doctrine",
+   "text": "edition 2: certificates checked at run time (certifying algorithms; LCF discipline); no construct refers to the checker"
+  },
+  "ed2-T2": {
+   "by": "doctrine",
+   "text": "edition 2: standing never exceeds channel; grounding binds to the claim's own seal; computation never grounds"
+  },
+  "ed2-T3": {
+   "by": "doctrine",
+   "text": "edition 2: a counted reading (CHEAPER / NOT CHEAPER / CLAUSE NOT RUN) at this input; not little-oh"
+  },
+  "ed2-T4": {
+   "by": "doctrine",
+   "text": "edition 2: circular support as Fitting's Kripke-Kleene undefined set (prior art), VACUOUS rule, declared premises only"
+  },
+  "ed2-T5": {
+   "by": "doctrine",
+   "text": "edition 2: determinism by construction; four-way identity here; 0 FMA in generated C; floats in identity a fork"
+  },
+  "ed2-T6": {
+   "by": "doctrine",
+   "text": "edition 2: the door never moves a literal boundary, refuses non-ASCII in code before normalizing; retraction DECLARED"
+  },
+  "ed2-T7": {
+   "by": "doctrine",
+   "text": "edition 2: reversibility and momentum are properties of the update (Newton III, not Noether)"
+  },
+  "ed2-T8": {
+   "by": "doctrine",
+   "text": "edition 2: three spellings, one law-seal (one program); names are in the law; prior art ALGOL 60, Dhall, Unison"
+  },
+  "ed2-T9": {
+   "by": "doctrine",
+   "text": "edition 2: chaos magnifies a recurring difference; a single one-ulp difference is erased about a quarter of the time"
+  }
+ },
+ "attacks": [
+  [
+   "E1",
+   "ed1-IMPL"
+  ],
+  [
+   "E10",
+   "ed1-IMPL"
+  ],
+  [
+   "E13",
+   "ed1-IMPL"
+  ],
+  [
+   "E15",
+   "ed1-IMPL"
+  ],
+  [
+   "E16",
+   "ed1-IMPL"
+  ],
+  [
+   "E17",
+   "ed1-IMPL"
+  ],
+  [
+   "E2",
+   "ed1-IMPL"
+  ],
+  [
+   "E3",
+   "ed1-IMPL"
+  ],
+  [
+   "L1",
+   "ed1-S0"
+  ],
+  [
+   "L10",
+   "ed1-P1"
+  ],
+  [
+   "L10",
+   "ed1-T4"
+  ],
+  [
+   "L11",
+   "ed1-T4"
+  ],
+  [
+   "L12",
+   "ed1-IMPL"
+  ],
+  [
+   "L12",
+   "ed1-T6"
+  ],
+  [
+   "L13",
+   "ed1-T6"
+  ],
+  [
+   "L14",
+   "ed1-T7"
+  ],
+  [
+   "L15",
+   "ed1-P5"
+  ],
+  [
+   "L15",
+   "ed1-T8"
+  ],
+  [
+   "L16",
+   "ed1-T9"
+  ],
+  [
+   "L17",
+   "ed1-IMPL"
+  ],
+  [
+   "L17",
+   "ed1-T2"
+  ],
+  [
+   "L18",
+   "ed1-S8"
+  ],
+  [
+   "L19",
+   "ed1-S5"
+  ],
+  [
+   "L2",
+   "ed1-T0"
+  ],
+  [
+   "L20",
+   "ed1-S7"
+  ],
+  [
+   "L3",
+   "ed1-P2"
+  ],
+  [
+   "L3",
+   "ed1-T1"
+  ],
+  [
+   "L4",
+   "ed1-P3"
+  ],
+  [
+   "L4",
+   "ed1-T2"
+  ],
+  [
+   "L5",
+   "ed1-T2"
+  ],
+  [
+   "L6",
+   "ed1-P4"
+  ],
+  [
+   "L6",
+   "ed1-T3"
+  ],
+  [
+   "L7",
+   "ed1-T3"
+  ],
+  [
+   "L8",
+   "ed1-P4"
+  ],
+  [
+   "L8",
+   "ed1-T3"
+  ],
+  [
+   "L9",
+   "ed1-T4"
+  ],
+  [
+   "N1",
+   "ed1-P1"
+  ],
+  [
+   "N10",
+   "ed1-P3"
+  ],
+  [
+   "N11",
+   "ed1-P3"
+  ],
+  [
+   "N12",
+   "ed1-P3"
+  ],
+  [
+   "N13",
+   "ed1-NF"
+  ],
+  [
+   "N13",
+   "ed1-P1"
+  ],
+  [
+   "N13",
+   "ed1-P3"
+  ],
+  [
+   "N13",
+   "ed1-P5"
+  ],
+  [
+   "N14",
+   "ed1-P4"
+  ],
+  [
+   "N15",
+   "ed1-P4"
+  ],
+  [
+   "N16",
+   "ed1-P4"
+  ],
+  [
+   "N17",
+   "ed1-NF"
+  ],
+  [
+   "N17",
+   "ed1-P5"
+  ],
+  [
+   "N18",
+   "ed1-NF"
+  ],
+  [
+   "N18",
+   "ed1-P5"
+  ],
+  [
+   "N19",
+   "ed1-P5"
+  ],
+  [
+   "N19",
+   "ed1-T8"
+  ],
+  [
+   "N2",
+   "ed1-P1"
+  ],
+  [
+   "N20",
+   "ed1-P5"
+  ],
+  [
+   "N20",
+   "ed1-T8"
+  ],
+  [
+   "N25",
+   "ed1-S2"
+  ],
+  [
+   "N3",
+   "ed1-P1"
+  ],
+  [
+   "N4",
+   "ed1-P1"
+  ],
+  [
+   "N5",
+   "ed1-P1"
+  ],
+  [
+   "N6",
+   "ed1-P1"
+  ],
+  [
+   "N7",
+   "ed1-P2"
+  ],
+  [
+   "N8",
+   "ed1-P2"
+  ],
+  [
+   "N9",
+   "ed1-P2"
+  ],
+  [
+   "TW37",
+   "ed1-IMPL"
+  ],
+  [
+   "TW38",
+   "ed1-IMPL"
+  ]
+ ]
+}

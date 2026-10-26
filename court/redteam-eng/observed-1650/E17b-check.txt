@@ -1,0 +1,7 @@
+$ -B orl.py check court/redteam-eng/E17b_greek_question_mark.orl
+door REPAIR R-NFC                  L2 C20 22cdbe206f74686572776973652c207361792022 -> 223b206f74686572776973652c207361792022  (Unicode canonical equivalence (UAX #15 NFC) outside text literals)
+raw-seal  092e5e765ea969c41ed70e063223480f2bd8b31f12fd491ecae7833a84b0d3db
+text-seal 4b637cd1f942a06304896eac91423ff5a5f024ae5b17b8d1715e5cb1d38d12bc
+law-seal  6592b918c70d089a534abe1fa91e8227d106151bfb05efea493ffa89d9cc87cd (kikif-rohim-sisat-bofip)
+clauses 2, claims 0, line checks verified 0
+[exit 0]

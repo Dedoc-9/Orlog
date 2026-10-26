@@ -1,0 +1,6 @@
+$ -B orl.py check court/redteam-eng/E19_invisible_in_literal.orl
+raw-seal  3a7197dbcb25560d05ec60369d4d94194d9649a726a0bea7dd0e9d84cd0b662a
+text-seal 3a7197dbcb25560d05ec60369d4d94194d9649a726a0bea7dd0e9d84cd0b662a
+law-seal  16590e11ec3087b171ad897626a9fcee9fe9329c143961fbba7c955a5860bdb1 (dinin-bumid-vubub-mivud)
+clauses 1, claims 0, line checks verified 0
+[exit 0]

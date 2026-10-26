@@ -1,0 +1,6 @@
+$ -B orl.py check court/redteam-eng/E16a_upper_to.orl
+raw-seal  53ceec448e08c433c9a4ba477afc9f92201281e0f5b921351ec58dddec162326
+text-seal 53ceec448e08c433c9a4ba477afc9f92201281e0f5b921351ec58dddec162326
+law-seal  a1d483b19bae73229f91ec86876d3ac2e9df540000d216070e766dd1e7766193 (palih-mavud-novov-lasof)
+clauses 3, claims 0, line checks verified 0
+[exit 0]

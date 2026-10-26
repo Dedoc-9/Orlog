@@ -1,0 +1,24 @@
+# generated output (the self-test, the differential run, builds)
+build/
+work/
+__pycache__/
+*.pyc
+*.exe
+*.pdb
+*.obj
+*.o
+*.ilk
+twin/out/
+twin/probes/out/
+rt_rs/build/
+
+# regenerable fuzz output (several GB)
+court/redteam-eng/work/
+
+# third-party material kept out of the repository: clones of other repositories and downloaded papers
+upstream/
+r1a-work/
+research/dl/
+research/dl-r1b/
+research/r3-work/dl/
+*.pdf

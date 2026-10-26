@@ -1,0 +1,3 @@
+$ -B orl.py run court/redteam-eng/E10c_lowering_recursion_if_chain_3000.orl --backends c99 --workdir court/redteam-eng/work
+E10c_lowering_recursion_if_chain_3000 law sagob-tuhug-ramub-hafok  ref COMPLETED  agree [c99]  dissent [] NONE
+[exit 0]

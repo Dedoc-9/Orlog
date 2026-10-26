@@ -1,0 +1,4 @@
+$ -B court/redteam-eng/e11_c_stderr.py
+arbiter summary for c99: {'build': 'cached', 'source_sha256': '9ed93a9308a51022c56307ad6e70b99db90d58f3fcc44dba062331e1cfd7b45c', 'exit': 2, 'status': None, 'output_sha256': None, 'events': None, 'trace_head': None, 'ops': None, 'receipt_sha256': None}
+exit 2, stderr 'orlog: cannot open file: C:\\Users\\dillb_lzxy763\\AppData\\Local\\Temp\\claude\\C--Users-dillb-lzxy763-Desktop-Verdandi\\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\\scratchpad\\orlog\\court\\redteam-eng\\work\\�RLOG\\collatz-c99-probe.out\r\n'
+[exit 0]

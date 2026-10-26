@@ -1,0 +1,14 @@
+$ -B orl.py court court/redteam-eng/E6_court_recompute_certified.orl --workdir court/redteam-eng/work --ledger court/redteam-eng/E5-fixture-ledger.jsonl
+§4  We claim that y = x times x times x times x, by the certificate of §3.1 under the theorem "T".
+    channel       certificate of §3.1 under the theorem "T"
+    integrity     AGREED
+    evaluation    true in 1 of 1 evaluations
+    ratification  determinacy theorem ratified, ledger line 1
+    cost          check 4 ops / certified clause 8 ops
+    cost_reading  cheap (at most 1/2, this input)
+    plants        none declared
+    external_bits only through the ratification ledger
+    support       WELL-FOUNDED
+    grounding     GROUNDED
+summary {"circular": 0, "claims": 1, "grounded": 1, "ledger_entries": 1, "sandwich_closed": true, "unsupported": 0, "well_founded": 1}
+[exit 0]

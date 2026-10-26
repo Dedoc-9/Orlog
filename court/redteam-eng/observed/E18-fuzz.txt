@@ -1,0 +1,3 @@
+$ -B court/redteam-eng/doorfuzz.py 30000 5
+door retraction fuzz: 30000 inputs, 0 distinct minimal counterexamples
+[exit 0]

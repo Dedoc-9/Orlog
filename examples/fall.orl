@@ -1,0 +1,26 @@
+Title: A Body Falls onto a Top.
+Note: Gravity, a floor and a law of friction with an exception, all in Q31.32. The landing tick is decided by the arithmetic, identically in every backend.
+Note: Friction is a defeasible rule: by default there is none; notwithstanding that default, there is some once the body is grounded.
+§1 Let y be 10.0.
+§2 Let vy be 0.0.
+§3 Let x be 0.0.
+§4 Let vx be 2.0.
+§5 Let dt be 0.015625.
+§6 Let g be -9.8.
+§7 Let floor be 0.0.
+§8 Let grounded be false.
+§9 Define drag as 0.0.
+§10 Notwithstanding §9, define drag as 0.5, provided that grounded.
+§11 Let landed_at be 0.
+§12 For each tick from 1 to 400, do the following.
+§12.1 Set vy to vy plus g times dt.
+§12.2 Set y to y plus vy times dt.
+§12.3 If y is at most floor, do the following.
+§12.3.1 Set y to floor.
+§12.3.2 Set vy to 0.0.
+§12.3.3 If landed_at is 0, set landed_at to tick.
+§12.3.4 Set grounded to true.
+§12.4 Set vx to vx minus vx times drag times dt.
+§12.5 Set x to x plus vx times dt.
+§13 Say "landed at tick " followed by landed_at followed by "; x = " followed by x followed by ", vx = " followed by vx.
+§14 It must hold that y equals floor and vy equals 0.0 and grounded.

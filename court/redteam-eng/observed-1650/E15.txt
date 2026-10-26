@@ -1,0 +1,6 @@
+$ -B orl.py check court/redteam-eng/E15_two_oracles.orl
+raw-seal  7961a69f8fb7fea053c50f07affe47db89af0c03477e70f27a4fa81621517ba3
+text-seal 7961a69f8fb7fea053c50f07affe47db89af0c03477e70f27a4fa81621517ba3
+law-seal  826b566b2b027c9138b03468df7d419c74dabdcbf31e73fbc3707b2867f01d5d (manor-jinor-fosaf-lufid)
+clauses 2, claims 1, line checks verified 0
+[exit 0]

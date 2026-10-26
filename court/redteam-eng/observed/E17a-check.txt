@@ -1,0 +1,5 @@
+$ -B orl.py check court/redteam-eng/E17a_kelvin_identifier.orl
+door NOTE   LITERAL-NOT-NFC        L1 C1 c2a731204c657420e284aa657920626520312e -> c2a731204c657420e284aa657920626520312e  (a text literal is not in NFC; kept byte for byte, because it is output)
+door REFUSE NON-ASCII-CODE         L1 C8 e284aa -> -  (U+212A KELVIN SIGN in code: identifiers and keywords are ASCII (UTS #39 confusables are refused, not guessed))
+REFUSED NON-ASCII-CODE at line 1: U+212A KELVIN SIGN in code: identifiers and keywords are ASCII (UTS #39 confusables are refused, not guessed)
+[exit 1]

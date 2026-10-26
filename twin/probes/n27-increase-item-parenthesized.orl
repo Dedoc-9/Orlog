@@ -1,0 +1,4 @@
+§1 Let xs be the list 1 and 2.
+§2 Let i be 1.
+§3 Increase item (i plus 1) of xs by 5.
+§4 Say xs.

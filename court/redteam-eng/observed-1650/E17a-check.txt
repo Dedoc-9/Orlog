@@ -1,0 +1,7 @@
+$ -B orl.py check court/redteam-eng/E17a_kelvin_identifier.orl
+door REPAIR R-NFC                  L1 C1 c2a731204c657420e284aa657920626520312e -> c2a731204c6574204b657920626520312e  (Unicode canonical equivalence (UAX #15 NFC) outside text literals)
+raw-seal  dd2774f24de4066309187ad69497d3b856b68ab3b13d28af21ecef6d66934ae6
+text-seal 6621ce60dc00817802208abe6d7e59ac4ac9ec58f1b574e7c35fd19d0dc2b704
+law-seal  813acbcbca057a04b44610859b36d7061aba84515573543472fcadea389968c9 (mahup-sozar-somaj-lomah)
+clauses 2, claims 0, line checks verified 0
+[exit 0]

@@ -1,0 +1,8 @@
+$ -B orl.py check court/redteam-eng/E26_false_door_note.orl
+door NOTE   LITERAL-NOT-NFC        L1 C1 c2a731204c6574e280807820626520312e -> c2a731204c6574e280807820626520312e  (a text literal is not in NFC; kept byte for byte, because it is output)
+door REPAIR R-SPACE                L1 C7 e28080 -> 20  (U+2000 EN QUAD in code read as a space)
+raw-seal  7823189c038e038fc7eb894d4badfbd59f8ed53f11f508ff25bf43b56e3b31d1
+text-seal 17e9b24b6cf152824f99b8674376f643ea0e8ac5800636cf771b0eb9e319857f
+law-seal  a24d6b7d8b163c9e0e12854ff06d00366cb10e478a9dd63ed30318393039fe8b (panat-kotut-mosik-gufiv)
+clauses 2, claims 0, line checks verified 0
+[exit 0]
