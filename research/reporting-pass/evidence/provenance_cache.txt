@@ -1,0 +1,18 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/reporting-pass/reproducers/provenance_cache.py
+# tree: f16dc26
+# host: Windows, CPython 3.14.5; 2026-10-26
+# sha256 8405052acaf9b0ed  src/orlog/court.py
+# sha256 2107dc87edd66817  src/orlog/arbiter.py
+# sha256 f843291861798c85  src/orlog/interp.py
+# sha256 f3bef97780df163b  orl.py
+# sha256 cd5427f47f253e2c  tests/selftest.py
+# sha256 af4087d49c9dfc38  tests/compat.py
+# sha256 d42dcf2ba5aadfbf  tests/court_monotone.py
+1. folder A, real clang (clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)): NONE, build built, agreeing [c99], did not build []
+2. folder A, the stand-in on PATH: NONE, build cached, agreeing [c99], did not build []; the witness's provenance names clang as 'clang version 0.0.0 (a stand-in written by the reporting pass; it builds nothing)'
+3. folder A, the stand-in, fall.orl (not in A's cache): BUILD-FAILED, build FAILED, agreeing [], did not build [c99]
+4. folder B (empty), the stand-in, collatz again: BUILD-FAILED, build FAILED, agreeing [], did not build [c99]
+   the same law and the same named toolchain read NONE in folder A and BUILD-FAILED in folder B
+(c) python, collatz's cached source replaced by fall.orl's: BACKEND-DISSENT, build interpreted, agreeing [], did not build []; source_sha256 reported 95de2497954837b7, which is collatz's generated source (not what ran)
+CACHE: a warm cache answers for a compiler that cannot build: True
+exit 0

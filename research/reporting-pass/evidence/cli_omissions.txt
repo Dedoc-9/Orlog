@@ -1,0 +1,28 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/reporting-pass/reproducers/cli_omissions.py
+# tree: f16dc26
+# host: Windows, CPython 3.14.5; 2026-10-26
+# sha256 8405052acaf9b0ed  src/orlog/court.py
+# sha256 2107dc87edd66817  src/orlog/arbiter.py
+# sha256 f843291861798c85  src/orlog/interp.py
+# sha256 f3bef97780df163b  orl.py
+# sha256 cd5427f47f253e2c  tests/selftest.py
+# sha256 af4087d49c9dfc38  tests/compat.py
+# sha256 d42dcf2ba5aadfbf  tests/court_monotone.py
+(a) the panel's rows, in process:
+    §2 condition: CONSTANT: it reads no variable, so it cannot depend on the run (if it 
+    §3 condition: (none)
+    orl.py court prints CONSTANT: False (exit 0); its printed lines for the constant claim:
+    | §2  We claim that 1 equals 1, by the owner.
+    |     channel       the owner
+    |     integrity     AGREED
+    |     evaluation    true in 1 of 1 evaluations
+    |     ratification  this claim not ratified
+    |     external_bits only through a ledger line ratifying this claim
+    |     support       WELL-FOUNDED
+    |     grounding     UNGROUNDED
+    | §3  We claim that x equals 1, by the owner.
+(b) orl.py court examples/collatz.orl, --backends python against python,c99,rust:
+    printed readings byte-identical: True; --json artifacts identical but for the chain hash: True
+    integrity lines: ['integrity     AGREED']
+    a backend's name anywhere in the printed reading: False
+exit 0

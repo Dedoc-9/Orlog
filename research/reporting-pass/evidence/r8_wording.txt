@@ -1,0 +1,28 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/reporting-pass/reproducers/r8_wording.py
+# tree: f16dc26
+# host: Windows, CPython 3.14.5; 2026-10-26
+# sha256 8405052acaf9b0ed  src/orlog/court.py
+# sha256 2107dc87edd66817  src/orlog/arbiter.py
+# sha256 f843291861798c85  src/orlog/interp.py
+# sha256 f3bef97780df163b  orl.py
+# sha256 cd5427f47f253e2c  tests/selftest.py
+# sha256 af4087d49c9dfc38  tests/compat.py
+# sha256 d42dcf2ba5aadfbf  tests/court_monotone.py
+== a plain Otherwise clause's claim refuses (fixtures/otherwise_claim.orl)
+   status REFUSED INDEX-OUT-OF-RANGE 4 (clause 4 is §2.2); the claim's clause holds RawIf; R8 reads 'possible'
+   §2.2 REFUSED at its clause (INDEX-OUT-OF-RANGE) after 16 of 16 evaluations true; the refusal may come from the condition or the other arm its clause holds: not held (R8)
+   -> the clause is a plain Otherwise: it evaluates no condition and holds no other arm, so the refusal can only have come from the claim; the reading's 'may come from the condition or the other arm' names a condition and an arm that clause does not have
+== an 'Otherwise, if' clause: its own condition refuses
+   status REFUSED INDEX-OUT-OF-RANGE 4 (clause 4 is §2.2); the claim's clause holds RawIf; R8 reads 'possible'
+   §2.2 REFUSED at its clause (INDEX-OUT-OF-RANGE) after 16 of 16 evaluations true; the refusal may come from the condition or the other arm its clause holds: not held (R8)
+== an If's own clause: its condition refuses (tests/fixtures/r8/inline_condition.orl)
+   status REFUSED INDEX-OUT-OF-RANGE 3 (clause 3 is §2.1); the claim's clause holds IfS; R8 reads 'possible'
+   §2.1 REFUSED at its clause (INDEX-OUT-OF-RANGE) after 16 of 16 evaluations true; the refusal may come from the condition or the other arm its clause holds: not held (R8)
+== a claim that is its clause's statement (tests/fixtures/r8/omit.orl)
+   status REFUSED INDEX-OUT-OF-RANGE 3 (clause 3 is §2.1); the claim's clause holds Claim; R8 reads 'exact'
+   §2.1 REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held (R8)
+== control: the If's condition before an Otherwise refuses, and the status names the If's own clause
+   status REFUSED INDEX-OUT-OF-RANGE 3 (clause 3 is §2.1); the claim's clause holds no claim (the refusing clause holds none); R8 reads None
+   §2.2 true in 16 of 16 evaluations
+R8 WORDING: 1 reading(s) name a condition or an arm the clause does not hold
+exit 0

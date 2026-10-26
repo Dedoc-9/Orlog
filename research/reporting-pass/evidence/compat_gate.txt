@@ -1,0 +1,28 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/reporting-pass/reproducers/compat_gate.py
+# tree: f16dc26
+# host: Windows, CPython 3.14.5; 2026-10-26
+# sha256 8405052acaf9b0ed  src/orlog/court.py
+# sha256 2107dc87edd66817  src/orlog/arbiter.py
+# sha256 f843291861798c85  src/orlog/interp.py
+# sha256 f3bef97780df163b  orl.py
+# sha256 cd5427f47f253e2c  tests/selftest.py
+# sha256 af4087d49c9dfc38  tests/compat.py
+# sha256 d42dcf2ba5aadfbf  tests/court_monotone.py
+== (a) one baseline row removed (corpus/examples/aztec.orl@e317c26b31aa; 1 removed); header count 3361; texts file 3361 texts
+   | COMPAT-0 baseline v0 (made at commit b4eaf11; 3360 texts; texts sha256 f96da25761a1de17)
+   |   same 3360, newly accepted 0, settled 0, skipped 0, differ 0, input changed 0
+   |   by kind: corpus 12 of 12 held, probe 291 of 291 held, fixture 57 of 57 held, mutant 3000 of 3000 held
+   | COMPAT-0 HELD
+   exit 0; the self-test's compat row would read PASS
+== (b) plant reserve-tick: 1 of 361 texts differ (corpus/examples/fall.orl@73ccecab2e7b)
+   their rows removed: {'same': 360}; the gate's test (differs + input changed) = 0 -> HELD
+== (c) settled entries holding only id and now (no reason, no amendment): 1 settled, 0 differ
+   an entry as written: {"id": "corpus/examples/fall.orl@73ccecab2e7b", "now": {"line": 15, "refused": "SYNTAX"}}
+== (d) compat.receipt_core against arbiter.receipt_core, on collatz's reference receipt:
+   as written   compat: a core    arbiter: a core    compat's sha equal to the good one's: True
+   CR LF        compat: a core    arbiter: None      compat's sha equal to the good one's: False
+   no final LF  compat: a core    arbiter: None      compat's sha equal to the good one's: False
+   head renamed compat: a core    arbiter: None      compat's sha equal to the good one's: False
+   the leniency reaches a verdict: False (every variant hashes differently, so it reads DIFFERS)
+COMPAT GATE: (a) HELD with a row removed: True; (b) a difference hidden by removing its rows: True; (c) settled without reason or amendment: True; (d) receipt_core leniency reaches a verdict: False
+exit 0

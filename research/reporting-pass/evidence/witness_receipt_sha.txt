@@ -1,0 +1,22 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/reporting-pass/reproducers/witness_receipt_sha.py
+# tree: f16dc26
+# host: Windows, CPython 3.14.5; 2026-10-26
+# sha256 8405052acaf9b0ed  src/orlog/court.py
+# sha256 2107dc87edd66817  src/orlog/arbiter.py
+# sha256 f843291861798c85  src/orlog/interp.py
+# sha256 f3bef97780df163b  orl.py
+# sha256 cd5427f47f253e2c  tests/selftest.py
+# sha256 af4087d49c9dfc38  tests/compat.py
+# sha256 d42dcf2ba5aadfbf  tests/court_monotone.py
+1. agreeing run (NONE): reference receipt_sha256 d5d2c4a1ac52de33, python's f0068755feb53c68: DIFFERENT, though they agree
+2. CR LF receipt: BACKEND-DISSENT, dissenting [python]
+   status          agreeing run COMPLETED          CR LF run COMPLETED          same
+   output_sha256   agreeing run 8e3805a014b74249   CR LF run 8e3805a014b74249   same
+   events          agreeing run 339                CR LF run 339                same
+   trace_head      agreeing run 356f23a9afd1d6c5   CR LF run 356f23a9afd1d6c5   same
+   ops             agreeing run 1164               CR LF run 1164               same
+   exit            agreeing run 0                  CR LF run 0                  same
+   receipt_sha256  agreeing run f0068755feb53c68   CR LF run f0068755feb53c68   same
+   mismatch note: "traces equal; the difference is outside the event chain (exit 0)"
+WITNESS: every summary field of the dissenting backend equals the agreeing run's: True
+exit 0

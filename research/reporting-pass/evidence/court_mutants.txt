@@ -1,0 +1,47 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/reporting-pass/reproducers/court_mutants.py
+# tree: f16dc26
+# host: Windows, CPython 3.14.5; 2026-10-26
+# sha256 8405052acaf9b0ed  src/orlog/court.py
+# sha256 2107dc87edd66817  src/orlog/arbiter.py
+# sha256 f843291861798c85  src/orlog/interp.py
+# sha256 f3bef97780df163b  orl.py
+# sha256 cd5427f47f253e2c  tests/selftest.py
+# sha256 af4087d49c9dfc38  tests/compat.py
+# sha256 d42dcf2ba5aadfbf  tests/court_monotone.py
+none                                       CONTROL HELD   ORLOG SELFTEST 169/169
+      breaks: control: no plant; non-equivalence shown by: -
+r8-default-off                             SURVIVED       ORLOG SELFTEST 169/169
+      breaks: R8's shipped default switched off, as orl.py court reads it (the self-test's R8 rows and court_monotone set the switch themselves before every reading); non-equivalence shown by: r8_default.py
+held-ignores-integrity                     SURVIVED       ORLOG SELFTEST 169/169
+      breaks: R1: a claim is held although the backends did not all agree with the reference; non-equivalence shown by: unguarded_held.py
+held-ignores-refutation                    SURVIVED       ORLOG SELFTEST 169/169
+      breaks: a claim false at an evaluation is held; non-equivalence shown by: unguarded_held.py
+held-ignores-unreached                     CAUGHT         ORLOG SELFTEST 168/169
+      [FAIL] court: two inline claims in one clause each get a row; an unreached claim reads UNREACHED, and a claim resting on it is UNSUPPORTED (L17, R7) -- [('§2#0'
+      breaks: R7: a claim never evaluated is held; non-equivalence shown by: unguarded_held.py
+agreed-always                              CAUGHT         ORLOG SELFTEST 168/169
+      [FAIL] arbiter: a backend that did not build is counted neither agreeing nor dissenting: BUILD-FAILED, every claim's integrity INCOMPLETE (did not build: c99), 
+      breaks: R1: every witness read as agreed; non-equivalence shown by: unguarded_held.py
+sandwich-ignores-dissent                   SURVIVED       ORLOG SELFTEST 169/169
+      breaks: L10: the sandwich's own reason for a contested run is gone (it falls through to 'no claim is well-founded'); non-equivalence shown by: unguarded_held.py
+grounding-skips-premises                   CAUGHT         ORLOG SELFTEST 168/169
+      [FAIL] court R8: transitive.orl, every claim's seal ratified, agreed on [c99,python,rust]: §2 true in 1 of 1 evaluations, GROUNDED; §3.1 REFUSED at evaluation 2
+      breaks: GROUNDED without the claim's premises grounded; non-equivalence shown by: the self-test's transitive R8 row
+summary-grounded-counts-all                SURVIVED       ORLOG SELFTEST 169/169
+      breaks: the printed summary counts every claim GROUNDED; non-equivalence shown by: unguarded_held.py
+summary-well-founded-counts-unsupported    SURVIVED       ORLOG SELFTEST 169/169
+      breaks: the printed summary counts UNSUPPORTED claims as WELL-FOUNDED; non-equivalence shown by: unguarded_held.py
+agreement-ignores-exit                     SURVIVED       ORLOG SELFTEST 169/169
+      breaks: a backend that exits with an error status after writing its files is counted agreeing; non-equivalence shown by: agreement_conditions.py
+agreement-ignores-output                   SURVIVED       ORLOG SELFTEST 169/169
+      breaks: a backend whose output file differs from the reference's is counted agreeing when its receipt matches; non-equivalence shown by: agreement_conditions.py
+agreement-lenient-receipts                 SURVIVED       ORLOG SELFTEST 169/169
+      breaks: E7 put back in the verdict: receipts compared through splitlines with every 'backend ' line dropped (the E7 row tests receipt_core as a function, not the arbiter's use of it); non-equivalence shown by: witness_receipt_sha.py
+run-folder-made-but-shared                 CAUGHT         ORLOG SELFTEST 168/169
+      [FAIL] arbiter: 16 arbitrations of two different programs at once in one work folder all agree, and no run folder is left (the use-case review's race, which onc
+      breaks: the shared work folder defect behind a fresh, unused run folder: every arbitration makes and removes its own folder, and runs in one shared folder; non-equivalence shown by: the self-test's race row, if it fails
+chain-600-refused-by-compilers             SURVIVED       ORLOG SELFTEST 169/169
+      breaks: E10's class on the compiled backends: both compilers refuse the 600-arm If chain, which only the self-test's chain row runs; non-equivalence shown by: the chain row's own detail line
+SURVIVED 10 of 14 plants: r8-default-off, held-ignores-integrity, held-ignores-refutation, sandwich-ignores-dissent, summary-grounded-counts-all, summary-well-founded-counts-unsupported, agreement-ignores-exit, agreement-ignores-output, agreement-lenient-receipts, chain-600-refused-by-compilers
+HARNESS HELD (no plant reads n/n, and the plant held-ignores-unreached is caught)
+exit 0

@@ -1,0 +1,16 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/reporting-pass/reproducers/cost_over_refusal.py
+# tree: f16dc26
+# host: Windows, CPython 3.14.5; 2026-10-26
+# sha256 8405052acaf9b0ed  src/orlog/court.py
+# sha256 2107dc87edd66817  src/orlog/arbiter.py
+# sha256 f843291861798c85  src/orlog/interp.py
+# sha256 f3bef97780df163b  orl.py
+# sha256 cd5427f47f253e2c  tests/selftest.py
+# sha256 af4087d49c9dfc38  tests/compat.py
+# sha256 d42dcf2ba5aadfbf  tests/court_monotone.py
+loop length 43; reference REFUSED INDEX-OUT-OF-RANGE 6
+   evaluation   REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held (R8)
+   cost         check 64 ops / certified clause 130 ops (counted, unit cost)
+   cost_reading CHEAPER (at most 1/2 of the clause's counted ops, this input)
+   the claim's evaluations spent 67 counted operations, the refused one included (the line says 64); with them the reading is NOT CHEAPER
+exit 0

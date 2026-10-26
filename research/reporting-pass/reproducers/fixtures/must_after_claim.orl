@@ -1,0 +1,4 @@
+Note: a run-time assertion fails after a claim held.
+§1 Let a be 2.
+§2 We claim that a equals 2, by the owner.
+§3 It must hold that a is odd.

@@ -1,0 +1,24 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/reporting-pass/reproducers/agreement_conditions.py
+# tree: f16dc26
+# host: Windows, CPython 3.14.5; 2026-10-26
+# sha256 8405052acaf9b0ed  src/orlog/court.py
+# sha256 2107dc87edd66817  src/orlog/arbiter.py
+# sha256 f843291861798c85  src/orlog/interp.py
+# sha256 f3bef97780df163b  orl.py
+# sha256 cd5427f47f253e2c  tests/selftest.py
+# sha256 af4087d49c9dfc38  tests/compat.py
+# sha256 d42dcf2ba5aadfbf  tests/court_monotone.py
+== backend exit-5, plant agreement-ignores-exit
+   arbiter BACKEND-DISSENT agreeing [] dissenting [python] (backend exit 5, status COMPLETED)
+   planted NONE agreeing [python] dissenting [] (backend exit 5, status COMPLETED)
+   NOT EQUIVALENT
+== backend extra-byte, plant agreement-ignores-output
+   arbiter BACKEND-DISSENT agreeing [] dissenting [python] (backend exit 0, status COMPLETED)
+   planted NONE agreeing [python] dissenting [] (backend exit 0, status COMPLETED)
+   NOT EQUIVALENT
+== backend crlf-receipt, plant agreement-lenient-receipts
+   arbiter BACKEND-DISSENT agreeing [] dissenting [python] (backend exit 0, status COMPLETED)
+   planted NONE agreeing [python] dissenting [] (backend exit 0, status COMPLETED)
+   NOT EQUIVALENT
+NOT EQUIVALENT: 3 of 3
+exit 0

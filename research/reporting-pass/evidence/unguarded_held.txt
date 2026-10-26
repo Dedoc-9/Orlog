@@ -1,0 +1,57 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/reporting-pass/reproducers/unguarded_held.py
+# tree: f16dc26
+# host: Windows, CPython 3.14.5; 2026-10-26
+# sha256 8405052acaf9b0ed  src/orlog/court.py
+# sha256 2107dc87edd66817  src/orlog/arbiter.py
+# sha256 f843291861798c85  src/orlog/interp.py
+# sha256 f3bef97780df163b  orl.py
+# sha256 cd5427f47f253e2c  tests/selftest.py
+# sha256 af4087d49c9dfc38  tests/compat.py
+# sha256 d42dcf2ba5aadfbf  tests/court_monotone.py
+== a contested run, plant held-ignores-integrity (dissent kind BACKEND-DISSENT, agreeing [], dissenting [python], did not build [])
+   court   §2: integrity=CONTESTED; evaluation=true in 1 of 1 evaluations; support=UNSUPPORTED; grounding=UNGROUNDED
+   planted §2: integrity=CONTESTED; evaluation=true in 1 of 1 evaluations; support=WELL-FOUNDED; grounding=GROUNDED
+   court   summary: sandwich=VACUOUS (the backends did not all agree); well_founded=0; grounded=0; unsupported=1; unreached=0
+   planted summary: sandwich=VACUOUS (the backends did not all agree); well_founded=1; grounded=1; unsupported=0; unreached=0
+   NOT EQUIVALENT: the planted court reads differently
+== a contested run, plant agreed-always (dissent kind BACKEND-DISSENT, agreeing [], dissenting [python], did not build [])
+   court   §2: integrity=CONTESTED; evaluation=true in 1 of 1 evaluations; support=UNSUPPORTED; grounding=UNGROUNDED
+   planted §2: integrity=AGREED; evaluation=true in 1 of 1 evaluations; support=WELL-FOUNDED; grounding=GROUNDED
+   court   summary: sandwich=VACUOUS (the backends did not all agree); well_founded=0; grounded=0; unsupported=1; unreached=0
+   planted summary: sandwich=CLOSED; well_founded=1; grounded=1; unsupported=0; unreached=0
+   NOT EQUIVALENT: the planted court reads differently
+== a contested run, plant sandwich-ignores-dissent (dissent kind BACKEND-DISSENT, agreeing [], dissenting [python], did not build [])
+   court   §2: integrity=CONTESTED; evaluation=true in 1 of 1 evaluations; support=UNSUPPORTED; grounding=UNGROUNDED
+   court   summary: sandwich=VACUOUS (the backends did not all agree); well_founded=0; grounded=0; unsupported=1; unreached=0
+   planted summary: sandwich=VACUOUS (no claim is well-founded); well_founded=0; grounded=0; unsupported=1; unreached=0
+   NOT EQUIVALENT: the planted court reads differently
+== a backend that did not build, plant held-ignores-integrity (dissent kind BUILD-FAILED, agreeing [python], dissenting [], did not build [c99])
+   court   §2: integrity=INCOMPLETE (did not build: c99); evaluation=true in 1 of 1 evaluations; support=UNSUPPORTED; grounding=UNGROUNDED
+   planted §2: integrity=INCOMPLETE (did not build: c99); evaluation=true in 1 of 1 evaluations; support=WELL-FOUNDED; grounding=GROUNDED
+   court   summary: sandwich=VACUOUS (not every execution finished the run: a backend did not build or was stopped); well_founded=0; grounded=0; unsupported=1; unreached=0
+   planted summary: sandwich=VACUOUS (not every execution finished the run: a backend did not build or was stopped); well_founded=1; grounded=1; unsupported=0; unreached=0
+   NOT EQUIVALENT: the planted court reads differently
+== a refuted claim, plant held-ignores-refutation (dissent kind NONE, agreeing [python], dissenting [], did not build [])
+   court   §2: integrity=AGREED; evaluation=REFUTED at evaluation 1 (REFUSED CLAIM-REFUTED 2); support=UNSUPPORTED; grounding=UNGROUNDED
+   planted §2: integrity=AGREED; evaluation=REFUTED at evaluation 1 (REFUSED CLAIM-REFUTED 2); support=WELL-FOUNDED; grounding=GROUNDED
+   court   summary: sandwich=VACUOUS (no claim is well-founded); well_founded=0; grounded=0; unsupported=1; unreached=0
+   planted summary: sandwich=CLOSED; well_founded=1; grounded=1; unsupported=0; unreached=0
+   NOT EQUIVALENT: the planted court reads differently
+== a refuted claim, plant summary-well-founded-counts-unsupported (dissent kind NONE, agreeing [python], dissenting [], did not build [])
+   court   §2: integrity=AGREED; evaluation=REFUTED at evaluation 1 (REFUSED CLAIM-REFUTED 2); support=UNSUPPORTED; grounding=UNGROUNDED
+   court   summary: sandwich=VACUOUS (no claim is well-founded); well_founded=0; grounded=0; unsupported=1; unreached=0
+   planted summary: sandwich=VACUOUS (no claim is well-founded); well_founded=1; grounded=0; unsupported=1; unreached=0
+   NOT EQUIVALENT: the planted court reads differently
+== a refuted claim, plant summary-grounded-counts-all (dissent kind NONE, agreeing [python], dissenting [], did not build [])
+   court   §2: integrity=AGREED; evaluation=REFUTED at evaluation 1 (REFUSED CLAIM-REFUTED 2); support=UNSUPPORTED; grounding=UNGROUNDED
+   court   summary: sandwich=VACUOUS (no claim is well-founded); well_founded=0; grounded=0; unsupported=1; unreached=0
+   planted summary: sandwich=VACUOUS (no claim is well-founded); well_founded=0; grounded=1; unsupported=1; unreached=0
+   NOT EQUIVALENT: the planted court reads differently
+== an unreached claim, plant held-ignores-unreached (dissent kind NONE, agreeing [python], dissenting [], did not build [])
+   court   §2.1: integrity=AGREED; evaluation=UNREACHED; support=UNREACHED; grounding=UNGROUNDED
+   planted §2.1: integrity=AGREED; evaluation=UNREACHED; support=WELL-FOUNDED; grounding=GROUNDED
+   court   summary: sandwich=VACUOUS (no claim is well-founded); well_founded=0; grounded=0; unsupported=0; unreached=1
+   planted summary: sandwich=CLOSED; well_founded=1; grounded=1; unsupported=0; unreached=0
+   NOT EQUIVALENT: the planted court reads differently
+NOT EQUIVALENT: 8 of 8 (every case differs)
+exit 0

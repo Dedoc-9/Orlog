@@ -1,0 +1,20 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/reporting-pass/reproducers/ledger_malformed.py
+# tree: f16dc26
+# host: Windows, CPython 3.14.5; 2026-10-26
+# sha256 8405052acaf9b0ed  src/orlog/court.py
+# sha256 2107dc87edd66817  src/orlog/arbiter.py
+# sha256 f843291861798c85  src/orlog/interp.py
+# sha256 f3bef97780df163b  orl.py
+# sha256 cd5427f47f253e2c  tests/selftest.py
+# sha256 af4087d49c9dfc38  tests/compat.py
+# sha256 d42dcf2ba5aadfbf  tests/court_monotone.py
+== claim-without-seal     read_ledger: read 1 entry
+   orl.py court: exit 1; LEDGER-BROKEN: False; traceback: True (KeyError: 'claim_seal')
+== theorem-without-name   read_ledger: read 1 entry
+   orl.py court: exit 1; LEDGER-BROKEN: False; traceback: True (KeyError: 'name')
+== seal-not-a-string      read_ledger: read 1 entry
+   orl.py court: exit 1; LEDGER-BROKEN: False; traceback: True (TypeError: cannot use 'list' as a dict key (unhashable type: 'list'))
+== control-torn           read_ledger: LEDGER-BROKEN at line 1: JSONDecodeError: Unterminated string starting at: line 1 column 19 (char 18)
+   orl.py court: exit 1; LEDGER-BROKEN: True; traceback: False
+LEDGER LINES READ AND THEN RAISED: 3 of 3 malformed objects (the torn control refuses LEDGER-BROKEN)
+exit 0

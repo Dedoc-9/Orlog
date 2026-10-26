@@ -1,0 +1,23 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/reporting-pass/reproducers/monotone_blind.py
+# tree: f16dc26 plus uncommitted changes to tracked files (the reporting pass's repairs, as they stood; this phrase corrected by the integrating session, since run_all.py names the R8 repair for any uncommitted change)
+# host: Windows, CPython 3.14.5; 2026-10-26
+# sha256 e7808a9dc9d44485  src/orlog/court.py
+# sha256 78617b5861b49a41  src/orlog/arbiter.py
+# sha256 f843291861798c85  src/orlog/interp.py
+# sha256 e21b7667b276ba77  orl.py
+# sha256 41dc2a062368353d  tests/selftest.py
+# sha256 af36de4cff10d6ea  tests/compat.py
+# sha256 e3a1635ce7d849e6  tests/court_monotone.py
+# paths below made relative to the repository by the integrating session
+--- stderr ---
+Traceback (most recent call last):
+  File "research\reporting-pass\reproducers\monotone_blind.py", line 93, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "research\reporting-pass\reproducers\monotone_blind.py", line 84, in main
+    a = part_a()
+  File "research\reporting-pass\reproducers\monotone_blind.py", line 32, in part_a
+    res = {"fixtures/cycle_refusal.orl": M.readings(C.fixture("cycle_refusal.orl"))}
+                                         ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: readings() missing 1 required positional argument: 'budget'
+exit 1

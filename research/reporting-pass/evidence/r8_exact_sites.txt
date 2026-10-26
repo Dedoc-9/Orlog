@@ -1,0 +1,26 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/reporting-pass/reproducers/r8_exact_sites.py
+# tree: f16dc26
+# host: Windows, CPython 3.14.5; 2026-10-26
+# sha256 8405052acaf9b0ed  src/orlog/court.py
+# sha256 2107dc87edd66817  src/orlog/arbiter.py
+# sha256 f843291861798c85  src/orlog/interp.py
+# sha256 f3bef97780df163b  orl.py
+# sha256 cd5427f47f253e2c  tests/selftest.py
+# sha256 af4087d49c9dfc38  tests/compat.py
+# sha256 d42dcf2ba5aadfbf  tests/court_monotone.py
+== the clause's statement, in a For body: status REFUSED INDEX-OUT-OF-RANGE 3; claim clause 3; R8 reads 'exact'; held as expected
+   REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held (R8)
+== in a procedure performed in a loop: status REFUSED INDEX-OUT-OF-RANGE 4; claim clause 4; R8 reads 'exact'; held as expected
+   REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held (R8)
+== in a block If's sub-clause: status REFUSED INDEX-OUT-OF-RANGE 4; claim clause 4; R8 reads 'exact'; held as expected
+   REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held (R8)
+== in an Otherwise block's sub-clause: status REFUSED INDEX-OUT-OF-RANGE 5; claim clause 5; R8 reads 'exact'; held as expected
+   REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held (R8)
+== in a While body: status REFUSED INDEX-OUT-OF-RANGE 5; claim clause 5; R8 reads 'exact'; held as expected
+   REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held (R8)
+== through a rule whose proviso refuses: status REFUSED INDEX-OUT-OF-RANGE 6; claim clause 6; R8 reads 'exact'; held as expected
+   REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held (R8)
+== through a rule whose value refuses: status REFUSED INDEX-OUT-OF-RANGE 6; claim clause 6; R8 reads 'exact'; held as expected
+   REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held (R8)
+R8 EXACT SITES: 7 of 7 as expected
+exit 0

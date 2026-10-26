@@ -1,0 +1,4 @@
+Note: a claim in a block that never runs.
+§1 Let a be 1.
+§2 If a equals 2, do the following.
+§2.1 We claim that a equals 2, by the owner.

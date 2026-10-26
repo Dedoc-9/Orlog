@@ -1,0 +1,20 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/reporting-pass/reproducers/monotone_blind.py
+# tree: f16dc26
+# host: Windows, CPython 3.14.5; 2026-10-26
+# sha256 8405052acaf9b0ed  src/orlog/court.py
+# sha256 2107dc87edd66817  src/orlog/arbiter.py
+# sha256 f843291861798c85  src/orlog/interp.py
+# sha256 f3bef97780df163b  orl.py
+# sha256 cd5427f47f253e2c  tests/selftest.py
+# sha256 af4087d49c9dfc38  tests/compat.py
+# sha256 d42dcf2ba5aadfbf  tests/court_monotone.py
+== (a) fixtures/cycle_refusal.orl, read with R8 off and on (court_monotone.readings):
+   §2: R8 off true in 1 of 1 evaluations; CIRCULAR (in gfp, not in lfp); UNGROUNDED | R8 on true in 1 of 1 evaluations; UNSUPPORTED; UNGROUNDED
+   §3.1: R8 off true in 1 of 1 evaluations; CIRCULAR (in gfp, not in lfp); UNGROUNDED | R8 on REFUSED at evaluation 2 (INDEX-OUT-OF-RANGE), after 1 true: not held (R8); UNSUPPORTED; UNGROUNDED
+   compare: 2 claims, 2 readings changed, 0 gained, 0 lost
+   the plant's direction (swap): 2 readings changed, 0 gained -> the plant would read NOT CAUGHT on this text
+== (b) court_monotone.BUDGET = 1000000 for every text; COMPAT-0's budgets: {'corpus': 10000000, 'fixture': 1000000, 'mutant': 1000000, 'probe': 1000000}
+   texts with claims that court_monotone drops without a word: 0 (0 claims)
+== (c) over R8's four fixtures and cycle_refusal.orl: lost 5, the plant's gains 5, the same claims: True
+BLIND: (a) a CIRCULAR change counted neither way; (b) 0 text(s) dropped; (c) plant = mirror of the losses: True
+exit 0

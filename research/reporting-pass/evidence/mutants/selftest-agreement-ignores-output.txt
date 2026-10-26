@@ -1,0 +1,171 @@
+# the copy of tree f16dc26, its own tests/selftest.py run under the plant agreement-ignores-output by research/reporting-pass/reproducers/court_mutants.py (the consolidated run, 2026-10-26)
+[PASS] door: clean
+[PASS] door: CRLF + BOM + curly delimiters repaired, inner apostrophe kept
+[PASS] door: NBSP in code repaired
+[PASS] door: bidi override refused
+[PASS] door: Cyrillic letter in code refused
+[PASS] door: joiner inside a literal noted, kept
+[PASS] door: non-NFC literal noted, kept byte for byte
+[PASS] door: non-NFC free text repaired to NFC
+[PASS] door: times and minus signs repaired
+[PASS] door: em dash refused as ambiguous
+[PASS] door: cp1252 bytes refused, never guessed
+[PASS] door: unterminated literal refused
+[PASS] door: on 5 texts that needed 11 repairs, a second pass changes nothing (idempotent where it could fail; retraction in general is DECLARED) -- []
+[PASS] door: a curly-opened literal whose closer, repaired, would join the next quote into one literal is refused QUOTE-BOUNDARY, for a straight and a curly next quote (court L12)
+[PASS] plant door-moves-literal-boundary: CAUGHT -- under the plant the door accepts it and the program prints a"b, so the QUOTE-BOUNDARY row fails
+[PASS] plant door-forgets-bidi: CAUGHT -- the bidi row's expected BIDI-CONTROL refusal is absent under the plant
+[PASS] line check: x o y = 2x + y over GF(2^8) is totally anti-symmetric (65,536 pairs at 4 values of c)
+[PASS] line check: every single-byte substitution (7616) and adjacent transposition (80) of a clause line changes its syllable -- missed 0
+[PASS] line check: a stamped program compiles and verifies every clause stamp (10 of 10)
+[PASS] line check: one changed digit is refused LINE-CHECK
+[PASS] plant line-check-constant: CAUGHT -- under the plant the tampered line compiles; the LINE-CHECK row would fail
+[PASS] seal: a program sealed with its own law-seal compiles
+[PASS] seal: changing the law after sealing is refused SEAL-MISMATCH
+[PASS] seal: adding a note changes the text-seal and keeps the law-seal (the seal still verifies)
+[PASS] spellings: three spellings (words, symbols, phrases), three text-seals, one law-seal
+[PASS] spellings: a byte-mangled copy (BOM, CRLF, curly quotes, NBSP, U+00D7) is repaired to the same law-seal, each repair noted -- R-BOM,R-CRLF,R-QUOTE-DELIM,R-SPACE,R-TIMES
+[PASS] compile refusal UNDECLARED
+[PASS] compile refusal TYPE
+[PASS] compile refusal NUMBERING
+[PASS] compile refusal REDECLARED
+[PASS] compile refusal PRIORITY-CYCLE
+[PASS] compile refusal PERFORM-BEFORE-DEFINITION
+[PASS] compile refusal DECIMALS-PLACE
+[PASS] compile refusal RULE-BEFORE-DEFINITION
+[PASS] compile refusal EMPTY-BLOCK
+[PASS] compile refusal LOOP-VARIABLE
+[PASS] compile refusal ORPHAN-OTHERWISE
+[PASS] compile refusal CERTIFICATE-TARGET
+[PASS] compile refusal LITERAL-RANGE
+[PASS] compile refusal LINE-FORM
+[PASS] compile refusal PROCEDURE-NAME
+[PASS] compile refusal: mutual recursion between procedures (UNKNOWN-PROCEDURE or PERFORM-BEFORE-DEFINITION)
+[PASS] spec: the twin's 163 hand-worked probes: 161 met as the twin worked them, 2 as SPEC §13 settled them against the twin's reading (twin/probes/settled.json), 0 different
+[PASS] spec: the twin's 128 round-3 probes (SPEC §12, §13): 125 met as the twin worked them, 3 as SPEC §14 settled them against the twin's reading (twin/probes3/settled.json), 0 different
+[PASS] spec: SPEC §13's phase table lists exactly the 43 compile refusal codes the front end can raise -- only in the table: []; only in the code: []
+[PASS] plant front-end-raises-an-unlisted-code: CAUGHT -- a front end raising STATEMENT-PERIOD (as the line pass did before §13) differs from the table by ['STATEMENT-PERIOD']
+[PASS] spec: within a statement, written order, post-order (SPEC §13): 15 texts of two faults each report the one written first
+[PASS] plant item-target-before-index: CAUGHT -- under the pre-§13 order: item I of X: I before X: UNDECLARED, not TYPE
+[PASS] firewall: a verdict-shaped key in a witness is refused (executable-epistemics)
+[PASS] codegen: the law bytes and all three generated sources for the corpus are identical under PYTHONHASHSEED 0 and 424242 (sha256 1bb9a89b724702af)
+[PASS] corpus aztec: reference and [c99,python,rust] byte-identical (outputs and receipts)
+[PASS] corpus chaos: reference and [c99,python,rust] byte-identical (outputs and receipts)
+[PASS] corpus collatz: reference and [c99,python,rust] byte-identical (outputs and receipts)
+[PASS] corpus fall: reference and [c99,python,rust] byte-identical (outputs and receipts)
+[PASS] corpus gcd_certificate: reference and [c99,python,rust] byte-identical (outputs and receipts)
+[PASS] corpus leapfrog: reference and [c99,python,rust] byte-identical (outputs and receipts)
+[PASS] corpus legal: reference and [c99,python,rust] byte-identical (outputs and receipts)
+[PASS] corpus plankton: reference and [c99,python,rust] byte-identical (outputs and receipts)
+[PASS] corpus phrases: reference and [c99,python,rust] byte-identical (outputs and receipts)
+[PASS] corpus symbols: reference and [c99,python,rust] byte-identical (outputs and receipts)
+[PASS] corpus words: reference and [c99,python,rust] byte-identical (outputs and receipts)
+[PASS] runtime refusal OVERFLOW: the reference and [c99,python,rust] stop at the same event with the same code
+[PASS] runtime refusal DIVISION-BY-ZERO: the reference and [c99,python,rust] stop at the same event with the same code
+[PASS] runtime refusal INEXACT-DIVISION: the reference and [c99,python,rust] stop at the same event with the same code
+[PASS] runtime refusal FUEL-EXHAUSTED: the reference and [c99,python,rust] stop at the same event with the same code
+[PASS] runtime refusal RULE-CONFLICT: the reference and [c99,python,rust] stop at the same event with the same code
+[PASS] runtime refusal RULE-UNDEFINED: the reference and [c99,python,rust] stop at the same event with the same code
+[PASS] runtime refusal INDEX-OUT-OF-RANGE: the reference and [c99,python,rust] stop at the same event with the same code
+[PASS] runtime refusal EMPTY-LIST: the reference and [c99,python,rust] stop at the same event with the same code
+[PASS] runtime refusal CLAIM-REFUTED: the reference and [c99,python,rust] stop at the same event with the same code
+[PASS] runtime refusal MUST-FAILED: the reference and [c99,python,rust] stop at the same event with the same code
+[PASS] runtime refusal INEXACT-CONVERSION: the reference and [c99,python,rust] stop at the same event with the same code
+[PASS] runtime refusal NOT-FINITE: the reference and [c99,python,rust] stop at the same event with the same code
+[PASS] runtime refusal NEGATIVE-SQRT: the reference and [c99,python,rust] stop at the same event with the same code
+[PASS] court: Plankton's three mutually supporting claims are CIRCULAR (gfp, not lfp); the fourth is WELL-FOUNDED; the sandwich is OPEN -- {"\u00a73": "CIRCULAR (in gfp, not in lfp)", "\u00a74": "CIRCULAR (in gfp, not in lfp)", "\u00a75": "CIRCULAR (in gfp, not in lfp)", "\u00a76": "WELL-FOUNDED"}
+[PASS] court: a CIRCULAR claim names its cycle (§3 -> §4 -> §5 -> §3)
+[PASS] court: a cited, unratified theorem leaves its claim UNGROUNDED
+[PASS] court: a theorem ratified by name alone grounds nothing (court L4: a name is not bound to the claim)
+[PASS] court: with this claim's own seal ratified (fixture), §6 is GROUNDED; ratifying the circle's computation claims grounds none of them (R2)
+[PASS] plant court-accepts-gfp: CAUGHT -- under the plant §3-§5 read WELL-FOUNDED, so the CIRCULAR row fails
+[PASS] court: computation and agreement claims are WELL-FOUNDED and stay UNGROUNDED with their seals ratified (R2, R3) -- [('WELL-FOUNDED', 'UNGROUNDED'), ('WELL-FOUNDED', 'UNGROUNDED')]
+[PASS] plant court-grounds-computation: CAUGHT -- under the plant a computation claim reads GROUNDED, so the R2 row fails
+[PASS] court: the Bezout certificate reads CHEAPER (check 12 ops / certified clause 724 ops (counted, unit cost)) and is UNGROUNDED unratified
+[PASS] court: its theorem ratified by name alone does not ground it (L8)
+[PASS] court: with this claim's own seal ratified (fixture), GROUNDED
+[PASS] court: the prosecution's D2 (a one-op check under Bezout's name, theorem ratified) stays UNGROUNDED
+[PASS] court: the weak claim's seal differs from the full certificate's, so the full one's ratification cannot be lifted onto it
+[PASS] court: a check costing more than half its clause reads NOT CHEAPER, never 'recomputation' (L7) -- check 6 ops / certified clause 1 ops (counted, unit cost)
+[PASS] court: a certificate of a clause that never ran reads CLAUSE NOT RUN (L7)
+[PASS] court: two inline claims in one clause each get a row; an unreached claim reads UNREACHED, and a claim resting on it is UNSUPPORTED (L17, R7) -- [('§2#0', 'WELL-FOUNDED'), ('§2#1', 'UNREACHED'), ('§3.1', 'UNREACHED'), ('§4', 'UNSUPPORTED')]
+[PASS] court: with no claim at all the sandwich reads VACUOUS, never CLOSED (L10)
+[PASS] court: when the backends disagree the sandwich reads VACUOUS, never CLOSED (L10) -- REFERENCE-DISSENT
+[PASS] court: 200 random fair single-element schedules reach Kleene's least fixed point on a 40-claim instance (Cousot 1977, one instance)
+[PASS] court: Dung grounded extension: a defends c; a mutual attack between d and e is UNDECIDED
+[PASS] red team E1_eq_promotion_crash: compiles and runs byte-identically on the reference and [c99,python,rust]
+[PASS] red team E2a_rule_in_procedure: compiles and runs byte-identically on the reference and [c99,python,rust]
+[PASS] red team E2b_rule_uses_rule: compiles and runs byte-identically on the reference and [c99,python,rust]
+[PASS] red team E10_python_depth_if_chain_110: compiles and runs byte-identically on the reference and [c99,python,rust]
+[PASS] red team E16a_upper_to: compiles and runs byte-identically on the reference and [c99,python,rust]
+[PASS] red team E13b_note_after_seal: compiles and runs byte-identically on the reference and [c99,python,rust]
+[PASS] red team E16b_to_two_spaces: compiles and runs byte-identically on the reference and [c99,python,rust]
+[PASS] red team E16e_to_no_space: compiles and runs byte-identically on the reference and [c99,python,rust]
+[PASS] red team E16f_to_inner_spaces: compiles and runs byte-identically on the reference and [c99,python,rust]
+[PASS] red team E3_hidden_children: refused UNEXPECTED-CHILDREN
+[PASS] red team E3b_hidden_children_crash: refused UNEXPECTED-CHILDREN
+[PASS] red team E17a_kelvin_identifier: refused NON-ASCII-CODE
+[PASS] red team E17b_greek_question_mark: refused NON-ASCII-CODE
+[PASS] red team E13_two_seals: refused SEAL-PLACE
+[PASS] red team E15_two_oracles: refused SYNTAX
+[PASS] red team E16c_nested_to: refused PROCEDURE-PLACE
+[PASS] red team E16d_to_named_to: refused PROCEDURE-NAME
+[PASS] red team E14_define_both_provisos: refused SYNTAX
+[PASS] red team E24_python_depth_and_inside_loops: refused EXPRESSION-DEPTH
+[PASS] red team E24b_and_inside_loops_ok: refused EXPRESSION-DEPTH
+[PASS] red team E25_parser_recursion_parens: refused EXPRESSION-DEPTH
+[PASS] red team E25b_parser_recursion_and: refused EXPRESSION-DEPTH
+[PASS] bounds: 16 nested loops (the LOOP-NESTING limit) run byte-identically on the reference and [c99,python,rust]
+[PASS] bounds: 17 nested loops are refused LOOP-NESTING
+[PASS] bounds: clauses 24 deep (the NESTING-DEPTH limit) run byte-identically on the reference and [c99,python,rust]
+[PASS] bounds: clauses 25 deep are refused NESTING-DEPTH
+[PASS] bounds: a 600-arm If chain runs byte-identically on the reference and [c99,python,rust] (constant-depth lowering)
+[PASS] arbiter: receipts agree byte for byte without their second line, and only that line: a renamed backend agrees; a CR LF receipt, one without its final LF and one with an extra line do not (red team E7) -- [True, True, True, True, True]
+[PASS] plant arbiter-lenient-receipts: CAUGHT -- the pre-E7 comparison calls 3 of the 3 malformed receipts agreeing, so the row fails under it
+[PASS] arbiter: with the reference planted wrong and the Rust source planted not to compile, the kind stays REFERENCE-DISSENT and build_failed names rust (red team E8) -- REFERENCE-DISSENT ['rust']
+[PASS] door: curly quotes inside a straight-quoted literal are its text: no event, and the reference and [c99,python,rust] print them byte for byte (red team E9)
+[PASS] arbiter: a work folder named selftest-ØRLǪG changes nothing: the reference and [c99,python,rust] agree (red team E11)
+[PASS] door: a Hangul filler, a tag character and a line separator inside a literal are refused, and the refused line logs no QUOTE-BOUNDARY it did not meet (red team E19; SPEC §13) -- ['INVISIBLE-CHAR', 'INVISIBLE-CHAR', 'CONTROL-CHAR']
+[PASS] law: §2, §02, and §02 named by a reference §2 give one law-seal (red team E20; amendment 6)
+[PASS] door: a typographic space in code is repaired once, with no LITERAL-NOT-NFC note on a line that has no literal (red team E26) -- [('REPAIR', 'R-SPACE')]
+[PASS] bounds: 16 nested loops around 23 nested parenthesized 'and's, both bounds at their limits, run byte-identically on the reference and [c99,python,rust] (red team E24)
+[PASS] bounds: one more parenthesis is refused EXPRESSION-DEPTH, as SPEC §13 counts it (atoms, minuses and nots on the path, the atom included; over 24 refused)
+[PASS] court: a claim that reads no variable is marked CONSTANT and one that reads the run is not (red team E5) -- ['CONSTANT: it reads no variable, so it cannot depend on the run (if it always holds it is a tautology airlock: Semiotic core TRIAGE, red team E5)', '']
+[PASS] door: the red team's E18 bytes (an NBSP, 'Note:', a quote, an NBSP, a quote) are refused QUOTE-BOUNDARY; the door once repaired them into a text that a second pass repaired again (red team E18)
+[PASS] plant door-not-idempotent-on-E18: CAUGHT -- without the QUOTE-BOUNDARY check the door accepts E18 as ' Note:"\xa0"\n', and a second pass makes it ' Note:" "\n' with ['R-SPACE']
+[PASS] ratify: --claim §1 on the red team's E22 file (a Say whose text holds '(claim y') is refused and writes nothing, while --claim §2 on a real claim writes one entry (red team E22)
+[PASS] arbiter: a backend that did not build is counted neither agreeing nor dissenting: BUILD-FAILED, every claim's integrity INCOMPLETE (did not build: c99), the sandwich VACUOUS -- BUILD-FAILED ['c99'] ['INCOMPLETE (did not build: c99)'] VACUOUS (not every execution finished th
+[PASS] host budget: a loop of 10^9 iterations under a budget of 10^5 counted operations is stopped by the host at the same operation twice (STOPPED-BY-HOST after 100002 counted operations (budget 100000)): STOPPED-BY-HOST, no receipt, not a refusal; a program within the budget runs and agrees
+[PASS] ledger: a ledger torn in mid-line is refused whole, LEDGER-BROKEN at line 2, by the reader and by 'orl.py court' (exit 1, no traceback); none of it is read
+[PASS] plant ledger-skips-torn-lines: CAUGHT -- a reader that skips what does not parse returns 1 entry and drops line 2 without a word, so the row's refusal is absent
+[PASS] arbiter: each arbitration runs in a folder of its own inside the work folder, removed afterwards (two arbitrations, two folders, none left)
+[PASS] arbiter: 16 arbitrations of two different programs at once in one work folder all agree, and no run folder is left (the use-case review's race, which once gave false dissents) -- {'NONE': 16}; 0 left
+[PASS] plant arbiter-shares-a-run-folder: CAUGHT -- under the plant both arbitrations ran in arb-shared, so the row's two folders are one
+[PASS] independence: a defect planted in the shared lowering (one operation counted too many at every multiplication) moves [c99,python,rust] together, REFERENCE-DISSENT: they agree with each other against the reference, the one execution that does not lower -- traces and outputs equal; the receipt's ops reads 1164 in the reference and 1205 in the backends: 41 more, one per 3n+1 step of the orbit of 27
+[PASS] independence (MONITORED NEGATIVE: it passes when the defect slips past): a defect planted in the shared front end (every 'plus' read as 'minus') passes all 4 executions, which agree [reference,c99,python,rust]; only the clean-room twin, whose front end is its own, differs from them, and it equals the unplanted reference. Their agreement does not test the front end. The day the front end gains real diversity this row must flip to expect detection; it is not a failure to delete
+[PASS] independence: the runtime vectors, every one generated by numeric_ref, agree with a second derivation that never imports it (20006 of 20015 lines derived, 0 differ), with 113 hand-worked cases and with two published SHA-256 digests; its 5 plants caught, three of them mistakes that numeric_ref and its vectors would share (tests/vectors_independent.py)
+[PASS] compat: each of the 3361 texts frozen at version 0 gives the result it gave then (law seal, text seal and reference receipt, or refusal code and line): 3361 same, 0 newly accepted, 0 settled (COMPAT-0)
+[PASS] compat: the gate's plants are caught (a word newly reserved, a law line respelled, a change only the receipts see, a frozen text altered) and a declared change passes only with its exact new result (COMPAT SELFTEST 6/6)
+[PASS] court R8: omit.orl, every claim's seal ratified, agreed on [c99,python,rust]: §2.1 REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held (R8), UNGROUNDED
+[PASS] court R8: transitive.orl, every claim's seal ratified, agreed on [c99,python,rust]: §2 true in 1 of 1 evaluations, UNGROUNDED; §3.1 REFUSED at evaluation 2 (INDEX-OUT-OF-RANGE), after 1 true: not held (R8), UNGROUNDED
+[PASS] court R8: inline_claim.orl, every claim's seal ratified, agreed on [c99,python,rust]: §2.1 REFUSED at its clause (INDEX-OUT-OF-RANGE) after 16 of 16 evaluations true; the refusal may come from the condition or the other arm its clause holds: not held (R8), UNGROUNDED
+[PASS] court R8: inline_condition.orl, every claim's seal ratified, agreed on [c99,python,rust]: §2.1 REFUSED at its clause (INDEX-OUT-OF-RANGE) after 16 of 16 evaluations true; the refusal may come from the condition or the other arm its clause holds: not held (R8), UNGROUNDED
+[PASS] plant court-counts-only-finished-evaluations (R8 off): CAUGHT -- with R8 off, omit.orl's claim reads true in 16 of 16 evaluations, GROUNDED over a run REFUSED at that claim
+[PASS] court R8 is one-sided: over COMPAT-0's frozen texts and R8's fixtures, 0 standings gained, 5 lost (frozen texts 0, a coverage gap: none refuses inside a claim; fixtures 5), and the plant that reverts R8 is caught (tests/court_monotone.py)
+[PASS] E21 list_ownership.orl: runs byte-identically on the reference and [c99,python,rust]
+[PASS] E21 loop_condition.orl: runs byte-identically on the reference and [c99,python,rust]
+[PASS] E21 procedure_local.orl: runs byte-identically on the reference and [c99,python,rust]
+[PASS] E21 self_store.orl: runs byte-identically on the reference and [c99,python,rust]
+[PASS] memory: the C backend's peak is flat as a run rebuilds a 4 MiB text 4 and then 32 times (16 and 16 MiB) and stores a 1,000,000-item list 4 and then 32 times (23 and 23 MiB); red team E21 and rt_c finding 8: it grew by every text and list a run made -- exit 0, 0, 0, 0
+[PASS] plant c99-temporaries-never-released: CAUGHT -- with the temporaries never released, as before the repair, the text run's peak grows from 33 to 145 MiB and the list run's from 54 to 268 MiB
+[PASS] plant law-gcd-wrong-answer (g doubled): CAUGHT -- the Bezout certificate refuses at §12 in the reference and [c99,python,rust]: REFUSED CLAIM-REFUTED 22
+[PASS] plant law-leapfrog-asymmetric-drift (a bias not symmetric under negation): CAUGHT -- exact return fails and the reversibility claim refuses at §17 in the reference and [c99,python,rust]: REFUSED CLAIM-REFUTED 31
+[PASS] plant c99-remainder-truncates: CAUGHT -- first divergent event 3, a Say at §3: reference 320a, backend 2d310a
+[PASS] plant c99-max-rewritten-as-macro: EQUIVALENT, as declared -- same rule (a > b ? a : b), so no witness exists
+[PASS] fma measured: a naive C loop x*x-2 under -ffp-contract=fast -march=native ends at 0.053875170363670462 after 3000 steps, against -1.9945547358643969 unfused (a fused rounding repeated at every step, which chaos magnifies)
+[PASS] fma measured: Orlog's generated C for chaos.orl has 0 FMA instructions under the same flags (each rounded intermediate is observed by the NaN canonicalization, so it cannot be fused)
+[PASS] plant c99-explicit-fma (x*x-2 fused by fma()): CAUGHT -- first divergent event 5, an assignment at §3.1: the fused and the twice-rounded x part there
+[PASS] plant python-quotient-floors: CAUGHT -- first divergent event 4, a Say at §4: reference 340a, backend 330a
+[PASS] plant rust-fixed-multiply-floors: CAUGHT -- first divergent event 53 (E at §9.3.1)
+[PASS] plant reference-quotient-truncates: CAUGHT -- dissent kind REFERENCE-DISSENT: [c99,python,rust] agree with each other against the reference; the reference is still kept, by declaration
+ORLOG SELFTEST 169/169  (backends: python,c99,rust)

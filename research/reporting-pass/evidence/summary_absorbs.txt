@@ -1,0 +1,22 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/reporting-pass/reproducers/summary_absorbs.py
+# tree: f16dc26
+# host: Windows, CPython 3.14.5; 2026-10-26
+# sha256 8405052acaf9b0ed  src/orlog/court.py
+# sha256 2107dc87edd66817  src/orlog/arbiter.py
+# sha256 f843291861798c85  src/orlog/interp.py
+# sha256 f3bef97780df163b  orl.py
+# sha256 cd5427f47f253e2c  tests/selftest.py
+# sha256 af4087d49c9dfc38  tests/compat.py
+# sha256 d42dcf2ba5aadfbf  tests/court_monotone.py
+== refuted: the claim reads REFUTED at evaluation 1 (REFUSED CLAIM-REFUTED 2); UNSUPPORTED
+   summary {"circular": 0, "claims": 1, "grounded": 0, "ledger_entries": 0, "sandwich": "VACUOUS (no claim is well-founded)", "unreached": 0, "unsupported": 1, "well_founded": 0}
+== withheld by R8: the claim reads REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true; UNSUPPORTED
+   summary {"circular": 0, "claims": 1, "grounded": 0, "ledger_entries": 0, "sandwich": "VACUOUS (no claim is well-founded)", "unreached": 0, "unsupported": 1, "well_founded": 0}
+== contested: the claim reads true in 1 of 1 evaluations; UNSUPPORTED
+   summary {"circular": 0, "claims": 1, "grounded": 0, "ledger_entries": 0, "sandwich": "VACUOUS (the backends did not all agree)", "unreached": 0, "unsupported": 1, "well_founded": 0}
+== a backend did not build: the claim reads true in 1 of 1 evaluations; UNSUPPORTED
+   summary {"circular": 0, "claims": 1, "grounded": 0, "ledger_entries": 0, "sandwich": "VACUOUS (not every execution finished the run: a backend did not build or was stopped)", "unreached": 0, "unsupported": 1, "well_founded": 0}
+== its premise unreached: the claim reads true in 1 of 1 evaluations; UNSUPPORTED
+   summary {"circular": 0, "claims": 2, "grounded": 0, "ledger_entries": 0, "sandwich": "VACUOUS (no claim is well-founded)", "unreached": 1, "unsupported": 1, "well_founded": 0}
+SUMMARY: 2 distinct summaries (sandwich aside) for 5 different reasons a claim is not held
+exit 0

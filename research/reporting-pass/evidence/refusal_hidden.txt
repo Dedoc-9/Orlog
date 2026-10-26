@@ -1,0 +1,37 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/reporting-pass/reproducers/refusal_hidden.py
+# tree: f16dc26
+# host: Windows, CPython 3.14.5; 2026-10-26
+# sha256 8405052acaf9b0ed  src/orlog/court.py
+# sha256 2107dc87edd66817  src/orlog/arbiter.py
+# sha256 f843291861798c85  src/orlog/interp.py
+# sha256 f3bef97780df163b  orl.py
+# sha256 cd5427f47f253e2c  tests/selftest.py
+# sha256 af4087d49c9dfc38  tests/compat.py
+# sha256 d42dcf2ba5aadfbf  tests/court_monotone.py
+== tests/fixtures/r8/omit.orl: reference REFUSED INDEX-OUT-OF-RANGE 3; agreeing [python]
+   §2.1: integrity=AGREED; evaluation=REFUSED at evaluation 17 (INDEX-OUT-OF-RANGE), after 16 true: not held (R8); support=UNSUPPORTED; grounding=UNGROUNDED
+   summary: sandwich VACUOUS (no claim is well-founded), well_founded 0, grounded 0
+   the court's printed reading names the refusal
+== fixtures/hoisted_omit.orl: reference REFUSED INDEX-OUT-OF-RANGE 3; agreeing [python]
+   §2.2: integrity=AGREED; evaluation=true in 16 of 16 evaluations; support=WELL-FOUNDED; grounding=GROUNDED
+   summary: sandwich CLOSED, well_founded 1, grounded 1
+   the court's printed reading NEVER NAMES THE REFUSAL (no 'REFUSED', no INDEX-OUT-OF-RANGE)
+== fixtures/must_after_claim.orl: reference REFUSED MUST-FAILED 3; agreeing [python]
+   §2: integrity=AGREED; evaluation=true in 1 of 1 evaluations; support=WELL-FOUNDED; grounding=GROUNDED
+   summary: sandwich CLOSED, well_founded 1, grounded 1
+   the court's printed reading NEVER NAMES THE REFUSAL (no 'REFUSED', no MUST-FAILED)
+== orl.py court fixtures/must_after_claim.orl --backends python: exit 0; 'REFUSED' or 'MUST-FAILED' in its output: False
+   | §2  We claim that a equals 2, by the owner.
+   |     integrity     AGREED
+   |     evaluation    true in 1 of 1 evaluations
+   |     support       WELL-FOUNDED
+   |     grounding     UNGROUNDED
+   | summary {"circular": 0, "claims": 1, "grounded": 0, "ledger_entries": 0, "sandwich": "CLOSED", "unreached": 0, "unsupported": 0, "well_founded": 1}
+== orl.py run fixtures/must_after_claim.orl --backends python: exit 0
+   | must_after_claim   law fomod-zoram-kuhof-dijoz  ref REFUSED MUST-FAILED 3  agree [python]  dissent [] NONE
+== examples/collatz.orl --backends c99 with clang's folder removed from PATH
+   orl.py run   exit 2 | collatz            law barap-futug-zojul-vuzup  ref COMPLETED  agree []  dissent [] BUILD-FAILED  did not build [c99]
+   orl.py court exit 0 | integrity     INCOMPLETE (did not build: c99)
+REFUSAL NOT NAMED BY THE COURT'S READING: 2 of 2 refused runs (the R8 control names its own)
+EXIT 0 OVER A REFUSAL OR A FAILED BUILD: 3 of 3 command-line cases
+exit 0

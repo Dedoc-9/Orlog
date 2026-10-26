@@ -1,0 +1,25 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/reporting-pass/reproducers/compat_gate.py
+# tree: f16dc26 plus uncommitted changes to tracked files (the reporting pass's repairs, as they stood; this phrase corrected by the integrating session, since run_all.py names the R8 repair for any uncommitted change)
+# host: Windows, CPython 3.14.5; 2026-10-26
+# sha256 e7808a9dc9d44485  src/orlog/court.py
+# sha256 78617b5861b49a41  src/orlog/arbiter.py
+# sha256 f843291861798c85  src/orlog/interp.py
+# sha256 e21b7667b276ba77  orl.py
+# sha256 41dc2a062368353d  tests/selftest.py
+# sha256 af36de4cff10d6ea  tests/compat.py
+# sha256 e3a1635ce7d849e6  tests/court_monotone.py
+== (a) one baseline row removed (corpus/examples/aztec.orl@e317c26b31aa; 1 removed); header count 3361; texts file 3361 texts
+   | COMPAT-0 BROKEN: the baseline has 3360 rows and its header counts 3361; 1 frozen text(s) have no baseline row (first: corpus/examples/aztec.orl@e317c26b31aa)
+   exit 1; the self-test's compat row would read FAIL
+== (b) plant reserve-tick: 1 of 361 texts differ (corpus/examples/fall.orl@73ccecab2e7b)
+   their rows removed: {'same': 360}; the gate's test (differs + input changed) = 0 -> HELD
+== (c) settled entries holding only id and now (no reason, no amendment): 0 settled, 1 differ
+   an entry as written: {"id": "corpus/examples/fall.orl@73ccecab2e7b", "now": {"line": 15, "refused": "SYNTAX"}}
+== (d) compat.receipt_core against arbiter.receipt_core, on collatz's reference receipt:
+   as written   compat: a core    arbiter: a core    compat's sha equal to the good one's: True
+   CR LF        compat: a core    arbiter: None      compat's sha equal to the good one's: False
+   no final LF  compat: a core    arbiter: None      compat's sha equal to the good one's: False
+   head renamed compat: a core    arbiter: None      compat's sha equal to the good one's: False
+   the leniency reaches a verdict: False (every variant hashes differently, so it reads DIFFERS)
+COMPAT GATE: (a) HELD with a row removed: False; (b) a difference hidden by removing its rows: True; (c) settled without reason or amendment: False; (d) receipt_core leniency reaches a verdict: False
+exit 0

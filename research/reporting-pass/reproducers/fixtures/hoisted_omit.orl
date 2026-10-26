@@ -1,0 +1,5 @@
+Note: DP-5's fixture with the item read hoisted into a Let: the 17th iteration refuses at 2.1, before the claim.
+§1 Let xs be a list of 16 copies of 1.
+§2 For each i from 1 to 17, do the following.
+§2.1 Let y be item i of xs.
+§2.2 We claim that y equals 1, by the owner.
