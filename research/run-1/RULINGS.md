@@ -10,7 +10,8 @@ This sheet asks for the owner's word on each choice RUN-1 must make. Each ruling
 the theorem or design under it, a falsifier, and a recommendation. Rule with the numbers ("R1 b, R2 as written, …"), or
 "as recommended" for any group. Nothing here is built, and nothing changes until he rules.
 
-**Ruled so far:** R3 a; R4 a, at tick granularity (both 2026-10-26).
+**Ruled so far:** R3 a; R4 a, at tick granularity; R5 with four amendments, the per-tick line in 1a and the
+per-event chain kept (all 2026-10-26).
 
 **Fixed whatever is ruled:**
 - **COMPAT-0 must hold.** Every text v0 accepted keeps its law bytes and its run. RUN-1's forms are therefore spelled
@@ -178,6 +179,40 @@ permanently sealed and queryable."* The text he ruled:
 
 **Recommended: as written.** **Falsifier:** any v0 receipt or law byte changed (COMPAT-0), or a snapshot that cannot
 reproduce the output chain.
+
+**Ruled 2026-10-26: as written, with four amendments, and two choices fixed.** His words: *"I rule `R5` as written,
+augmented by your four explicit amendments"*. The amendments, proposed in the walk-through:
+1. **`'T'`'s payload is the tick and the operation count** (u64, u64). Per-tick heads as written cannot see an
+   operation-count defect: in P12, rerun by the speed debate's judge, a shared counting defect under a budget was named
+   at tick 246 when the executions parted at tick 1, and at tick 1 with ops in `'T'`.
+2. **The output chain's start and edges are defined:** out_0, the output said before the first tick, and a refused
+   tick's partial output. On the last, his words: *"if a tick encounters a transactional refusal, its partial output is
+   formally hashed into the chain before the rollback logic clears the volatile state"*, so a refused tick's partial
+   output is the chain's last link. He wrote of out_0 as *"the initial hash of any visual bytes or metadata written
+   before the first tick"*. Read as the bytes said before the first tick: the output holds nothing else.
+3. **`ticks <n>` at a refusal counts the ticks begun,** and a refused tick writes no per-tick line; its record is the
+   receipt's status and the trace's `'R'` event. This is R4 a, ruled at tick granularity. His message calls it
+   "R4 c", which no ruling names.
+4. **The receipt frame check is versioned, with its plants.** Today `src/orlog/arbiter.py` (`receipt_core`) accepts only
+   a receipt that begins `orlog-receipt 0`. As written, every v1 receipt would fail it and every backend read as
+   dissenting. His words: *"The arbiter must accept both `orlog-receipt 0` and `orlog-receipt 1` formats depending on
+   the code path. To keep this defensive, we implement the requested inverse plants: a `v1` receipt checked under a
+   `v0` template must fail, and a `v0` payload evaluated under `v1` rules must be caught and refused."* Read as: the
+   check requires the version the law's own header names (`orlog-law 0`, a v0 receipt; `orlog-law 1`, a v1 receipt),
+   never either one for any law. Accepting either would be a lenient comparison, E7's class, and his two plants
+   already require this reading. The runtimes write receipts and parse none; each writes the header its law's version
+   requires.
+
+The two choices R5 fixed now or never:
+- **The per-tick line, `orlog-ticks 0`, is part of 1a.** His words: *"We include this artifact now within the `1a`
+  specification. Do not defer it to a later version."* Its fields are the speed verdict's (`research/speed/VERDICT.md`):
+  the tick, events, ops, output bytes, the trace head (`-` in a play build without the chain), the output chain, a
+  claims digest, a state digest. The state digest's cost on a large state (linear in the state; a digest every k
+  ticks names a silent write's window) is for 1a's specification.
+- **The trace keeps the per-event chain; no stream head.** His words: *"We keep the per-event chain exactly as written
+  instead of switching to a compressed stream head."* His reason: losing event-level localization of a defect in the
+  commitment's own code (the speed debate's O5) *"destroys our core epistemic edge"*, and *"The safety margin of the
+  per-event chain is worth the processing cost."*
 
 ### R6. What the input log is to the court
 | option | entails | design |
