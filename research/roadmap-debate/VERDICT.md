@@ -124,6 +124,9 @@ something other than their generator, and the independence rows. §4 gives each 
 - A twin round before the backends follow.
 - **The input log's channel.** Replayable observations are not admissible ones (DOCTRINE T12, limit 4). Is a log the
   testimony of whoever supplied it, ratifiable like any other channel and never grounding by itself?
+- *Written up 2026-10-26, at the owner's word ("run-1 ruling sheet next"):* `research/run-1/RULINGS.md`, twelve
+  rulings and ten defaults, each spelling measured against v0 and COMPAT-0's frozen texts
+  (`research/run-1/probe-spellings.txt`).
 
 ### 4. RUN-1: the open run
 - **Entails:**

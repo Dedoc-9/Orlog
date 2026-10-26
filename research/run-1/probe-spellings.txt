@@ -1,0 +1,23 @@
+== what version 0 does with each candidate (a minimal program: the statement, and a child if a block)
+  port, read each tick       Let thrust be given each tick as a fixed.                  first word reserved  v0: SYNTAX at the statement      SAFE
+  port, read each tick       Let thrust be read each tick as a fixed.                   first word reserved  v0: SYNTAX at the statement      SAFE
+  port, read each tick       Receive thrust as a fixed.                                 first word NOT reserved v0: UNKNOWN-PROCEDURE at the statement UNSAFE: v0 gives it a meaning or another refusal
+  port, read each tick       Take thrust each tick as a fixed.                          first word NOT reserved v0: UNKNOWN-PROCEDURE at the statement UNSAFE: v0 gives it a meaning or another refusal
+  port, read once            Let gravity be given as a fixed.                           first word reserved  v0: SYNTAX at the statement      SAFE
+  port, read once            Let gravity be given once as a fixed.                      first word reserved  v0: SYNTAX at the statement      SAFE
+  port, other types          Let jumped be given each tick as a truth value.            first word reserved  v0: SYNTAX at the statement      SAFE
+  port, other types          Let name be given as a text.                               first word reserved  v0: SYNTAX at the statement      SAFE
+  port, other types          Let count be given each tick as an integer.                first word reserved  v0: SYNTAX at the statement      SAFE
+  tick block                 Each tick, do the following.                               first word reserved  v0: SYNTAX at the statement      SAFE
+  tick block                 At each tick, do the following.                            first word reserved  v0: SYNTAX at the statement      SAFE
+  tick block                 On each tick, do the following.                            first word NOT reserved v0: SYNTAX at the statement      SAFE
+  tick block                 For each tick, do the following.                           first word reserved  v0: SYNTAX at the statement      SAFE
+  tick block, with a budget  Each tick, at most 100000 operations, do the following.    first word reserved  v0: SYNTAX at the statement      SAFE
+== lines of COMPAT-0's frozen texts that a candidate form would capture
+  Let X be given ...                   0 line(s)
+  Let X be read each tick ...          0 line(s)
+  Each tick, ...                       0 line(s)
+  At each tick, ...                    0 line(s)
+  Receive / Take ... (call-shaped)     0 line(s)
+== 'tick' is a variable name in the corpus: never reserve it
+  corpus/examples/fall.orl@73ccecab2e7b: For each tick from 1 to 400, do the following.

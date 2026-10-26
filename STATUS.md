@@ -14,10 +14,12 @@ owner makes every commit and push.
    its third). §13 holds the phase table.
 4. **research/roadmap-debate/VERDICT.md**: the next steps ranked by foundational value, after a debate between an
    architect, a use-case skeptic and a documentation prosecutor, and the disposition of the prosecutor's 57 findings.
-5. **research/ragnarok/VERDICT.md**: the counterworld search, argued by a proponent and an adversary over two rounds,
+5. **research/run-1/RULINGS.md**: the rulings the open run needs (R1–R12 and ten defaults), each with its options,
+   what each entails, the theorem under it, a falsifier and a recommendation. Awaiting the owner.
+6. **research/ragnarok/VERDICT.md**: the counterworld search, argued by a proponent and an adversary over two rounds,
    with a prior-art survey. Proposed, not admitted.
-6. **court/RECORD.md** and court/VERDICT.txt (the first court; the second round's record is still open, below).
-7. **ADMISSION.md**: the proposed admission record. Not admitted.
+7. **court/RECORD.md** and court/VERDICT.txt (the first court; the second round's record is still open, below).
+8. **ADMISSION.md**: the proposed admission record. Not admitted.
 
 ## Measured here, COMPAT-0 (2026-10-26)
 - `python -B tests/selftest.py`: **ORLOG SELFTEST 163/163** (reference, python, c99, rust), two consecutive runs
@@ -90,8 +92,8 @@ owner makes every commit and push.
   proposal, the proponent's and adversary's two rounds, the survey, the verdict), each report saved verbatim.
 
 ## Still open
-- **The owner's rulings**: DOCTRINE §9 (fork 2 is decided); the roadmap's first rung
-  (`research/roadmap-debate/VERDICT.md`); whether Ragnarök's narrow instrument is admitted at all
+- **The owner's rulings**: RUN-1's sheet (`research/run-1/RULINGS.md`, R1–R12); DOCTRINE §9 (fork 2 is decided);
+  HOST-0, which needs a second machine; whether Ragnarök's narrow instrument is admitted at all
   (`research/ragnarok/VERDICT.md`); and prosecutor F42, below.
 - **Privacy (prosecutor F42)**: 16 tracked files under `court/` still embed the home folder's path (the prosecution's
   header and 15 captured observations of the red team). They are records "kept as captured"; redacting them rewrites a
