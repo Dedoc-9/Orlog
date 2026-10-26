@@ -1,4 +1,4 @@
-# ØRLǪG (Orlog): status, 2026-10-26, after COMPAT-0 and the court's R8 (SPEC v0.4)
+# ØRLǪG (Orlog): status, 2026-10-26, after COMPAT-0, the court's R8 and the reporting pass (SPEC v0.4)
 
 Start here when resuming. The project lives in its own repository, [github.com/Dedoc-9/Orlog](https://github.com/Dedoc-9/Orlog)
 (local folder `Desktop\Orlog`), under the GNU AGPL v3 (AGPL-3.0-only, as Verðandi). It moved there from a session
@@ -19,10 +19,15 @@ owner makes every commit and push.
 6. **research/doppler/VERDICT.md**: whether incompleteness can be ruled out "as ruthlessly as sha256". A sound,
    refusal-sensitive dependence analysis certifies and a doppler search only prosecutes; nothing is built before
    RUN-1. It also records a defect in the court as built (DP-5) and three holes in R6's amendment.
-7. **research/ragnarok/VERDICT.md**: the counterworld search, argued by a proponent and an adversary over two rounds,
+7. **research/speed/VERDICT.md**: the owner's speed reconciler, language swap, graphics and headroom requests, argued
+   over two rounds with a survey and the judge's reruns. No language swap: the per-event SHA-256 is 91–98% of a
+   compiled tick. A play build without it, writing a per-tick line, runs at about 4% and names 12 of 13 planted
+   defects at their tick. Graphics stay in a view that must neither write back nor disclose. RUN-1 proposals for the
+   owner, and a finding about Verðandi's renderer.
+8. **research/ragnarok/VERDICT.md**: the counterworld search, argued by a proponent and an adversary over two rounds,
    with a prior-art survey. Proposed, not admitted.
-8. **court/RECORD.md** and court/VERDICT.txt (the first court; the second round's record is still open, below).
-9. **ADMISSION.md**: the proposed admission record. Not admitted.
+9. **court/RECORD.md** and court/VERDICT.txt (the first court; the second round's record is still open, below).
+10. **ADMISSION.md**: the proposed admission record. Not admitted.
 
 ## Measured here, COMPAT-0 (2026-10-26)
 - `python -B tests/selftest.py`: **ORLOG SELFTEST 163/163** (reference, python, c99, rust), two consecutive runs
@@ -107,9 +112,42 @@ owner makes every commit and push.
 - **R6 in the RUN-1 sheet.** The trigger is now any input log (DP-4). The exemption, PREFIX, is decided by evaluation
   (N-1) and covers the whole claim line (N-2). R12 gains the court's one-sidedness row.
 
+## Repaired 2026-10-26, after the reporting pass
+- **The pass** (`research/reporting-pass/FINDINGS.md`): an adversarial review of the code that reports. 18 findings,
+  none a live false GROUNDED, WELL-FOUNDED or AGREED. Before anything was changed, its 14 quick reproducers gave
+  byte-identical output here, and its mutation harness gave the same verdicts: 10 of its 14 planted regressions left
+  the self-test at 169/169.
+- **Integrated** at the owner's word ("review and integrate the adversarial reporting passes lessons/fixes"); each
+  finding's disposition is in `research/reporting-pass/DISPOSITION.md`. Every repair has a row, and every row a plant
+  that is the pass's own regression, made in memory (`tests/plants.py`). The largest:
+  - R8 is panel's parameter, read by `orl.py` and every row at one value;
+  - the reading prints the run's status and integrity first, naming the backends; `orl.py court` exits 2 over a
+    dissent, a failed build or a host stop;
+  - the compiler's version is in the build key, and a record is checked before a cached program runs;
+  - COMPAT-0 refuses an uncovered frozen text or a settlement without its reason (COMPAT SELFTEST 8/8, HELD:
+    `evidence/compat-after-reporting-pass.txt`);
+  - the one-sidedness measurement sees CIRCULAR and plants a court that grants: 0 gained, 9 withheld
+    (`evidence/court-r8.txt`).
+- `python -B tests/selftest.py`: **ORLOG SELFTEST 210/210**, two consecutive runs byte-identical, sha256
+  670235733a34a92c… as captured (CR LF); with `--backends python`, **194/194**. No receipt changed.
+- **Found while integrating:** the first version of the Python cache check kept a wrong cached source on Windows (a
+  rename onto a file still open for reading). Its own row caught it, and it is repaired.
+
 ## Still open
-- **An adversarial pass over the reporting layer.** The court, the arbiter and the receipt comparison have each
-  reported what was not there (DP-5, the shared work folder, E7).
+- **The reporting pass's two questions for the owner** (`research/reporting-pass/DISPOSITION.md`): what a law's own
+  refusal exits with, and whether a claim that held stays held in a run refused elsewhere.
+- **The speed verdict's proposals** (`research/speed/VERDICT.md`), for the RUN-1 sheet:
+  - a per-tick line;
+  - `ops` in the `'T'` event;
+  - port ranges at the door;
+  - R9 b's three conditions;
+  - snapshots holding every accumulator;
+  - R13 (what a live outcome is) and R14 (a play build without the event chain).
+
+  None is on the sheet until the owner rules.
+- **Verðandi's floor-mirror leak** (the speed verdict). Its native renderer shows a target hidden behind a wall
+  (MEASURED twice, one browser engine and GPU). The rule about blocking holds; a view's disclosure is unchecked.
+  Recording it in Verðandi is the owner's call.
 - **The owner's rulings**: RUN-1's sheet (`research/run-1/RULINGS.md`, R1–R12); DOCTRINE §9 (fork 2 is decided);
   HOST-0, which needs a second machine; whether Ragnarök's narrow instrument is admitted at all
   (`research/ragnarok/VERDICT.md`); and prosecutor F42, below.

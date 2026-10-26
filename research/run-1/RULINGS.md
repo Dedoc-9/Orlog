@@ -215,8 +215,10 @@ Proposed record:
     wording, which lets a claim that depends on a port only through state read GROUNDED; R6's present trigger, which
     misses a tick block with no port; licensing by clause position;
   - **the court one-sided.** RUN-1's floor (R6) only withholds. Measure it as `tests/court_monotone.py` measures R8:
-    over COMPAT-0's frozen texts and its own fixtures, with a plant that reverts it, no standing may be gained. The
-    licence grants by design, so it is held instead by its own rows above.
+    over COMPAT-0's frozen texts and its own fixtures, no standing may be gained in any of the three orders (support
+    with CIRCULAR, grounding, held), every changed reading must be counted, and two plants must be caught: a comparator
+    blind to CIRCULAR, and a court that grants (the reporting pass's finding 12 replaced a plant that read the
+    measurement backwards). The licence grants by design, so it is held instead by its own rows above.
 - **Scope:** `src/`, `rt_c/`, `rt_rs/`, `tests/`, SPEC §15, a RUNTIME-SPEC section for v1, a new
   `vectors/input-vectors.txt`. `runtime-vectors.txt` is untouched.
 - **Exit:** the discriminator met; the twin's round settled; the self-test green twice and byte-identical.

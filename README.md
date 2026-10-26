@@ -170,9 +170,9 @@ T12 gives each limit with its remedy.
 ## What is shown, and where
 
 All of the following is MEASURED here, on 2026-10-25. The self-test's recorded summary, in
-[`evidence/selftest-run.txt`](evidence/selftest-run.txt), reads `ORLOG SELFTEST 169/169  (backends: python,c99,rust)`.
+[`evidence/selftest-run.txt`](evidence/selftest-run.txt), reads `ORLOG SELFTEST 210/210  (backends: python,c99,rust)`.
 Two consecutive runs gave byte-identical output ([`evidence/selftest-run2.txt`](evidence/selftest-run2.txt)). With
-`--backends python` and no compiler, it reads `159/159` ([`evidence/selftest-python-only.txt`](evidence/selftest-python-only.txt)).
+`--backends python` and no compiler, it reads `194/194` ([`evidence/selftest-python-only.txt`](evidence/selftest-python-only.txt)).
 
 | what | evidence |
 |---|---|

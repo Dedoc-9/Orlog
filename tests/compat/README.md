@@ -25,7 +25,7 @@ stopped, at its operation, which is the same on every run.
 
 ```
 PYTHONHASHSEED=0 python -B tests/compat.py check --jobs 8         # the gate: COMPAT-0 HELD
-PYTHONHASHSEED=0 python -B tests/compat.py selftest               # its plants: COMPAT SELFTEST 6/6
+PYTHONHASHSEED=0 python -B tests/compat.py selftest               # its plants: COMPAT SELFTEST 8/8
 PYTHONHASHSEED=0 python -B tests/compat.py history REV [REV ...]  # the audit: the frozen texts under each revision
 ```
 
@@ -47,8 +47,14 @@ A deliberate change of a v0 text's result goes into `settled.json` as `{"id", "n
 - `amendment` names the SPEC section or rung that made the change, recorded before the code it governs.
 
 The gate passes the text only when its result equals `now` exactly; the self-test plants a declaration one line off,
-and it fails. A rung that changes many texts (a new law version, say) freezes a new version, `freeze --version v1
---note …`, at the owner's word. It never rewrites v0, which `history` keeps checkable.
+and it fails. An entry whose `reason` or `amendment` is missing or empty settles nothing, and `check` refuses the file
+until it has both. `check` names every settled text with its reason and amendment, never only a count. A rung that
+changes many texts (a new law version, say) freezes a new version, `freeze --version v1 --note …`, at the owner's word.
+It never rewrites v0, which `history` keeps checkable.
+
+**What the gate covers is checked first.** `check` refuses, before comparing anything, unless the baseline's rows are
+exactly the frozen texts, as many as its header counts. Before this, a text whose row was removed was never compared and
+HELD was printed over the rest (the reporting pass's finding 11, `research/reporting-pass/FINDINGS.md`).
 
 ## What COMPAT-0 does not protect
 
@@ -89,6 +95,8 @@ that the language kept its word over time. It does not show that the word was ri
 | law-line-format | one law line respelled, `(decimals` as `(decimal` | of 142 accepted texts, 141 law seals move, and the one sealed text (E13b) is refused SEAL-MISMATCH |
 | say-counts-twice | the reference counts one more operation per Say | 0 law seals move; 99 receipt cores do |
 | frozen-text-altered | a byte appended to one frozen text | that text, and only it, reads INPUT CHANGED |
+| settled-without-reason | a declaration with the exact new result and no reason or amendment | the text reads DIFFERS, and the check names the entry |
+| baseline-row-removed | one baseline row removed | the gate refuses before comparing: a frozen text without a row, and the rows short of the count |
 
 Two further rows: a control with no plant (every text the same), and a declared change, which passes only with its exact
 new result.

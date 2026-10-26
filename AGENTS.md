@@ -114,8 +114,9 @@ Set `PYTHONHASHSEED=0` and `PYTHONUTF8=1` for every run, and use `python -B`.
 | the Rust runtime (`rt_rs/`) | from the root, with `work/` made: `rustc --edition 2021 -O rt_rs/test_rt.rs -o work/test_rt_rs.exe`, then `work/test_rt_rs.exe vectors/runtime-vectors.txt`, then the same without `-O` | `RUNTIME VECTORS 20015 / 20015` twice, outputs byte-identical |
 | the event chain | `python -B src/check_chain.py` | the four heads each runtime's harness prints |
 | a generator or `lower.py` | the self-test | the corpus four-way identical; codegen identical under two hash seeds; every backend plant caught; the lowering row still REFERENCE-DISSENT |
-| the arbiter | the self-test; `python -B tests/race_arbiter.py` | the receipt rows (E7), the masking row (E8), the non-ASCII work folder (E11), one run folder per arbitration and its plant, the race of 16, BUILD-FAILED counted neither way, the host budget's stop at the same operation twice; the race of 48 all `NONE`, no folder left. A verdict may depend only on the law, the backends' builds and their runs: never on a file another arbitration could write |
-| the court or its record | the self-test; `python -B tests/court_monotone.py --jobs 8`; `python -B court/build_record.py && python -B court/judge.py` | the court rows, R8's among them; `COURT R8 ONE-SIDED: 0 gained`, its plant caught; `court/VERDICT.txt` recomputed, never typed. A rule that withholds is measured one-sided over COMPAT-0's frozen texts and its own fixtures. A rule that grants needs its own rows, never only a count |
+| the arbiter | the self-test; `python -B tests/race_arbiter.py` | the receipt rows (E7), the masking row (E8), the non-ASCII work folder (E11), one run folder per arbitration with every run in it, and its plants, the race of 16, BUILD-FAILED counted neither way, the host budget's stop at the same operation twice, each of the four agreement conditions failed alone by a mutant backend, the stand-in compiler and the cached Python source; the race of 48 all `NONE`, no folder left. A verdict may depend only on the law, the backends' builds and their runs: never on a file another arbitration could write, and never on a cached program built by another toolchain |
+| the court or its record | the self-test; `python -B tests/court_monotone.py --jobs 8`; `python -B court/build_record.py && python -B court/judge.py` | the court rows, R8's among them; `COURT R8 ONE-SIDED: 0 gained`, both its plants caught; `court/VERDICT.txt` recomputed, never typed. A rule that withholds is measured one-sided over COMPAT-0's frozen texts and the court's fixtures. A rule that grants needs its own rows, never only a count. Never give a rule a module switch that rows set before reading: a row must read the value `orl.py` reads (the reporting pass's finding 1) |
+| what `orl.py` prints or exits with | the self-test (its `orl.py court` rows run the command in process) | the run's status and integrity first, every key a row holds, exit 2 over a dissent, a failed build or a host stop. A law's own refusal exits 0 under `run` and `court` alike until the owner rules otherwise |
 | the specification | the self-test and the probes | the phase-table row; a settled reading recorded in `settled.json` |
 
 Before believing a surprising result, rerun clean: delete the stale `build/` cache, and use `python -B`.
@@ -140,7 +141,9 @@ Before believing a surprising result, rerun clean: delete the stale `build/` cac
 - **Novelty needs a prior-art search, cited.** The court withdrew every unsearched claim of novelty.
 - **Quote the owner's rulings in his words.**
 - **A test asserts the apparatus.** Plant the defect and require the refusal. A plant that changes nothing is an
-  equivalent mutant, declared as such and never counted as caught.
+  equivalent mutant, declared as such and never counted as caught. Plant the defect in the code the row is about:
+  a predicate inside a function is planted in a copy of its module made in memory (`tests/plants.py`), never in a
+  stand-in function the verdict does not call.
 
 ## 7. Lessons that cost something
 
@@ -174,7 +177,15 @@ Before believing a surprising result, rerun clean: delete the stale `build/` cac
   outputs and reported false dissents. Give every run its own folder.
 - **The components that report are the ones that lie.** A lenient receipt comparison (E7), an arbiter reading another
   run's files, and a court counting only the evaluations that finished (DP-5) each reported agreement or standing that
-  was not there. Give the reporting layer its own adversarial pass; it is not plumbing.
+  was not there. Give the reporting layer its own adversarial pass; it is not plumbing. The first such pass
+  (`research/reporting-pass/`) found 18 more: none was a live false GROUNDED, and 10 of its 14 planted regressions
+  left the self-test whole, because no row read the rule where it runs.
+- **"None dissented" is not "all agreed".** A backend that did not build is neither, so 21 rows passed with a compiler
+  refusing the program. A row about agreement counts the agreeing backends against the backends that ran.
+- **A cache answers for its key, so the key must hold everything the entry depends on.** A warm cache served a binary
+  for a compiler that could not build it, because the compiler was not in the key. And during that repair, a file
+  published while it was still open for reading was quietly kept on Windows, so the check that rewrote a wrong cached
+  source ran the wrong source until its own row caught it. Close before replacing, and read back what you wrote.
 - **Failure must be deterministic too.** A ledger torn by a crash made every court reading raise; now it refuses at its
   line. A host stop is not a refusal, and is never written as one.
 
