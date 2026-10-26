@@ -10,7 +10,7 @@ This sheet asks for the owner's word on each choice RUN-1 must make. Each ruling
 the theorem or design under it, a falsifier, and a recommendation. Rule with the numbers ("R1 b, R2 as written, …"), or
 "as recommended" for any group. Nothing here is built, and nothing changes until he rules.
 
-**Ruled so far:** R3 a (2026-10-26).
+**Ruled so far:** R3 a; R4 a, at tick granularity (both 2026-10-26).
 
 **Fixed whatever is ruled:**
 - **COMPAT-0 must hold.** Every text v0 accepted keeps its law bytes and its run. RUN-1's forms are therefore spelled
@@ -139,6 +139,32 @@ compromise."*
 2026-10-26: the doppler debate found this falsifier already firing in version 0 (DP-5). A claim whose evaluation
 refused partway read "true in 16 of 16" and GROUNDED. The court's R8 now names that evaluation and does not hold the
 claim: `evidence/court-r8.txt`.)*
+
+**Ruled 2026-10-26: a, at tick granularity, as recommended.** His words: *"I rule R4 as written in your proposed
+ruling text: (a) at tick granularity, with automatic continuation deferred until SNAP-1, and the refused branch
+permanently sealed and queryable."* The text he ruled:
+
+> R4: a, at tick granularity. A refusal ends its branch at tick t. The session may continue on a new branch from tick
+> t−1, rebuilt by replay from the nearest checked snapshot and checked against the tick line's state digest, reading
+> tick t by a declared continuation rule written into the log. The refused branch is kept, sealed and queryable. The
+> court reads each branch on its own and names every abandoned branch. Automatic continuation waits for SNAP-1; until
+> then a refusal ends the session.
+
+- **What it settles.**
+  - Until SNAP-1 a refusal ends the session, as the table's a.
+  - A rollback is a branch, never an erasure. The refusal stays in the record, so the court never reads a laundered
+    "true in n of n".
+  - A continued branch reads tick t by a rule written into the log, so a run stays a function of its law and log.
+- **What it leaves open.** The reporting pass's question stays the owner's: whether a claim that held stays held on a
+  branch refused elsewhere, and in any run before SNAP-1. On a continued branch it does not arise.
+- **Proposed with it for SNAP-1, not ruled.** From a review the owner relayed the same day, and the speed debate:
+  - the rebuild runs in a fresh process, and is checked against the state digest of an execution other than the one
+    that restores (the reference's line), so the restorer is never its own sole verifier;
+  - the court's summary counts abandoned branches beside `refuted` and `refused_evaluation`;
+  - the restore is held by plants: a corrupted restore must be caught against the state digest (the speed verdict's
+    O3);
+  - the continuation record's form, and what tick t reads (the previous value or a declared default), ruled with
+    SNAP-1.
 
 ### R5. Versions and headers
 - `orlog-law 1`, only when a v1 form appears, so v0 laws stay byte-identical. It adds the law lines
