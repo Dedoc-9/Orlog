@@ -1,0 +1,20 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/r8_coverage.py, run twice: the two outputs byte-identical
+# tree: f16dc26 plus the uncommitted repairs of the reporting pass (the court read with r8=False is the court before R8)
+# host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; 2026-10-26; PYTHONHASHSEED=0 PYTHONUTF8=1
+== COMPAT-0's frozen texts
+  all                    3361
+  compile refused        3061
+  no claim               256
+  stopped by the host    0
+  ran with claims        44
+  runs of the texts with claims, by how they ended: COMPLETED 38, REFUSED CLAIM-REFUTED 6
+== every claim, by class (seals ratified, the witness agreed)
+  dp5                      0
+  dp5-not-held             0
+  refuted                  6
+  held-refused-elsewhere   1
+  held-completed           52
+  unreached                6
+  other                    0
+    held-refused-elsewhere mutant/s1/2127 §3: run REFUSED CLAIM-REFUTED 4; before R8: true in 1 of 1 evaluations, UNSUPPORTED, UNGROUNDED; with R8: true in 1 of 1 evaluations, UNSUPPORTED, UNGROUNDED
+R8 COVERAGE: 0 claim(s) in R8's class (0 read held and 0 GROUNDED before R8); 1 held in a run refused elsewhere; 6 refuted; 52 held in a completed run; 6 unreached
