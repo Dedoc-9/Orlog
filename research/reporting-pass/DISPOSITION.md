@@ -79,6 +79,8 @@ On f16dc26 with these repairs:
 - **What a law's own refusal exits with.** `run` and `court` both exit 0 today.
 - **Whether a claim that held stays held in a run refused elsewhere.** hoisted_omit.orl's claim reads "true in 16 of 16
   evaluations" and WELL-FOUNDED, and the run refused one clause before it. The reading now says so on its first line;
-  the standing is unchanged. R8 covers only an evaluation of the claim that began.
+  the standing is unchanged. R8 covers only an evaluation of the claim that began. *(Note, 2026-10-26: settled for
+  RUN-1's PREFIX claims and a refusal at a tick by his R6 ruling, `research/run-1/RULINGS.md`: the claim stays held.
+  Open for a refusal before the first input and for every closed run, this fixture's case.)*
 - **The pass's own reproducers target f16dc26.** Several of its plant texts no longer occur in the repaired code, so its
   mutation harness reads them NOT APPLIED. Their regressions live on as the self-test's plants.

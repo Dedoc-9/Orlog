@@ -11,7 +11,8 @@ the theorem or design under it, a falsifier, and a recommendation. Rule with the
 "as recommended" for any group. Nothing here is built, and nothing changes until he rules.
 
 **Ruled so far:** R3 a; R4 a, at tick granularity; R5 with four amendments, the per-tick line in 1a and the
-per-event chain kept (all 2026-10-26).
+per-event chain kept; R6 a, with three riders, R1's cost sentence and a PREFIX claim held past a later refusal (all
+2026-10-26).
 
 **Fixed whatever is ruled:**
 - **COMPAT-0 must hold.** Every text v0 accepted keeps its law bytes and its run. RUN-1's forms are therefore spelled
@@ -50,6 +51,11 @@ apart?
 **Recommended: b.** The trade-off is that a property moved out of the law leaves the law's claims conditional on the
 log, and the court must say so (R6). **Falsifier:** change a read-once value and the law seal moves, or a claim reads
 GROUNDED on the strength of the log.
+
+*Added 2026-10-26 by his R6 ruling, before R1 is ruled.* His sentence: *"Moving a world property out of the law and
+into a read-once port means the cost of rule a reaches every later claim in the run, stripping them of grounding even
+if they never touch that property directly."* "Later" is in the order of evaluation: a claim in a procedure performed
+after the port is read is stripped too, wherever its text stands (R6's licence).
 
 ### R2. The spellings
 | form | spelling | v0 (measured) |
@@ -157,7 +163,9 @@ permanently sealed and queryable."* The text he ruled:
     "true in n of n".
   - A continued branch reads tick t by a rule written into the log, so a run stays a function of its law and log.
 - **What it leaves open.** The reporting pass's question stays the owner's: whether a claim that held stays held on a
-  branch refused elsewhere, and in any run before SNAP-1. On a continued branch it does not arise.
+  branch refused elsewhere, and in any run before SNAP-1. On a continued branch it does not arise. *(Note,
+  2026-10-26: his R6 ruling settles it for a PREFIX claim and a refusal at a tick: the claim stays held. It stays open
+  for a refusal before the first input and for every closed run.)*
 - **Proposed with it for SNAP-1, not ruled.** From a review the owner relayed the same day, and the speed debate:
   - the rebuild runs in a fresh process, and is checked against the state digest of an execution other than the one
     that restores (the reference's line), so the restorer is never its own sole verifier;
@@ -184,7 +192,10 @@ reproduce the output chain.
 augmented by your four explicit amendments"*. The amendments, proposed in the walk-through:
 1. **`'T'`'s payload is the tick and the operation count** (u64, u64). Per-tick heads as written cannot see an
    operation-count defect: in P12, rerun by the speed debate's judge, a shared counting defect under a budget was named
-   at tick 246 when the executions parted at tick 1, and at tick 1 with ops in `'T'`.
+   at tick 246 when the executions parted at tick 1, and at tick 1 with ops in `'T'`. *(Note, 2026-10-26: the
+   speed debate's proposal reads "the operation count at the boundary" (`research/speed/PROPONENT-R2.md`). `'T'` is
+   emitted before its tick's body runs, so it cannot carry its own tick's count. Whether it carries the running total
+   at the boundary or the previous tick's own count is a reading for §15, and for R7's round.)*
 2. **The output chain's start and edges are defined:** out_0, the output said before the first tick, and a refused
    tick's partial output. On the last, his words: *"if a tick encounters a transactional refusal, its partial output is
    formally hashed into the chain before the rollback logic clears the volatile state"*, so a refused tick's partial
@@ -201,7 +212,8 @@ augmented by your four explicit amendments"*. The amendments, proposed in the wa
    check requires the version the law's own header names (`orlog-law 0`, a v0 receipt; `orlog-law 1`, a v1 receipt),
    never either one for any law. Accepting either would be a lenient comparison, E7's class, and his two plants
    already require this reading. The runtimes write receipts and parse none; each writes the header its law's version
-   requires.
+   requires. *Confirmed the same day:* *"Tying the receipt frame check strictly to the law's own header (`orlog-law 0`
+   demands `orlog-receipt 0`, and `orlog-law 1` demands `orlog-receipt 1`) is the only sound option."*
 
 The two choices R5 fixed now or never:
 - **The per-tick line, `orlog-ticks 0`, is part of 1a.** His words: *"We include this artifact now within the `1a`
@@ -268,6 +280,38 @@ from a claim that reads the stand-in directly.
   proponent and adversary both arrived at it, and the adversary's fixtures measured each hole. The judge reran the
   procedure case and the cost case.
 
+**Ruled 2026-10-26: a, with three riders and the R1 sentence; b a later fork.** His words: *"I rule Option a (Data,
+never a channel) for `RUN-1`. The primary principle is unyielding: replayable data is not admissible testimony."* And:
+*"`Option b` stays held as a later potential fork for a future court update."* What he ruled with it, nothing of it
+built:
+- **R1's cost sentence**, appended to R1 below his ruling of it (R1 is not yet ruled).
+- **One seal.** *"The court's generated provenance output line must print exactly the `input-log-sha256` value defined
+  in `receipt 1`."* The line reads `rests on input log <input-log-sha256>, unratified`.
+- **No vacuous row.** Until 1b every v1 run reads REFERENCE-ONLY (D10), nothing is held, and GROUNDED needs held
+  (`src/orlog/court.py`, `panel`), so a row expecting UNGROUNDED would pass whether R6 works or not. His two riders:
+  - *"Every row testing an ungrounded port violation must run with the witness explicitly configured as agreed"*, as
+    `tests/court_monotone.py` and `research/r8_coverage.py` do;
+  - *"Each test row is structurally paired with an internal control variant. The control evaluates the exact same
+    claim without an active log declaration, or wraps it securely within the `PREFIX` license parameters. The control
+    must return a clean `GROUNDED` standing"*, so that the withholding is shown to come from R6.
+- **R12's note**, made there: the one-sided measure over COMPAT-0's texts cannot exercise R6, and the withholding is
+  held by R6's own fixtures alone.
+- **The reporting pass's question, for a PREFIX claim.** His words: *"A claim wrapped within the `PREFIX` license
+  parameters that evaluated true remains historically held, regardless of whether the execution loop encounters a
+  subsequent transactional refusal downstream."* His reason: its claim line is fixed by the law, and *"a downstream
+  failure on frame t cannot retrospectively invalidate a pure, law-bound proof that completed before the timeline even
+  initiated."* The court as built already reads it so: a refusal outside a claim's clause leaves it held (`panel`'s
+  `held`). The ruling makes that reading a requirement for RUN-1. Its rows: a PREFIX claim with its own seal ratified,
+  in a session refused at tick t, reads held and GROUNDED; a claim of the tick block in the same session reads
+  UNGROUNDED. A court that withholds every claim of a refused run is the plant, and the first row must catch it.
+  - **Its scope is his reason's.** Every evaluation of a PREFIX claim precedes the first input, and a refusal at a tick
+    comes after the first input, so that refusal cuts off none of the claim's evaluations. A refusal inside the prefix,
+    before the first input, can: a PREFIX claim in a loop, refused between two of its evaluations, reads "true in 1 of
+    1". That is the closed run's case (`tests/fixtures/court/hoisted_omit.orl`), and it stays his open question.
+- **Proposed with it, not ruled.** The tightest control is the same run read by the court with R6's fence off (a
+  parameter, as `panel`'s `r8`). A control without the log is another law with another claim seal; the same run with
+  the fence off shows that this very claim, in this very run, would read GROUNDED but for R6.
+
 ### R7. A twin round before the backends
 | option | entails | design |
 |---|---|---|
@@ -326,6 +370,10 @@ Proposed record:
     with CIRCULAR, grounding, held), every changed reading must be counted, and two plants must be caught: a comparator
     blind to CIRCULAR, and a court that grants (the reporting pass's finding 12 replaced a plant that read the
     measurement backwards). The licence grants by design, so it is held instead by its own rows above.
+    *(Noted 2026-10-26, by his R6 ruling.)* No line of COMPAT-0's frozen texts has a port or a tick block
+    (`probe-spellings.txt`), so over them this measure reads 0 changed by construction, as R8's reads 0 of 65
+    (`research/compat-status.md`). That half checks only that the trigger never fires without a log. The withholding
+    is held by R6's own fixtures alone, run with the witness made agreed and each beside its control.
 - **Scope:** `src/`, `rt_c/`, `rt_rs/`, `tests/`, SPEC §15, a RUNTIME-SPEC section for v1, a new
   `vectors/input-vectors.txt`. `runtime-vectors.txt` is untouched.
 - **Exit:** the discriminator met; the twin's round settled; the self-test green twice and byte-identical.

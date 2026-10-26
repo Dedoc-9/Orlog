@@ -16,8 +16,8 @@ owner makes every commit and push.
    architect, a use-case skeptic and a documentation prosecutor, and the disposition of the prosecutor's 57 findings.
 5. **research/run-1/RULINGS.md**: the rulings the open run needs (R1–R12 and ten defaults), each with its options,
    what each entails, the theorem under it, a falsifier and a recommendation. R3 is ruled (a, exact or refused),
-   R4 (a, at tick granularity) and R5 (with four amendments, the per-tick line in 1a, the per-event chain kept), all
-   2026-10-26; the rest await the owner.
+   R4 (a, at tick granularity), R5 (with four amendments, the per-tick line in 1a, the per-event chain kept) and R6
+   (a, data never a channel, with three riders), all 2026-10-26; the rest await the owner.
 6. **research/doppler/VERDICT.md**: whether incompleteness can be ruled out "as ruthlessly as sha256". A sound,
    refusal-sensitive dependence analysis certifies and a doppler search only prosecutes; nothing is built before
    RUN-1. It also records a defect in the court as built (DP-5) and three holes in R6's amendment.
@@ -139,7 +139,9 @@ owner makes every commit and push.
 
 ## Still open
 - **The reporting pass's two questions for the owner** (`research/reporting-pass/DISPOSITION.md`): what a law's own
-  refusal exits with, and whether a claim that held stays held in a run refused elsewhere.
+  refusal exits with, and whether a claim that held stays held in a run refused elsewhere. The second is settled for
+  RUN-1's PREFIX claims and a refusal at a tick (R6's ruling: held); it stays open for a refusal before the first
+  input and for every closed run.
 - **The speed verdict's proposals** (`research/speed/VERDICT.md`), for the RUN-1 sheet:
   - a per-tick line;
   - `ops` in the `'T'` event;
@@ -148,7 +150,7 @@ owner makes every commit and push.
   - snapshots holding every accumulator;
   - R13 (what a live outcome is) and R14 (a play build without the event chain).
 
-  None is on the sheet until the owner rules.
+  The first two are ruled into R5 (2026-10-26). The others wait for the owner's word.
 - **Verðandi's floor-mirror leak** (the speed verdict). Its native renderer shows a target hidden behind a wall
   (MEASURED twice, one browser engine and GPU). The rule about blocking holds; a view's disclosure is unchecked.
   Recording it in Verðandi is the owner's call.
