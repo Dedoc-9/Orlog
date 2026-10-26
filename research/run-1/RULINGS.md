@@ -103,14 +103,31 @@ compromise."*
 - **The enactment.** His message opened with the door's grammar: *"The entrance tool filters all incoming port streams
   using a restrictive ASCII regular expression sieve. This occurs before passing strings to Python's Fraction
   constructor, neutralizing format exploitation"* (Python's `Fraction` alone accepts `1e3`, `3/4`, ` 1.5 `, `+1`,
-  `1_000` and the Arabic-Indic digit `٣`: measured in the walk-through). The message was cut off there. The other
-  constraints proposed with the ruling await his word:
-  - both range bounds checked (the literal check tests only the upper bound, since a literal has no sign);
-  - integer ports: a fraction refused, never rounded;
-  - truth values: one spelling each;
-  - text: the bytes kept exactly, non-NFC noted, cp1252 refused, as for literals;
-  - a spelling for raw values that the grammar keeps distinct;
-  - a refusal that names the two nearest representable values.
+  `1_000` and the Arabic-Indic digit `٣`: measured in the walk-through). The message was cut off there, and he gave
+  the other five the same day, as "now finalized for the input door under Option a", in his words:
+  - *"Double-Bounded Range Checks: The door must explicitly validate that the parsed value sits securely within the
+    strict raw storage parameters of the `Fix` bounds (`MIN_FIX_RAW` and `MAX_FIX_RAW`), actively protecting the lower
+    negative boundary against floor overflow errors down to −2147483648.5."* In the code the bounds are
+    `numeric_ref.I64_MIN` and `I64_MAX` on the raw value: `-2147483648` is accepted (raw −2^63), and
+    `-2147483648.5` is refused.
+  - *"Integer Port Restrictions: An incoming string hitting a port explicitly typed as `an integer` must fail
+    instantly if a fraction or decimal component is detected. Truncation or automatic floor-rounding at the gate is
+    blocked."*
+  - *"Boolean Uniqueness: Truth-value channels accept exactly one invariant string spelling for `true` and one for
+    `false`. Alternative representations, case variations, or numeric bits (`1`/`0`) are refused."*
+  - *"Text Byte Purity: String inputs are preserved byte-for-byte as sent. Non-NFC unicode payloads generate an
+    explicit report note; CP1252 character maps are rejected outright."* The note needs no seal of its own: it can
+    be recomputed from the logged bytes.
+  - *"Raw Value Spellings & Neighbor Refusals: Raw hexadecimal scalar strings are given an isolated syntactic prefix
+    that the text grammar tracks separately from standard base-10 decimals. When a user input is rejected for
+    non-alignment with the 2^-32 fixed-point grid, the door's refusal message must explicitly compute and output the
+    two nearest valid representable grid coordinates to the client."*
+
+  Left for 1a's specification, each a detail his words fix in kind but not in spelling:
+  - the one spelling each for true and false;
+  - the raw prefix, and how a raw value's sign is written;
+  - whether text also refuses what the literal door refuses (format characters other than ZWJ and ZWNJ, Hangul
+    fillers, line and paragraph separators).
 
 ### R4. What a refusal does in a run with ticks
 | option | entails | design |
