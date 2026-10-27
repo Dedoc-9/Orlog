@@ -1,0 +1,6 @@
+Note: FIXTURE written by research/run-1/manifold/make_laws.py; not a person's act. fuel-bit one literal apart: reading S2 withholds the claim, and no resumption evaluates it again.
+§1 Let x be 0.
+§2 While x is less than 2, at most 2 times, do the following.
+§2.1 Increase x by 1.
+§2.2 We claim that x is positive.
+§2.3 Say 6 divided by (x minus 2).

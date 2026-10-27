@@ -1,0 +1,8 @@
+Title: Agreement Is Not Accuracy.
+Note: Four executions agree bit for bit on a decision that exact real arithmetic would make the other way, and then
+Note: refuse, all four alike, to turn the float into a fixed value it does not exactly equal.
+§1 Decimals are floats.
+§2 Let a be 0.1 plus 0.2.
+§3 If a equals 0.3, say "float: equal".
+§4 Otherwise, say "float: not equal".
+§5 Let c be a as a fixed.

@@ -1,0 +1,8 @@
+Title: The Same Decision on the Fixed Grid.
+Note: The same sums in Q31.32: each literal rounded once to the 2^-32 grid and noted, the decision exact on the raws.
+§1 Let b be 0.1 plus 0.2.
+§2 If b equals 0.3, say "fixed: equal".
+§3 Otherwise, say "fixed: not equal".
+§4 Let d be 0.1 plus 0.1 plus 0.1.
+§5 If d equals 0.3, say "fixed: three tenths equal".
+§6 Otherwise, say "fixed: three tenths not equal".
