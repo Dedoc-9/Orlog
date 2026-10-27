@@ -1,16 +1,16 @@
 $ -B orl.py court court/redteam-eng/E4_court_inline_claim.orl --workdir court/redteam-eng/work --ledger court/redteam-eng/E5-fixture-ledger.jsonl
 Traceback (most recent call last):
-  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\orl.py", line 187, in <module>
+  File "{session}\scratchpad\orlog\orl.py", line 187, in <module>
     sys.exit(main())
              ~~~~^^
-  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\orl.py", line 182, in main
+  File "{session}\scratchpad\orlog\orl.py", line 182, in main
     return {"check": cmd_check, "run": cmd_run, "court": cmd_court, "stamp": cmd_stamp, "ratify": cmd_ratify,
            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             "ratify-theorem": cmd_ratify_theorem}[a.cmd](a)
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
-  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\orl.py", line 87, in cmd_court
+  File "{session}\scratchpad\orlog\orl.py", line 87, in cmd_court
     p = panel(comp, w, parse_receipt(ref.receipt()), read_ledger(a.ledger or DEFAULT_LEDGER))
-  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\court.py", line 164, in panel
+  File "{session}\scratchpad\orlog\src\orlog\court.py", line 164, in panel
     r = recs.get(s.id, {"evals": 0, "trues": 0, "cost": 0, "ref": 0, "ref_cost": 0})
                  ^^^^
 AttributeError: 'IfS' object has no attribute 'id'

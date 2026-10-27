@@ -1,6 +1,6 @@
 $ -B court/redteam-eng/show_stderr.py court/redteam-eng/E10_python_depth_if_chain_110.orl
 python backend exit 1; stderr tail:
-File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\court\redteam-eng\work\stderr\cache\python-4c09edaf2d349d308428513c.py", line 2085
+File "{session}\scratchpad\orlog\court\redteam-eng\work\stderr\cache\python-4c09edaf2d349d308428513c.py", line 2085
     rt.ops += 1
 IndentationError: too many levels of indentation
 [exit 0]

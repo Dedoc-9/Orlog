@@ -8,6 +8,11 @@ rustc 1.96.1. Everything is MEASURED on this host. `python -B court/redteam-eng/
 writes the outputs to `observed/`. The tree changed between 16:56 and 17:15 while the author fixed things, and each
 status below is from the 17:20 re-run.
 
+*Redacted 2026-10-26, by the owner's word (prosecutor F42): in 15 captured observations under `observed/` and
+`observed-1650/`, the home folder's path is replaced by `{session}` (the session folder) or `{python}` (the Python
+installation). Nothing else in them changed, byte for byte. The captured paths remain in this repository's history,
+through commit 95dac79.*
+
 ## E1, defect: FIXED 17:08
 - **Reproducer:** `E1_eq_promotion_crash.orl`: `§1 Let x be 0.5.` / `§2 Say x + 1 = 1.5.`
 - **Command:** `orl.py run … --backends python,c99`

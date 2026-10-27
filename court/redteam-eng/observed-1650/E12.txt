@@ -1,33 +1,33 @@
 $ -B orl.py check court/redteam-eng/E12_huge_float_literal.orl
 Traceback (most recent call last):
-  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\orl.py", line 187, in <module>
+  File "{session}\scratchpad\orlog\orl.py", line 187, in <module>
     sys.exit(main())
              ~~~~^^
-  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\orl.py", line 182, in main
+  File "{session}\scratchpad\orlog\orl.py", line 182, in main
     return {"check": cmd_check, "run": cmd_run, "court": cmd_court, "stamp": cmd_stamp, "ratify": cmd_ratify,
            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             "ratify-theorem": cmd_ratify_theorem}[a.cmd](a)
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
-  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\orl.py", line 32, in cmd_check
+  File "{session}\scratchpad\orlog\orl.py", line 32, in cmd_check
     comp = compile_bytes(read(a.file))
-  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\front.py", line 43, in compile_bytes
+  File "{session}\scratchpad\orlog\src\orlog\front.py", line 43, in compile_bytes
     return Compiled(raw)
-  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\front.py", line 26, in __init__
+  File "{session}\scratchpad\orlog\src\orlog\front.py", line 26, in __init__
     self.an = Analysis(self.prog).run()
               ~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\sema.py", line 68, in run
+  File "{session}\scratchpad\orlog\src\orlog\sema.py", line 68, in run
     self.clause(c)
     ~~~~~~~~~~~^^^
-  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\sema.py", line 98, in clause
+  File "{session}\scratchpad\orlog\src\orlog\sema.py", line 98, in clause
     self.stmt(c, c.stmt, top=c.parent is None)
     ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\sema.py", line 110, in stmt
+  File "{session}\scratchpad\orlog\src\orlog\sema.py", line 110, in stmt
     t = self.expr(c, s.expr)
-  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\sema.py", line 282, in expr
+  File "{session}\scratchpad\orlog\src\orlog\sema.py", line 282, in expr
     t = self._expr(c, e)
-  File "C:\Users\dillb_lzxy763\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\orlog\src\orlog\sema.py", line 306, in _expr
+  File "{session}\scratchpad\orlog\src\orlog\sema.py", line 306, in _expr
     f = float(exact)
-  File "C:\Users\dillb_lzxy763\AppData\Local\Python\pythoncore-3.14-64\Lib\numbers.py", line 325, in __float__
+  File "{python}\Lib\numbers.py", line 325, in __float__
     return int(self.numerator) / int(self.denominator)
            ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
 OverflowError: integer division result too large for a float

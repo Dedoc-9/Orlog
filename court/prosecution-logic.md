@@ -9,7 +9,8 @@ Where the record and the code disagree, both are quoted.
 
 **How the evidence was made.** MEASURED means run here by the prosecution, on this Windows host (CPython 3.14.5,
 clang 22.1.8), with the record's own code, unmodified on disk. The scripts and their outputs are in
-`C:\Users\DILLB_~1\AppData\Local\Temp\claude\C--Users-dillb-lzxy763-Desktop-Verdandi\c3c597f5-fd74-40a1-bfa3-a31b0538ea72\scratchpad\prosecution-logic-work\`
+`{session}\scratchpad\prosecution-logic-work\` *(the session's folder; the home folder's path redacted 2026-10-26, by the owner's word,
+prosecutor F42)*
 (`demo.py` → `demo-output.txt`, `demo_r7.py` → `r7-output.txt`, `fma_cause.py` → `fma-output.txt`,
 `chaos_erasure.py` → `chaos-output.txt`, `chaos_merge.py` → `chaos-merge-output.txt`). The arbiter there is given
 the python backend alone, so AGREED means the reference and the python backend agree, which court R1 accepts. Plants
