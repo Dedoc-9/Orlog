@@ -1,0 +1,88 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/probes/cut0_schema.py
+# tree: 95dac79 plus the uncommitted research files (src/ unchanged); Windows 11, CPython 3.14.5; 2026-10-26; exit 0; run twice, identical
+# EXPERIMENTAL RESEARCH PROBE: evidence for a proposal, not of a contract
+== the code registry, computed from the source
+   interp.py raises 13 codes, numeric_ref.py 6; 17 in all; draft 1's hand list equal
+   S7 CLAIM-REFUTED    raised once, in Claim's branch (interp.py:267)
+   S7 EMPTY-LIST       raised once, in RemoveLast's branch (interp.py:280)
+   S7 FUEL-EXHAUSTED   raised once, in While's branch (interp.py:226)
+   S7 MUST-FAILED      raised once, in Must's branch (interp.py:250)
+   S7 OUTPUT-TOO-LONG  raised once, in Say's branch (interp.py:208)
+== the probe's cases: the decoded cut is the live cut, and every claim reads as the live frames read it
+   C1    as live  33 bytes  12494e4445582d4f55542d4f462d52414e4745000200000008ffff00000006ffff
+   C1'   as live  33 bytes  12494e4445582d4f55542d4f462d52414e4745000200000007ffff00000006ffff
+   C2    as live  34 bytes  12494e4445582d4f55542d4f462d52414e4745000200000002ffff0100000004ffff
+   C2'   as live  34 bytes  12494e4445582d4f55542d4f462d52414e4745000200000002ffff0000000004ffff
+   C3    as live  39 bytes  12494e4445582d4f55542d4f462d52414e474500030000000affff00000009ffff00000006ffff
+   C3'   as live  39 bytes  12494e4445582d4f55542d4f462d52414e474500030000000affff00000008ffff00000006ffff
+   C4    as live  34 bytes  12494e4445582d4f55542d4f462d52414e4745000200000002ffff0000000003ffff
+   C5    as live  34 bytes  12494e4445582d4f55542d4f462d52414e4745000200000002ffff0000000004ffff
+   C6    as live  23 bytes  0e4655454c2d455848415553544544000100000002ffff
+   D02   as live  37 bytes  104449564953494f4e2d42592d5a45524f000300000002ffff00000005ffff000000050000
+   D03   as live  31 bytes  104449564953494f4e2d42592d5a45524f000200000007ffff00000003ffff
+   D08   as live  37 bytes  104449564953494f4e2d42592d5a45524f000300000002ffff00000005ffff000000050000
+   D11   as live  37 bytes  104449564953494f4e2d42592d5a45524f000300000009ffff00000003ffff00000004ffff
+   F1    as live  37 bytes  104449564953494f4e2d42592d5a45524f000300000003ffff00000006ffff000000060000
+   F1'   as live  23 bytes  0e4655454c2d455848415553544544000100000003ffff
+   A23   as live  40 bytes  12494e4445582d4f55542d4f462d52414e4745000300000003ffff0000000004ffff000000040001
+   A23'  as live  40 bytes  12494e4445582d4f55542d4f462d52414e4745000300000003ffff0000000004ffff000000040000
+   A09   as live  36 bytes  12494e4445582d4f55542d4f462d52414e4745000200000002ffff0000000003ffff0001
+   L1    as live  27 bytes  12494e4445582d4f55542d4f462d52414e4745000100000009ffff
+== every refused run: the cases, COMPAT-0's frozen texts, the fixtures and the examples
+   {'refused': 85, 'refused_own': 0, 'key_differs': 0, 'k_differs': 0, 'not_a_shape': 0, 'open': 16, 'top_for': 0, 'top_if': 3, 'bytes': 40, 'frames': 3}
+== the manifold debate's families (research/run-1/manifold/resume_oracle.py's generators)
+   family E: {'refused': 61879, 'refused_own': 0, 'key_differs': 0, 'k_differs': 0, 'not_a_shape': 0, 'open': 0, 'top_for': 0, 'top_if': 0, 'bytes': 32, 'frames': 2}
+   family G: {'refused': 27071, 'refused_own': 0, 'key_differs': 0, 'k_differs': 0, 'not_a_shape': 0, 'open': 3776, 'top_for': 1285, 'top_if': 1943, 'bytes': 77, 'frames': 9}
+== the shapes of each case's program: encode and decode inverse on every one
+   136 shapes over 19 programs; 0 not inverse
+== byte mutations of each case's own payload (every value, every offset), its code and event clause
+   tried 337936: accepted 15, outside the shapes 0, not canonical 0; of the accepted, positions this run passed through 9, shapes it never reached 6; deciding otherwise than the live cut 14
+== byte mutations of every shape of every case's program
+   tried 52562: accepted 149, outside the shapes 0, not canonical 0
+== frame forgeries: every frame deleted, substituted or inserted, from every live cut and every shape
+   tried 2858: accepted 136, outside the shapes 0
+== the event clause and the code, tried on every frozen run's cut
+   clauses tried 389: a wrong clause accepted 0, the right one refused 0
+   codes tried 1445: an incoherent code accepted 0, a coherent one refused 0
+== each field's role: dropped, it changes a named claim's standing (the witness)
+   top-only       on C1'  (the frames below the top (the actual callers)): caught
+      claim 0: withheld with the field, held without it
+      K-hat [0] with it, [] without; payload 12494e4445582d4f55542d4f462d52414e4745000200000007ffff00000006ffff with it, 12494e4445582d4f55542d4f462d52414e4745000100000006ffff without
+   no-for-bit     on C2'  (a For's passes-remain bit, below the top): caught
+      claim 0: held with the field, withheld without it
+      K-hat [] with it, [0] without; payload 12494e4445582d4f55542d4f462d52414e4745000200000002ffff0000000004ffff with it, 12494e4445582d4f55542d4f462d52414e4745000200000002ffff00000004ffff without
+   first-arm      on A23  (the selector of an inline statement): caught
+      claim 0: held with the field, withheld without it
+      claim 1: withheld with the field, held without it
+      K-hat [1] with it, [0] without; payload 12494e4445582d4f55542d4f462d52414e4745000300000003ffff0000000004ffff000000040001 with it, 12494e4445582d4f55542d4f462d52414e4745000300000003ffff0000000004ffff000000040000 without
+   no-refused-arm on A09  (the top If's refused arm): caught
+      claim 0: held with the field, withheld without it
+      K-hat [] with it, [0] without; payload 12494e4445582d4f55542d4f462d52414e4745000200000002ffff0000000003ffff0001 with it, 12494e4445582d4f55542d4f462d52414e4745000200000002ffff0000000003ffff without
+== each shape rule is needed: dropped, a forgery outside the shapes or an incoherent record is accepted
+   no-root       (S1)             caught by forgeries (83), shape mutations (15)
+   no-nest       (S2)             caught by forgeries (1419), case mutations (35), shape mutations (230)
+   no-inline     (S3)             caught by forgeries (21)
+   no-top-kind   (S4)             caught by forgeries (18), shape mutations (3)
+   no-range      (S5)             caught by shape mutations (166)
+   no-event      (S6)             caught by event clauses (304)
+   no-code-kind  (S7)             caught by codes (360)
+   no-roundtrip  (the round trip) EQUIVALENT in these corpora
+== draft 1, for the comparison: its own single-byte mutations of the cases, each accepted one classed
+   C2   offset 31: 04 -> 03         a shape this run passed through
+   C2'  offset 27: 02 -> 01         a shape this run passed through
+   C2'  offset 31: 04 -> 03         a shape this run passed through
+   C4   offset 27: 02 -> 01         a shape this run passed through
+   C5   offset 27: 02 -> 01         a shape this run passed through
+   C5   offset 31: 04 -> 03         outside the shapes
+   C6   offset 20: 02 -> 01         a shape this run passed through
+   F1'  offset 20: 03 -> 01         a shape this run passed through
+   A23  offset 27: 02 -> 01         a shape this run passed through
+   A23  offset 40: 01 -> 00         a shape this run never reached
+   A23' offset 27: 02 -> 01         a shape this run passed through
+   A23' offset 40: 00 -> 01         a shape this run never reached
+   A09  offset 27: 02 -> 01         a shape this run passed through
+   A09  offset 36: 01 -> 00         a shape this run passed through
+   L1   offset 24: 09 -> 01         a shape this run passed through
+   tried 3812: refused 3797, accepted 15: outside the shapes 1; a shape this run passed through 12; a shape this run never reached 2
+   frame forgeries one edit from each case's live cut, every flag value: tried 1213, accepted 157, outside the shapes 74 (a flag state no run reaches 51; draft 2: not nested 16; draft 2: top kind 7)
+CUT SCHEMA DRAFT 2 HELD: 89035 refused runs, each decoding to its live cut (0 differ), a generated shape in every one; 136 shapes, encode and decode inverse; 390498 byte mutations and 2858 frame forgeries, none accepted outside the shapes; 4 of 4 fields with a witness; 7 of 8 shape rules caught, 1 equivalent; draft 1 accepted 1 mutations and 74 forgeries outside them

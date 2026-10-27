@@ -1,0 +1,54 @@
+Command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/manifold/adversary/s_attacks.py
+Date: 2026-10-26 (run here, the Windows working copy)
+
+== 1. wider domains (policy A2)
+   ports a,b, depth 5, arrivals among 1, 1.1, 13: histories 37505, distinct logs 8, rows failed: none; history_bytes collisions 0
+   ports a,b, depth 6, arrivals among 1, 13: histories 102383, distinct logs 16, rows failed: none; history_bytes collisions 0
+   ports a, depth 8, arrivals among 1, 13: histories 214429, distinct logs 21, rows failed: none; history_bytes collisions 0
+   ports a,b,c, depth 5, arrivals among 1, 13: histories 55233, distinct logs 5, rows failed: none; history_bytes collisions 0
+== 2. a law with no each-tick port
+   history [close]: legal; its projection b't 1 '
+   check_run fails: ['projection-parses']
+   execute on the projection: Malformed LOG-RECORD
+== 3. the door: FIXED is matched with `$`, which also matches before a final LF
+   door(b'1') = ('ok', 4294967296)
+   door(b'1\n') = ('ok', 4294967296)
+   door(b'-0') = ('ok', 0)
+   door(b'007') = ('ok', 30064771072)
+   door(b'1.50') = ('ok', 6442450944)
+   door(b'1\n\n') = ('refused', 'INPUT-SYNTAX', '')
+   door(b' 1') = ('refused', 'INPUT-SYNTAX', '')
+== 4. multi-byte edits of every distinct log of one port, depth 6 (the probe's domain)
+   21 logs, 217 edits tried: accepted 152 (non-canonical 0); accepted outside A2's image 20
+   the shortest outside A2's image:
+      orlog-inputs 0
+      ports 7c928dfb5eec7b69d43f0b93a927c73d89084c321b3164ffb28fb7ab9c2adde4
+      door door-0
+      end 0 not-run 1 INPUT-REFUSED a
+   execute reads it: NOT-RUN 1 INPUT-REFUSED a
+== 5. which rows any of the probe's nine plants turns red on the probe's own domain (one port, depth 6)
+   projection-is-a-function               NEVER RED
+   log-round-trips                        NEVER RED
+   projection-parses                      no-cause
+   door-replays                           NEVER RED
+   no-assignment-disappears               end-anytime
+   one-disposition-each                   NEVER RED
+   execution-is-a-function                NEVER RED
+   statuses-partition                     NEVER RED
+   T1-is-the-prefix                       NEVER RED
+   T-differences-are-the-lines            NEVER RED
+   ops-minus-last-T-is-tick-ops           NEVER RED
+   no-T-ops-is-the-prefix                 NEVER RED
+   budget-tick-counts-N+1                 budget-uncounted
+   executed-is-counted-less-the-refused   budget-uncounted
+   session-binds                          NEVER RED
+== 5b. the proposed row no-value-invented on the same domain, as it stands and under the plant hold-previous
+   plant none           histories 68476, failing the row 0
+   plant hold-previous  histories 68917, failing the row 1062
+== 6. the session record and what the history holds
+   CONTRACT-DRAFT 1.1: an arrival carries its sequence number, the port's name, the source's label and the bytes.
+   The model's arrive event is ('arrive', 'a', b'1'): no source. Two sessions, alice's `1` and mallory's `1`, have the one history
+   and the one record: f7a00f9d96f96d1c
+== 7. a tick closed after the run refused
+   history: tick 1 carries 13 (refuses), then tick 2 is assigned and closed, then end
+   legal; records ("the ticks that will run") 2; status REFUSED OVERFLOW; ticks run 1; rows failed none

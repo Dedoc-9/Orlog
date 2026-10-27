@@ -1,0 +1,229 @@
+# PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/manifold/resume_oracle.py search   (2026-10-26; run once; its check part is resume_oracle.txt's)
+== the probe read: research/run-1/probes/cut0_claims.py sha256 de5682e1473c231c6505a961630a81af021e0e8f20ff081f080880375d0fc300
+== the hand-worked cases: the claims (labels) some resumption evaluates after the cut, R1 and Rinf
+  C1       REFUSED INDEX-OUT-OF-RANGE 6   cut [5 3.3]  K -  first form -  O(R1) -  O(Rinf) -  as worked
+  C1'      REFUSED INDEX-OUT-OF-RANGE 6   cut [4 3.3]  K ['3.2']  first form ['3.2']  O(R1) ['3.2']  O(Rinf) ['3.2']  as worked
+  C2       REFUSED INDEX-OUT-OF-RANGE 4   cut [2+ 2.2]  K ['2.1']  first form ['2.1']  O(R1) ['2.1']  O(Rinf) ['2.1']  as worked
+  C2'      REFUSED INDEX-OUT-OF-RANGE 4   cut [2. 2.2]  K -  first form -  O(R1) -  O(Rinf) -  as worked
+  C3       REFUSED INDEX-OUT-OF-RANGE 6   cut [5 4.2 3.3]  K -  first form -  O(R1) -  O(Rinf) -  as worked
+  C3'      REFUSED INDEX-OUT-OF-RANGE 6   cut [5 4.1 3.3]  K ['3.2']  first form ['3.2']  O(R1) ['3.2']  O(Rinf) ['3.2']  as worked
+  C4       REFUSED INDEX-OUT-OF-RANGE 3   cut [2. 2.1!0]  K ['2.1']  first form ['2.1']  O(R1) ['2.1']  O(Rinf) ['2.1']  as worked
+  C5       REFUSED INDEX-OUT-OF-RANGE 4   cut [2. 2.2]  K -  first form -  O(R1) -  O(Rinf) -  as worked
+  C6       REFUSED FUEL-EXHAUSTED 2       cut [2w]  K ['2.2']  first form ['2.2']  O(R1) ['2.2']  O(Rinf) ['2.2']  as worked
+  D02      REFUSED DIVISION-BY-ZERO 5     cut [2w 2.3 2.3]  K ['2.2']  first form ['2.2']  O(R1) ['2.2']  O(Rinf) ['2.2']  as worked
+  D03      REFUSED DIVISION-BY-ZERO 3     cut [6 2.1]  K -  first form -  O(R1) -  O(Rinf) -  as worked
+  D08      REFUSED DIVISION-BY-ZERO 5     cut [2w 2.3 2.3]  K ['2.2']  first form ['2.2']  O(R1) -  O(Rinf) -  as worked
+  D11      REFUSED DIVISION-BY-ZERO 4     cut [5 2.1 2.1.1]  K -  first form -  O(R1) -  O(Rinf) -  as worked
+  F1       REFUSED DIVISION-BY-ZERO 6     cut [3w 3.3 3.3]  K ['3.2']  first form -  O(R1) -  O(Rinf) ['3.2']  as worked
+  F1'      REFUSED FUEL-EXHAUSTED 3       cut [3w]  K ['3.2']  first form ['3.2']  O(R1) ['3.2']  O(Rinf) ['3.2']  as worked
+  A23      REFUSED INDEX-OUT-OF-RANGE 4   cut [3. 3.1 3.1!1]  K ['3.1']  first form ['3.1']  O(R1) ['3.1']  O(Rinf) ['3.1']  as worked
+  A23'     REFUSED INDEX-OUT-OF-RANGE 4   cut [3. 3.1 3.1!0]  K ['3.1']  first form ['3.1']  O(R1) ['3.1']  O(Rinf) ['3.1']  as worked
+  A09      REFUSED INDEX-OUT-OF-RANGE 4   cut [2. 2.1?1]  K -  first form ['2.1']  O(R1) -  O(Rinf) -  as worked
+  VAL      REFUSED DIVISION-BY-ZERO 3     cut [3]  K ['5.1']  first form ['5.1']  O(R1) ['5.1']  O(Rinf) ['5.1']  as worked
+  FUELOUT  REFUSED DIVISION-BY-ZERO 5     cut [2w 2.3]  K ['2.2']  first form -  O(R1) -  O(Rinf) ['2.2']  as worked
+== the oracle's own plants, each read on the hand-worked cases (it must fail at least one)
+  plant no-resume          caught on C1', C2, C3', C4, C6, D02, F1, F1', A23, A23', VAL, FUELOUT
+  plant one-value          caught on VAL
+  plant abandon-statement  caught on C4, C6, F1', A23, A23', VAL
+== family E (EXHAUSTIVE over its declared grammar; c in 0..6; values {0, 1}: y is never read in E)
+  templates 17328, runs 121296: not compiling 0, completed 59417, stopped by the host 0, cut not modelled 0, refused 61879
+  refusals by code: DIVISION-BY-ZERO 14097, FUEL-EXHAUSTED 47782
+  validity: CutInterp against the plain reference (receipt, trace, host stop) differs in 0 runs; the resumed interpreter's receipt on completed runs differs in 0; its trace before the cut in 0; its cut in 0; this script's copy of K against cut0_claims.continuation differs in 0 runs, under the probe's plants in 0; refused runs whose O(R1) depends on the value 0
+  bounded, not closed: resumptions stopped by the host budget 148344 (under R1 28280); of them, whose claim set still grew in the second half of the budget 0
+  claims at the cuts 110476; held by K (the probe, reading S2) 12183, by the first form 12183; by the oracle: under R1 12183, under Rinf 12183
+  SOUNDNESS of K: runs with a claim evaluated after the cut and not in K: under R1 0, under Rinf 0; runs with a claim K holds evaluated again: under R1 0, under Rinf 0
+  the first form: runs unsound under R1 0; under Rinf 0 (vanishing when FUEL-EXHAUSTED alone is not resumed: 0), with a claim it holds evaluated again 0
+  the revision's effect on verdicts: claims the first form holds and K withholds 0 (of them evaluated again under Rinf 0); claims K holds and the first form withholds 0 (evaluated again under Rinf 0)
+  PRECISION of K: |K| summed 60139, |K minus O(Rinf)| 16454; claims K withholds (completed true, not open) that no Rinf resumption evaluates again 0; that no R1 resumption evaluates again 0, of which 0 only past a later refusal
+  cuts at a refuted claim (in K as open, its evaluation complete and false) 0
+  THE DESCRIPTOR: (template, descriptor) classes 20554, holding two different K 0; with the probe's descriptor-no-id (the first form's) 20554 classes, holding two different K 0
+  ONE LITERAL APART (c and c+1 both refused, a claim's verdict compared): pairs 87665; K's verdict flips 328, the Rinf oracle's 328; both 328, K's alone 0, the oracle's alone 0
+  plant no-open            runs unsound under Rinf      0   |K minus O(Rinf)|   16454
+  plant header-bit         runs unsound under Rinf  28070   |K minus O(Rinf)|   16454
+  plant while-bit          runs unsound under Rinf      0   |K minus O(Rinf)|   16454
+  plant top-after-missing  runs unsound under Rinf   4170   |K minus O(Rinf)|    2028
+  plant outer-loop-never   runs unsound under Rinf   1310   |K minus O(Rinf)|   16454
+  plant refused-arm-only   runs unsound under Rinf      0   |K minus O(Rinf)|   16454
+  plant proc-empty         runs unsound under Rinf    283   |K minus O(Rinf)|   16160
+  plant else-missing       runs unsound under Rinf   1266   |K minus O(Rinf)|   14498
+  plant no-return          runs unsound under Rinf    101   |K minus O(Rinf)|   16434
+  plant depth-cut          runs unsound under Rinf   6178   |K minus O(Rinf)|     798
+  plant context-free       runs unsound under Rinf      0   |K minus O(Rinf)|   16508
+  plant no-count           runs unsound under Rinf      0   |K minus O(Rinf)|   16454
+  plant all-arms           runs unsound under Rinf      0   |K minus O(Rinf)|   16454
+== family G (MEASURED: 10000 programs from random.Random(26102026); c in 0..6; values (-2, -1, 0, 1, 2, 3, 4, 9))
+  templates 10000, runs 70000: not compiling 0, completed 42929, stopped by the host 0, cut not modelled 0, refused 27071
+  refusals by code: CLAIM-REFUTED 2161, DIVISION-BY-ZERO 11701, FUEL-EXHAUSTED 9351, INDEX-OUT-OF-RANGE 2304, MUST-FAILED 1554
+  validity: CutInterp against the plain reference (receipt, trace, host stop) differs in 0 runs; the resumed interpreter's receipt on completed runs differs in 0; its trace before the cut in 0; its cut in 0; this script's copy of K against cut0_claims.continuation differs in 0 runs, under the probe's plants in 0; refused runs whose O(R1) depends on the value 3637
+  bounded, not closed: resumptions stopped by the host budget 42 (under R1 0); of them, whose claim set still grew in the second half of the budget 0
+  claims at the cuts 82373; held by K (the probe, reading S2) 10806, by the first form 11030; by the oracle: under R1 14582, under Rinf 12055
+  SOUNDNESS of K: runs with a claim evaluated after the cut and not in K: under R1 0, under Rinf 0; runs with a claim K holds evaluated again: under R1 0, under Rinf 0
+  the first form: runs unsound under R1 0; under Rinf 96 (vanishing when FUEL-EXHAUSTED alone is not resumed: 96), with a claim it holds evaluated again 88
+  the revision's effect on verdicts: claims the first form holds and K withholds 226 (of them evaluated again under Rinf 109); claims K holds and the first form withholds 2 (evaluated again under Rinf 0)
+  PRECISION of K: |K| summed 48616, |K minus O(Rinf)| 12542; claims K withholds (completed true, not open) that no Rinf resumption evaluates again 1249; that no R1 resumption evaluates again 3776, of which 2527 only past a later refusal
+  cuts at a refuted claim (in K as open, its evaluation complete and false) 2161
+  THE DESCRIPTOR: (template, descriptor) classes 14271, holding two different K 0; with the probe's descriptor-no-id (the first form's) 14270 classes, holding two different K 0
+  ONE LITERAL APART (c and c+1 both refused, a claim's verdict compared): pairs 56172; K's verdict flips 2231, the Rinf oracle's 2688; both 2148, K's alone 83, the oracle's alone 540
+  plant no-open            runs unsound under Rinf    928   |K minus O(Rinf)|   11335
+  plant header-bit         runs unsound under Rinf   2262   |K minus O(Rinf)|   11833
+  plant while-bit          runs unsound under Rinf     96   |K minus O(Rinf)|   12335
+  plant top-after-missing  runs unsound under Rinf   6203   |K minus O(Rinf)|    8865
+  plant outer-loop-never   runs unsound under Rinf   1506   |K minus O(Rinf)|   11016
+  plant refused-arm-only   runs unsound under Rinf    356   |K minus O(Rinf)|   12272
+  plant proc-empty         runs unsound under Rinf   3703   |K minus O(Rinf)|    9833
+  plant else-missing       runs unsound under Rinf   2314   |K minus O(Rinf)|    7605
+  plant no-return          runs unsound under Rinf   2508   |K minus O(Rinf)|   11148
+  plant depth-cut          runs unsound under Rinf   9967   |K minus O(Rinf)|    1705
+  plant context-free       runs unsound under Rinf      0   |K minus O(Rinf)|   14152
+  plant no-count           runs unsound under Rinf      0   |K minus O(Rinf)|   14258
+  plant all-arms           runs unsound under Rinf      0   |K minus O(Rinf)|   12585
+== K's plants: unsound ones caught by a counterexample under Rinf 10/10; precision ones caught by a larger |K minus O(Rinf)| 3/3
+== minimised witnesses (search mode)
+  unsound_now_rinf: none found
+  unsound_now_r1: none found
+  first_rinf (from G template 415, c 1): 6 clauses, c 1
+    §1 Let x be 0.
+    §2 Let y be 1.
+    §3 While (x minus 1) divided by (x minus 1) equals 1 and x is less than 4, at most 1 times, do the following.
+    §3.1 Increase x by 1.
+    §3.2 We claim that y equals 1.
+    §3.3 We claim that x is less than 1.
+    
+  first_not_now (from G template 364, c 4): 11 clauses, c 4
+    §1 Let x be 0.
+    §2 Let y be 1.
+    §3 Let xs be a list of 4 copies of 1.
+    §4 To q, do the following.
+    §4.1 We claim that y equals 1.
+    §4.2 Increase x by 1.
+    §5 While (x minus 4) divided by (x minus 4) equals 1 and x is less than 6, at most 2 times, do the following.
+    §5.1 Increase x by 1.
+    §5.2 Perform q.
+    §5.3 Set y to item (x plus 1) of xs.
+    §5.4 Increase x by 1.
+    
+  withheld_not_rinf (from G template 12, c 4): 7 clauses, c 4
+    §1 Let x be 0.
+    §2 Let y be 1.
+    §3 Increase x by 1.
+    §4 While x is less than 4, at most 3 times, do the following.
+    §4.1 Increase x by 1.
+    §4.2 We claim that x is at least 0.
+    §4.3 Set y to (x minus 4) divided by (x minus 4).
+    
+  flip_cut_only (from G template 227, c 2): 7 clauses, c 2
+    §1 Let x be 0.
+    §2 Let y be 1.
+    §3 While (x minus 2) divided by (x minus 2) equals 1 and x is less than 2, at most 3 times, do the following.
+    §3.1 Increase x by 1.
+    §3.2 We claim that y equals 1.
+    §4 While x is less than 6, at most 5 times, do the following.
+    §4.1 It must hold that x is not 2.
+    
+  plant no-open (from G template 32, c 1): 5 clauses, c 1
+    §1 Let x be 0.
+    §2 To p, do the following.
+    §2.1 We claim that (x minus 1) divided by (x minus 1) equals 1.
+    §3 Increase x by 1.
+    §4 Perform p.
+    
+  plant header-bit (from E template 17, c 0): 3 clauses, c 0
+    §1 Let x be 0.
+    §2 While x is less than 3, at most 2 times, do the following.
+    §2.1 We claim that x is at least 0.
+    
+  plant while-bit (from G template 415, c 1): 6 clauses, c 1
+    §1 Let x be 0.
+    §2 Let y be 1.
+    §3 While (x minus 1) divided by (x minus 1) equals 1 and x is less than 4, at most 1 times, do the following.
+    §3.1 Increase x by 1.
+    §3.2 We claim that y equals 1.
+    §3.3 We claim that x is less than 1.
+    
+  plant top-after-missing (from E template 40, c 0): 4 clauses, c 0
+    §1 Let x be 0.
+    §2 Let y be 1.
+    §3 Set y to (x minus 0) divided by (x minus 0).
+    §4 We claim that x is at least 0.
+    
+  plant outer-loop-never (from E template 13, c 1): 6 clauses, c 1
+    §1 Let x be 0.
+    §2 Let y be 1.
+    §3 Increase x by 1.
+    §4 For each i from 1 to 2, do the following.
+    §4.1 We claim that x is at least 0.
+    §4.2 Set y to (x minus 1) divided by (x minus 1).
+    
+  plant refused-arm-only (from G template 7, c 0): 8 clauses, c 0
+    §1 Let x be 0.
+    §2 Let y be 1.
+    §3 To q, do the following.
+    §3.1 If (x minus 0) divided by (x minus 0) equals 1, do the following.
+    §3.1.1 Say y.
+    §3.2 Otherwise, do the following.
+    §3.2.1 We claim that x is less than 0.
+    §4 Perform q.
+    
+  plant proc-empty (from E template 2963, c 0): 6 clauses, c 0
+    §1 Let x be 0.
+    §2 Let y be 1.
+    §3 To p, do the following.
+    §3.1 We claim that x is at least 0.
+    §4 Set y to (x minus 0) divided by (x minus 0).
+    §5 Perform p.
+    
+  plant else-missing (from E template 599, c 0): 7 clauses, c 0
+    §1 Let x be 0.
+    §2 While x is less than 3, at most 2 times, do the following.
+    §2.1 Increase x by 1.
+    §3 If x is even, do the following.
+    §3.1 Increase x by 1.
+    §4 Otherwise, do the following.
+    §4.1 We claim that x is at least 0.
+    
+  plant no-return (from E template 2852, c 0): 6 clauses, c 0
+    §1 Let x be 0.
+    §2 Let y be 1.
+    §3 To p, do the following.
+    §3.1 Set y to (x minus 0) divided by (x minus 0).
+    §4 Perform p.
+    §5 We claim that x is at least 0.
+    
+  plant depth-cut (from E template 43, c 0): 5 clauses, c 0
+    §1 Let x be 0.
+    §2 Let y be 1.
+    §3 Set y to (x minus 0) divided by (x minus 0).
+    §4 For each i from 1 to 2, do the following.
+    §4.1 We claim that x is at least 0.
+    
+== the regression laws in laws/ (hand-checked; each a version-0 law, LF, written in binary)
+  PASS later-refusal.orl            REFUSED DIVISION-BY-ZERO 4     cut [2+ 2.2]  K ['2.1']  first ['2.1']  O(R1) -  O(Rinf) ['2.1']  held -
+     precision: pass 1's first division refuses; every R1 resumption refuses again at the second
+  PASS guard.orl                    REFUSED DIVISION-BY-ZERO 4     cut [2+ 2.2]  K ['2.1']  first ['2.1']  O(R1) -  O(Rinf) -  held -
+     precision: pass 2 refuses; pass 3 does not satisfy the claim's guard (the Round D adversary's D08, smaller)
+  PASS fuel-bit.orl                 REFUSED DIVISION-BY-ZERO 5     cut [2w 2.3]  K ['2.2']  first -  O(R1) -  O(Rinf) ['2.2']  held -
+     the first form held the claim (R1: the next fuel check refuses); K withholds it (Rinf passes the check)
+  PASS s2-price.orl                 REFUSED DIVISION-BY-ZERO 5     cut [2w 2.3]  K ['2.2']  first -  O(R1) -  O(Rinf) -  held -
+     fuel-bit one literal apart (bound 2): K withholds; no resumption evaluates the claim again (S2's price)
+  PASS refuted-open.orl             REFUSED CLAIM-REFUTED 2        cut [2!0]  K ['2']  first ['2']  O(R1) -  O(Rinf) -  held -
+     K reads a refuted claim as open; never held either way, so no verdict moves
+  PASS plant-no-open.orl            REFUSED DIVISION-BY-ZERO 2     cut [2!0]  K ['2']  first ['2']  O(R1) ['2']  O(Rinf) ['2']  held -  plant no-open caught
+     the open evaluation completes after the cut
+  PASS plant-header-bit.orl         REFUSED FUEL-EXHAUSTED 2       cut [2w]  K ['2.1']  first ['2.1']  O(R1) ['2.1']  O(Rinf) ['2.1']  held -  plant header-bit caught
+     the fuel check returns and runs the pass it guarded
+  PASS plant-top-after-missing.orl  REFUSED DIVISION-BY-ZERO 3     cut [3]  K ['4']  first ['4']  O(R1) ['4']  O(Rinf) ['4']  held -  plant top-after-missing caught
+     the refusing clause's block goes on
+  PASS plant-outer-loop-never.orl   REFUSED DIVISION-BY-ZERO 6     cut [4+ 4.2]  K ['4.1']  first ['4.1']  O(R1) ['4.1']  O(Rinf) ['4.1']  held -  plant outer-loop-never caught
+     a For's pass left runs
+  PASS plant-if-first-arm.orl       REFUSED DIVISION-BY-ZERO 2     cut [2?0]  K ['3.1']  first ['3.1']  O(R1) ['3.1']  O(Rinf) ['3.1']  held -  plant refused-arm-only caught
+     a refused condition returning anything but 1 takes the Otherwise arm
+  PASS plant-proc-empty.orl         REFUSED DIVISION-BY-ZERO 5     cut [4]  K ['3.1']  first ['3.1']  O(R1) ['3.1']  O(Rinf) ['3.1']  held -  plant proc-empty caught
+     Perform p runs p's claim
+  PASS plant-else-missing.orl       REFUSED FUEL-EXHAUSTED 2       cut [2w]  K ['4.1']  first ['4.1']  O(R1) ['4.1']  O(Rinf) ['4.1']  held -  plant else-missing caught
+     after the fuel check returns, x is 3, odd: the Otherwise arm
+  PASS plant-no-return.orl          REFUSED DIVISION-BY-ZERO 4     cut [4 3.1]  K ['5']  first ['5']  O(R1) ['5']  O(Rinf) ['5']  held -  plant no-return caught
+     p returns to its caller, which goes on to section 5
+  PASS fuel-bit.orl                 REFUSED DIVISION-BY-ZERO 5     cut [2w 2.3]  K ['2.2']  first -  O(R1) -  O(Rinf) ['2.2']  held -  plant while-bit caught
+     the probe's own plant while-bit (the first form's lower While) is caught here under Rinf
+  PASS desc-alias-0/2: descriptors without the id [2. 2.1 2.1!] and [2. 2.1 2.1!]; with it [2. 2.1 2.1!1] and [2. 2.1 2.1!0]; K (claim ids) [1] and [0]; held [0] and [1]; O(Rinf) [1] and [0]
+RESUMPTION ORACLE HELD: hand cases 20/20, oracle plants 3/3, K plants 10/10 unsound and 3/3 precision, laws 15/15; K unsound under Rinf: E 0 G 0 runs, under R1: E 0 G 0; claims K holds that a resumption evaluates again (Rinf): E 0 G 0

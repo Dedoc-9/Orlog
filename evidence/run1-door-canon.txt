@@ -1,0 +1,16 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/probes/door_canon_probe.py
+# tree: 95dac79 plus the uncommitted research files (src/ unchanged); Windows 11, CPython 3.14.5; 2026-10-26; exit 0; run twice, identical
+# EXPERIMENTAL RESEARCH PROBE: evidence for a proposal, not of a contract
+== single: every one-byte replacement (10 ASCII bytes), deletion and duplication of 18 texts
+  mutants 145089
+  properties broken: none
+== door-aware: every insertion and replacement of one character of the door's classes, 10 smaller texts
+  mutants 58968 (the door as built)
+  properties broken: P2-split 33
+  first P2-split: a mutant of tests/fixtures/court/certificate_refused.orl, line '\xa0Note: a certificate claim whose 17th evaluation r'
+== H2's repair in memory: the door reads the marker at column one
+  door-aware mutants 58968 (the door repaired)
+  properties broken: none
+  COMPAT-0's 3361 frozen texts whose verdict the repair changes: 1
+    fixture/tests/fixtures/redteam/E18_door_not_idempotent.raw: REFUSED QUOTE-BOUNDARY line 1 -> REFUSED LINE-FORM line 1 (a finding to settle in tests/compat/settled.json, with its reason and amendment)
+DOOR CANON PROBE HELD: the door-aware sweep finds H2's split in the door as built (33 mutants); the single sweep finds nothing; the repair breaks nothing and changes 1 frozen verdict(s)

@@ -10,6 +10,15 @@ court/redteam-eng/observed-1650/** -text
 rt_c/*.txt -text
 rt_c/*.log -text
 evidence/** -text
+# The manifold adversary's seven first-form outputs, kept as captured, mixed line ends included (the owner's ruling,
+# 2026-10-27, research/run-1/RULINGS.md). Exact paths only: the current reruns beside them stay normalized.
+research/run-1/manifold/adversary/k_attacks.txt -text
+research/run-1/manifold/adversary/k_criteria.txt -text
+research/run-1/manifold/adversary/k_fuzz-20000.txt -text
+research/run-1/manifold/adversary/k_monotone-20000.txt -text
+research/run-1/manifold/adversary/k_repairs.txt -text
+research/run-1/manifold/adversary/s_attacks.txt -text
+research/run-1/manifold/adversary/s_drop.txt -text
 tests/compat/*.jsonl -text
 *.gz binary
 

@@ -1,0 +1,87 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/probes/cut0_claims.py
+# tree: 95dac79 plus the uncommitted research files (src/ unchanged); Windows 11, CPython 3.14.5; 2026-10-26; exit 0; run twice, identical
+# EXPERIMENTAL RESEARCH PROBE: evidence for a proposal, not of a contract
+== the cases (version 0; a pair marked ' is its case one literal apart, a read-once port's stand-in)
+C1 two calls; the second refuses after the claim
+   run REFUSED INDEX-OUT-OF-RANGE 6; cut [5 3.3]
+   §3.2#0 true in 2 of 2 evaluations: as built held; site rule withheld; cut rule held
+C1' the same, one literal apart: the first call refuses
+   run REFUSED INDEX-OUT-OF-RANGE 6; cut [4 3.3]
+   §3.2#0 true in 1 of 1 evaluations: as built held; site rule withheld; cut rule withheld
+C2 a loop, refused at pass 17 of 20, the claim before
+   run REFUSED INDEX-OUT-OF-RANGE 4; cut [2+ 2.2]
+   §2.1#0 true in 17 of 17 evaluations: as built held; site rule withheld; cut rule withheld
+C2' the same, one literal apart: refused at pass 20 of 20
+   run REFUSED INDEX-OUT-OF-RANGE 4; cut [2. 2.2]
+   §2.1#0 true in 20 of 20 evaluations: as built held; site rule withheld; cut rule held
+C3 nested calls; inner's second call refuses after the claim
+   run REFUSED INDEX-OUT-OF-RANGE 6; cut [5 4.2 3.3]
+   §3.2#0 true in 2 of 2 evaluations: as built held; site rule withheld; cut rule held
+C3' the same, one literal apart: inner's first call refuses
+   run REFUSED INDEX-OUT-OF-RANGE 6; cut [5 4.1 3.3]
+   §3.2#0 true in 1 of 1 evaluations: as built held; site rule withheld; cut rule withheld
+C4 the claim's own evaluation refuses, on the last pass
+   run REFUSED INDEX-OUT-OF-RANGE 3; cut [2. 2.1!0]
+   §2.1#0 REFUSED at evaluation 2 (INDEX-OUT-OF-RANGE), after 1 true: : as built withheld; site rule withheld; cut rule withheld
+C5 a claim in an arm that runs on pass 1 only, refused at pass 20 of 20
+   run REFUSED INDEX-OUT-OF-RANGE 4; cut [2. 2.2]
+   §2.1#0 true in 1 of 1 evaluations: as built held; site rule withheld; cut rule held
+C6 a While refused FUEL-EXHAUSTED: the refused check guarded a fourth pass
+   run REFUSED FUEL-EXHAUSTED 2; cut [2w]
+   §2.2#0 true in 3 of 3 evaluations: as built held; site rule withheld; cut rule withheld
+D02 a While's claim, refused on pass 3 of a loop that would run 5
+   run REFUSED DIVISION-BY-ZERO 5; cut [2w 2.3 2.3]
+   §2.2#0 true in 3 of 3 evaluations: as built held; site rule withheld; cut rule withheld
+D03 a top-level claim between two calls, the second refuses
+   run REFUSED DIVISION-BY-ZERO 3; cut [6 2.1]
+   §4#0 true in 1 of 1 evaluations: as built held; site rule withheld; cut rule held
+D08 a claim guarded to pass 1, refused on pass 3 (withheld: conservative by design)
+   run REFUSED DIVISION-BY-ZERO 5; cut [2w 2.3 2.3]
+   §2.2#0 true in 1 of 1 evaluations: as built held; site rule withheld; cut rule withheld
+D11 an Otherwise arm's claim, the second call refuses in the other arm
+   run REFUSED DIVISION-BY-ZERO 4; cut [5 2.1 2.1.1]
+   §2.2.1#0 true in 1 of 1 evaluations: as built held; site rule withheld; cut rule held
+F1 a While's last allowed pass refuses on an input (d = 0): the fuel check guards a refuting pass
+   run REFUSED DIVISION-BY-ZERO 6; cut [3w 3.3 3.3]
+   §3.2#0 true in 3 of 3 evaluations: as built held; site rule withheld; cut rule withheld
+F1' the same, one literal apart (d = 1): the run reaches the fuel check
+   run REFUSED FUEL-EXHAUSTED 3; cut [3w]
+   §3.2#0 true in 3 of 3 evaluations: as built held; site rule withheld; cut rule withheld
+A23 two claims on one clause, the second open (c = true)
+   run REFUSED INDEX-OUT-OF-RANGE 4; cut [3. 3.1 3.1!1]
+   §3.1#0#0 REFUSED at its clause (INDEX-OUT-OF-RANGE) after 1 of 1 eval: as built withheld; site rule withheld; cut rule held
+   §3.1#1#1 REFUSED at its clause (INDEX-OUT-OF-RANGE) after 1 of 1 eval: as built withheld; site rule withheld; cut rule withheld
+A23' one literal apart, the first open (c = false)
+   run REFUSED INDEX-OUT-OF-RANGE 4; cut [3. 3.1 3.1!0]
+   §3.1#0#0 REFUSED at its clause (INDEX-OUT-OF-RANGE) after 1 of 1 eval: as built withheld; site rule withheld; cut rule withheld
+   §3.1#1#1 REFUSED at its clause (INDEX-OUT-OF-RANGE) after 1 of 1 eval: as built withheld; site rule withheld; cut rule held
+A09 an Otherwise-if condition refuses on the last pass; the claim's arm read false before it
+   run REFUSED INDEX-OUT-OF-RANGE 4; cut [2. 2.1?1]
+   §2.1#0 true in 1 of 1 evaluations: as built held; site rule withheld; cut rule held
+L1 the claim reachable after the refusal only through a procedure performed inside another
+   run REFUSED INDEX-OUT-OF-RANGE 9; cut [7]
+   §3.1#0 true in 1 of 1 evaluations: as built held; site rule withheld; cut rule withheld
+== pairs the site rule reads alike and the cut tells apart
+   C1 / C1': site rule alike, cut rule tells them apart
+   C2 / C2': site rule alike, cut rule tells them apart
+   C3 / C3': site rule alike, cut rule tells them apart
+   A23 / A23': descriptors differ (3. 3.1 3.1!1 / 3. 3.1 3.1!0)
+== plants, each read on the cases that must catch it
+   plant all-arms          caught on A09
+   plant context-free      caught on C1, C3, D03, D11
+   plant header-bit        caught on C6
+   plant no-count          caught on C2', C5
+   plant no-open           caught on C4
+   plant shallow-reach     caught on L1
+   plant while-bit         caught on F1
+   plant descriptor-no-id  caught on A23/A23'
+   plant no-entry-check    caught on F4
+== the instrumented reference against the reference: own budgets, and a third and two thirds of each run
+   runs 933 (host stops among them: 290): receipts, traces and host stops identical in 933, different in 0
+== every claim of COMPAT-0's frozen texts, the court's fixtures and the examples that ran
+   claims 95, held as built 74, withheld by the site rule 1, by the cut 1
+   R8's exact class (an evaluation refused partway): 5, withheld by the cut too: 5
+   R8's possible class (a refusal at a clause that holds another arm): 2, held by the cut: 0
+   gains over the court as built: 0, each in R8's possible class with the frames showing another claim open: 0 unexplained
+   tests/fixtures/court/hoisted_omit.orl §2.2: as built held, site rule withheld, cut rule withheld
+CUT-0 CLAIMS HELD: 19 of 19 cases as required, pairs and descriptors told apart, plants 9/9, 0 gains (0 unexplained), R8's exact class 5/5, the instrumented reference identical in 933 of 933 runs (290 host stops)

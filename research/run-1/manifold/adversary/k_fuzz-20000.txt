@@ -1,0 +1,33 @@
+Command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/manifold/adversary/k_fuzz.py 20000 20261026
+Date: 2026-10-26 (run here, the Windows working copy)
+
+== 20000 random version-0 laws, seed 20261026 (995 s)
+   generated                    20000
+   compiled                     20000
+   refused                      12548
+   stopped                      1
+   completed                    7451
+   claims judged                59383
+   held by the cut              2754
+   withheld by the cut (done)   2590
+   compile refusals by code: 
+== held by the cut, yet evaluated again by a one-return (S1) continuation: 0
+== held by the cut, evaluated again only by an every-return (S2) continuation, a spent loop bit in the cut: 26
+   the shortest: cut [5. 5.2+ 5.2.2+ 5.2.2.1!] claim §5.1
+§1 Let xs be a list of 2 copies of 1.
+§2 Let x be 3.
+§3 Let y be 1.
+§4 Define r as x plus 1, provided that x is less than 5.
+§5 While the quotient of 6 by (x minus 1) is positive, at most 1 times, do the following.
+§5.1 We claim that y is at most 4.
+§5.2 For each i1 from y to 2, do the following.
+§5.2.1 We claim that x is at most 4.
+§5.2.2 For each i2 from 1 to the quotient of 6 by (x minus 1), do the following.
+§5.2.2.1 We claim that x is at most 2.
+§6 It must hold that y is even.
+§7 Increase y by 1.
+
+== the same, with no spent loop bit in the cut (a defect other than F1): 0
+== the probe raised: 0
+== withheld by the cut with every evaluation true, no tried continuation reaching it (candidates): 535
+K-FUZZ: S1 counterexamples 0; S2 counterexamples 26 (spent bit 26, other 0); probe crashes 0

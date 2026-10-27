@@ -1,0 +1,37 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/probes/cut0_schema.py
+# tree: 95dac79 plus the uncommitted research files (src/ unchanged); Windows 11, CPython 3.14.5; 2026-10-26; exit 0; run twice, identical
+# EXPERIMENTAL RESEARCH PROBE: evidence for a proposal, not of a contract
+# SUPERSEDED (2026-10-26, the same day): draft 1 of the cut's bytes. Its probe was replaced by draft 2 (research/run-1/CUT-SCHEMA.md); the draft-2 output's comparison section reruns draft 1's decoder on its own 3,812 mutations.
+== the probe's cases: the decoded cut reads every claim as the live frames do
+   C1    as live  35 bytes  12494e4445582d4f55542d4f462d52414e4745000200000008ffff0000000006ffff00
+   C1'   as live  35 bytes  12494e4445582d4f55542d4f462d52414e4745000200000007ffff0000000006ffff00
+   C2    as live  35 bytes  12494e4445582d4f55542d4f462d52414e4745000200000002ffff0100000004ffff00
+   C2'   as live  35 bytes  12494e4445582d4f55542d4f462d52414e4745000200000002ffff0200000004ffff00
+   C3    as live  42 bytes  12494e4445582d4f55542d4f462d52414e474500030000000affff0000000009ffff0000000006ffff00
+   C3'   as live  42 bytes  12494e4445582d4f55542d4f462d52414e474500030000000affff0000000008ffff0000000006ffff00
+   C4    as live  35 bytes  12494e4445582d4f55542d4f462d52414e4745000200000002ffff0200000003ffff00
+   C5    as live  35 bytes  12494e4445582d4f55542d4f462d52414e4745000200000002ffff0200000004ffff00
+   C6    as live  24 bytes  0e4655454c2d455848415553544544000100000002ffff00
+   D02   as live  40 bytes  104449564953494f4e2d42592d5a45524f000300000002ffff0000000005ffff0000000005000000
+   D03   as live  33 bytes  104449564953494f4e2d42592d5a45524f000200000007ffff0000000003ffff00
+   D08   as live  40 bytes  104449564953494f4e2d42592d5a45524f000300000002ffff0000000005ffff0000000005000000
+   D11   as live  40 bytes  104449564953494f4e2d42592d5a45524f000300000009ffff0000000003ffff0000000004ffff00
+   F1    as live  40 bytes  104449564953494f4e2d42592d5a45524f000300000003ffff0000000006ffff0000000006000000
+   F1'   as live  24 bytes  0e4655454c2d455848415553544544000100000003ffff00
+   A23   as live  42 bytes  12494e4445582d4f55542d4f462d52414e4745000300000003ffff0200000004ffff0000000004000100
+   A23'  as live  42 bytes  12494e4445582d4f55542d4f462d52414e4745000300000003ffff0200000004ffff0000000004000000
+   A09   as live  37 bytes  12494e4445582d4f55542d4f462d52414e4745000200000002ffff0200000003ffff030001
+   L1    as live  28 bytes  12494e4445582d4f55542d4f462d52414e4745000100000009ffff00
+== every refused run: the cases, COMPAT-0's frozen texts, the fixtures and the examples
+   {'refused': 85, 'refused_own': 0, 'noncanonical': 0, 'k_differs': 0, 'open': 16, 'bytes': 42, 'frames': 3}
+== the manifold debate's families (research/run-1/manifold/resume_oracle.py's generators)
+   family E: {'refused': 61879, 'refused_own': 0, 'noncanonical': 0, 'k_differs': 0, 'open': 0, 'bytes': 33, 'frames': 2}
+   family G: {'refused': 27071, 'refused_own': 0, 'noncanonical': 0, 'k_differs': 0, 'open': 3776, 'bytes': 84, 'frames': 9}
+== canonical bytes: every single-byte mutation of each case's payload
+   tried 3812: refused 3797, accepted 15, of them not canonical 0
+== each field's role: dropped, it changes a decision on its case
+   top-only       on C1'  (the frames below the top (the actual callers)): caught
+   no-for-bit     on C2'  (a For's passes-remain bit): caught
+   first-arm      on A23  (the arm selector of an inline statement): caught
+   no-refused-arm on A09  (the If's refused arm): caught
+CUT SCHEMA HELD: 89035 refused runs, the decoded cut deciding as the live frames in every one (0 differ); canonical in all; 3812 mutations, none accepted non-canonical; each of 4 fields has a role

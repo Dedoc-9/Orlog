@@ -1,0 +1,160 @@
+# PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/manifold/fibers.py   (2026-10-26; run twice, stdout byte-identical; probe cut0_session.py sha256 e46ad6bb1693d9bc... before and after)
+== the probe read: research/run-1/probes/cut0_session.py sha256 e46ad6bb1693d9bcf333b502588bd910f293904c8ff1edce9a0cac5518adaa86
+== D0: every legal history of 0 port(s)  up to 5 events, arrivals among 1
+  histories 11; distinct input logs 11, receipt cores 11, session records 11
+  log fibers: largest 1, 1, 1, 1, 1, 1; singletons 11
+  RECORDS THAT MUST TELL THINGS APART:
+    core fibers holding two execution outcomes (status, ticks, ops, executed, tick-ops, T, tick lines): 0
+    core fibers holding two input logs (the core binds the log's sha256): 0
+    session-record fibers holding two histories: 0
+  WHAT THE INPUT LOG FORGETS (inside a log fiber, by design: CUT-0 section 3 reads these from the history):
+    log fibers with two disposition vectors 0; with two refusal counts 0
+    NOT-RUN logs 0, their histories 0 by why the port had no value: 
+    NOT-RUN logs whose fiber mixes two of those reasons: 0 of 0 (each told apart by the session record: yes)
+    distinct causes written in those logs' end records: 
+  QUOTIENTS (vertices, paths modulo squares, what the contract observes):
+    end states 11; Mazurkiewicz traces 11; contract observations 11; input logs 11; histories 11
+    squares checked as diamonds (both orders legal, one end state, the letters kept) 0, failed 0
+    squares by the kinds of their two events: 
+    traces whose histories reach two end states 0, two input logs 0, two observations 0
+    end states reached by two traces 0; observations made by two traces 0
+    traces of two or more histories 0 (largest 0), each history with a session record of its own: yes
+== D1: every legal history of 1 port(s) a up to 6 events, arrivals among 1, 1.1, 4, 13
+  histories 65442; distinct input logs 13, receipt cores 13, session records 65442
+  log fibers: largest 55756, 4179, 2507, 1127, 1127, 228; singletons 0
+  RECORDS THAT MUST TELL THINGS APART:
+    core fibers holding two execution outcomes (status, ticks, ops, executed, tick-ops, T, tick lines): 0
+    core fibers holding two input logs (the core binds the log's sha256): 0
+    session-record fibers holding two histories: 0
+  WHAT THE INPUT LOG FORGETS (inside a log fiber, by design: CUT-0 section 3 reads these from the history):
+    log fibers with two disposition vectors 13; with two refusal counts 10
+    NOT-RUN logs 2, their histories 4386 by why the port had no value: dropped 252, none 11, refused 10, withheld 4113
+    NOT-RUN logs whose fiber mixes two of those reasons: 2 of 2 (each told apart by the session record: yes)
+    distinct causes written in those logs' end records: INPUT-MISSING
+  QUOTIENTS (vertices, paths modulo squares, what the contract observes):
+    end states 22021; Mazurkiewicz traces 22021; contract observations 22021; input logs 13; histories 65442
+    squares checked as diamonds (both orders legal, one end state, the letters kept) 99642, failed 0
+    squares by the kinds of their two events: arrive/assign 35632, arrive/close-run 2168, arrive/drop 48606, assign/drop 8160, close-run/drop 414, drop/drop 4662
+    traces whose histories reach two end states 0, two input logs 0, two observations 0
+    end states reached by two traces 0; observations made by two traces 0
+    traces of two or more histories 12525 (largest 20), each history with a session record of its own: yes
+    the smallest such pair, one trace and two session records:
+      arrive(a,1) assign(0,1) arrive(a,1)
+      arrive(a,1) arrive(a,1) assign(0,1)
+== D2: every legal history of 2 port(s) a,b up to 6 events, arrivals among 1, 1.1
+  histories 41135; distinct input logs 7, receipt cores 7, session records 41135
+  log fibers: largest 35439, 4116, 1001, 417, 150, 6; singletons 0
+  RECORDS THAT MUST TELL THINGS APART:
+    core fibers holding two execution outcomes (status, ticks, ops, executed, tick-ops, T, tick lines): 0
+    core fibers holding two input logs (the core binds the log's sha256): 0
+    session-record fibers holding two histories: 0
+  WHAT THE INPUT LOG FORGETS (inside a log fiber, by design: CUT-0 section 3 reads these from the history):
+    log fibers with two disposition vectors 5; with two refusal counts 5
+    NOT-RUN logs 3, their histories 5123 by why the port had no value: dropped 670, none 567, refused 1045, withheld 2841
+    NOT-RUN logs whose fiber mixes two of those reasons: 2 of 3 (each told apart by the session record: yes)
+    distinct causes written in those logs' end records: INPUT-MISSING
+  QUOTIENTS (vertices, paths modulo squares, what the contract observes):
+    end states 16395; Mazurkiewicz traces 16395; contract observations 16395; input logs 7; histories 41135
+    squares checked as diamonds (both orders legal, one end state, the letters kept) 55448, failed 0
+    squares by the kinds of their two events: arrive/assign 22736, arrive/close-run 48, arrive/drop 26256, assign/assign 880, assign/drop 3584, drop/drop 1944
+    traces whose histories reach two end states 0, two input logs 0, two observations 0
+    end states reached by two traces 0; observations made by two traces 0
+    traces of two or more histories 7772 (largest 15), each history with a session record of its own: yes
+    the smallest such pair, one trace and two session records:
+      arrive(a,1) assign(0,1) arrive(a,1)
+      arrive(a,1) arrive(a,1) assign(0,1)
+== the rows as functions of the end state and of the abstract class (a, every history to 6 events)
+  plant none                    histories  65442 (counted on the states  65442, on the classes  65442); states 22021, classes  352, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant assign-refused          histories  65442 (counted on the states  65442, on the classes  65442); states 22021, classes  352, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant hold-previous           histories  65589 (counted on the states  65589, on the classes  65589); states 22041, classes  361, congruence failures 0
+    histories failing a row   354 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant overwrite               histories  65442 (counted on the states  65442, on the classes  65442); states 22021, classes  352, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant budget-uncounted        histories  65442 (counted on the states  65442, on the classes  65442); states 22021, classes  352, congruence failures 0
+    histories failing a row  1258 (a log row  1258; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant end-anytime             histories  72948 (counted on the states  72948, on the classes  72948); states 25600, classes  479, congruence failures 0
+    histories failing a row  3393 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant no-cause                histories  65442 (counted on the states  65442, on the classes  65442); states 22021, classes  352, congruence failures 0
+    histories failing a row  4913 (a log row  4913; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant lenient-hex             histories  65442 (counted on the states  65442, on the classes  65442); states 22021, classes  352, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant after-end               histories  65442 (counted on the states  65442, on the classes  65442); states 22021, classes  352, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant record-without-history  histories  65442 (counted on the states  65442, on the classes  65442); states 22021, classes  352, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant no-source               histories  65442 (counted on the states  65442, on the classes  65442); states 22021, classes  352, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant close-after-refusal     histories  65442 (counted on the states  65442, on the classes  65442); states 22021, classes  352, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant door-dollar             histories  65442 (counted on the states  65442, on the classes  65442); states 22021, classes  352, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant a1-cause-under-a2       histories  65442 (counted on the states  65442, on the classes  65442); states 22021, classes  352, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+== the rows as functions of the end state and of the abstract class (a,b, every history to 5 events)
+  plant none                    histories   6167 (counted on the states   6167, on the classes   6167); states  3451, classes   73, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant assign-refused          histories   6167 (counted on the states   6167, on the classes   6167); states  3451, classes   73, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant hold-previous           histories   6167 (counted on the states   6167, on the classes   6167); states  3451, classes   73, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant overwrite               histories   6167 (counted on the states   6167, on the classes   6167); states  3451, classes   73, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant budget-uncounted        histories   6167 (counted on the states   6167, on the classes   6167); states  3451, classes   73, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant end-anytime             histories   6881 (counted on the states   6881, on the classes   6881); states  3965, classes  100, congruence failures 0
+    histories failing a row   248 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant no-cause                histories   6167 (counted on the states   6167, on the classes   6167); states  3451, classes   73, congruence failures 0
+    histories failing a row   918 (a log row   918; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant lenient-hex             histories   6167 (counted on the states   6167, on the classes   6167); states  3451, classes   73, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant after-end               histories   6167 (counted on the states   6167, on the classes   6167); states  3451, classes   73, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant record-without-history  histories   6167 (counted on the states   6167, on the classes   6167); states  3451, classes   73, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant no-source               histories   6167 (counted on the states   6167, on the classes   6167); states  3451, classes   73, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant close-after-refusal     histories   6167 (counted on the states   6167, on the classes   6167); states  3451, classes   73, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant door-dollar             histories   6167 (counted on the states   6167, on the classes   6167); states  3451, classes   73, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+  plant a1-cause-under-a2       histories   6167 (counted on the states   6167, on the classes   6167); states  3451, classes   73, congruence failures 0
+    histories failing a row     0 (a log row     0; the binding 0); rows differing from the state's 0, log rows differing from the class's 0
+== the strict parser's language against the projection's image (logs of at most 2 ticks)
+  ports a, policy A2 (its abstraction a congruence to 5 events: 0 failures): the parser accepts 21 logs; 8 are no legal history's projection (every history to 9 events): a record or a not-run end past a refusing tick 8
+    the smallest, accepted by the parser yet the projection of no A2 history:
+      orlog-inputs 0
+      ports <the signature of a>
+      door door-0
+      t 1 0000000400000000
+      t 2 0000000100000000
+    executed, it reads: status REFUSED TICK-BUDGET (a receipt core is written for it)
+  ports a, policy A1 (its abstraction a congruence to 5 events: 0 failures): the parser accepts 28 logs; 12 are no legal history's projection (every history to 9 events): a record or a not-run end past a refusing tick 12
+  ports a,b, policy A2 (its abstraction a congruence to 5 events: 0 failures): the parser accepts 84 logs; 44 are no legal history's projection (every history to 13 events): a record or a not-run end past a refusing tick 44
+    the smallest, accepted by the parser yet the projection of no A2 history:
+      orlog-inputs 0
+      ports <the signature of a,b>
+      door door-0
+      t 1 0000000400000000 0000000100000000
+      end 1 not-run 2 INPUT-MISSING a
+    executed, it reads: status REFUSED TICK-BUDGET (a receipt core is written for it)
+  ports a,b, policy A1 (its abstraction a congruence to 5 events: 0 failures): the parser accepts 126 logs; 72 are no legal history's projection (every history to 15 events): a record or a not-run end past a refusing tick 72
+== deeper: each concrete state, or each abstract class, checked once; its histories counted, not listed
+  a,  6 events, concrete states   22021, histories         65442: rows (binding aside) failed on a state: none
+  a,  7 events, concrete states  110566, histories        507430: rows (binding aside) failed on a state: none
+  a: the congruence checked on every concrete state to 7 events: 22021 states, 352 classes, 0 failures
+  a,  6 events, abstract classes    352, histories                  65442, input logs     13: log rows failed on a class: none
+  a,  8 events, abstract classes    918, histories                4090552, input logs     17: log rows failed on a class: none
+  a, 10 events, abstract classes   1995, histories              294046539, input logs     24: log rows failed on a class: none
+  a, 12 events, abstract classes   3826, histories            23760658653, input logs     27: log rows failed on a class: none
+  a, 14 events, abstract classes   6705, histories          2127136532008, input logs     31: log rows failed on a class: none
+== deeper: each concrete state, or each abstract class, checked once; its histories counted, not listed
+  a,b,  6 events, concrete states   16395, histories         41135: rows (binding aside) failed on a state: none
+  a,b,  7 events, concrete states   77999, histories        288611: rows (binding aside) failed on a state: none
+  a,b: the congruence checked on every concrete state to 7 events: 16395 states, 111 classes, 0 failures
+  a,b,  6 events, abstract classes    111, histories                  41135, input logs      7: log rows failed on a class: none
+  a,b,  8 events, abstract classes    220, histories                2112619, input logs      8: log rows failed on a class: none
+  a,b, 10 events, abstract classes    385, histories              125907227, input logs      9: log rows failed on a class: none
+  a,b, 12 events, abstract classes    616, histories             8460128379, input logs     11: log rows failed on a class: none
+FIBERS DONE

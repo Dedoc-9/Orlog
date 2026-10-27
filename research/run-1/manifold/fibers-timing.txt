@@ -1,0 +1,37 @@
+# stderr of the same two runs of research/run-1/manifold/fibers.py (2026-10-26): software timings on one host under other load, OBSERVED, never byte-identical
+## run 1
+fibers D0 histories 11 seconds 0.0
+fibers D1 histories 65442 seconds 16.1
+fibers D2 histories 41135 seconds 10.3
+deeper concrete a 6 3.86s states 22021
+deeper concrete a 7 19.46s states 110566
+deeper abstract a 6 0.10s classes 352
+deeper abstract a 8 0.24s classes 918
+deeper abstract a 10 0.60s classes 1995
+deeper abstract a 12 1.44s classes 3826
+deeper abstract a 14 3.04s classes 6705
+deeper concrete a,b 6 2.51s states 16395
+deeper concrete a,b 7 14.29s states 77999
+deeper abstract a,b 6 0.03s classes 111
+deeper abstract a,b 8 0.05s classes 220
+deeper abstract a,b 10 0.11s classes 385
+deeper abstract a,b 12 0.21s classes 616
+timing D1 to 6 events, check_run: per history 9.16s (65442), per state 3.27s (22021), per class 0.062s (352)
+## run 2
+fibers D0 histories 11 seconds 0.0
+fibers D1 histories 65442 seconds 9.3
+fibers D2 histories 41135 seconds 5.6
+deeper concrete a 6 3.39s states 22021
+deeper concrete a 7 18.96s states 110566
+deeper abstract a 6 0.08s classes 352
+deeper abstract a 8 0.23s classes 918
+deeper abstract a 10 0.69s classes 1995
+deeper abstract a 12 1.41s classes 3826
+deeper abstract a 14 2.84s classes 6705
+deeper concrete a,b 6 3.14s states 16395
+deeper concrete a,b 7 26.61s states 77999
+deeper abstract a,b 6 0.05s classes 111
+deeper abstract a,b 8 0.10s classes 220
+deeper abstract a,b 10 0.20s classes 385
+deeper abstract a,b 12 0.40s classes 616
+timing D1 to 6 events, check_run: per history 17.03s (65442), per state 6.08s (22021), per class 0.111s (352)

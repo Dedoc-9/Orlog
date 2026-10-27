@@ -1,0 +1,49 @@
+Command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/manifold/adversary/s_attacks.py
+Date: 2026-10-26 (run here, the Windows working copy, on the tree after CUT-0's repairs, base commit 95dac79 with the uncommitted research files; run twice, byte-identical but for the seconds printed)
+Code: probes: cut0_claims.py de5682e1473c231c6505a961630a81af021e0e8f20ff081f080880375d0fc300; cut0_session.py e46ad6bb1693d9bcf333b502588bd910f293904c8ff1edce9a0cac5518adaa86; s_attacks.py 3c1038fa52ff7a084e8a8bd50d47d9792a8f57540ef1dfa3493da91347f87ae8
+
+== 1. wider domains (policy A2)
+   ports a,b, depth 5, arrivals among 1, 1.1, 13: histories 37505, distinct logs 8, rows failed: none; history_bytes collisions 0
+   ports a,b, depth 6, arrivals among 1, 13: histories 102323, distinct logs 14, rows failed: none; history_bytes collisions 0
+   ports a, depth 8, arrivals among 1, 13: histories 187556, distinct logs 13, rows failed: none; history_bytes collisions 0
+   ports a,b,c, depth 5, arrivals among 1, 13: histories 55233, distinct logs 5, rows failed: none; history_bytes collisions 0
+== 2. a law with no each-tick port
+   history [close]: legal; its projection b't 1'
+   check_run fails: []
+== 3. the door: FIXED is matched with `$`, which also matches before a final LF
+   door(b'1') = ('ok', 4294967296)
+   door(b'1\n') = ('refused', 'INPUT-SYNTAX', '')
+   door(b'-0') = ('ok', 0)
+   door(b'007') = ('ok', 30064771072)
+   door(b'1.50') = ('ok', 6442450944)
+   door(b'1\n\n') = ('refused', 'INPUT-SYNTAX', '')
+   door(b' 1') = ('refused', 'INPUT-SYNTAX', '')
+== 4. multi-byte edits of every distinct log of one port, depth 6 (the probe's domain)
+   13 logs, 113 edits tried: accepted 68 (non-canonical 0); accepted outside A2's image 0
+== 5. which rows any of the probe's nine plants turns red on the probe's own domain (one port, depth 6)
+   projection-is-a-function               NEVER RED
+   log-round-trips                        NEVER RED
+   projection-parses                      no-cause
+   door-replays                           NEVER RED
+   no-assignment-disappears               end-anytime
+   one-disposition-each                   NEVER RED
+   execution-is-a-function                NEVER RED
+   statuses-partition                     NEVER RED
+   T1-is-the-prefix                       NEVER RED
+   T-differences-are-the-lines            NEVER RED
+   ops-minus-last-T-is-tick-ops           NEVER RED
+   no-T-ops-is-the-prefix                 NEVER RED
+   budget-tick-counts-N+1                 budget-uncounted
+   executed-is-counted-less-the-refused   budget-uncounted
+   session-binds                          NEVER RED
+   no-value-invented                      hold-previous
+== 5b. the proposed row no-value-invented on the same domain, as it stands and under the plant hold-previous
+   plant none           histories 65442, failing the row 0
+   plant hold-previous  histories 65589, failing the row 354
+== 6. the session record and what the history holds
+   CONTRACT-DRAFT 1.1: an arrival carries its sequence number, the port's name, the source's label and the bytes.
+   The model's arrive event is ('arrive', 'a', b'1'): no source. Two sessions, alice's `1` and mallory's `1`, have the one history
+   and the one record: b1a31a93fc26015c
+== 7. a tick closed after the run refused
+   history: tick 1 carries 13 (refuses), then tick 2 is assigned and closed, then end
+   refused by the session model: RUN-REFUSED (the G6 repair: after the run refused, only the end is legal)

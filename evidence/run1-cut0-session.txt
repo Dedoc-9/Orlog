@@ -1,0 +1,115 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/probes/cut0_session.py
+# tree: 95dac79 plus the uncommitted research files (src/ unchanged); Windows 11, CPython 3.14.5; 2026-10-26; exit 0; run twice, identical
+# EXPERIMENTAL RESEARCH PROBE: evidence for a proposal, not of a contract
+== the named cases (policy A2 unless said)
+  PASS S1 an invalid input, then a valid retry for the same tick
+     COMPLETED (expected COMPLETED)
+  PASS S1' a history that assigns the refused arrival itself
+     illegal ASSIGN-REFUSED (expected illegal ASSIGN-REFUSED)
+  PASS S2 an invalid input and no retry
+     NOT-RUN 1 INPUT-MISSING a (expected NOT-RUN 1 INPUT-MISSING a)
+  PASS S2' a valid tick, then an invalid input and no retry
+     NOT-RUN 2 INPUT-MISSING a (expected NOT-RUN 2 INPUT-MISSING a)
+  PASS S3 one invalid and one valid input for one tick
+     NOT-RUN 1 INPUT-MISSING a (expected NOT-RUN 1 INPUT-MISSING a)
+  PASS S4 two arrivals for one port and one tick
+     illegal SLOT-FILLED (expected illegal SLOT-FILLED)
+  PASS S5 a retry after the host closed its tick
+     illegal ASSIGN-CLOSED (expected illegal ASSIGN-CLOSED)
+  PASS S7 the budget: a tick of 6 operations under at most 5
+     REFUSED TICK-BUDGET tick-ops 6 (expected REFUSED TICK-BUDGET tick-ops 6)
+  PASS S8 the loophole: a tick begun (one of two ports assigned), then end
+     illegal END-PENDING (expected illegal END-PENDING)
+  PASS S9 an accepted arrival neither assigned nor dropped, then end
+     illegal END-UNDISPOSED (expected illegal END-UNDISPOSED)
+  PASS S10 the same arrival dropped, then end
+     COMPLETED (expected COMPLETED)
+  PASS S11 a tick whose run refuses, then a close: nothing after the refusal but the end (G6)
+     illegal RUN-REFUSED (expected illegal RUN-REFUSED)
+  PASS S12 a law with no each-tick port: two ticks, then end (G1)
+     COMPLETED (expected COMPLETED)
+  PASS S6 one set of arrivals, two schedules: two input logs, each bound to its history
+     logs differ; history 1 bound to its own: BOUND; to the other's: HISTORY-MISMATCH
+  PASS H  a hostile client's malformed message: A1 ends the session, A2 refuses only the message
+     A1 NOT-RUN 1 INPUT-REFUSED a; A2 COMPLETED
+  PASS X  one input log, two histories: one receipt core (law-equivalence), two session records (provenance)
+     logs equal, cores equal, session records differ; history a with b's record: SESSION-MISMATCH
+  PASS A3 closed after tick 1, or tick 2 not run: the end record tells them apart
+     COMPLETED / NOT-RUN 2 INPUT-MISSING a
+  PASS M  a duplicated end record
+     LOG-AFTER-END (expected LOG-AFTER-END)
+  PASS M  a record after the end
+     LOG-AFTER-END (expected LOG-AFTER-END)
+  PASS M  too few values
+     LOG-RECORD (expected LOG-RECORD)
+  PASS M  too many values
+     LOG-RECORD (expected LOG-RECORD)
+  PASS M  upper-case hex
+     LOG-RECORD (expected LOG-RECORD)
+  PASS M  short hex
+     LOG-RECORD (expected LOG-RECORD)
+  PASS M  not hex
+     LOG-RECORD (expected LOG-RECORD)
+  PASS M  a tick number skipped
+     LOG-TICK (expected LOG-TICK)
+  PASS M  a tick number repeated
+     LOG-TICK (expected LOG-TICK)
+  PASS M  ticks from 0
+     LOG-TICK (expected LOG-TICK)
+  PASS M  a tick number with a leading zero
+     LOG-TICK (expected LOG-TICK)
+  PASS M  an end count that is not the records'
+     LOG-END (expected LOG-END)
+  PASS M  a not-run tick that is not the next
+     LOG-END (expected LOG-END)
+  PASS M  an unknown cause
+     LOG-END (expected LOG-END)
+  PASS M  an undeclared port
+     LOG-END (expected LOG-END)
+  PASS M  an end record without its cause
+     LOG-END (expected LOG-END)
+  PASS M  CR LF line ends
+     LOG-LINE (expected LOG-LINE)
+  PASS M  no final line end
+     LOG-LINE (expected LOG-LINE)
+  PASS M  an empty line
+     LOG-LINE (expected LOG-LINE)
+  PASS M  a trailing space
+     LOG-END (expected LOG-END)
+  PASS M  an unknown record kind
+     LOG-UNKNOWN (expected LOG-UNKNOWN)
+  PASS M  another header version
+     LOG-HEADER (expected LOG-HEADER)
+  PASS M  another port signature
+     PORT-SIGNATURE (expected PORT-SIGNATURE)
+  PASS M  a non-ASCII byte
+     LOG-NOT-ASCII (expected LOG-NOT-ASCII)
+  PASS M  an A1-only cause under A2 (G3)
+     LOG-END (expected LOG-END)
+  PASS M  no end record: an open log, parsed, never refused
+     ACCEPTED
+  PASS D  the door refuses a value with a trailing line end (G2)
+     ('refused', 'INPUT-SYNTAX', '')
+  PASS G5 alice's 1 and mallory's 1: one receipt core, two session records
+     cores equal, session records differ
+== every legal history of one port up to 6 events, arrivals among 1, 1.1, 4, 13
+  histories 65442, distinct input logs 13; rows failed: none
+== every legal history of no each-tick port up to 6 events: histories 13, distinct input logs 13; rows failed: none
+== every legal history of 2 ports up to 4 events: histories 10909, distinct input logs 4; rows failed: none
+== every single-byte mutation of those 13 logs
+  tried 16132: refused 15911, accepted 221 (each a canonical log of its own: 0 not canonical)
+== plants, each read on the case that must catch it
+  plant assign-refused          on S1'                          caught
+  plant hold-previous           on S2'                          caught
+  plant overwrite               on S4                           caught
+  plant budget-uncounted        on S7                           caught
+  plant end-anytime             on S8                           caught
+  plant no-cause                on A3                           caught
+  plant lenient-hex             on M  upper-case hex            caught
+  plant after-end               on M  a duplicated end record   caught
+  plant record-without-history  on X                            caught
+  plant close-after-refusal     on S11                          caught
+  plant door-dollar             on D                            caught
+  plant no-source               on G5                           caught
+  plant a1-cause-under-a2       on M  an A1-only cause under A2 caught
+CUT-0 SESSION HELD: 45 of 45 cases, 76364 legal histories with no row failed, 16132 mutations with no non-canonical log accepted, plants 13/13

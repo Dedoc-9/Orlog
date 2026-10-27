@@ -1,0 +1,16 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/probes/completeness_probe.py
+# tree: 95dac79 plus the uncommitted research files (src/ unchanged); Windows 11, CPython 3.14.5; 2026-10-26; exit 0; run twice, identical
+# EXPERIMENTAL RESEARCH PROBE: evidence for a proposal, not of a contract
+== every claim of COMPAT-0's frozen texts, the court's fixtures and the examples that ran
+  claims             89
+  held as built      68
+  withheld by 8.4    1
+  support lost       1
+  support gained     0
+  held gained        0
+== readings that change
+  tests/fixtures/court/hoisted_omit.orl §2.2: run REFUSED INDEX-OUT-OF-RANGE 3; as built held, WELL-FOUNDED; under 8.4 not held, not well-founded
+== plants, each read on the case that must catch it (the rule must withhold; the plant must hold)
+  tests/fixtures/court/hoisted_omit.orl: the rule withholds; plant never holds: caught
+  a claim before the refusal, in a loop with iterations left (inline): the rule withholds; plant no-back-edge holds: caught
+COMPLETENESS PROBE HELD: 1 withheld, 0 gained required (0 held gained, 0 support gained), plants 2/2

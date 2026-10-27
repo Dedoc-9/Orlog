@@ -1,0 +1,20 @@
+Command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/manifold/adversary/k_fuzz.py 20000 20261026
+Date: 2026-10-26 (run here, the Windows working copy, on the tree after CUT-0's repairs, base commit 95dac79 with the uncommitted research files; run twice, byte-identical but for the seconds printed)
+Code: probes: cut0_claims.py de5682e1473c231c6505a961630a81af021e0e8f20ff081f080880375d0fc300; cut0_session.py e46ad6bb1693d9bcf333b502588bd910f293904c8ff1edce9a0cac5518adaa86; k_fuzz.py 63c0f6b299630022014634b19d1494af7dfc46294761df7bba6107e68c3aaa62
+
+== 20000 random version-0 laws, seed 20261026 (791 s)
+   generated                    20000
+   compiled                     20000
+   refused                      12548
+   stopped                      1
+   completed                    7451
+   claims judged                59383
+   held by the cut              2698
+   withheld by the cut (done)   2646
+   compile refusals by code: 
+== held by the cut, yet evaluated again by a one-return (S1) continuation: 0
+== held by the cut, evaluated again only by an every-return (S2) continuation, a spent loop bit in the cut: 0
+== the same, with no spent loop bit in the cut (a defect other than F1): 0
+== the probe raised: 0
+== withheld by the cut with every evaluation true, no tried continuation reaching it (candidates): 565
+K-FUZZ: S1 counterexamples 0; S2 counterexamples 0 (spent bit 0, other 0); probe crashes 0

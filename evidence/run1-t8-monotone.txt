@@ -1,0 +1,6 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/probes/t8_monotone.py
+# tree: 95dac79 plus the uncommitted research files (src/ unchanged); Windows 11, CPython 3.14.5; 2026-10-26; exit 0; run twice, identical
+# EXPERIMENTAL RESEARCH PROBE: evidence for a proposal, not of a contract
+the court's support_sets: 13974 cases exhaustive (up to 3 claims), 20000 sampled (4 claims): 0 violations
+plant (a withheld premise read as none): 4464 violations; the smallest: 2 claim(s), premises {0: [0], 1: [0]}, held [0, 1], withheld [0]
+T8 MONOTONE HELD

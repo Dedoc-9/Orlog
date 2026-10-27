@@ -1,0 +1,7 @@
+Command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/manifold/adversary/k_monotone.py 20000 7
+Date: 2026-10-26 (run here, the Windows working copy, on the tree after CUT-0's repairs, base commit 95dac79 with the uncommitted research files; run twice, byte-identical but for the seconds printed)
+Code: probes: cut0_claims.py de5682e1473c231c6505a961630a81af021e0e8f20ff081f080880375d0fc300; cut0_session.py e46ad6bb1693d9bcf333b502588bd910f293904c8ff1edce9a0cac5518adaa86; k_monotone.py bac7388b6e30495b29030b456ad180a425201555afb72cbb632b6a46a80462af
+
+== cut monotonicity over 12581 random refusing laws, seed 7, 125063 earlier points (40 s)
+   as it stands: 0 points whose K misses part of K at the cut; with a spent While bit in the point's frames: 0
+   F1 repaired: 0 points whose K misses part of K at the cut; with a spent While bit in the point's frames: 0

@@ -1,0 +1,14 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/probes/meet_probe.py
+# tree: 95dac79 plus the uncommitted research files (src/ unchanged); Windows 11, CPython 3.14.5; 2026-10-26; exit 0; run twice, identical
+# EXPERIMENTAL RESEARCH PROBE: evidence for a proposal, not of a contract
+== the meet: held only when R8 and CUT-0 both hold
+   the cases, COMPAT-0's frozen texts, the fixtures and the examples: {'runs': 35, 'claims': 45, 'both held': 11, 'both withheld': 22, 'TIGHTER': 10, 'LOOSER': 2, 'held above R8': 0, 'supported above R8': 0}
+   LOOSER at: A23 claim 0, A23' claim 1
+   family E: {'runs': 54646, 'claims': 110476, 'both held': 12183, 'both withheld': 63770, 'TIGHTER': 34523, 'LOOSER': 0, 'held above R8': 0, 'supported above R8': 0}
+   family G: {'runs': 24839, 'claims': 82373, 'both held': 10801, 'both withheld': 62744, 'TIGHTER': 8823, 'LOOSER': 5, 'held above R8': 0, 'supported above R8': 0}
+== the plant join: held when either holds (must rise above R8 wherever CUT-0 gains)
+   the cases, COMPAT-0's frozen texts, the fixtures and the examples: {'runs': 35, 'claims': 45, 'both held': 11, 'both withheld': 22, 'TIGHTER': 10, 'LOOSER': 2, 'held above R8': 2, 'supported above R8': 2}
+   LOOSER at: A23 claim 0, A23' claim 1
+   family E: {'runs': 54646, 'claims': 110476, 'both held': 12183, 'both withheld': 63770, 'TIGHTER': 34523, 'LOOSER': 0, 'held above R8': 0, 'supported above R8': 0}
+   family G: {'runs': 24839, 'claims': 82373, 'both held': 10801, 'both withheld': 62744, 'TIGHTER': 8823, 'LOOSER': 5, 'held above R8': 5, 'supported above R8': 5}
+MEET PROBE HELD: 79520 refused runs, 192894 claims; the meet never above R8 (0 held, 0 supported); TIGHTER 43356, LOOSER 7; the join rises above R8 on 7 claims, its plant caught

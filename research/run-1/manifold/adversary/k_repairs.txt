@@ -1,0 +1,51 @@
+Command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/manifold/adversary/k_repairs.py
+Date: 2026-10-26 (run here, the Windows working copy)
+
+== 1. the instrumented reference against the reference under a host budget (the probe's equivalence())
+   an empty For at the end, budget 0
+      Interp: STOPPED-BY-HOST after 1 ops, 1 events
+      CutInterp: COMPLETED, 1 events
+      equivalence(): texts 1, stopped alike 1, different 1
+   a For with a body, budget 0
+      Interp: STOPPED-BY-HOST after 1 ops, 1 events
+      CutInterp: STOPPED-BY-HOST after 3 ops, 2 events
+      equivalence(): texts 1, stopped alike 1, different 1
+   a While with a body, budget 0
+      Interp: STOPPED-BY-HOST after 1 ops, 1 events
+      CutInterp: STOPPED-BY-HOST after 3 ops, 1 events
+      equivalence(): texts 1, stopped alike 1, different 1
+== 2. K with every While frame free to repeat (F1's repair) against the probe as it stands (the plant)
+   C1     repaired held; the probe requires held 
+   C1'    repaired withheld; the probe requires withheld 
+   C2     repaired withheld; the probe requires withheld 
+   C2'    repaired held; the probe requires held 
+   C3     repaired held; the probe requires held 
+   C3'    repaired withheld; the probe requires withheld 
+   C4     repaired withheld; the probe requires withheld 
+   C5     repaired held; the probe requires held 
+   C6     repaired withheld; the probe requires withheld 
+   D02    repaired withheld; the probe requires withheld 
+   D03    repaired held; the probe requires held 
+   D08    repaired withheld; the probe requires withheld 
+   D11    repaired held; the probe requires held 
+   A16   the probe as it stands held; repaired withheld
+   A26   the probe as it stands held; repaired withheld
+   A26'  the probe as it stands withheld; repaired withheld
+   A27   the probe as it stands held; repaired withheld
+   A27'  the probe as it stands withheld; repaired withheld
+   the corpus: 108 claims, 0 read differently under the repair
+   the probe's 13 cases under the repair: 0 differ from what the probe requires
+== 3. the descriptor with the open claim's id (F2's repair)
+   A23   as specified [3. 3.1 3.1!]; with the id [3. 3.1 3.1!1]; readings (True, False)
+   A23'  as specified [3. 3.1 3.1!]; with the id [3. 3.1 3.1!0]; readings (False, True)
+== 4. the instrument with the budget check at For and While (F4's repair)
+   budget 0, three laws: texts 3, stopped 3, different 0
+   the probe's corpus: texts 356, stopped 0, different 0
+== 5. K from the refusing arm onward (F3's repair)
+   the probe's 13 cases under the repair: 0 differ from what the probe requires
+   A08  as it stands [False]; repaired [False]
+   A09  as it stands [False]; repaired [True]
+   A10  as it stands [True]; repaired [True]
+   A20  as it stands [True]; repaired [True]
+   A21  as it stands [False]; repaired [False]
+   the corpus and this adversary's cases: 1 claims gained, 0 of them evaluated again by a continuation (must be 0)

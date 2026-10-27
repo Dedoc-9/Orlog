@@ -1,0 +1,105 @@
+Command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/manifold/adversary/k_attacks.py
+Date: 2026-10-26 (run here, the Windows working copy, on the tree after CUT-0's repairs, base commit 95dac79 with the uncommitted research files; run twice, byte-identical but for the seconds printed)
+Code: probes: cut0_claims.py de5682e1473c231c6505a961630a81af021e0e8f20ff081f080880375d0fc300; cut0_session.py e46ad6bb1693d9bcf333b502588bd910f293904c8ff1edce9a0cac5518adaa86; k_attacks.py 0110113d06b5c57333ea3aa45fc61e802ecfa87b59cfd5bbb8e1e434d083a0c1
+
+A01 rule undefined at a Say, pass 2 of 3, claim before
+   run REFUSED RULE-UNDEFINED 6; cut [3+ 3.3]
+   claim 0 §3.1 true in 2 of 2 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 yes, S2 yes
+A02 rule undefined inside the claim's own condition, last pass
+   run REFUSED RULE-UNDEFINED 5; cut [3. 3.2!0]
+   claim 0 §3.2 REFUSED at evaluation 2 (RULE-UNDEFINED), after 1 true: not held (R8): as built withheld; site withheld; cut withheld; evaluated after the cut: S1 yes, refuted, S2 yes, refuted
+A03 rule undefined in a For's upper bound; the body holds the claim, run once before
+   run REFUSED RULE-UNDEFINED 8; cut [6.]
+   claim 0 §3.1 true in 1 of 1 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 yes, S2 yes
+A04 rule undefined in a While's condition after the last allowed pass
+   run REFUSED RULE-UNDEFINED 3; cut [3w]
+   claim 0 §3.2 true in 2 of 2 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 no, S2 yes   <- withheld; under S1 no tried continuation reaches it (imprecise under S1 only)
+A05 a Must fails on pass 2 of 3, claim before it
+   run REFUSED MUST-FAILED 3; cut [1+ 1.2]
+   claim 0 §1.1 true in 2 of 2 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 yes, S2 yes
+A06 a Must fails on the last pass, claim before it
+   run REFUSED MUST-FAILED 3; cut [1. 1.2]
+   claim 0 §1.1 true in 3 of 3 evaluations: as built held; site withheld; cut held; evaluated after the cut: S1 no, S2 no
+A07 a Must in a procedure performed twice fails in the second call; claim between the calls
+   run REFUSED MUST-FAILED 3; cut [6 2.1]
+   claim 0 §4 true in 1 of 1 evaluations: as built held; site withheld; cut held; evaluated after the cut: S1 no, S2 no
+A08 refusal in an Otherwise-if condition, last pass; claim in a later arm, run earlier
+   run REFUSED INDEX-OUT-OF-RANGE 4; cut [2. 2.1?1]
+   claim 0 §2.3 true in 1 of 1 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 yes, S2 yes
+A09 refusal in an Otherwise-if condition, last pass; claim in the first arm, run earlier
+   run REFUSED INDEX-OUT-OF-RANGE 4; cut [2. 2.1?1]
+   claim 0 §2.1 true in 1 of 1 evaluations: as built held; site withheld; cut held; evaluated after the cut: S1 no, S2 no
+A10 a three-arm chain whose third arm's block refuses on the last pass; claim in arm two
+   run REFUSED INDEX-OUT-OF-RANGE 6; cut [2. 2.1 2.3.1]
+   claim 0 §2.2 true in 1 of 1 evaluations: as built held; site withheld; cut held; evaluated after the cut: S1 no, S2 no
+A11 inline Perform in the If arm of a loop, refusal inside it on the last pass
+   run REFUSED INDEX-OUT-OF-RANGE 6; cut [4. 4.1 4.1 3.3]
+   claim 0 §3.2 true in 3 of 3 evaluations: as built held; site withheld; cut held; evaluated after the cut: S1 no, S2 no
+A12 inline Perform in an inline otherwise arm; the other arm's procedure holds the claim
+   run REFUSED DIVISION-BY-ZERO 5; cut [4. 4.1 4.1 3.1]
+   claim 0 §2.1 true in 1 of 1 evaluations: as built held; site withheld; cut held; evaluated after the cut: S1 no, S2 no
+A13 inline Perform in an Otherwise-if arm, refusal inside, pass 2 of 3
+   run REFUSED DIVISION-BY-ZERO 5; cut [4+ 4.1 4.2 3.1]
+   claim 0 §2.1 true in 1 of 1 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 yes, S2 yes
+A14 a procedure performed from a loop and after it; refusal in the loop's last pass
+   run REFUSED INDEX-OUT-OF-RANGE 6; cut [4. 4.1 3.3]
+   claim 0 §3.2 true in 3 of 3 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 yes, S2 yes
+A15 nested procedures, the inner performed by two outers, the second outer refuses
+   run REFUSED DIVISION-BY-ZERO 8; cut [6 4.2]
+   claim 0 §2.1 true in 1 of 1 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 yes, refuted, S2 yes, refuted
+A16 a procedure performed in a While of fuel 2, refusing on the 2nd pass after the claim
+   run REFUSED DIVISION-BY-ZERO 5; cut [3w 3.1 2.3]
+   claim 0 §2.2 true in 2 of 2 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 no, S2 yes   <- withheld; under S1 no tried continuation reaches it (imprecise under S1 only)
+A17 a For whose upper bound refuses, the body run by an earlier For
+   run REFUSED DIVISION-BY-ZERO 4; cut [3.]
+   claim 0 §2.1 true in 2 of 2 evaluations: as built held; site held; cut held; evaluated after the cut: S1 no, S2 no
+   claim 1 §3.1 UNREACHED: as built withheld; site withheld; cut withheld; evaluated after the cut: S1 yes, S2 yes
+A18 a nested For whose bound refuses on the outer's last pass; the claim in the inner body
+   run REFUSED INDEX-OUT-OF-RANGE 3; cut [2. 2.1.]
+   claim 0 §2.1.1 true in 2 of 2 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 yes, S2 yes
+A19 a For with expression bounds lo > hi on the last pass of the outer
+   run REFUSED INDEX-OUT-OF-RANGE 5; cut [2. 2.2]
+   claim 0 §2.1.1 true in 3 of 3 evaluations: as built held; site withheld; cut held; evaluated after the cut: S1 no, S2 no
+A20 If condition refuses on the last pass; claim before the If
+   run REFUSED INDEX-OUT-OF-RANGE 4; cut [2. 2.2?0]
+   claim 0 §2.1 true in 3 of 3 evaluations: as built held; site withheld; cut held; evaluated after the cut: S1 no, S2 no
+A21 If condition refuses on the last pass; claim in its arm, run earlier
+   run REFUSED INDEX-OUT-OF-RANGE 3; cut [2. 2.1?0]
+   claim 0 §2.1 REFUSED at its clause (INDEX-OUT-OF-RANGE) after 2 of 2 evaluations true; the refusal may come from the condition or the other arm its clause holds: not held (R8): as built withheld; site withheld; cut withheld; evaluated after the cut: S1 yes, S2 yes
+A22 a refusal in a procedure performed from a block Otherwise arm, called twice
+   run REFUSED DIVISION-BY-ZERO 3; cut [6 3.1 3.2.2 2.1]
+   claim 0 §3.2.1 true in 2 of 2 evaluations: as built held; site withheld; cut held; evaluated after the cut: S1 no, S2 no
+A23 two claims on one clause (cond literal true): the second claim, the otherwise arm's, open on the last pass
+   run REFUSED INDEX-OUT-OF-RANGE 4; cut [3. 3.1 3.1!1]
+   claim 0 §3.1#0 REFUSED at its clause (INDEX-OUT-OF-RANGE) after 1 of 1 evaluations true; the refusal may come from the condition or the other arm its clause holds: not held (R8): as built withheld; site withheld; cut held; evaluated after the cut: S1 no, S2 no
+   claim 1 §3.1#1 REFUSED at its clause (INDEX-OUT-OF-RANGE) after 1 of 1 evaluations true; the refusal may come from the condition or the other arm its clause holds: not held (R8): as built withheld; site withheld; cut withheld; evaluated after the cut: S1 yes, refuted, S2 yes, refuted
+A23' the same law, one literal apart (cond literal false): the first claim, the If arm's, open
+   run REFUSED INDEX-OUT-OF-RANGE 4; cut [3. 3.1 3.1!0]
+   claim 0 §3.1#0 REFUSED at its clause (INDEX-OUT-OF-RANGE) after 1 of 1 evaluations true; the refusal may come from the condition or the other arm its clause holds: not held (R8): as built withheld; site withheld; cut withheld; evaluated after the cut: S1 yes, refuted, S2 yes, refuted
+   claim 1 §3.1#1 REFUSED at its clause (INDEX-OUT-OF-RANGE) after 1 of 1 evaluations true; the refusal may come from the condition or the other arm its clause holds: not held (R8): as built withheld; site withheld; cut held; evaluated after the cut: S1 no, S2 no
+A24 While condition refuses with fuel left; claim in body
+   run REFUSED INDEX-OUT-OF-RANGE 3; cut [3w]
+   claim 0 §3.2 true in 2 of 2 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 yes, S2 yes
+A25 While condition refuses with the fuel spent (2 of 2 passes made)
+   run REFUSED INDEX-OUT-OF-RANGE 3; cut [3w]
+   claim 0 §3.2 true in 2 of 2 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 no, S2 yes   <- withheld; under S1 no tried continuation reaches it (imprecise under S1 only)
+C6 the probe's case: FUEL-EXHAUSTED at the 4th check
+   run REFUSED FUEL-EXHAUSTED 2; cut [2w]
+   claim 0 §2.2 true in 3 of 3 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 yes, S2 yes
+A26 C6 with a refusal on the 3rd (last fuelled) pass, after the claim: d = 0
+   run REFUSED DIVISION-BY-ZERO 6; cut [3w 3.3 3.3]
+   claim 0 §3.2 true in 3 of 3 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 no, S2 yes   <- withheld; under S1 no tried continuation reaches it (imprecise under S1 only)
+A26' the same law, one literal apart: d = 1 (no refusal on pass 3; FUEL-EXHAUSTED at the 4th check)
+   run REFUSED FUEL-EXHAUSTED 3; cut [3w]
+   claim 0 §3.2 true in 3 of 3 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 yes, S2 yes
+A27 a refusal on the 3rd pass whose next check would refute the claim (claim i is at most 3)
+   run REFUSED DIVISION-BY-ZERO 6; cut [3w 3.3 3.3]
+   claim 0 §3.2 true in 3 of 3 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 no, S2 yes, refuted   <- withheld; under S1 no tried continuation reaches it (imprecise under S1 only)
+A27' one literal apart: d = 1, the 4th check refuses FUEL-EXHAUSTED
+   run REFUSED FUEL-EXHAUSTED 3; cut [3w]
+   claim 0 §3.2 true in 3 of 3 evaluations: as built held; site withheld; cut withheld; evaluated after the cut: S1 yes, refuted, S2 yes, refuted
+== descriptor pairs: equal cut descriptors, different readings
+   A23 [3. 3.1 3.1!1] (True, False) / A23' [3. 3.1 3.1!0] (False, True): descriptors differ, readings differ
+   A26 [3w 3.3 3.3] (False,) / A26' [3w] (False,): descriptors differ, readings equal
+   A27 [3w 3.3 3.3] (False,) / A27' [3w] (False,): descriptors differ, readings equal
+K-ATTACKS: 0 unsound under S1, 0 unsound under S2 (and not S1), 0 candidate imprecisions

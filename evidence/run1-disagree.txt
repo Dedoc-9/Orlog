@@ -1,0 +1,76 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/probes/disagree_probe.py
+# tree: 95dac79 plus the uncommitted research files (src/ unchanged); Windows 11, CPython 3.14.5; 2026-10-26; exit 0; run twice, identical
+# EXPERIMENTAL RESEARCH PROBE: evidence for a proposal, not of a contract
+== the cases, COMPAT-0's frozen texts, the fixtures and the examples: 35 refused runs with claims, 12 disagreements (TIGHTER 10, LOOSER 2)
+   TIGHTER under Rinf: REFUTED 4, CONFIRMED 5, UNREACHED 1, UNRESOLVED 0, UNMODELLED 0
+   TIGHTER under R1  : REFUTED 3, CONFIRMED 5, UNREACHED 2, UNRESOLVED 0, UNMODELLED 0
+   LOOSER under Rinf: REFUTED 0, CONFIRMED 0, UNREACHED 2, UNRESOLVED 0, UNMODELLED 0
+   LOOSER under R1  : REFUTED 0, CONFIRMED 0, UNREACHED 2, UNRESOLVED 0, UNMODELLED 0
+   TIGHTER by part of K-hat (claims held there; held there alone, which the part's removal releases):
+      a For's next pass                     1; alone      1 (CONFIRMED 1)
+      a While's next pass                   3; alone      3 (REFUTED 1, CONFIRMED 1, UNREACHED 1)
+      the rest of a block                   4; alone      4 (REFUTED 2, CONFIRMED 2)
+      the loop's own clause refused         2; alone      2 (REFUTED 1, CONFIRMED 1)
+   TIGHTER by the claim's place:
+      in a loop body                        7 (REFUTED 3, CONFIRMED 3, UNREACHED 1)
+      in a procedure                        3 (REFUTED 1, CONFIRMED 2)
+   TIGHTER by the exact set of parts (joint), largest first:
+           4  {the rest of a block}: REFUTED 2, CONFIRMED 2
+           3  {a While's next pass}: REFUTED 1, CONFIRMED 1, UNREACHED 1
+           2  {the loop's own clause refused}: REFUTED 1, CONFIRMED 1
+           1  {a For's next pass}: CONFIRMED 1
+== family E: 54646 refused runs with claims, 34523 disagreements (TIGHTER 34523, LOOSER 0)
+   TIGHTER under Rinf: REFUTED 0, CONFIRMED 34523, UNREACHED 0, UNRESOLVED 0, UNMODELLED 0
+   TIGHTER under R1  : REFUTED 0, CONFIRMED 34523, UNREACHED 0, UNRESOLVED 0, UNMODELLED 0
+   TIGHTER by part of K-hat (claims held there; held there alone, which the part's removal releases):
+      a For's next pass                   667; alone    667 (CONFIRMED 667)
+      a While's next pass                 643; alone    643 (CONFIRMED 643)
+      the rest of a block                   1; alone      1 (CONFIRMED 1)
+      the loop's own clause refused     33212; alone  33212 (CONFIRMED 33212)
+   TIGHTER by the claim's place:
+      in a loop body                    34522 (CONFIRMED 34522)
+      in a procedure                        1 (CONFIRMED 1)
+   TIGHTER by the exact set of parts (joint), largest first:
+       33212  {the loop's own clause refused}: CONFIRMED 33212
+         667  {a For's next pass}: CONFIRMED 667
+         643  {a While's next pass}: CONFIRMED 643
+           1  {the rest of a block}: CONFIRMED 1
+== family G: 24839 refused runs with claims, 8828 disagreements (TIGHTER 8823, LOOSER 5)
+   TIGHTER under Rinf: REFUTED 1964, CONFIRMED 5613, UNREACHED 1246, UNRESOLVED 0, UNMODELLED 0
+   TIGHTER under R1  : REFUTED 612, CONFIRMED 4438, UNREACHED 3773, UNRESOLVED 0, UNMODELLED 0
+   LOOSER under Rinf: REFUTED 0, CONFIRMED 0, UNREACHED 5, UNRESOLVED 0, UNMODELLED 0
+   LOOSER under R1  : REFUTED 0, CONFIRMED 0, UNREACHED 5, UNRESOLVED 0, UNMODELLED 0
+   TIGHTER by part of K-hat (claims held there; held there alone, which the part's removal releases):
+      a For's next pass                  2445; alone   1231 (REFUTED 324, CONFIRMED 819, UNREACHED 88)
+      a While's next pass                2311; alone    803 (REFUTED 70, CONFIRMED 283, UNREACHED 450)
+      the rest of a block                2137; alone    739 (REFUTED 195, CONFIRMED 385, UNREACHED 159)
+      the refused If's arms onward        191; alone     52 (REFUTED 12, CONFIRMED 35, UNREACHED 5)
+      the loop's own clause refused      4601; alone   3435 (REFUTED 686, CONFIRMED 2437, UNREACHED 312)
+   TIGHTER by the claim's place:
+      in a loop body                     7055 (REFUTED 1541, CONFIRMED 4573, UNREACHED 941)
+      in a procedure                     3342 (REFUTED 752, CONFIRMED 2072, UNREACHED 518)
+   TIGHTER by the exact set of parts (joint), largest first:
+        3435  {the loop's own clause refused}: REFUTED 686, CONFIRMED 2437, UNREACHED 312
+        1231  {a For's next pass}: REFUTED 324, CONFIRMED 819, UNREACHED 88
+         803  {a While's next pass}: REFUTED 70, CONFIRMED 283, UNREACHED 450
+         739  {the rest of a block}: REFUTED 195, CONFIRMED 385, UNREACHED 159
+         655  {a While's next pass; the rest of a block}: REFUTED 233, CONFIRMED 345, UNREACHED 77
+         492  {a For's next pass; the loop's own clause refused}: REFUTED 94, CONFIRMED 363, UNREACHED 35
+         347  {a While's next pass; the loop's own clause refused}: REFUTED 85, CONFIRMED 237, UNREACHED 25
+         259  {a For's next pass; the rest of a block}: REFUTED 99, CONFIRMED 154, UNREACHED 6
+         226  {the loop's own clause refused; the rest of a block}: REFUTED 47, CONFIRMED 177, UNREACHED 2
+         188  {a For's next pass; a While's next pass}: REFUTED 19, CONFIRMED 99, UNREACHED 70
+         156  {a For's next pass; a While's next pass; the rest of a block}: REFUTED 56, CONFIRMED 92, UNREACHED 8
+          77  {a While's next pass; the refused If's arms onward}: REFUTED 13, CONFIRMED 61, UNREACHED 3
+          52  {the refused If's arms onward}: REFUTED 12, CONFIRMED 35, UNREACHED 5
+          39  {a For's next pass; the loop's own clause refused; the rest of a block}: REFUTED 5, CONFIRMED 34
+          29  {a While's next pass; the loop's own clause refused; the rest of a block}: REFUTED 8, CONFIRMED 21
+          25  {a For's next pass; a While's next pass; the loop's own clause refused}: REFUTED 8, CONFIRMED 16, UNREACHED 1
+          24  {a For's next pass; the refused If's arms onward}: REFUTED 4, CONFIRMED 18, UNREACHED 2
+          12  {a For's next pass; a While's next pass; the refused If's arms onward}: CONFIRMED 12
+           9  {the refused If's arms onward; the rest of a block}: REFUTED 3, CONFIRMED 6
+           8  {a For's next pass; a While's next pass; the loop's own clause refused; the rest of a block}: REFUTED 1, CONFIRMED 5, UNREACHED 2
+           6  {a For's next pass; the refused If's arms onward; the rest of a block}: CONFIRMED 5, UNREACHED 1
+           6  {a While's next pass; the refused If's arms onward; the rest of a block}: REFUTED 1, CONFIRMED 5
+           5  {a For's next pass; a While's next pass; the refused If's arms onward; the rest of a block}: REFUTED 1, CONFIRMED 4
+DISAGREEMENT CLASSIFIED: TIGHTER 43356 under Rinf: REFUTED 1968, CONFIRMED 40141, UNREACHED 1247, UNRESOLVED 0, UNMODELLED 0; LOOSER 7: REFUTED 0, CONFIRMED 0, UNREACHED 7, UNRESOLVED 0, UNMODELLED 0

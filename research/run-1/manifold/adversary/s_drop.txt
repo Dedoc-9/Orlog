@@ -1,0 +1,6 @@
+Command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/manifold/adversary/s_drop.py
+Date: 2026-10-26 (run here, the Windows working copy)
+
+a sent nothing                     legal; dispositions ['assigned 1']; status NOT-RUN 1 INPUT-MISSING a; rows failed none
+a's valid 1 dropped by the host    legal; dispositions ['dropped', 'assigned 1']; status NOT-RUN 1 INPUT-MISSING a; rows failed none
+input logs EQUAL; receipt cores EQUAL; session records differ

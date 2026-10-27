@@ -1,0 +1,16 @@
+Command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/manifold/adversary/k_monotone.py 20000 7
+Date: 2026-10-26 (run here, the Windows working copy)
+
+== cut monotonicity over 12581 random refusing laws, seed 7, 125063 earlier points (41 s)
+   as it stands: 578 points whose K misses part of K at the cut; with a spent While bit in the point's frames: 578
+   the shortest: point [6. 6.2], cut [6.], claims missing [0]
+      §1 Let xs be a list of 3 copies of 1.
+      §2 Let x be 3.
+      §3 Let y be 2.
+      §4 Define r as x plus 1, provided that x is less than 2.
+      §5 To p1, do the following.
+      §5.1 Say the quotient of 6 by (x minus 0).
+      §6 While y is even, at most 3 times, do the following.
+      §6.1 We claim that x is at most 3.
+      §6.2 Perform p1.
+   F1 repaired: 0 points whose K misses part of K at the cut; with a spent While bit in the point's frames: 0
