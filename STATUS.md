@@ -1,7 +1,7 @@
 # ØRLǪG (Orlog): status, 2026-10-26, after COMPAT-0, the court's R8 and the reporting pass (SPEC v0.4)
 
-Start here when resuming. The project lives in its own repository, [github.com/Dedoc-9/Orlog](https://github.com/Dedoc-9/Orlog)
-(local folder `Desktop\Orlog`), under the GNU AGPL v3 (AGPL-3.0-only, as Verðandi). It moved there from a session
+Start here when resuming. The project lives in its own repository, [github.com/Dedoc-9/Orlog](https://github.com/Dedoc-9/Orlog),
+under the GNU AGPL v3 (AGPL-3.0-only, as Verðandi). It moved there from a session
 scratch folder on 2026-10-25. Nothing is admitted or registered anywhere, and the Verðandi checkout is untouched. The
 owner makes every commit and push.
 
@@ -17,7 +17,41 @@ owner makes every commit and push.
 5. **research/run-1/RULINGS.md**: the rulings the open run needs (R1–R12 and ten defaults), each with its options,
    what each entails, the theorem under it, a falsifier and a recommendation. R3 is ruled (a, exact or refused),
    R4 (a, at tick granularity), R5 (with four amendments, the per-tick line in 1a, the per-event chain kept) and R6
-   (a, data never a channel, with three riders), all 2026-10-26; the rest await the owner.
+   (a, data never a channel, with three riders), and the claims ruling (E2 as HELD's meaning for version 1, and option
+   (d): the meet R8 ∧ CUT-0 pinned to CUT-0's digest), R7 (a: one independent review of §15's draft with triggered
+   re-reads), and from that review D for finding 24 (D10's court clause scoped to real readings) with B1 + 4a + 5c
+   + K1 for the PREFIX licence, all 2026-10-26, then the labels' definitions, the closure's rule table and R6's
+   control, the table's Perform row, finding 6, read-once ports, A′, and the release's narrow scope (2026-10-27); the
+   rest await the owner, the amended set's remaining rows and finding 8 deferred to rulings before 1a's build. Beside it, in the same
+   folder, the contract debate after R6:
+   - `DESIGN-BRIEF.md`, the rulings quoted for an outside reviewer;
+   - `CONTRACT-DEBATE.md` and `ROUNDS.md`: rounds A to D, the theorem ledger as proof obligations, and the decisions
+     held for one push;
+   - `CONTRACT-DRAFT.md` and the two adversaries' records;
+   - `CUT-0.md`, the causal cut and the session as a transition system, with its probes in `probes/` (indexed by
+     `PROBES.md`);
+   - `TRANSFER.md`, where the derived designs could apply elsewhere;
+   - `FLOAT.md`, how RUN-1 reconciles with floating point: an adversarial reading and a consensus, F1–F9;
+   - `FORK.md`, forking the settlement rule rather than the truth: R8 admitted, CUT-0 an experiment until ruled;
+   - `CUT-SCHEMA.md`, the refusal cut's bytes (draft 2), derived from CUT-0's rule as written, held to the shapes a
+     run can produce, with a compatibility policy for records (P1–P7);
+   - `SETTLEMENT-DEBATE.md`, what replaces the reason CUT-0 was built: a fourth claims option, the meet R8 ∧ CUT-0,
+     never above R8; the settlement rule's identity; the stratified court, not adopted now; and the disagreement set
+     classified (§7): what remains is what HELD means, E1 or E2;
+   - `SPEC-15-DRAFT.md`, SPEC §15 drafted for the twin's paper round (R7): every clause tagged ruled, open or fixed,
+     with its review against the rulings, CUT-0, the schema and T10 (T10.7 added for the tick block);
+   - `twin-r7/`, R7's independent review of that draft (ruled 2026-10-26): its reading set, the rulings as ruled, and
+     the twin's report, its 58 findings disposed, and draft 1 (`SPEC-15-DRAFT-1.md`) with its changes clause by clause;
+     then, after the owner's rulings of 2026-10-26 and 2026-10-27, the affected-clause sets (`AR-*.md`, computed by
+     `ar_compute.py`), four re-reads by the same twin (31, 23, 17 and 10 findings, each disposed), and drafts 2 to 6
+     (`SPEC-15-DRAFT-6.md` the current one), each with its changes. Draft 7's fixes and his last three answers are
+     recorded (`REREAD-4-DISPOSITION.md`, `AR-REREAD-5.md`), owed with their re-read before the build;
+   - `packets/`, five decision packets (A to E) for the rulings that block R7's round and for the held push, with
+     their integration (2026-10-26);
+   - `manifold/`, the debate on a manifold view, judged in `manifold/VERDICT.md`.
+
+   All are research. Of them, the claims question (E2 and option (d)), R7, finding 24 and the PREFIX licence are
+   ruled, recorded in `RULINGS.md`.
 6. **research/doppler/VERDICT.md**: whether incompleteness can be ruled out "as ruthlessly as sha256". A sound,
    refusal-sensitive dependence analysis certifies and a doppler search only prosecutes; nothing is built before
    RUN-1. It also records a defect in the court as built (DP-5) and three holes in R6's amendment.
@@ -140,8 +174,8 @@ owner makes every commit and push.
 ## Still open
 - **The reporting pass's two questions for the owner** (`research/reporting-pass/DISPOSITION.md`): what a law's own
   refusal exits with, and whether a claim that held stays held in a run refused elsewhere. The second is settled for
-  RUN-1's PREFIX claims and a refusal at a tick (R6's ruling: held); it stays open for a refusal before the first
-  input and for every closed run.
+  RUN-1's PREFIX claims and a refusal at a tick (R6's ruling: held), and for every version-1 run by the claims ruling
+  (E2: held only when the continuation could not evaluate the claim again). It stays open for every closed run.
 - **The speed verdict's proposals** (`research/speed/VERDICT.md`), for the RUN-1 sheet:
   - a per-tick line;
   - `ops` in the `'T'` event;
@@ -157,9 +191,10 @@ owner makes every commit and push.
 - **The owner's rulings**: RUN-1's sheet (`research/run-1/RULINGS.md`, R1–R12); DOCTRINE §9 (fork 2 is decided);
   HOST-0, which needs a second machine; whether Ragnarök's narrow instrument is admitted at all
   (`research/ragnarok/VERDICT.md`); and prosecutor F42, below.
-- **Privacy (prosecutor F42)**: 16 tracked files under `court/` still embed the home folder's path (the prosecution's
-  header and 15 captured observations of the red team). They are records "kept as captured"; redacting them rewrites a
-  record, so it waits for the owner's word. `research/scripts-r1b/x.sh` was pointed at the repository (F36).
+- **Privacy (prosecutor F42)**: by the owner's word (2026-10-26), the 16 tracked files under `court/` that embedded the
+  home folder's path (the prosecution's header and 15 captured observations of the red team) hold `{session}` and
+  `{python}` in their place in the held push, with nothing else changed. The paths remain in history through 95dac79;
+  whether to rewrite it is still his decision, so F42 stays open for history. `research/scripts-r1b/x.sh` was pointed at the repository (F36).
 - **The twin's readings**: it holds its own on the three probes settled against it (SPEC §14 items 6, 7, 9). Whether
   its author adopts §14 is a fourth round's question.
 - **The twin's inputs**: `tests/make_twin_inputs.py` now writes 24, since examples/fall.orl joined the corpus after

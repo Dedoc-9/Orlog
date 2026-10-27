@@ -226,6 +226,13 @@ the session's scratch folder, not the tree.
   the marker at column one, as the parser does.
 - **The repair changes no frozen verdict. MEASURED here:** 0 of COMPAT-0's 3,361 frozen texts has any line that begins
   with a space or a tab. That is also a coverage gap: the corpus never exercises indentation.
+  *(Corrected 2026-10-26, the same day: the conclusion was wrong. The count was of the raw bytes, but the door repairs
+  first. Its R-SPACE turns an NBSP at a line's start into a space, and only then reads the marker. Run in memory over
+  every frozen text (`research/run-1/probes/door_canon_probe.py`), the repair changes one verdict: the red team's
+  `E18_door_not_idempotent.raw` (`NBSP Note:"NBSP"`), refused QUOTE-BOUNDARY as built and LINE-FORM under the repair.
+  Both are refusals. E18 and H2 are one defect: with `lstrip`, the door's classification of a line depends on its own
+  repairs. The repair needs a `tests/compat/settled.json` entry, with its reason and amendment, and a change to
+  E18's self-test row.)*
 - **For RUN-1.** R2 adds line forms. Every line form should be classified the same by the door and the parser, held by
   a row for each form and a plant that splits them.
 - **Falsifier:** a line the door reads as free text that the parser reads otherwise.

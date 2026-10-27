@@ -363,7 +363,9 @@ classification is compared with it on every compile. A disagreement is refused w
 It is never written into a repair report as if it had been read. Paired rows still test each form, but the invariant
 then also holds for forms nobody wrote a row for. Under today's two rules a split happens only on an indented `Note:`
 or `Title:`, and the corpus has no indented line (MEASURED, `DESIGN-BRIEF.md` H2), so the guard changes no frozen
-verdict.
+verdict. *(Corrected 2026-10-26, the same day: the guard, or the repair, changes one frozen verdict. The door repairs an
+NBSP into a leading space before it reads the marker, so the red team's E18 moves from QUOTE-BOUNDARY to LINE-FORM.
+See `DESIGN-BRIEF.md` H2's correction.)*
 
 **Strongest objection.** A guard that should never fire is dead code. **Answer.** Its plant makes it fire (the door's
 `lstrip` restored), and R2's new forms are where it earns its place.

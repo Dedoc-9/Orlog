@@ -1,0 +1,403 @@
+# SPEC §15, draft 1: version 1, the open run (2026-10-26; research, not yet in SPEC.md)
+
+**Status.** Draft 1 applies the 31 drafting fixes of the twin's review (`twin-r7/DISPOSITION.md`) to draft 0, which
+is kept as reviewed in `twin-r7/SPEC-15-DRAFT-0-AS-REVIEWED.md`. It decides nothing the review sent to a ruling. Every
+clause it changes is read again by the twin before it is built (R7), and `twin-r7/DRAFT-1-CHANGES.md` lists them. The
+draft moves into `SPEC.md` as §15 only once its open clauses are ruled. Everything not stated here is version 0, as
+SPEC §1–§14 and RUNTIME-SPEC.md define it. Nothing here is built, and nothing here clears a blocker.
+
+**How to read the tags.** Every clause carries one:
+- **[ruled: R3, R4, R5, R6]** — fixed by the owner's ruling of that name. The clause states what the ruling fixes;
+  quoted words are his.
+- **[ruled: claims]** — fixed by the claims ruling: E2, and the meet.
+- **[pinned]** — fixed by the artifacts the claims ruling names, not by its words: the exact CUT-0 digest the meet
+  must name, and the court's R8 as built. No digest is pinned yet, so a [pinned] clause states what is proposed for
+  pinning, and it can change until the pin.
+- **[v0]** — as version 0 already defines it (SPEC §1–§14, RUNTIME-SPEC.md, the court as built).
+- **[open: X]** — not ruled. The clause gives the current proposal, and X names what decides it: a sheet item (R1,
+  R2, R8 to R12, D1 to D10), a row of the amended set, contract draft 0 (the source of a proposal no ruling has
+  adopted), or a question found here. An open clause is a proposal, never a rule.
+- **[fixed]** — holds whatever is ruled. The ruling sheet's list "Fixed whatever is ruled" has three entries: COMPAT-0
+  must hold, so every version-1 form is spelled only where version 0 refuses SYNTAX at the statement; no word is newly
+  reserved; and the spellings' measurement.
+
+**Two names clash, and are kept apart here.** "R8" in the ruling sheet is **float ports** (open). "R8" in the court
+is **the settlement rule for a refused evaluation** (built). This draft writes the first as *sheet R8* and the second
+as *the court's R8*.
+
+## 15.0 Terms
+
+- **Version 1 law:** a law whose source has a port or a tick block. Its header line reads `orlog-law 1`; every other
+  law keeps `orlog-law 0` and its version-0 bytes. **[ruled: R5]**
+- **Port:** a declared input, read **each tick** or **once**, with a name and a type: `an integer`, `a fixed`,
+  `a truth value` or `a text`. A port is read-only. Float ports are not in version 1 unless sheet R8 rules them.
+  **[open: R2; sheet R8]**
+- **Prefix:** the top-level statements before the tick block. **Tick block:** the last top-level clause. **[open: R2;
+  amended set "port place"]**
+- **Arrival:** bytes sent toward a port by a source. **Door:** the function that judges an arrival. **Host:** the
+  program that receives arrivals, keeps the records and starts an execution. **Session:** the history of one host's
+  events (§15.4). **[open: amended set "A2"]**
+- **Input log:** what the law reads (§15.5). **[open: amended set "identity and bytes"]**
+- **Execution:** the reference or a compiled backend running one law over one input log. **[v0, with the input log]**
+
+## 15.1 The forms
+
+1. **Spellings.** **[open: R2]**
+   - A port read each tick: `Let thrust be given each tick as a fixed.`
+   - A port read once: `Let gravity be given as a fixed.`
+   - The tick block: `Each tick, do the following.`
+   - With a budget: `Each tick, at most N operations, do the following.`
+2. **Every form is spelled only where version 0 refuses SYNTAX at the statement**, so no accepted version-0 text
+   changes meaning. No word is newly reserved. **[fixed]**
+3. **Places.** **[open: R2; amended set "port place"]** Ports are declared at the top level, before the tick block.
+   There is one tick block, the last top-level clause. A read of an each-tick port outside the tick block is refused
+   at compile time. The new compile codes, entered in SPEC §13's phase table:
+   - PORT-PLACE: a port elsewhere;
+   - TICK-PLACE: a tick block elsewhere, or a second one;
+   - PORT-VARIABLE: a port assigned.
+4. **The law's lines.** `(port <var> "<name>" <type> each-tick|once)` and `(tick <clause>[ budget <N>])`. **[ruled: R5]**
+5. **The door and the forms agree.** SPEC §1 reads a line as a label, one space, then the statement. A form whose line
+   reaches its label only past leading spaces, or only after the door repairs a byte, is classified as the same line
+   written at column one is. Each form's recognition, its parse or refusal, and that classification are one decision.
+   **[open: amended set "H2", in a change of its own, with E18's COMPAT-0 settlement]**
+6. **A world property** (gravity, a constant of the scene) is proposed as a port read once. **[open: R1]** Its cost is
+   his sentence: "Moving a world property out of the law and into a read-once port means the cost of rule a reaches
+   every later claim in the run, stripping them of grounding even if they never touch that property directly."
+   Grounding is §15.12. **[ruled: R6]**
+
+## 15.2 The door
+
+**[ruled: R3]** The door never rounds: a decimal that is not exactly a Fix value is refused, and inputs arrive on the
+2^-32 grid or as raw values. "The entrance tool filters all incoming port streams using a restrictive ASCII regular
+expression sieve", before any number is parsed. **[open: whether the ASCII sieve governs text ports, whose bytes R3
+also keeps as sent (finding 13)]**
+
+**[open: contract draft 0 §1.2–§1.3]** The door is a pure function of (the port's declaration, the arrival's bytes),
+and its version is named in the input log's header. Its rules apply in order, and the first rule a value breaks is
+its refusal:
+1. **The bytes must match the port type's grammar exactly.** Otherwise INPUT-SYNTAX. The integer and decimal
+   grammars are not given here. **[open: R3's details for 1a]**
+2. **`an integer`:** any fraction or decimal component refuses INPUT-NOT-INTEGER; "Truncation or automatic
+   floor-rounding at the gate is blocked." A value outside [−2^63, 2^63−1] refuses INPUT-RANGE. **[ruled: R3]**
+3. **`a fixed`:** **[ruled: R3, except where marked]**
+   - The value must sit within the raw bounds of a Fix, raw −2^63 to raw 2^63−1 (×2^−32), "actively protecting the
+     lower negative boundary against floor overflow errors down to −2147483648.5". Outside them refuses INPUT-RANGE.
+   - A value off the 2^−32 grid refuses INPUT-GRID, and the refusal names "the two nearest valid representable grid
+     coordinates".
+   - The range is checked before the grid. **[open: contract draft 0]**
+   - A raw value is written in hexadecimal, with a prefix of its own in the grammar: "Raw hexadecimal scalar strings
+     are given an isolated syntactic prefix". **[open: the prefix, and how a sign is written]**
+4. **`a truth value`:** exactly one spelling for true and one for false. "Alternative representations, case
+   variations, or numeric bits (`1`/`0`) are refused", as INPUT-SYNTAX. **[ruled: R3; open: the two spellings]**
+5. **`a text`:** **[ruled: R3, except where marked]**
+   - "String inputs are preserved byte-for-byte as sent."
+   - A text not in NFC is accepted, with a note in the door's report. The note is recomputable from the bytes.
+     **[open: contract draft 0]**
+   - "CP1252 character maps are rejected outright." Bytes that are not UTF-8 refuse INPUT-NOT-UTF8. **[open: the code
+     for CP1252 text whose bytes are valid UTF-8]**
+   - **[open: whether text also refuses what the literal door refuses]**
+
+**[ruled: R3]** The log holds typed encodings only (RUNTIME-SPEC §5), written once by a Python input door, so no
+runtime ever parses decimal text. **[open: contract draft 0; R3 gives reversibility under COMPAT-0 as a reason, not
+this rule]** A later version may relax a refusal into acceptance, never the reverse.
+
+## 15.3 The session's events
+
+**[open: amended set "A2", with the declared policy]** The door judges each arrival before any assignment, and the
+host's events are these:
+
+| event | legal when | effect |
+|---|---|---|
+| `arrive(port, source, bytes)` | the session has not ended, its run has not refused, and the port is declared | numbered in order, with its source; the door judges it at once |
+| `assign(arrival, tick)` | as above; the arrival was accepted and has no disposition; the tick is the open one; its port's slot is empty | it fills the slot |
+| `drop(arrival)` | as above; the arrival was accepted and has no disposition | declined; its source is told |
+| `close()` | as above | if every each-tick port is filled, the open tick runs at once. Otherwise the tick does not run, NOT-RUN with the first missing port in declaration order, and the session ends |
+| `end()` | the open tick holds no assignment (else END-PENDING) and every accepted arrival is assigned or dropped (else END-UNDISPOSED). After the run refused, `end` is the only legal event and needs neither | the session ends |
+
+- **Any other move is refused by its rule's name:** ASSIGN-REFUSED, DROP-REFUSED, DISPOSED-TWICE, ASSIGN-CLOSED,
+  ASSIGN-AHEAD, SLOT-FILLED, AFTER-END, UNKNOWN-PORT, NO-ARRIVAL, END-PENDING, END-UNDISPOSED, RUN-REFUSED. A refused
+  move is not appended to the history, and the session's state does not change.
+- **Every arrival has exactly one disposition**, derived from the history: refused with its code, assigned to its
+  tick, dropped, or unconsumed.
+- **Read-once ports have no event in this table yet.** No event fills a read-once port, and nothing says when the
+  prefix runs, or what happens when a read-once value never arrives. **[open: amended set "A2" and "identity and
+  bytes" (finding 6)]**
+- **No value is invented, held over or defaulted,** until SNAP-1's continuation rule. A tick that does not run stops
+  every port of it, and the session. **[open: contract draft 0 §1.5; amended set "A2"]**
+- **A retry is a new arrival;** the refusal before it stays in the history. The host never advances while a source
+  retries, because advancing is closing.
+- **A door refusal or a refused move does not end the session.** **[open: amended set "A2"]**
+- **Until SNAP-1, a refusal of the run ends the session.** A refusal ends its branch at the tick. The refused branch
+  is kept, sealed and queryable. The court reads each branch on its own and names every abandoned branch. **[ruled:
+  R4]**
+
+## 15.4 The session record, `orlog-session 0`
+
+**[open: amended set "session record" and "binding"]**
+- **The history is a record of its own:** sources, door verdicts, assignments, drops, closes and the end, chained.
+- **Three records, three authorities:**
+  - the receipt core attests one execution over its input log (§15.8);
+  - the session record attests the session: `history-sha256`, `input-log-sha256` and `receipt-core-sha256`;
+  - the arbiter's agreement record attests the compared executions, their identities and the verdict.
+- **The verifier checks the chain:** the history is legal; the log is its projection, or HISTORY-MISMATCH; the core
+  is the log's run, or CORE-MISMATCH; the record names all three, or SESSION-MISMATCH.
+- **Two histories with one input log share one core.** That is law-equivalence, by design: a receipt never stands for
+  a session.
+
+## 15.5 The input log, `orlog-inputs 0`
+
+**[open: amended set "identity and bytes"]** A stream of LF-terminated ASCII lines, parsed strictly. Every field is
+matched whole, and the parser accepts exactly what the serializer writes:
+- **The header:** `orlog-inputs 0`; `ports <the port signature's sha256>` (§15.6); `door <the door's version>`.
+- **One record for the read-once ports, then one record per tick**, in tick order from 1. A tick record holds every
+  each-tick port's value in declaration order, densely: `t <n>`, then each value's encoding (RUNTIME-SPEC §5) as
+  lowercase hex, separated by single spaces. With no each-tick port the line is `t <n>`, with no trailing space.
+- **Optionally, one end record:** `end <n>`, n the number of tick records, and a cause: `closed`, or
+  `not-run <t> INPUT-MISSING <port>`. INPUT-REFUSED belongs to the candidate A1, not to A2.
+- **A log with no end record is open.**
+- **The log is parsed whole before any execution starts.** A malformed log is refused at load, before any execution
+  starts (contract draft 0 §2.2), so no tick of a malformed log runs.
+- **Load refusals:** LOG-NOT-ASCII, LOG-LINE, LOG-HEADER, PORT-SIGNATURE, LOG-RECORD, LOG-TICK, LOG-END,
+  LOG-AFTER-END, LOG-UNKNOWN. These replace contract draft 0's single LOG-MALFORMED. **[open: the conditions of each
+  code and their order; whether a load refusal writes a receipt, the proposal being none, as a compile refusal writes
+  none (SPEC §11 G2) (finding 8)]**
+- **The chain:** in_0 = SHA-256("orlog-inputs 0" ‖ the header's bytes, with the read-once record);
+  in_t = SHA-256(in_{t−1} ‖ SHA-256(tick record t's bytes)).
+- **`input-log-sha256`** is the SHA-256 of the log's bytes as read: to the end record inclusive, or to the end of an
+  open log.
+
+## 15.6 The port signature
+
+**[open: amended set "identity and bytes"]** SHA-256 of `orlog-ports 0\n`, followed, for each port in declaration
+order, by `(port "<name>" <type> each-tick|once)\n`. The variable number is left out; the name, the type and the kind
+are in. An unrelated statement before the ports leaves the signature equal. Renaming, retyping, reordering or changing
+a port's kind changes it.
+
+## 15.7 Execution
+
+1. **The order.** **[ruled: R5]** A run executes the prefix, then one tick per tick record, then stops.
+   - A read-once port binds where its declaration stands, emitting its `'N'` event before the first `'T'`.
+   - Each tick emits `'T'`, then one `'N'` per each-tick port in declaration order, then runs the tick block's body.
+   - Binding a port counts no operation. **[open: amended set "counting"]**
+2. **`'T'`'s payload is (t, c), both u64.** **[ruled: R5, amendment 1]**
+   - c is the number of operations counted from the start of the run up to the moment `'T'` is emitted: the running
+     total. **[open: amended set "counting"]**
+   - This draft proposes the running total, as the counting row does; the previous tick's own count is the
+     alternative.
+   - The tick block counts nothing of its own. An If arm's count belongs to the arm's clause. Events are not
+     operations. **[open: amended set "counting"]**
+3. **The budget.** **[open: amended set "budget"; sheet R9]**
+   - N is 0 (no budget) or 1…2^62; a larger N is refused at compile time.
+   - A tick's count starts at 0 at its `'T'`. When adding an operation makes the count N+1, that operation is counted
+     and then refused before it executes: TICK-BUDGET, at the clause whose statement is executing.
+   - At an If arm's condition, that clause is the arm's own: SPEC §11 item 18 gives an absorbed arm's condition its
+     own clause id, and TICK-BUDGET follows it. **[v0; the amended set's "counting" proposes the same]**
+4. **A refusal of any code ends the run at once.** **[ruled: R4]** The tick records after it are not executed; the log
+   was parsed whole (§15.5), so their number is known. **[open: contract draft 0 §4.4]**
+5. **The four outcomes.** **[open: amended set "identity and bytes", "four statuses"]**
+   - COMPLETED: every tick record ran, and the end record's cause is `closed`.
+   - REFUSED <CODE> <clause>: a refusal in the prefix or in a tick. The tick is the receipt's `ticks` (§15.8).
+   - NOT-RUN <t> <cause> <port>: every record before t ran, and the end record names tick t as not run.
+   - LOG-OPEN: every record of an open log ran, with no refusal. A refusal inside an open log is REFUSED.
+6. **The output chain.** **[ruled: R5, amendment 2]**
+   - out_0 hashes what was written before the first `'T'`. His words for it: "the initial hash of any visual bytes or
+     metadata written before the first tick". This draft reads the output as holding nothing but the bytes said, and
+     writes out_0 = SHA-256("orlog-output-1" ‖ SHA-256(the bytes said before the first `'T'`)). The reading and the
+     domain string are contract draft 0's. **[open: amended set "identity and bytes"]**
+   - out_t = SHA-256(out_{t−1} ‖ SHA-256(the bytes said during tick t)).
+   - A refused tick's partial output is its out_t, the chain's last link: "if a tick encounters a transactional
+     refusal, its partial output is formally hashed into the chain before the rollback logic clears the volatile
+     state".
+
+## 15.8 The receipt, `orlog-receipt 1`
+
+**[ruled: R5]** Lines, in order:
+- `orlog-receipt 1`
+- `backend <name>`
+- `law-seal`, `text-seal`, `input-log-sha256`
+- `status` (§15.7.5)
+- `ticks <n>`: the ticks begun, a refused tick included and a not-run tick not **[ruled: R5, amendment 3]**
+- `tick-ops <n>`: the last begun tick's own count, complete or partial; exactly N+1 under TICK-BUDGET **[open:
+  amended set "identity and bytes"]**
+- the count of tick records left unread after a refusal **[open: amended set "identity and bytes"; its name too]**
+- `output-bytes`, `output-chain`
+- `events`, `trace-head`
+- `ops`: every counted operation, the refused one included
+- `claims`, then one `claim` line each, as in version 0
+- `end`
+
+The line order is this draft's. **[open: amended set "identity and bytes"]**
+
+Then:
+- **The core** is the receipt without its `backend` line. Executions agree when their cores are byte-identical.
+  **[v0]**
+- **The frame check is versioned.** **[ruled: R5, amendment 4]** A law headed `orlog-law 0` requires a receipt
+  beginning `orlog-receipt 0`; a law headed `orlog-law 1` requires `orlog-receipt 1`. Never either for any law. Its
+  plants: a version-1 receipt checked under the version-0 frame must fail, and a version-0 receipt under the
+  version-1 frame must be refused.
+- **No receipt line states that a run is valid or correct.** **[open: contract draft 0 §5.4]**
+
+## 15.9 The trace, `orlog-trace-1`
+
+- **The head.** head_0 = SHA-256("orlog-trace-1" ‖ law_seal). Each event extends the head as in version 0, with
+  version 0's events and `'T'` and `'N'`. The per-event chain is kept, not replaced by a stream head. **[ruled: R5]**
+- **`'N'`'s payload** is the port's variable number (u32) and the value encoding of RUNTIME-SPEC §5. **[ruled: R5]**
+- **The `'R'` event would carry the refusal cut.** **[open: whether version 1's `'R'` payload carries the cut (finding
+  20); the format freeze (P6)]**
+  - Why: the claims ruling requires every CUT-0 withholding to identify its row, which needs the cut, and a `Perform`
+    emits no event from which it could be recovered. But R5 names `'T'` and `'N'` as version 1's new events and does
+    not change `'R'`. Changing `'R'`'s payload therefore needs a ruling.
+  - The proposed bytes are `CUT-SCHEMA.md`'s draft 2: the code's length and the code, the frame count, then per frame
+    a u32 clause, a u16 selector, a bit for a For that is not the last frame, and an arm for an If that is the last
+    frame. The tick block's frame, and the ports', are not yet derived.
+  - Version 0's `'R'` payload stays the code alone. The law's header chooses the grammar, never the payload's look.
+
+## 15.10 The tick line, `orlog-ticks 0`
+
+**[ruled: R5: part of 1a]** Written by an execution given a path: one line per tick that ran to its end, and none for
+a refused tick. Its fields:
+- `tick <t>`, `events <n>`, `ops <n>` (the tick's own count), `output-bytes <n>`;
+- `trace-head <hex>`, or `-` in a play build without the chain (sheet R14 if ruled);
+- `output-chain <hex>`;
+- `claims <hex>` and `state <hex>`: R5 names a claims digest and a state digest. Their definitions here are proposals:
+  the SHA-256 of the claim lines as they would read at the tick's end, and the SHA-256 of every top-level variable's
+  value encoding in variable order. **[open: 1a's specification]**
+- `input-chain <hex>`: in_t. **[open: the speed verdict's proposal, not named in R5's ruling]**
+
+These must hold, under §15.7.2's running-total reading of c: **[open: amended set "counting"]**
+- T(t+1).c − T(t).c equals tick t's `ops`;
+- T(1).c is the prefix's count;
+- the receipt's `ops` minus the last `'T'`'s c is the last tick's count, or a refused tick's partial count.
+
+The state digest's cost on a large state is for 1a's specification. **[open: 1a's specification, as R5 leaves it]**
+
+## 15.11 What a run establishes
+
+- **Replay.** Given the law's bytes, the input log's bytes and the version the law's header names, every conforming
+  execution that ends with a receipt writes the same receipt core, the same trace and the same tick lines. A host
+  stop writes no receipt (SPEC §12), and a play build without the chain (sheet R14, open) is outside this. A compiler,
+  a runtime build or a host is not a condition: a difference under the same three is a defect of an execution.
+  **[open: contract draft 0 §9.1]**
+- **Agreement, a refusal, an open log, a matching digest or a successful replay is never reported as validity.**
+  **[open: contract draft 0 §9.2]**
+
+## 15.12 The court in a run with an input log: grounding
+
+**[ruled: R6]**
+1. **The trigger.** A run has an input log when its law declares a port or has a tick block. A tick block with no
+   port still takes input: the log's length sets how many ticks run.
+2. **No claim of such a run is GROUNDED, whatever its channel and whatever is ratified, except under the licence
+   (4).** GROUNDED also requires held, as in version 0. **[v0, for the second sentence]**
+3. **The provenance line.** The court shows the log's seal as provenance for the run, printing exactly
+   `rests on input log <input-log-sha256>, unratified`, the receipt's own value.
+4. **The licence, PREFIX, decided from the text:** a claim is exempt only if every evaluation of it precedes the
+   first input.
+   - It must stand before the first port declaration, outside the tick block.
+   - It must not sit in a procedure performed at or after the first port declaration. The licence is decided by
+     evaluation, never by position alone: a claim inside a procedure stands textually before the tick block and still
+     runs during it.
+   - Nothing the log sets exists before its first input, so a prefix claim's whole claim line is fixed by the law: its
+     evaluations, its trues, its cost and its certified clause's cost.
+   - A wider licence would exempt a claim with no path from any port, shown by two independent derivations, and must
+     then cover the whole claim line, since a certificate's cost reading can move with a port while its truth does not.
+     It waits for a trigger (`research/doppler/VERDICT.md`).
+
+   **[open: amended set "PREFIX": the licence by static closure from the first input point.** The review found a
+   conflict (finding 3): if "the first input point" were the first place a port is read, the closure would exempt a
+   claim after the first port declaration and before the first read, which "must stand before the first port
+   declaration" forbids. The ruling must settle which. Also open: a law with a tick block and no port, where the
+   position conditions are vacuous (finding 4), and whether the conditions are sufficient as well as necessary
+   (finding 5).**]**
+5. **A PREFIX claim that evaluated true** "remains historically held, regardless of whether the execution loop
+   encounters a subsequent transactional refusal downstream."
+6. **The rows and their controls.** "Every row testing an ungrounded port violation must run with the witness
+   explicitly configured as agreed." "Each test row is structurally paired with an internal control variant. The
+   control evaluates the exact same claim without an active log declaration, or wraps it securely within the `PREFIX`
+   license parameters. The control must return a clean `GROUNDED` standing".
+
+## 15.13 The court in a version-1 run: HELD
+
+1. **HELD means E2:** every completed evaluation of the claim was true, no evaluation of that claim remains open at
+   the cut, and the continuation at the cut could not evaluate that claim again. **[ruled: claims]**
+2. **Only continuation that could evaluate the particular claim again affects its standing.** Unrelated pending
+   execution does not withhold it. **[ruled: claims]**
+3. **"True in k of k evaluations" remains descriptive evidence,** not a substitute for settlement. **[ruled: claims]**
+4. **The settlement is the meet: a claim is held only when the court's R8 holds it and CUT-0 holds it.** The meet
+   names the exact digest of the CUT-0 it uses. A digest identifies the rule; it does not prove it sound. CUT-0 alone
+   remains the target for further development. **[ruled: claims]**
+5. **The court's R8:** when the run refuses at a claim's own clause with any code but CLAIM-REFUTED, an evaluation of
+   the claim began and did not finish, and the claim is not held. A claim inline in another statement shares its
+   clause with a condition or another arm, so the refusal may come from there. It is not held either. **[pinned]**
+6. **CUT-0** holds a claim when every completed evaluation is true, it is not open at the cut, and it is not in K̂.
+   **[pinned]**
+7. **The continuation** is everything the run could still have executed had the refusing operation returned. Every
+   later refusal is read as passable, values are unknown, and only a For's normal exit is exact (reading S2). It is
+   relative to the law, any further input included, not to the session, which ends at the refusal until SNAP-1.
+   **[pinned]**
+8. **The cut** is the stack of statements executing at the refusal, outermost first. An arm's inline statement is a
+   frame of its own, directly above its If's frame, named by the If's clause and its arm. The two count as one
+   position for the rest of the block. **A claim is open** at the cut when its statement is the top frame: its
+   evaluation began and did not complete, including a claim refused at its own operation before its condition is
+   evaluated. **K̂** is computed from the cut: **[pinned]**
+   - **COMPLETED:** the cut is after the last statement, and K̂ is empty;
+   - **the open claim:** in K̂, named by its id (T10.6);
+   - **a refused If** (the If on top, a condition refused): the arms from the refused one onward, the Otherwise
+     included (T10.2);
+   - **a loop's own clause refused:** its body (T10.3, T10.4);
+   - **a Perform refused at its own operation:** its body (T10.5);
+   - **the rest of a block,** for each frame outward: the following siblings that are not absorbed Otherwise
+     clauses, everything they may execute included, values ignored (T10.1);
+   - **a For below the top:** its body again, exactly when its bit says passes remain (T10.3);
+   - **a While below the top:** its body again, always (T10.4);
+   - **a Perform below the top:** a return only to the frame below it, the actual caller (T10.5);
+   - **the tick block below the top:** its body again, since another tick may run (T10.7);
+   - **NOT-RUN t, or LOG-OPEN:** the cut is the tick block's head before tick t, and K̂ is the tick block and every
+     procedure performed from it (T10.7).
+
+   What "may execute" reaches includes every procedure performed, transitively.
+9. **Every withholding by CUT-0 names its row:** the open claim, the refused If's arms onward, the loop's own clause
+   refused, a Perform refused, the rest of a block, a For's next pass, a While's next pass, or the tick block's next
+   tick. **[ruled: claims, that a row is named; pinned, the rows]**
+10. **What stays open.** **[ruled: claims]**
+    - No proof obligation is closed by this section. T10 stays open, split into T10.0 to T10.7 in `ROUNDS.md`, and
+      no test result or measurement alone closes it. "The `While` next-pass row is the priority for precision
+      investigation."
+    - T11 stays open. The ruling "establishes neither compatibility preservation nor general soundness."
+    - "Releasing claims whose truth cannot change would require a separate, stronger invariance rule; that is not
+      part of this version 1 ruling."
+11. **Until 1b, the court reads version-1 runs as REFERENCE-ONLY and holds no claim.** **[open: D10]**
+    - The review found that this collides with ruled R6 (finding 24, which blocks the round): under it, §15.12.5's
+      PREFIX claim cannot remain held, and §15.12.6's control cannot read GROUNDED, in 1a.
+    - The alternatives, none chosen here: R6's rows run in 1a's reference, with D10 lifted for them; or R6's rows wait
+      for 1b, with D10 kept; or D10 is replaced, the reference holding claims from 1a and the agreement of the four
+      executions required from 1b.
+12. **A claim with no completed evaluation** reads in the court's order as built: R8's refused evaluation first (an
+    evaluation began at the refusing clause and did not finish), then UNREACHED (no evaluation began). **[v0]**
+
+## 15.14 Reporting
+
+**[open: amended set "reporting"]** Every authoritative report names its claim, the evidence it binds, the authority
+that made it, its version, and the condition on which it passes or fails, and it attests nothing outside its
+authority. "Grounded over claims" joins the court summary's forbidden interpretations.
+
+## 15.15 What is open, for the owner, before the twin reads this
+
+| clause | decided by |
+|---|---|
+| 15.0 and 15.1: spellings, places, float ports | R2; the amended set's "port place"; sheet R8 |
+| 15.1.3: a read outside the tick block, textual or by evaluation; the codes and phases; a port form inline; Append or Remove on a port; a law with ports and no tick block (findings 7, 27, 28, 57, 58) | the amended set's "port place"; R2 |
+| 15.1.5: the door and the forms | the amended set's "H2" (its own change, with E18's COMPAT-0 settlement) |
+| 15.1.6: world properties | R1 |
+| 15.2: whether the ASCII sieve governs text; the integer and decimal grammars; the raw prefix and sign; the two truth spellings; CP1252 text that is valid UTF-8; text's extra refusals; the order of the door's rules (findings 13, 14, 15) | R3's details for 1a; contract draft 0 |
+| 15.3 and 15.4: the session, read-once ports, its record, the binding; the end record of a refused session; precedence among refused moves; an arrival assigned to a tick that does not run; an arrival held across ticks (findings 6, 10, 12, 54, 55) | the amended set's "A2", "session record" and "binding" |
+| 15.5 and 15.6: the log's bytes, the read-once record, the LOG-* conditions and order, a load refusal's receipt, the loader's checks of values, `<name>` and `<type>`, a `not-run` record in a law with no port (findings 6, 8, 35, 36, 37, 56) | the amended set's "identity and bytes" |
+| 15.7.1, 15.7.2 and 15.7.3: what binding counts; counting; the budget; `at most 0`; the code for N above 2^62; an each-tick port's declaration at its place (findings 27, 29, 30) | the amended set's "counting" and "budget"; sheet R9 |
+| 15.7.5 and 15.8: the four statuses; `tick-ops`, including when no tick began; the unread count; the line order (finding 31) | the amended set's "identity and bytes" |
+| 15.7.6: out_0's reading and domain string | the amended set's "identity and bytes" |
+| 15.9: whether `'R'` carries the cut; its bytes (finding 20) | a ruling on `'R'`; the format freeze (P6), after the tick block's and the ports' frames are derived |
+| 15.10: the digests' definitions; `input-chain`; per-tick or running `events` and `output-bytes`; the state digest's cost (finding 32) | 1a's specification; the speed verdict's proposals |
+| 15.11 and 15.8: replay, and "never reported as validity", "no line states validity" | contract draft 0, until ruled |
+| 15.12.4: PREFIX by static closure; a law with no port; sufficiency (findings 3, 4, 5) | the amended set's "PREFIX" |
+| 15.13.9: the row named when two rows withhold one claim (finding 45) | minor; the proposal is every row |
+| 15.13.11: REFERENCE-ONLY until 1b, against R6 (finding 24) | D10 |
+| 15.14: the authority rule | the amended set's "reporting" |
