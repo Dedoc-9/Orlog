@@ -545,7 +545,12 @@ Edition 1's list stands, and the court adds:
    Ørlǫg's self-test and court), and any coupling between them is an interface admitted on purpose (built is not
    adopted).
 3. **Floats in identity.** This is a fork from the lineage.
-4. **The court's thresholds and rules R1–R7.** Includes binding grounding to claim seals.
+4. **The court's thresholds and rules R1–R7.** Includes binding grounding to claim seals. DECIDED for version 1 by the
+   owner, 2026-10-26, in its part on what a claim's standing means. HELD means E2: every completed evaluation of the
+   claim was true, none is open at the cut, and the continuation at the cut could not evaluate that claim again. 1a's
+   court settles it by the meet R8 ∧ CUT-0, pinned to CUT-0's exact digest, each withholding naming its row. His words
+   are in `research/run-1/RULINGS.md` (the claims ruling). It is a decision on meaning, not a theorem. T10 stays open,
+   split by row, and T11 stays open. A digest identifies the rule and does not prove it sound.
 5. **The ledger:** where it lives, and how it is protected.
 6. **The nesting bounds**, 24 and 16.
 7. **The readings I settled in SPEC §13 and §14**, which the owner may overturn:
