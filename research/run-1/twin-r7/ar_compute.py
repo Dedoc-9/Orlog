@@ -302,7 +302,349 @@ RULINGS6 = {
     },
 }
 
+D7 = "research/run-1/SPEC-15-DRAFT-7.md"
+D7_SHA = "130480cafc0002377088da4de99c6cb11e5ded253efa20f900eaecf54a190a60"
+
+RULINGS7 = {
+    "TEST": {
+        "title": "the containment check is a fixture test on the version-1 reference (his answer on Q1)",
+        "tag": r"\bF6\b",
+        "terms": {
+            "fixture": r"\bfixtures?\b",
+            "MEASURED": r"\bMEASURED\b",
+            "the version-1 reference": r"\breference\b",
+            "containment": r"\bcontainment\b",
+            "falsifies": r"\bfalsif\w*",
+            "T10.8": r"T10\.8",
+        },
+        "deps": [
+            ("re-read 5, CONTAIN-2: the stop's row and its check, 15.13.8", "15.13.8"),
+            ("re-read 5, CONTAIN-2: T10 stays open, 15.13.10", "15.13.10"),
+            ("re-read 5, CONTAIN-2: 15.15's row on the check", "15.15 row: 15.13.8"),
+            ("re-read 5, ORDER-2: the order of work, 15.13.4", "15.13.4"),
+            ("re-read 5, ORDER-2: 1a's rows, 15.12.5", "15.12.5"),
+            ("re-read 5, ORDER-2: 1a's rows, 15.12.6", "15.12.6"),
+            ("re-read 5, ORDER-2: 1a and its rows, 15.13.11", "15.13.11"),
+            ("re-read 5, ORDER-2: 15.15's row on the two-commit split", "15.15 row: 15.13.11"),
+        ],
+    },
+    "PIN": {
+        "title": "findings 8 and 20 resolved before the pin (his answer on Q2)",
+        "tag": r"\bF6\b|\bclaims\b|\bfindings? 8\b|\bfindings? 20\b",
+        "terms": {
+            "the pin": r"\bpin(?:ned|s)?\b",
+            "digest": r"\bdigest\b",
+            "candidate": r"\bcandidate\b",
+            "finding 8": r"\bfindings? 8\b",
+            "finding 20": r"\bfindings? 20\b",
+            "'R'": r"'R'",
+            "1a": r"\b1a\b",
+        },
+        "deps": [
+            ("re-read 5, ORDER-1: the order of work, 15.13.4", "15.13.4"),
+            ("re-read 5, ORDER-1: the stop's row, chosen from the status, 15.13.8", "15.13.8"),
+            ("re-read 5, ORDER-1: the pin's reach, 15.13", "15.13 ¶ What \"may execute\""),
+            ("re-read 5, ORDER-1: the statuses, 15.7.5", "15.7.5"),
+            ("re-read 5, ORDER-1: the status line, 15.8", "15.8 ¶ - status"),
+            ("re-read 5, ORDER-1: 'R' and the cut, 15.9", "15.9 The `'R'` event"),
+            ("re-read 5, ORDER-1: 15.15's row on 'R'", "15.15 row: 15.9"),
+            ("re-read 5, ORDER-1: 15.15's row on the four statuses", "15.15 row: 15.7.5 and 15.8"),
+            ("re-read 5, ORDER-1: 15.15's row on the stop's form", "15.15 row: 15.5 and 15.7.5"),
+        ],
+    },
+    "RO5": {
+        "title": "RO′-5 confirmed: no fifth status word (his confirmation)",
+        "tag": r"\bF6\b",
+        "terms": {
+            "status": r"\bstatus(?:es)?\b",
+            "NOT-RUN": r"NOT-RUN",
+            "LOG-OPEN": r"LOG-OPEN",
+            "the read-once stop": r"read-once stop",
+            "fifth status": r"fifth status",
+        },
+        "deps": [
+            ("re-read 5, CARRIER-1: the stop, 15.7.1", "15.7.1"),
+            ("re-read 5, CARRIER-1 and CARRIER-3: the statuses, 15.7.5", "15.7.5"),
+            ("re-read 5, CARRIER-1: the status line, 15.8", "15.8 ¶ - status"),
+            ("re-read 5, CARRIER-2: the stop's row and the NOT-RUN/LOG-OPEN row, 15.13.8", "15.13.8"),
+            ("re-read 5, CARRIER-1: 15.15's row on the four statuses", "15.15 row: 15.7.5 and 15.8"),
+            ("re-read 5, CARRIER-3: 15.15's row on the stop's form", "15.15 row: 15.5 and 15.7.5"),
+        ],
+    },
+}
+
+D8 = "research/run-1/SPEC-15-DRAFT-8.md"
+D8_SHA = "53d468213392da911d3b1fc5a50597b61b5c12bbb495c1368c0032f1f0e491c0"
+
+RULINGS8 = {
+    "INPUTS": {
+        "title": "every input the pinned rule reads, fixed before the pin (his answer on PIN-1 and PIN-3)",
+        "tag": r"\bclaims\b|\bF6\b|\bfindings? 8\b|\bfindings? 20\b|port place|\bcounting\b",
+        "terms": {
+            "the pin": r"\bpin(?:ned|s)?\b",
+            "digest": r"\bdigest\b",
+            "candidate": r"\bcandidate\b",
+            "port place": r"port place",
+            "top-level": r"\btop-level\b",
+            "counting": r"\bcounting\b",
+            "finding 8": r"\bfindings? 8\b",
+            "finding 20": r"\bfindings? 20\b",
+            "'R'": r"'R'",
+            "decoding": r"\bdecod\w*",
+            "the format freeze": r"\bP6\b|format[- ]freeze",
+        },
+        "deps": [
+            ("re-read 6, PIN-3: the stop row's premises, 15.13.8", "15.13.8"),
+            ("re-read 6, PIN-3: the place of ports, 15.1.3", "15.1.3"),
+            ("re-read 6, PIN-3: counting, 15.7.1", "15.7.1"),
+            ("re-read 6, PIN-3: 15.15's row on the place", "15.15 row: 15.1.3"),
+            ("re-read 6, PIN-3: 15.15's row on counting", "15.15 row: 15.7.1"),
+            ("re-read 6, PIN-3: 15.15's row on the stop's premises", "15.15 row: 15.13.8"),
+            ("re-read 6, PIN-1: 'R' and the cut, 15.9", "15.9 The `'R'` event"),
+            ("re-read 6, PIN-1: 15.15's row on 'R'", "15.15 row: 15.9"),
+            ("re-read 6, PIN-2: 15.15's row on 15.5 and 15.6", "15.15 row: 15.5 and 15.6"),
+            ("re-read 6, PIN-4 and TEST-3: the order of work, 15.13.4", "15.13.4"),
+            ("re-read 6, the legend's [pinned]", "preamble [pinned]"),
+        ],
+    },
+}
+
+D9 = "research/run-1/SPEC-15-DRAFT-9.md"
+D9_SHA = "8a1ccf5ce22895d0106884b1208603315c80704f781adb87c3b2e520289d0e8e"
+
+RULINGS9 = {
+    "ROWS": {
+        "title": "the principle reaches every row of CUT-0 (his clarification on INPUTS-2)",
+        "tag": r"\bclaims\b|\bF6\b|\bR2\b|identity and bytes|four statuses",
+        "terms": {
+            "the pin": r"\bpin(?:ned|s)?\b",
+            "status": r"\bstatus(?:es)?\b",
+            "NOT-RUN": r"NOT-RUN",
+            "LOG-OPEN": r"LOG-OPEN",
+            "R2": r"\bR2\b",
+            "spelling": r"\bspellings?\b",
+            "statement kind": r"statement kinds?",
+            "inputs": r"\binputs?\b",
+        },
+        "deps": [
+            ("re-read 7, INPUTS-2: the order and the inputs, 15.13.4", "15.13.4"),
+            ("re-read 7, INPUTS-2: the NOT-RUN/LOG-OPEN row and the test's record, 15.13.8", "15.13.8"),
+            ("re-read 7, INPUTS-2: CUT-0's reach on the version-1 kinds", "15.13 ¶ What \"may execute\""),
+            ("re-read 7, INPUTS-2: the statuses, 15.7.5", "15.7.5"),
+            ("re-read 7, INPUTS-2: the status line, 15.8", "15.8 ¶ - status"),
+            ("re-read 7, INPUTS-2: the spellings, 15.1.1", "15.1.1"),
+            ("re-read 7, INPUTS-2: the closure's table, 15.12.4", "15.12.4"),
+            ("re-read 7, INPUTS-2: 15.15's row on spellings", "15.15 row: 15.0 and 15.1"),
+            ("re-read 7, INPUTS-2: 15.15's row on the four statuses", "15.15 row: 15.7.5 and 15.8"),
+            ("re-read 7, INPUTS-1: 'R' and its frames, 15.9", "15.9 The `'R'` event"),
+            ("re-read 7, INPUTS-1: 15.15's row on 'R'", "15.15 row: 15.9"),
+        ],
+    },
+}
+
+D10 = "research/run-1/SPEC-15-DRAFT-10.md"
+D10_SHA = "c69e7e3b02542a5cb6b320de1c5994786f2425d04bbfdb1c7e45ce1741098eb7"
+
+RULINGS10 = {
+    "F8": {
+        "title": "finding 8: packet G, the read-once record's line, packet D and typed values (2026-10-28, 2026-10-29)",
+        "tag": r"\bfinding 8\b|identity and bytes|\bF6\b",
+        "terms": {
+            "status": r"\bstatus(?:es)?\b",
+            "NOT-RUN": r"NOT-RUN",
+            "LOG-OPEN": r"LOG-OPEN",
+            "end record": r"end record",
+            "the read-once record": r"read-once record",
+            "load refusal": r"\bLOG-[A-Z-]+|load refusal|PORT-SIGNATURE",
+            "value encoding": r"value(?:'s)? encoding|lowercase hex",
+        },
+        "deps": [
+            ("re-read 8 and finding 8: the input log, 15.5", "§", "15.5"),
+            ("finding 8: the statuses, 15.7.5", "15.7.5"),
+            ("finding 8: the status line, 15.8", "15.8 ¶ - status"),
+            ("finding 8: the rows chosen by the status, 15.13.8", "15.13.8"),
+            ("finding 8: 15.15's rows on 15.5", "15.15 row: 15.5"),
+            ("finding 8: 15.15's row on the statuses", "15.15 row: 15.7.5"),
+            ("typed values: 'N''s payload, 15.9", "15.9 `'N'`"),
+        ],
+    },
+    "F20": {
+        "title": "finding 20: the cut in version 1's 'R' (F20.1 to F20.4)",
+        "tag": r"\bfinding 20\b|\bP6\b",
+        "terms": {
+            "'R'": r"'R'",
+            "the cut": r"\bcut\b",
+            "frame": r"\bframes?\b",
+            "decoding": r"\bdecod\w*",
+        },
+        "deps": [
+            ("finding 20: the trace, 15.9", "§", "15.9"),
+            ("finding 20: the cut and K-hat, 15.13.8", "15.13.8"),
+            ("finding 20: CUT-0's reach", "15.13 ¶ What \"may execute\""),
+            ("finding 20: 15.15's row on 15.9", "15.15 row: 15.9"),
+        ],
+    },
+    "R2": {
+        "title": "R2: statement kinds, spellings and reach rules, with R2.3's clarification",
+        "tag": r"\bR2\b",
+        "terms": {
+            "spelling": r"\bspellings?\b",
+            "statement kind": r"statement kinds?",
+            "tick block": r"tick block",
+            "port declaration": r"port declarations?",
+            "reach": r"\breach\w*",
+        },
+        "deps": [
+            ("R2: the terms, 15.0", "§", "15.0"),
+            ("R2: the forms, 15.1", "§", "15.1"),
+            ("R2.3: the closure's table, 15.12.4", "15.12.4"),
+            ("R2.3: the licence as ruled", "15.12 ¶ The licence as ruled"),
+            ("R2.3 and re-read 8's ROWS-1: CUT-0's reach", "15.13 ¶ What \"may execute\""),
+            ("R2: 15.15's row on 15.0 and 15.1", "15.15 row: 15.0 and 15.1"),
+        ],
+    },
+    "PP": {
+        "title": "the port place, PP1 to PP6",
+        "tag": r"port place",
+        "terms": {
+            "place": r"\bplaces?\b",
+            "top-level": r"\btop-level\b",
+            "compile code": r"PORT-PLACE|TICK-PLACE|PORT-VARIABLE|PORT-READ|REDECLARED",
+        },
+        "deps": [
+            ("PP: the places, 15.1.3", "15.1.3"),
+            ("PP: the licence's boundary", "15.12 ¶ The licence as ruled"),
+            ("PP: 15.15's row on 15.1.3", "15.15 row: 15.1.3"),
+        ],
+    },
+    "R9": {
+        "title": "counting (C1 to C3) and the budget (R9, B1 to B4)",
+        "tag": r"\bcounting\b|\bbudget\b|\bR9\b",
+        "terms": {
+            "ops": r"\bops\b",
+            "count": r"\bcount(?:s|ed|ing)?\b",
+            "budget": r"\bbudget\b|TICK-BUDGET",
+            "tick-ops": r"tick-ops",
+        },
+        "deps": [
+            ("counting and R9: execution, 15.7", "§", "15.7"),
+            ("B3: tick-ops, 15.8", "15.8 ¶ - tick-ops"),
+            ("C2: the tick line's identities, 15.10", "15.10 ¶ These must hold"),
+            ("counting: 15.15's row on 15.7.1 to 15.7.3", "15.15 row: 15.7.1"),
+        ],
+    },
+    "SESSION": {
+        "title": "N2, N3 and finding 10: the session's ends",
+        "tag": r"\bA2\b|session record|\bN2\b|\bN3\b",
+        "terms": {
+            "end()": r"end\(\)",
+            "session": r"\bsessions?\b",
+            "history": r"\bhistor(?:y|ies)\b",
+            "verifier": r"\bverifier\b",
+        },
+        "deps": [
+            ("N2, N3 and finding 10: the session's events, 15.3", "§", "15.3"),
+            ("finding 10: the verifier, 15.4", "§", "15.4"),
+            ("N2 and N3: 15.15's rows on 15.3", "15.15 row: 15.3"),
+        ],
+    },
+    "ROWS": {
+        "title": "re-read 8's three fixes (ROWS-1, ROWS-2, CHANGED-1)",
+        "tag": r"@@none@@",
+        "terms": {},
+        "deps": [
+            ("ROWS-1: CUT-0's reach on the version-1 kinds", "15.13 ¶ What \"may execute\""),
+            ("ROWS-1: 15.15's row on 15.13.8", "15.15 row: 15.13.8"),
+            ("ROWS-2: the inputs record, 15.13.4", "15.13.4"),
+            ("CHANGED-1: the stop's NOT-RUN t, 15.7.5", "15.7.5"),
+        ],
+    },
+}
+
+D11 = "research/run-1/SPEC-15-DRAFT-11.md"
+D11_SHA = "937499a6daa87ebeb483cb535d1dba2f20eecb4d3518b83d2598991db96524f5"
+
+RULINGS11 = {
+    "RR9": {
+        "title": "his answers to re-read 9's five questions, with its drafting fixes and open items",
+        "tag": r"\bF8\b|\bF20\b|\bN3\b|\bR9\b|\bR5\b|\bPP\b|\bF6\b",
+        "terms": {
+            "the fixed example": r"580000000000000003",
+            "'N'": r"'N'",
+            "budget": r"\bbudget\b",
+            "tick record": r"tick records?",
+            "byte grammar": r"byte grammar|draft 2",
+            "exit": r"\bexit\b",
+        },
+        "deps": [
+            ("S15.0-1: the legend", "preamble [open: X]"),
+            ("S15.0-1: Prefix", "15.0 Prefix"),
+            ("S15.1-1: the law's lines, 15.1.4", "15.1.4"),
+            ("S15.3-1, S15.3-2: the session's events, 15.3", "§", "15.3"),
+            ("S15.5-1 to S15.5-5: the input log, 15.5", "§", "15.5"),
+            ("S15.3-1: the order, 15.7.1", "15.7.1"),
+            ("S15.1-1: the budget, 15.7.3", "15.7.3"),
+            ("S15.9-1, S15.9-2: the trace, 15.9", "§", "15.9"),
+            ("S15.13-1: the pin's inputs, 15.13.4", "15.13.4"),
+            ("S15.9-1: the stop's row and the cut, 15.13.8", "15.13.8"),
+            ("S15.15-1: what is open, 15.15", "§", "15.15"),
+        ],
+    },
+}
+
+D12 = "research/run-1/SPEC-15-DRAFT-12.md"
+D12_SHA = "772fda5264fd0c10c86aba95cd85e44669e4611761914700969b70fc4e86e750"
+
+RULINGS12 = {
+    "CLOSE": {
+        "title": "close() refused in a law with no tick block, with re-read 10's fixes",
+        "tag": r"\bA2\b|\bPP\b|\bF8\b",
+        "terms": {
+            "close()": r"close\(\)",
+            "no tick block": r"no tick block",
+            "tick record": r"tick records?|`t` line",
+            "the one-shot law": r"one-shot",
+        },
+        "deps": [
+            ("S15.3-1: the session's events, 15.3", "§", "15.3"),
+            ("S15.5-1: the input log and its order, 15.5", "§", "15.5"),
+            ("S15.13-1: the NOT-RUN/LOG-OPEN row, 15.13.8", "15.13.8"),
+            ("S15.15-1: what is open, 15.15", "§", "15.15"),
+        ],
+    },
+}
+
 SETS = {
+    "12": {"draft": D12, "sha": D12_SHA, "prev": D11, "rulings": RULINGS12,
+           "head": "Draft 12: %d clauses; %d changed or added since draft 11 (DRAFT-12-CHANGES.md).",
+           "among": "changed since draft 11", "col": "changed since draft 11",
+           "union": "%d clauses are in A_CLOSE; %d in more than one set; %d of them changed since draft 11; %d of the "
+                    "clauses changed since draft 11 are not in it."},
+    "11": {"draft": D11, "sha": D11_SHA, "prev": D10, "rulings": RULINGS11,
+           "head": "Draft 11: %d clauses; %d changed or added since draft 10 (DRAFT-11-CHANGES.md).",
+           "among": "changed since draft 10", "col": "changed since draft 10",
+           "union": "%d clauses are in A_RR9; %d in more than one set; %d of them changed since draft 10; %d of the "
+                    "clauses changed since draft 10 are not in it."},
+    "10": {"draft": D10, "sha": D10_SHA, "prev": D9, "rulings": RULINGS10,
+           "head": "Draft 10: %d clauses; %d changed or added since draft 9 (DRAFT-10-CHANGES.md).",
+           "among": "changed since draft 9", "col": "changed since draft 9",
+           "union": "%d clauses are in A_F8, A_F20, A_R2, A_PP, A_R9, A_SESSION or A_ROWS; %d in more than one; %d of "
+                    "them changed since draft 9; %d of the clauses changed since draft 9 are in none."},
+    "9": {"draft": D9, "sha": D9_SHA, "prev": D8, "rulings": RULINGS9,
+          "head": "Draft 9: %d clauses; %d changed or added since draft 8 (DRAFT-9-CHANGES.md).",
+          "among": "changed since draft 8", "col": "changed since draft 8",
+          "union": "%d clauses are in A_ROWS; %d in more than one set; %d of them changed since draft 8; %d of the "
+                   "clauses changed since draft 8 are not in it."},
+    "8": {"draft": D8, "sha": D8_SHA, "prev": D7, "rulings": RULINGS8,
+          "head": "Draft 8: %d clauses; %d changed or added since draft 7 (DRAFT-8-CHANGES.md).",
+          "among": "changed since draft 7", "col": "changed since draft 7",
+          "union": "%d clauses are in A_INPUTS; %d in more than one set; %d of them changed since draft 7; %d of the "
+                   "clauses changed since draft 7 are not in it."},
+    "7": {"draft": D7, "sha": D7_SHA, "prev": D6, "rulings": RULINGS7,
+          "head": "Draft 7: %d clauses; %d changed or added since draft 6 (DRAFT-7-CHANGES.md).",
+          "among": "changed since draft 6", "col": "changed since draft 6",
+          "union": "%d clauses are in A_TEST, A_PIN or A_RO5; %d in more than one; %d of them changed since draft 6; "
+                   "%d of the clauses changed since draft 6 are in none."},
     "6": {"draft": D6, "sha": D6_SHA, "prev": D5, "rulings": RULINGS6,
           "head": "Draft 6: %d clauses; %d changed or added since draft 5 (DRAFT-6-CHANGES.md).",
           "among": "changed since draft 5", "col": "changed since draft 5",
