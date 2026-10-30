@@ -17,7 +17,25 @@ one independent review of §15's draft with triggered re-reads; and, from that r
 clause scoped to real readings) with B1 + 4a + 5c + K1 for the PREFIX licence, under four conditions (all
 2026-10-26); and on 2026-10-27, the labels' definitions adopted (not their conclusions), the closure's rule table,
 and R6's row and control sharing the configured witness, with a measured version-0 control as a separate row;
-then the closure table's Perform row, and finding 6, read-once ports: A′, as RO′-1 to RO′-6 (2026-10-27).
+then the closure table's Perform row, and finding 6, read-once ports: A′, as RO′-1 to RO′-6 (2026-10-27). Later the
+same day: the release's narrow scope, the seven first-form outputs kept byte for byte; the read-once stop's own row,
+its distinguishing receipt status, the owed check (containment) and the order of work (the check, then the pin, then
+1a); then the check as a fixture test on the version-1 reference, MEASURED on its fixtures only, findings 8 and 20
+resolved before the pin, RO′-5 confirmed (no fifth status word), and the next push only after the full gate on the
+next release's exact tree; then every input the pinned rule reads fixed before the pin (the port place, counting,
+findings 8 and 20, and the cut's decoding if it is in `'R'`), P6 left to its own trigger; and, as a clarification,
+that principle reaching every row of CUT-0 (the version-1 NOT-RUN/LOG-OPEN status encoding, and R2 ruled before
+the pin), the containment test's record enumerating the inputs the candidate reads; and on 2026-10-28, finding 8's 8.1 and 8.2: the
+read-once stop written `NOT-RUN READ-ONCE …` or `LOG-OPEN READ-ONCE`, its NOT-RUN with no t; then 8.3 (a1), its log's end record `end 0 not-run read-once INPUT-MISSING <port>`; then 8.4 (a), the header-only log the three header lines alone; then 8.5 (a), every other record-less log malformed; then 8.6 (a), the tick case's `NOT-RUN <t> INPUT-MISSING <port>` and bare `LOG-OPEN`, CUT-0's row chosen by the second token; then the read-once record's line, `once <v1> <v2> …`, written only when declared then packet D's D1.a to D1.d, each (i): the existing nine codes, NOT-ASCII above 0x7F, a leading LF
+LOG-LINE, a log with a version-0 law a usage error; and on 2026-10-29, D2.1 to D2.6, each (a): compile
+first, the whole-log order, the earliest faulty line, the order within a line and a tick record, the header's order; then D3.1 to D3.5: no receipt for a refused load, a deterministic refusal witness; then typed values,
+T1 to T6: every value tagged, canonical lowercase hex, LOG-RECORD on a mismatch (finding 8 ruled; R3 and R8 open); then finding 20, F20.1 to F20.4: the
+cut carried in version 1's `'R'`, decoded under the header's grammar, the tick block a plain frame, ports none, an If-condition refusal naming the arm (its byte layout still to be probed); then R2, R2.1 to R2.3: two
+kinds (the port declaration with its mode, and the tick block), the four spellings, the reach rules; then the port place,
+PP1 to PP6: ports at the top level before the tick block, one tick block last, PORT-READ by text and by reach, PORT-VARIABLE; then counting
+and the budget, C1 to C3 and B1 to B4: nothing new counted, `'T'`'s running total, R9 (b), N in 1 to 2^62 (FUEL), TICK-BUDGET at operation N + 1; then N2 (a),
+an `end()` before the record closes being the read-once stop, and N3 (a), the statements before the first read-once declaration run at the session's opening; then finding 10 (c), a refused session's log carrying no end record; then re-read 9's five questions, each as
+recommended, draft 2 the candidate byte grammar to test before the pin; then `close()` refused in a law with no tick block.
 
 **Fixed whatever is ruled:**
 - **COMPAT-0 must hold.** Every text v0 accepted keeps its law bytes and its run. RUN-1's forms are therefore spelled
@@ -835,6 +853,1991 @@ stated in draft 7 and re-read before the build (`twin-r7/REREAD-4-DISPOSITION.md
   that pinned candidate. Nothing of 1a is built or run against an unpinned CUT-0.
 
 **Its re-reads:** the A_r of these answers, in `twin-r7/AR-REREAD-5.md`, owed before the build with draft 7.
+
+### The containment test, findings 8 and 20 before the pin, and the push (2026-10-27)
+
+*Added 2026-10-27 by his answers to the questions R7's fifth re-read raised (`twin-r7/REREAD-5-REPORT.md`, CONTAIN-2,
+ORDER-1, ORDER-2, and CARRIER-1's confirmation; disposed in `twin-r7/REREAD-5-DISPOSITION.md`), and by his word on when
+to push. Each question is given as it was put to him, then his answer, whole and unchanged. His `\\(\hat K\\)` is kept
+as it arrived.*
+
+**1. The containment check.** Asked: "Q1. What is the containment check, and what runs it before the pin? 1a holds the
+version-1 reference. The check, if it runs anything, needs that reference, so 'nothing of 1a before the pin' could be
+circular." The options put: (a) a test on fixtures, run by the version-1 reference built before the pin, with nothing
+run against CUT-0 until it's pinned, a pass MEASURED on its fixtures only and T10.8 staying open; (b) a paper argument
+over the closure as T10.8's proof obligation, running nothing, the reference waiting for the pin; (c) both.
+
+**2. Findings 8 and 20.** Asked: "Q2. Where do findings 8 and 20 fall relative to the pin? Finding 8 is the encoding of
+the stop's status. Finding 20 is whether `'R'` carries the cut. Draft 7 has CUT-0 choose the stop's row 'from the
+receipt's status', so the rule being pinned depends on that encoding." The options put: (a) rule both before the pin,
+so the digest names a rule whose inputs are fixed; (b) pin over abstract inputs, rule both before 1a's rows, and treat
+any later change as a new pin.
+
+**3. RO′-5.** Put for confirmation: "I've read your RO′-5 ('not a fifth status') as binding finding 8. On that reading
+the stop stays a NOT-RUN or LOG-OPEN whose status marks it apart. If you meant a separate status word, that would revise
+RO′-5, and only you can do that."
+
+His words:
+
+> Q1 — Adopt (a): a fixture-based containment test run by the version-1 reference before the pin.
+>
+> The test must check that every claim the same law evaluates after the read-once stop, over each tested log that supplies the required record, lies within \\(\hat K\\). Any claim outside \\(\hat K\\) falsifies containment. Run it against fixtures using the version-1 reference, without running any court rows against an unpinned CUT-0. Record the result as MEASURED on those fixtures only. It does not establish universal containment or close T10.8; the claims ruling remains in force that no test result or measurement alone closes T10.
+>
+> Q2 — Adopt (a): resolve Finding 8 and Finding 20 before pinning CUT-0.
+>
+> Both affect the rule being identified by the digest. Finding 8 must settle the receipt encoding that distinguishes the read-once stop, and Finding 20 must settle whether `R` carries the cut. Resolve and record both before pinning, so CUT-0’s digest identifies a rule with those inputs fixed. Then run 1a’s rows against that pinned rule. If either decision later changes the rule, treat it as a new CUT-0 candidate requiring a new digest and the applicable checks—not as a silent change under the old pin.
+>
+> RO′-5 confirmation: Your reading is correct. The read-once stop does not introduce a fifth status word. It remains `NOT-RUN` or `LOG-OPEN`, with an explicit distinguishing status form; Finding 8 must define its encoding. Do not revise RO′-5.
+>
+> These rulings authorize the next drafting step, not a build. Draft 8 should incorporate the eight owed fixes and these decisions, record the affected clauses, and undergo re-read 6. Keep the build gate closed until the remaining normative obligations are resolved and the required checks pass.
+
+**4. The push.** His words, in the same message:
+
+> Yes — push later. Keep `9de2792` as the published, gated baseline. Draft 7, draft 8, the re-reads, and the documentation changes remain uncommitted until the next release is ready.
+> The sequence is:
+>
+> 1. Finish draft 8 and re-read 6; resolve any findings that need your decision.
+> 2. Resolve Finding 8 and Finding 20 before pinning CUT-0.
+> 3. Run the version-1 containment fixture test and record its limited evidence; do not treat it as closing T10.8.
+> 4. Pin the exact CUT-0 digest, then run 1a against that pinned rule.
+> 5. Resolve the remaining normative blockers and run the full gate on the exact final tree.
+> 6. Verify the staged bytes, commit boundaries, privacy, and outgoing history; then push.
+>
+> The README and AGENTS changes can stay local alongside the specification work. No need to push them separately unless you explicitly decide to publish a documentation-only update.
+
+**What they fix.** None of it is built; they authorize draft 8, not a build:
+- **The containment check is a test** on fixtures, run by the version-1 reference before the pin. Any claim outside K̂
+  falsifies it; a pass is MEASURED on those fixtures only. It establishes neither containment in general nor T10.8,
+  and no court row runs against an unpinned CUT-0.
+- **Findings 8 and 20 are resolved and recorded before the pin,** so the digest names a rule with those inputs fixed.
+  A later change to either that changes the rule is a new CUT-0 candidate, with a new digest and its checks.
+- **RO′-5 stands:** the stop is NOT-RUN or LOG-OPEN with an explicit distinguishing status form, never a fifth status
+  word; finding 8 defines the form's encoding.
+- **The order of work**, his six steps: draft 8 and re-read 6; findings 8 and 20; the containment test; the pin, then
+  1a; the remaining blockers and the full gate on the exact final tree; the staged bytes, the commit boundaries,
+  privacy and the outgoing history, then the push. Everything after 9de2792 stays uncommitted until that release.
+
+**Its re-reads:** the A_r of these answers, in `twin-r7/AR-REREAD-6.md`, read with draft 8 by re-read 6 before the build.
+
+### Every input the pinned rule reads, fixed before the pin (2026-10-27)
+
+*Added 2026-10-27 by his answer to the question R7's sixth re-read raised (`twin-r7/REREAD-6-REPORT.md`, PIN-1 and
+PIN-3; disposed in `twin-r7/REREAD-6-DISPOSITION.md`). The question is given as it was put to him, then his answer,
+whole and unchanged.*
+
+**The question.** Asked: "Which further inputs of the stop's row are fixed before the pin? Your Q2 reasoning was 'Both
+affect the rule being identified by the digest', but it named only findings 8 and 20." Two more inputs were named: the
+port place and counting (15.1.3, 15.7.1), on which the stop row's "a top-level frame" rests, both open; and the cut's
+bytes in `'R'`, where CUT-SCHEMA puts the cut, with no record saying whether the pinned rule reads the cut from those
+bytes or from the execution. The options put: (a) every input the pinned rule reads is fixed before the pin: port place
+and counting, plus the cut's bytes if finding 20 puts the cut in `'R'` and the rule decodes it there, the general format
+freeze keeping its own trigger; (b) only port place and counting before the pin, the cut's bytes staying with P6; (c)
+pin with all three open, a later change making a new candidate with a new digest under his Q2 rule.
+
+His words:
+
+> Adopt (a): every input the pinned rule reads must be fixed before the pin.
+> The stop row’s inputs must be settled before CUT-0 is pinned:
+>
+> * Port place and counting — resolve the open amended-set rows governing the top-level-frame boundary and counting rules. These determine where the stop row applies.
+> * Finding 8 — settle the receipt’s explicit distinguishing status form and its encoding.
+> * Finding 20 — settle whether `R` carries the cut.
+> * Cut decoding — if Finding 20 places the cut in `R`, specify whether and how the pinned rule decodes it from those bytes. The court must not silently derive it from execution instead.
+>
+> The order is: resolve those inputs, complete the version-1 containment fixture test against the resulting candidate, pin that exact candidate’s digest, then run 1a’s rows against the pinned rule.
+> Keep the general format-freeze trigger as its own obligation; this ruling does not silently settle P6.
+> Reason: the digest should identify a rule whose inputs are fixed, not a rule whose interpretation may change after pinning. If a later ruling changes an input or the rule, it requires a new candidate and digest, with the applicable checks repeated.
+> This settles the ordering question, not the underlying open rows themselves. They still require their own rulings and evidence before the build gate opens.
+
+**What it fixes.** Nothing is built, and no open row is decided by it:
+- **Every input the pinned rule reads is fixed before the pin:** the amended set's rows on the port place and on
+  counting, finding 8 (the distinguishing status form and its encoding), finding 20 (whether `'R'` carries the cut),
+  and, if the cut is in `'R'`, whether and how the pinned rule decodes it from those bytes. In his words, *"The court
+  must not silently derive it from execution instead."*
+- **The order of work:** those inputs resolved; the containment fixture test run against the candidate they give; that
+  exact candidate's digest pinned; then 1a's rows against the pinned rule. A later change to an input or the rule is a
+  new candidate and digest, with the applicable checks repeated.
+- **P6 is not settled by it:** the general format freeze keeps its own trigger.
+- **The rows themselves stay open,** each owed its own ruling and evidence before the build gate opens.
+
+**Its re-reads:** the A_r of this answer, in `twin-r7/AR-REREAD-7.md`, read with draft 9 by re-read 7 before the build.
+
+### The principle reaches every row of CUT-0 (2026-10-27)
+
+*Added 2026-10-27 by his answer to the question R7's seventh re-read raised (`twin-r7/REREAD-7-REPORT.md`, INPUTS-2;
+disposed in `twin-r7/REREAD-7-DISPOSITION.md`). He gives it as a clarification of his principle of the same day, "Every
+input the pinned rule reads, fixed before the pin", above. The question is given as it was put to him, then his answer,
+whole and unchanged.*
+
+**The question.** Asked: "Does 'every input the pinned rule reads' reach CUT-0's other rows too? You gave a principle
+('every input the pinned rule reads must be fixed before the pin') and then listed 'The stop row's inputs'. CUT-0's
+other rows read two more open things": the version-1 statuses' encoding, by which the NOT-RUN/LOG-OPEN row picks
+itself, under "identity and bytes" with no timing against the pin; and the statement kinds R2's spellings add, which
+CUT-0's reach has to cover, R2 being open. The options put: (a) the principle reaches every row, so both are fixed
+before the pin, and the containment test's record lists every input the candidate reads, checked against the candidate
+rather than drawn up by hand, at the cost of ruling R2 before the pin; (b) only the stop row's inputs before the pin,
+the others before 1a's build, a later change making a new candidate and digest.
+
+His words:
+
+> Adopt (a): yes. “Every input the pinned rule reads” applies to every CUT-0 row, not just the read-once stop row.
+> Before pinning CUT-0:
+>
+> * Fix the version-1 `NOT-RUN`/`LOG-OPEN` status encoding that determines which row applies.
+> * Resolve R2’s statement-kind spellings and reach rules so CUT-0’s structural closure is defined across every supported statement kind.
+> * Keep the previously ruled stop-row inputs, Finding 8, Finding 20, and cut decoding in the same pre-pin requirement.
+> * Have the containment-test record enumerate the inputs the candidate actually reads. Check that list against the candidate, rather than constructing it by hand.
+>
+> Reason: the governing principle is general. If a row’s interpretation depends on an unresolved input, the pinned digest does not yet identify a fully fixed rule. The same discipline must apply to every row, or a later decision could change the rule while leaving its apparent pin unchanged.
+> This brings R2 forward: it must be ruled before the pin, not merely before 1a’s build. P6 retains its own trigger. If any later ruling changes CUT-0’s rule or inputs, create a new candidate, compute a new digest, and repeat the applicable checks.
+> Record this as a clarification of the existing principle, not as a claim that the newly identified encodings or statement-kind rules are already settled. Draft 10 and re-read 8 can proceed; the build gate remains closed until those obligations are satisfied.
+
+**What it fixes,** as a clarification of the principle above, and settling none of the rows it names:
+- **The principle reaches every row of CUT-0,** not only the read-once stop's. Before the pin, besides the stop row's
+  inputs, finding 8, finding 20 and the cut's decoding: the version-1 NOT-RUN/LOG-OPEN status encoding by which a row
+  is chosen, and R2's statement-kind spellings and reach rules, so that CUT-0's closure is defined across every
+  supported statement kind.
+- **R2 is ruled before the pin,** not only before 1a's build.
+- **The containment test's record enumerates the inputs the candidate actually reads,** and the list is checked
+  against the candidate, not drawn up by hand.
+- **P6 keeps its own trigger.** A later ruling that changes CUT-0's rule or inputs makes a new candidate, a new digest,
+  and the applicable checks repeated.
+- **Nothing it names is settled by it:** the encodings and the statement-kind rules stay open, each owed its ruling.
+
+**Its re-reads:** the A_r of this answer, in `twin-r7/AR-REREAD-8.md`, read with draft 10 by re-read 8 before the build.
+
+### Finding 8: the read-once stop's status form (8.1 and 8.2) (2026-10-28)
+
+*Added 2026-10-28. The questions were packet G's (`packets/G-stop-status.md` §3, 8.1 and 8.2). A reviewer's text
+proposed a ruling; he adopted it as his ruling on 8.1 and 8.2 "exactly as proposed". Below: the proposal, whole and
+unchanged; his own words adopting it; and the note he pasted with them, whole and unchanged.*
+
+**The questions.** 8.1: which status form marks the read-once stop: (a) the keyword `READ-ONCE` in the second token
+place, (b) t = 0, or (c) a separate receipt line. 8.2: the stop's NOT-RUN t (under (a), none).
+
+**The proposal he adopted:**
+
+> Rule 8.1(a): use the explicit `READ-ONCE` keyword in the second token position.
+>
+> * `status NOT-RUN READ-ONCE INPUT-MISSING <port>`
+> * `status LOG-OPEN READ-ONCE`
+>
+> The distinguishing token must identify the read-once stop without inventing a tick number or conflating it with an ordinary open run. The stop precedes any tick, so its `NOT-RUN` status has no \(t\) value under 8.2.
+> Keep the ruling narrow: 8.1(a) does not decide 8.3–8.6. In particular, the loadable end-record encoding, malformed record-less log cases, and tick-case `NOT-RUN`/`LOG-OPEN` encoding remain separate decisions. The read-once `NOT-RUN` log must still satisfy the previously fixed loadability condition.
+> This is the proposed ruling for you to adopt, not a claim that `RULINGS.md` has been changed. Nothing should be pinned or committed until the ruling is recorded and the downstream checks pass.
+
+**His words:**
+
+> Yes, adopt it as my ruling on 8.1 and 8.2, exactly as proposed.
+>
+> Leave 8.3–8.6 open. Nothing is pinned or committed.
+
+**The note he pasted with them:**
+
+> “Open” means undecided—not settled by this ruling.
+> Your ruling settles only:
+>
+> * 8.1: The read-once stop uses the explicit `READ-ONCE` keyword in the second token position.
+> * 8.2: The stop’s `NOT-RUN` status carries no \(t\) value.
+>
+> The remaining decisions are still pending:
+>
+> * 8.3: The exact loadable end-record format for a read-once `NOT-RUN` log.
+> * 8.4: The exact bytes for a header-only log that is already classified as `LOG-OPEN`.
+> * 8.5: Which other record-less log forms are malformed, including the unresolved read-once record format.
+> * 8.6: The encoding of tick-case `NOT-RUN` and `LOG-OPEN` statuses.
+>
+> Open does not mean optional or waived. Those questions still need explicit rulings before the specification can be finalized. Existing constraints—including that the read-once `NOT-RUN` log must load—remain binding.
+> Nothing about 8.3–8.6 is authorized by your 8.1–8.2 ruling, and nothing is pinned or committed.
+
+**What it fixes,** and nothing more:
+- **8.1:** the read-once stop's status is `status NOT-RUN READ-ONCE INPUT-MISSING <port>` or `status LOG-OPEN
+  READ-ONCE`: the keyword `READ-ONCE` in the second token place.
+- **8.2:** the stop's NOT-RUN carries no t.
+- **Open, and not waived:** 8.3 (the loadable end record of a read-once NOT-RUN log), 8.4 (the header-only log's
+  bytes), 8.5 (which other record-less logs are malformed, the read-once record's own line included) and 8.6 (the
+  tick-case NOT-RUN and LOG-OPEN encoding). Condition 5 still binds: the read-once NOT-RUN log must load. Finding 8's
+  other parts (packet D) stay open too.
+- Nothing is pinned, built or committed by it.
+
+**Its re-reads:** stated in draft 11 with re-read 8's fixes and re-read whole before the build; its affected clauses
+are computed by `ar_compute.py` before that re-read.
+
+### Finding 8: the read-once NOT-RUN log's end record (8.3) (2026-10-28)
+
+*Added 2026-10-28. The question was packet G's (`packets/G-stop-status.md` §3, 8.3), as put to him in the session. His answer, whole and unchanged.*
+
+**The question.** Which end record a read-once NOT-RUN log carries, and when it loads: (a1) `end 0 not-run read-once INPUT-MISSING <port>`, (a2) the same with `READ-ONCE`, (b) `end 0 not-run 0 INPUT-MISSING <port>`, (c) `end 0 not-run 1 INPUT-MISSING <port>`.
+
+**His words:**
+
+> I adopt 8.3(a1):
+>
+> `end 0 not-run read-once INPUT-MISSING <port>`
+>
+> The end record uses lowercase `read-once`, consistent with the log’s lowercase keywords, while retaining the uppercase `INPUT-MISSING` cause code.
+>
+> The record loads only when all four stated conditions hold: the law declares at least one read-once port; the log contains no read-once record; the log contains no tick record and \\(n=0\\); and the named port is a read-once port of that law. The verifier, not the loader, determines whether it is the first empty read-once port in declaration order.
+>
+> The record maps exactly to the already-ruled receipt status:
+>
+> `status NOT-RUN READ-ONCE INPUT-MISSING <port>`
+>
+> The corresponding `input-log-sha256` coverage remains unchanged. The chain’s `in_0` uses the header without a read-once record in this case, and §15.5 must say “with the read-once record, when present.”
+>
+> Still open: the LOG-\* refusal codes and check ordering, whether refusal writes a receipt, and the tick-case encoding under 8.6. This ruling does not settle those questions.
+>
+> Only 8.3(a1) is adopted. Nothing is pinned or committed.
+
+**What it fixes,** and nothing more:
+- **8.3 (a1):** the end record is `end 0 not-run read-once INPUT-MISSING <port>`. It loads only when the law declares a read-once port, the log holds no read-once record and no tick record (n = 0), and the port is a read-once port of the law; whether it is the first empty one is the verifier's.
+- It maps exactly to `status NOT-RUN READ-ONCE INPUT-MISSING <port>`. `input-log-sha256` is unchanged; in_0 is taken over the header without a read-once record here, and 15.5 says "with the read-once record, when present".
+- **Open:** the LOG-* codes and their order, whether a load refusal writes a receipt (packet D), and 8.4 to 8.6. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build; its affected clauses are computed by `ar_compute.py` before that re-read.
+
+### Finding 8: the header-only log's bytes (8.4) (2026-10-28)
+
+*Added 2026-10-28. The question was packet G's (`packets/G-stop-status.md` §3, 8.4), as put to him in the session. His answer, whole and unchanged.*
+
+**The question.** For a law that declares a read-once port, the exact bytes of the log that holds only its header: (a) the three LF-terminated header lines and nothing after them; (b) the header and a marker line such as `open read-once`.
+
+**His words:**
+
+> I adopt 8.4(a): the header-only log consists of exactly the three LF-terminated header lines—
+>
+> ```
+> orlog-inputs 0
+> ports <sha256>
+> door <version>
+> ```
+>
+> —with nothing after them.
+> No `open read-once` marker or other additional line is permitted.
+> For a law declaring a read-once port, this header-only log produces `status LOG-OPEN READ-ONCE`, `ticks 0`, and no `'N'` or `'T'` in the trace. For a law without a read-once port, it produces plain `status LOG-OPEN`. If the read-once record is present and there are no ticks, the status is also plain `status LOG-OPEN`.
+> The existing prefix-loadability requirement remains in force. This ruling does not decide damaged-header handling or refusal codes.
+> Only 8.4(a) is adopted. Nothing is pinned or committed.
+
+**What it fixes,** and nothing more:
+- **8.4 (a):** the header-only log is exactly the three LF-terminated lines `orlog-inputs 0`, `ports <sha256>`, `door <version>`, with nothing after them; no marker or other line.
+- For a law declaring a read-once port it gives `status LOG-OPEN READ-ONCE`, `ticks 0`, and no `'N'` or `'T'`; for a law without one, plain `status LOG-OPEN`; with the record present and no tick, plain `status LOG-OPEN`. Every prefix of a log still loads.
+- **Open:** a damaged header and the refusal codes (packet D), and 8.5 and 8.6. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build; its affected clauses are computed by `ar_compute.py` before that re-read.
+
+### Finding 8: the malformed record-less logs (8.5) (2026-10-28)
+
+*Added 2026-10-28. The question was packet G's (`packets/G-stop-status.md` §3, 8.5), as put to him in the session. His answer, whole and unchanged.*
+
+**The question.** For a law that declares a read-once port, whether every log lacking the read-once record other than the header alone (8.4) and the header with 8.3's end record is refused at load: (a) a closed list, refusing M1 (a tick record), M2 (`end 0 closed`), M3 (a tick NOT-RUN naming an each-tick port) and M4 (8.3's form naming an each-tick port); (b) some such logs load.
+
+**His words:**
+
+> I adopt 8.5(a): the closed list.
+> For a law declaring at least one read-once port, with no read-once record in the log, the only two forms permitted to load are:
+>
+> 1. The three-line header alone, as ruled in 8.4.
+> 2. The header followed by `end 0 not-run read-once INPUT-MISSING <port>`, subject to the conditions ruled in 8.3.
+>
+> Every other log lacking the read-once record is malformed and must be refused at load, before any statement runs. This includes M1–M4. For a law with no read-once port, a `not-run read-once` end record is refused.
+> This ruling does not settle the read-once record's own line, its keyword, or its value list. Those remain open and must be resolved separately if needed. Packet D's refusal codes, check ordering, and refusal-receipt behavior also remain open.
+> Only 8.5(a) is adopted. Nothing is pinned or committed.
+
+**What it fixes,** and nothing more:
+- **8.5 (a):** for a law declaring a read-once port, with no read-once record in the log, only the header alone (8.4) and the header with `end 0 not-run read-once INPUT-MISSING <port>` under 8.3's conditions load. Every other such log, M1 to M4 included, is malformed and refused at load, before any statement runs. For a law with no read-once port, a `not-run read-once` end record is refused.
+- **Open:** the read-once record's own line, its keyword and its value list; packet D's codes, their order and the refusal receipt; and 8.6. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build; its affected clauses are computed by `ar_compute.py` before that re-read.
+
+### Finding 8: the tick case's NOT-RUN and LOG-OPEN (8.6) (2026-10-28)
+
+*Added 2026-10-28. The question was packet G's (`packets/G-stop-status.md` §3, 8.6), as put to him in the session. His answer, whole and unchanged.*
+
+**The question.** The exact bytes of a tick's NOT-RUN status and of an ordinary LOG-OPEN status, and the t the status copies from the end record: (a) `status NOT-RUN <t> INPUT-MISSING <port>`, bare `status LOG-OPEN`, the end record `end <n> not-run <t> INPUT-MISSING <port>`, t = n+1 in decimal with no leading zero, the port an each-tick port's name; (b) a registered cause set; (c) `LOG-OPEN <n>`; (d) the port by its variable number.
+
+**His words:**
+
+> I adopt 8.6(a).
+> The exact tick-case status forms are:
+>
+> * Tick `NOT-RUN`: `status NOT-RUN <t> INPUT-MISSING <port>`
+> * Ordinary `LOG-OPEN`: `status LOG-OPEN`
+> * Tick `NOT-RUN` end record: `end <n> not-run <t> INPUT-MISSING <port>`
+>
+> The following rules are part of this ruling:
+>
+> 1. \(t=n+1\), where \(n\) is the number of tick records in the log.
+> 2. \(t\) is decimal ASCII without leading zeros.
+> 3. `<port>` names an each-tick port declared by the law.
+> 4. A law with no each-tick port cannot produce a tick `NOT-RUN`.
+> 5. Tokens are separated by exactly one space.
+> 6. The receipt's tick value must match the end record's tick value.
+>
+> CUT-0 selects its row using the status's second token: a decimal number means tick `NOT-RUN`; `READ-ONCE` means the read-once stop; and the absence of a second token means ordinary `LOG-OPEN`.
+> Options (b), (c), and (d) are not adopted.
+> Still open: the read-once record's own line, including its keyword, value list, and when it is written; and packet D's refusal codes, check ordering, and whether a load refusal writes a receipt.
+> Record only this ruling. Nothing is pinned or committed.
+
+**What it fixes,** and nothing more:
+- **8.6 (a):** a tick's NOT-RUN is `status NOT-RUN <t> INPUT-MISSING <port>`, an ordinary open run `status LOG-OPEN`, and the tick NOT-RUN's end record `end <n> not-run <t> INPUT-MISSING <port>`; t = n+1, decimal ASCII without leading zeros; the port an each-tick port of the law; no tick NOT-RUN without an each-tick port; one space between tokens; the receipt's t equal to the end record's. (b), (c) and (d) are not adopted.
+- CUT-0 chooses its row by the status's second token: a decimal number, the tick's NOT-RUN; `READ-ONCE`, the read-once stop; none, the ordinary LOG-OPEN.
+- It settles, for the tick case, packet D's proposals of t = n+1 and of no tick NOT-RUN without an each-tick port (`packets/D-LOG-refusals.md` §4.5).
+- **Open:** the read-once record's own line (its keyword, value list and when it is written); packet D's codes, their order and the refusal receipt. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build; its affected clauses are computed by `ar_compute.py` before that re-read.
+
+### Finding 8: the read-once record's line (8.5's dependency) (2026-10-28)
+
+*Added 2026-10-28. The question was packet G's (`packets/G-stop-status.md` §3, 8.5's dependency), as put to him in the session. His answer, whole and unchanged.*
+
+**The question.** The read-once record's line in the input log, its values, and when it is present: (a) `once <v1> <v2> …`, written only when the law declares a read-once port; (b) `t 0 <v1> <v2> …`; (c) `once …` written always.
+
+**His words:**
+
+> I adopt option (a) for the read-once record's own line.
+> The line is:
+> `once <v1> <v2> …`
+> The ruling fixes these requirements:
+>
+> 1. Presence: Write the line only when the law declares at least one read-once port. A law with no read-once ports remains byte-for-byte unchanged.
+> 2. Position: The line immediately follows the three-line header, before any tick record. It is the fourth line.
+> 3. Values: Include exactly one value per read-once port, in declaration order. The record is complete or absent; partial records are invalid.
+> 4. Encoding: Use the RUNTIME-SPEC §5 value encoding, represented as lowercase hexadecimal with one space between tokens. Whether values carry type tags remains subject to the separate typed-values ruling.
+> 5. Chain: Include the line in `in_0` when present. It is not a tick-chain link, and it does not increment the tick count.
+> 6. Malformed forms: Refuse `t 0`, a `once` line for a law without read-once ports, a misplaced or duplicate `once` line, and a line with the wrong number of values.
+>
+> The existing requirements remain in force: read-once `'N'` events precede the first tick's `'T'` event, version 0 remains untouched, and existing logs for laws without read-once ports remain byte-identical.
+> Still open: packet D's refusal codes, check ordering, and whether a load refusal writes a receipt. The typed-values question also remains unresolved and is not decided here.
+> Record this ruling as adopted. Nothing is pinned or committed.
+
+**What it fixes,** and nothing more:
+- **The read-once record's line (a):** `once <v1> <v2> …`, written only when the law declares a read-once port, as the fourth line, straight after the header and before any tick record; one value per read-once port in declaration order, whole or absent; each value in RUNTIME-SPEC §5's encoding as lowercase hex, one space between tokens; in in_0 when present, never a tick-chain link, never counted in n.
+- Refused: `t 0`, a `once` line in a law with no read-once port, a misplaced or duplicate `once` line, and a wrong number of values. A law with no read-once port is byte for byte unchanged; read-once `'N'` events precede the first `'T'`; version 0 is untouched.
+- **Open:** packet D's codes, their order and the refusal receipt; whether values carry type tags (the typed-values ruling). Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build; its affected clauses are computed by `ar_compute.py` before that re-read.
+
+### Finding 8: packet D's D1.a, the read-once record's faults take the existing codes (2026-10-28)
+
+*Added 2026-10-28. The question was packet D's (`packets/D-LOG-refusals.md`, D1), as put to him in the session. He adopted D1.a to D1.d in one message as four separate rulings; this section quotes his opening line, his line for D1.a, and his closing line, each unchanged.*
+
+**The question.** Which codes the read-once record's faults take: (i) the existing nine LOG-* codes, as in the table put to him (a `once` line's faults, and M1, LOG-RECORD; `t 0`, LOG-TICK; M2 to M4 and 8.3's conditions, LOG-END); (ii) a new code, LOG-ONCE.
+
+**His words:**
+
+> I adopt D1.a–D1.d, option (i) for each, as four separate rulings.
+>
+> * D1.a(i): Read-once record faults use the existing nine LOG-* codes. No `LOG-ONCE` code is added.
+>
+> Record each ruling separately in `RULINGS.md`. D2, D3, and typed values remain open. Nothing is pinned or committed.
+
+**What it fixes,** and nothing more: The read-once record's faults take the existing nine LOG-* codes; no LOG-ONCE is added. The per-case codes of the table put to him go into draft 11 as that table states them, and the twin re-reads them there. Open: D2 (the order of checks), D3 (the refusal receipt) and the typed-values question. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: packet D's D1.b, what counts as not ASCII (2026-10-28)
+
+*Added 2026-10-28. The question was packet D's (`packets/D-LOG-refusals.md`, D1), as put to him in the session. He adopted D1.a to D1.d in one message as four separate rulings; this section quotes his opening line, his line for D1.b, and his closing line, each unchanged.*
+
+**The question.** What LOG-NOT-ASCII covers: (i) a byte above 0x7F, as the research model does; (ii) any byte outside 0x20–0x7E other than LF.
+
+**His words:**
+
+> I adopt D1.a–D1.d, option (i) for each, as four separate rulings.
+>
+> * D1.b(i): `LOG-NOT-ASCII` applies to bytes above `0x7F`. CR is handled by `LOG-LINE`.
+>
+> Record each ruling separately in `RULINGS.md`. D2, D3, and typed values remain open. Nothing is pinned or committed.
+
+**What it fixes,** and nothing more: LOG-NOT-ASCII is a byte above 0x7F. A CR is LOG-LINE. Open: D2 (the order of checks), D3 (the refusal receipt) and the typed-values question. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: packet D's D1.c, a leading LF (2026-10-28)
+
+*Added 2026-10-28. The question was packet D's (`packets/D-LOG-refusals.md`, D1), as put to him in the session. He adopted D1.a to D1.d in one message as four separate rulings; this section quotes his opening line, his line for D1.c, and his closing line, each unchanged.*
+
+**The question.** Which code a log beginning with LF takes: (i) LOG-LINE, an empty line wherever it falls; (ii) LOG-HEADER, as the research model does.
+
+**His words:**
+
+> I adopt D1.a–D1.d, option (i) for each, as four separate rulings.
+>
+> * D1.c(i): A leading LF is `LOG-LINE`.
+>
+> Record each ruling separately in `RULINGS.md`. D2, D3, and typed values remain open. Nothing is pinned or committed.
+
+**What it fixes,** and nothing more: A leading LF is LOG-LINE. Open: D2 (the order of checks), D3 (the refusal receipt) and the typed-values question. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: packet D's D1.d, a log offered with a version-0 law (2026-10-28)
+
+*Added 2026-10-28. The question was packet D's (`packets/D-LOG-refusals.md`, D1), as put to him in the session. He adopted D1.a to D1.d in one message as four separate rulings; this section quotes his opening line, his line for D1.d, and his closing line, each unchanged.*
+
+**The question.** What happens when an input log is offered with a version-0 law: (i) a usage error before load, outside the LOG-* codes; (ii) PORT-SIGNATURE.
+
+**His words:**
+
+> I adopt D1.a–D1.d, option (i) for each, as four separate rulings.
+>
+> * D1.d(i): An input log supplied with a version-0 law is a usage error outside the LOG-* codes.
+>
+> Record each ruling separately in `RULINGS.md`. D2, D3, and typed values remain open. Nothing is pinned or committed.
+
+**What it fixes,** and nothing more: An input log offered with a version-0 law is a usage error, outside the LOG-* codes. Open: D2 (the order of checks), D3 (the refusal receipt) and the typed-values question. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: packet D's D2.1, compile first (2026-10-29)
+
+*Added 2026-10-29. The question was packet D's (`packets/D-LOG-refusals.md`, D2). He adopted D2.1 to D2.6 in one message and said they may be recorded separately; this section quotes his opening line, his table's row for D2.1 and his reason for it, each unchanged.*
+
+**The question.** Put to him in the session with the proposed order, the alternatives (phase by phase; the ports line first; fields in written order; the header in strict line order) and twelve overlapping-fault examples, E1 to E12.
+
+**His words:**
+
+> I adopt the recommended ordering for all six parts of D2, with the following scope and qualifications.
+>
+> | Part | Ruling | Decision                                                                 |
+> | ---- | ------ | ------------------------------------------------------------------------ |
+> | D2.1 | (a)    | Compile the law first. A compile fault prevents the log from being read. |
+>
+> D2.1 — Compile first. The law's validity is a prerequisite to interpreting its input log.
+
+**What it fixes,** and nothing more: The law is compiled before its log is read; a compile fault means the log is never read. It changes no code D1 assigns. Open: D3 (the refusal receipt) and the typed-values question. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: packet D's D2.2, the whole-log order (2026-10-29)
+
+*Added 2026-10-29. The question was packet D's (`packets/D-LOG-refusals.md`, D2). He adopted D2.1 to D2.6 in one message and said they may be recorded separately; this section quotes his opening line, his table's row for D2.2 and his reason for it, each unchanged.*
+
+**The question.** Put to him in the session with the proposed order, the alternatives (phase by phase; the ports line first; fields in written order; the header in strict line order) and twelve overlapping-fault examples, E1 to E12.
+
+**His words:**
+
+> I adopt the recommended ordering for all six parts of D2, with the following scope and qualifications.
+>
+> | Part | Ruling | Decision                                                                 |
+> | ---- | ------ | ------------------------------------------------------------------------ |
+> | D2.2 | (a)    | NOT-ASCII → LINE → HEADER → PORT-SIGNATURE → records.                    |
+>
+> D2.2 — Whole-log precedence. The global checks precede record inspection. Header validation precedes digest comparison because the ports line must be structurally valid before its digest can be interpreted.
+
+**What it fixes,** and nothing more: The whole-log checks run LOG-NOT-ASCII, LOG-LINE, LOG-HEADER, PORT-SIGNATURE, then the records from line 4. It changes no code D1 assigns. Open: D3 (the refusal receipt) and the typed-values question. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: packet D's D2.3, the earliest faulty line wins (2026-10-29)
+
+*Added 2026-10-29. The question was packet D's (`packets/D-LOG-refusals.md`, D2). He adopted D2.1 to D2.6 in one message and said they may be recorded separately; this section quotes his opening line, his table's row for D2.3 and his reason for it, each unchanged.*
+
+**The question.** Put to him in the session with the proposed order, the alternatives (phase by phase; the ports line first; fields in written order; the header in strict line order) and twelve overlapping-fault examples, E1 to E12.
+
+**His words:**
+
+> I adopt the recommended ordering for all six parts of D2, with the following scope and qualifications.
+>
+> | Part | Ruling | Decision                                                                 |
+> | ---- | ------ | ------------------------------------------------------------------------ |
+> | D2.3 | (a)    | The earliest faulty line wins, starting at line 4.                       |
+>
+> D2.3 — Earliest faulty line. This is the most useful diagnostic rule: a later fault cannot displace an earlier one. I reject phase-by-phase precedence.
+
+**What it fixes,** and nothing more: From line 4 down, the first line with any fault decides the code; phase-by-phase precedence is rejected. It changes no code D1 assigns. Open: D3 (the refusal receipt) and the typed-values question. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: packet D's D2.4, the order within a line (2026-10-29)
+
+*Added 2026-10-29. The question was packet D's (`packets/D-LOG-refusals.md`, D2). He adopted D2.1 to D2.6 in one message and said they may be recorded separately; this section quotes his opening line, his table's row for D2.4 and his reason for it, each unchanged.*
+
+**The question.** Put to him in the session with the proposed order, the alternatives (phase by phase; the ports line first; fields in written order; the header in strict line order) and twelve overlapping-fault examples, E1 to E12.
+
+**His words:**
+
+> I adopt the recommended ordering for all six parts of D2, with the following scope and qualifications.
+>
+> | Part | Ruling | Decision                                                                 |
+> | ---- | ------ | ------------------------------------------------------------------------ |
+> | D2.4 | (a)    | Adopt the proposed within-line precedence.                               |
+>
+> D2.4 — Within-line precedence. Adopt:
+>
+> 1. LOG-AFTER-END
+> 2. LOG-UNKNOWN
+> 3. Read-once placement, LOG-RECORD
+> 4. `once` content
+> 5. `t` content
+> 6. `end` conditions
+
+**What it fixes,** and nothing more: Within a line: LOG-AFTER-END, then LOG-UNKNOWN, then the read-once placement (LOG-RECORD), then a `once` line's content, then a `t` line's content, then an `end` line's conditions. It changes no code D1 assigns. Open: D3 (the refusal receipt) and the typed-values question. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: packet D's D2.5, a tick record's fields (2026-10-29)
+
+*Added 2026-10-29. The question was packet D's (`packets/D-LOG-refusals.md`, D2). He adopted D2.1 to D2.6 in one message and said they may be recorded separately; this section quotes his opening line, his table's row for D2.5 and his reason for it, each unchanged.*
+
+**The question.** Put to him in the session with the proposed order, the alternatives (phase by phase; the ports line first; fields in written order; the header in strict line order) and twelve overlapping-fault examples, E1 to E12.
+
+**His words:**
+
+> I adopt the recommended ordering for all six parts of D2, with the following scope and qualifications.
+>
+> | Part | Ruling | Decision                                                                 |
+> | ---- | ------ | ------------------------------------------------------------------------ |
+> | D2.5 | (a)    | Value count → tick number → values.                                      |
+>
+> D2.5 — Tick records. Count precedes tick number, which precedes values. This deliberately makes E8 LOG-RECORD rather than LOG-TICK.
+
+**What it fixes,** and nothing more: In a tick record: the value count, then the tick number, then the values. It changes no code D1 assigns. Open: D3 (the refusal receipt) and the typed-values question. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: packet D's D2.6, the header's order (2026-10-29)
+
+*Added 2026-10-29. The question was packet D's (`packets/D-LOG-refusals.md`, D2). He adopted D2.1 to D2.6 in one message and said they may be recorded separately; this section quotes his opening line, his table's row for D2.6 and his reason for it, each unchanged.*
+
+**The question.** Put to him in the session with the proposed order, the alternatives (phase by phase; the ports line first; fields in written order; the header in strict line order) and twelve overlapping-fault examples, E1 to E12.
+
+**His words:**
+
+> I adopt the recommended ordering for all six parts of D2, with the following scope and qualifications.
+>
+> | Part | Ruling | Decision                                                                 |
+> | ---- | ------ | ------------------------------------------------------------------------ |
+> | D2.6 | (a)    | Header order: line 1 → line count → line 3 → line 2 form.                |
+>
+> D2.6 — Header. Adopt the research model's ordering, including its line-reporting consequence.
+
+**What it fixes,** and nothing more: In the header: line 1, then the line count, then line 3, then line 2's form; this decides only which line a refusal reports. It changes no code D1 assigns. Open: D3 (the refusal receipt) and the typed-values question. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: packet D's D2, its twelve expected outcomes and compliance requirements (2026-10-29)
+
+*Added 2026-10-29, from the same message: his adoption of E1 to E12's outcomes as put to him, and the compliance requirements he approved, each unchanged.*
+
+**His words:**
+
+> ## E1–E12
+>
+> I adopt the proposed expected outcomes for all twelve examples.
+>
+> In particular:
+>
+> - E3: LOG-HEADER at line 3.
+> - E7: LOG-RECORD at line 4 (M1).
+> - E8: LOG-RECORD.
+> - E9: LOG-TICK.
+> - E12: LOG-TICK at line 5.
+>
+> ## Compliance requirements
+>
+> I also approve the proposed compliance tests for 1a:
+>
+> - E1–E12 become individual fixtures.
+> - Each adjacent precedence pair gets a swapped-order plant demonstrating that the ordering changes the result.
+> - Repeated runs must produce identical code and line.
+> - 1b must preserve those results across all four executions.
+>
+> These are implementation and verification requirements, not permission to change the classifications established by D1.
+>
+> Scope remains strictly limited to D2. D3 (load-refusal receipts) and typed values remain open. No pinning, committing, or additional rulings are authorized.
+>
+> You may record these six rulings separately in `RULINGS.md`, with the twelve expected outcomes and compliance requirements.
+
+**What it fixes:** E1 to E12's outcomes, as put to him in the session (E1 LOG-NOT-ASCII; E2 LOG-LINE; E3 LOG-HEADER at line 3; E4 PORT-SIGNATURE; E5 LOG-UNKNOWN at line 5; E6 LOG-AFTER-END at line 7; E7 LOG-RECORD at line 4; E8 LOG-RECORD; E9 LOG-TICK; E10 LOG-RECORD at line 6; E11 the compile code; E12 LOG-TICK at line 5); and for 1a: each example a fixture, a swapped-order plant for each adjacent pair, the same code and line on repeated runs, and the same across the four executions in 1b. These verify D2 and change no D1 classification.
+
+### Finding 8: packet D's D3.1, no receipt, a refusal witness (2026-10-29)
+
+*Added 2026-10-29. The question was packet D's (`packets/D-LOG-refusals.md`, D3). He adopted D3.1 to D3.5 in one message and said they may be recorded separately; this section quotes his opening line, his table's row for D3.1 and his reason for it, each unchanged.*
+
+**The question.** Put to him in the session: D3.1 (N) no record, (W) a witness and no receipt, or (R) a receipt with a status; D3.2 to D3.5 as proposed under (W), D3.5 offering (a) the refusal's own exit or (b) the I/O-failure exit.
+
+**His words:**
+
+> I adopt (W): no receipt for a refused load; a separate witness records the refusal. I adopt the recommended provisions of D3.2 through D3.5, subject to the qualifications below.
+>
+> | Part | Ruling      | Decision                                                             |
+> | ---- | ----------- | -------------------------------------------------------------------- |
+> | D3.1 | (W)         | No receipt. Write a separate refusal witness.                        |
+>
+> D3.1 — Separate witness, not receipt.
+>
+> This preserves the four existing outcomes under 15.7.5. A refused load cannot produce an execution receipt because no statement ran.
+>
+> The witness is diagnostic evidence of the refusal, not an execution record.
+
+**What it fixes,** and nothing more: A refused load writes no receipt; a separate refusal witness records it. The four outcomes of 15.7.5 are unchanged; the witness is diagnostic evidence, not an execution record. Open: the typed-values question. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: packet D's D3.2, which refusals count (2026-10-29)
+
+*Added 2026-10-29. The question was packet D's (`packets/D-LOG-refusals.md`, D3). He adopted D3.1 to D3.5 in one message and said they may be recorded separately; this section quotes his opening line, his table's row for D3.2 and his reason for it, each unchanged.*
+
+**The question.** Put to him in the session: D3.1 (N) no record, (W) a witness and no receipt, or (R) a receipt with a status; D3.2 to D3.5 as proposed under (W), D3.5 offering (a) the refusal's own exit or (b) the I/O-failure exit.
+
+**His words:**
+
+> I adopt (W): no receipt for a refused load; a separate witness records the refusal. I adopt the recommended provisions of D3.2 through D3.5, subject to the qualifications below.
+>
+> | Part | Ruling      | Decision                                                             |
+> | ---- | ----------- | -------------------------------------------------------------------- |
+> | D3.2 | As proposed | Exactly the nine LOG-\* refusals qualify.                            |
+>
+> D3.2 — Exactly nine refusal codes.
+>
+> The qualifying codes are:
+>
+> 1. LOG-NOT-ASCII
+> 2. LOG-LINE
+> 3. LOG-HEADER
+> 4. PORT-SIGNATURE
+> 5. LOG-RECORD
+> 6. LOG-TICK
+> 7. LOG-END
+> 8. LOG-AFTER-END
+> 9. LOG-UNKNOWN
+>
+> Compile refusals, version-0 usage errors, and log I/O failures are excluded. Loadable record-less forms remain successful loads.
+
+**What it fixes,** and nothing more: Exactly the refusals carrying one of the nine LOG-* codes; not a compile refusal, a version-0 usage error or a log I/O failure. The two loadable record-less forms load. Open: the typed-values question. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: packet D's D3.3, the witness written after the refusal is final (2026-10-29)
+
+*Added 2026-10-29. The question was packet D's (`packets/D-LOG-refusals.md`, D3). He adopted D3.1 to D3.5 in one message and said they may be recorded separately; this section quotes his opening line, his table's row for D3.3 and his reason for it, each unchanged.*
+
+**The question.** Put to him in the session: D3.1 (N) no record, (W) a witness and no receipt, or (R) a receipt with a status; D3.2 to D3.5 as proposed under (W), D3.5 offering (a) the refusal's own exit or (b) the I/O-failure exit.
+
+**His words:**
+
+> I adopt (W): no receipt for a refused load; a separate witness records the refusal. I adopt the recommended provisions of D3.2 through D3.5, subject to the qualifications below.
+>
+> | Part | Ruling      | Decision                                                             |
+> | ---- | ----------- | -------------------------------------------------------------------- |
+> | D3.3 | As proposed | Write the witness only after the refusal code and line are final.    |
+>
+> D3.3 — Finalize before writing.
+>
+> The loader must settle the code and line under D1 and D2 before constructing the witness. Write through a temporary file and rename into place. No partial witness may stand.
+
+**What it fixes,** and nothing more: The code and line are settled under D1 and D2 first; the witness is then written through a temporary file and renamed into place; no partial witness stands. Open: the typed-values question. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: packet D's D3.4, the witness's contents and place (2026-10-29)
+
+*Added 2026-10-29. The question was packet D's (`packets/D-LOG-refusals.md`, D3). He adopted D3.1 to D3.5 in one message and said they may be recorded separately; this section quotes his opening line, his table's row for D3.4 and his reason for it, each unchanged.*
+
+**The question.** Put to him in the session: D3.1 (N) no record, (W) a witness and no receipt, or (R) a receipt with a status; D3.2 to D3.5 as proposed under (W), D3.5 offering (a) the refusal's own exit or (b) the I/O-failure exit.
+
+**His words:**
+
+> I adopt (W): no receipt for a refused load; a separate witness records the refusal. I adopt the recommended provisions of D3.2 through D3.5, subject to the qualifications below.
+>
+> | Part | Ruling      | Decision                                                             |
+> | ---- | ----------- | -------------------------------------------------------------------- |
+> | D3.4 | As proposed | Adopt the specified deterministic witness format and destination.    |
+>
+> D3.4 — Witness contents.
+>
+> Adopt the proposed fields:
+>
+> ```
+> orlog-load-refusal 0
+> law-seal <the law's seal>
+> code <CODE>
+> line <n>
+> log-bytes-sha256 <hex>
+> end
+> ```
+>
+> Requirements:
+>
+> - LF-terminated ASCII.
+> - No timestamp or host-specific information.
+> - One-based line number.
+> - Whole-log line attribution as specified in the proposal.
+> - SHA-256 covers every byte of the log as read.
+> - The digest field must remain `log-bytes-sha256`, never `input-log-sha256`.
+> - Human-readable diagnostics go to standard error.
+>
+> The witness belongs beside the normal receipt destination, under its own name. It is not a court receipt and is not consumed as an execution record.
+
+**What it fixes,** and nothing more: The witness is the LF-terminated ASCII lines `orlog-load-refusal 0`, `law-seal`, `code`, `line` (1-based, the whole-log attribution as put to him), `log-bytes-sha256` (every byte as read, never named `input-log-sha256`) and `end`, with no timestamp or host detail; diagnostics on standard error; beside the receipt's place under its own name; not a court receipt. Open: the typed-values question. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: packet D's D3.5, a failed witness write (2026-10-29)
+
+*Added 2026-10-29. The question was packet D's (`packets/D-LOG-refusals.md`, D3). He adopted D3.1 to D3.5 in one message and said they may be recorded separately; this section quotes his opening line, his table's row for D3.5 and his reason for it, each unchanged.*
+
+**The question.** Put to him in the session: D3.1 (N) no record, (W) a witness and no receipt, or (R) a receipt with a status; D3.2 to D3.5 as proposed under (W), D3.5 offering (a) the refusal's own exit or (b) the I/O-failure exit.
+
+**His words:**
+
+> I adopt (W): no receipt for a refused load; a separate witness records the refusal. I adopt the recommended provisions of D3.2 through D3.5, subject to the qualifications below.
+>
+> | Part | Ruling      | Decision                                                             |
+> | ---- | ----------- | -------------------------------------------------------------------- |
+> | D3.5 | (b)         | Witness-write failure produces the RUNTIME-SPEC §1 I/O-failure exit. |
+>
+> D3.5 — Witness-write failure: (b).
+>
+> A failed witness write must produce the RUNTIME-SPEC §1 I/O-failure exit, while preserving the original refusal's code and line on standard error.
+>
+> This prevents missing diagnostic evidence from being silently presented as an ordinary clean refusal.
+
+**What it fixes,** and nothing more: A failed witness write gives RUNTIME-SPEC §1's I/O-failure exit, the refusal's code and line kept on standard error. Open: the typed-values question. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: packet D's D3, its compliance requirements (2026-10-29)
+
+*Added 2026-10-29, from the same message: the compliance requirements he adopted, and his scope, each unchanged.*
+
+**His words:**
+
+> ## Compliance requirements
+>
+> I adopt all proposed 1a tests:
+>
+> - All nine codes: no receipt, exact witness code and line, correct full-log digest, exit 1.
+> - Byte-identical witnesses on repeated runs.
+> - No witnesses for compile refusals, version-0 usage errors, or unreadable logs.
+> - Receipts and no witnesses for the two loadable record-less forms.
+> - Write-failure test with no receipt or partial witness.
+> - All five specified mutation plants must be detected.
+>
+> ## Scope
+>
+> D3 is now ruled. Typed values remain entirely open.
+>
+> No implementation changes, pinning, or commits are authorized by this ruling. You may record D3 as five separate rulings, plus its compliance requirements, in `RULINGS.md`.
+
+**What it fixes:** for 1a, the tests put to him for D3: for each of the nine codes no receipt, the witness's exact code and line, its full-log digest, exit 1; byte-identical witnesses on repeated runs; no witness for a compile refusal, a version-0 usage error or an unreadable log; a receipt and no witness for the two loadable record-less forms; the write-failure test; and the five plants detected. D3 is ruled; typed values stay open.
+
+### Finding 8: typed values, T1, the wire form, tagged (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the typed-values question, finding 8's last part). He ruled T1 to T6 in one message; this section quotes his opening, his table's row for T1 and his ruling on it, each unchanged.*
+
+**The question.** Put to him in the session as T1 to T6: the wire form, (a) tagged or (b) untagged; the permitted types; the loader's checks; whether a mismatch is LOG-RECORD; `once` and `t` records; canonical encoding.
+
+**His words:**
+
+> I adopt T1(a): every input-log value carries its complete RUNTIME-SPEC §5 encoding, including its type tag, represented as lowercase hexadecimal.
+>
+> This is the correct choice because it preserves the exact encoded value bytes used by the `'N'` event. The loader can validate the type at the value's actual port position without translating or guessing its intended type.
+>
+> | Part | Ruling      | Decision                                                               |
+> | ---- | ----------- | ---------------------------------------------------------------------- |
+> | T1   | (a)         | Full tagged encoding, lowercase hex.                                   |
+>
+> T1 — Wire representation: (a).
+>
+> Every value includes its tag byte. Examples adopted:
+>
+> | Value       | Required lowercase hex |
+> | ----------- | ---------------------- |
+> | Fixed 3     | `580000000000000003`   |
+> | True        | `4201`                 |
+> | Text `"hi"` | `54000000026869`       |
+>
+> The value bytes in the log must equal the value portion of the corresponding `'N'` event payload.
+>
+> I reject untagged encoding. In particular, integer and fixed values must not become interchangeable merely because both have eight-byte bodies.
+
+**What it fixes,** and nothing more: Every value in the input log is its full RUNTIME-SPEC §5 encoding, tag included, in lowercase hex (fixed 3 `580000000000000003`, true `4201`, the text "hi" `54000000026869`), equal to the value part of the matching `'N'` payload. Untagged encoding is rejected. D1, D2 and D3 are unchanged. R3 and R8 stay open. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: typed values, T2, the permitted types (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the typed-values question, finding 8's last part). He ruled T1 to T6 in one message; this section quotes his opening, his table's row for T2 and his ruling on it, each unchanged.*
+
+**The question.** Put to him in the session as T1 to T6: the wire form, (a) tagged or (b) untagged; the permitted types; the loader's checks; whether a mismatch is LOG-RECORD; `once` and `t` records; canonical encoding.
+
+**His words:**
+
+> I adopt T1(a): every input-log value carries its complete RUNTIME-SPEC §5 encoding, including its type tag, represented as lowercase hexadecimal.
+>
+> This is the correct choice because it preserves the exact encoded value bytes used by the `'N'` event. The loader can validate the type at the value's actual port position without translating or guessing its intended type.
+>
+> | Part | Ruling      | Decision                                                               |
+> | ---- | ----------- | ---------------------------------------------------------------------- |
+> | T2   | As proposed | Only `I`, `X`, `B`, and `T` are permitted.                             |
+>
+> T2 — Permitted types.
+>
+> Adopt exactly:
+>
+> - `I` — integer
+> - `X` — fixed
+> - `B` — truth value
+> - `T` — text
+>
+> `F` remains prohibited pending sheet R8. `L` is always prohibited. Lists do not become port types.
+
+**What it fixes,** and nothing more: Only `I`, `X`, `B` and `T`; `F` stays prohibited pending sheet R8; `L` is always prohibited, and lists do not become port types. D1, D2 and D3 are unchanged. R3 and R8 stay open. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: typed values, T3, the loader's checks (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the typed-values question, finding 8's last part). He ruled T1 to T6 in one message; this section quotes his opening, his table's row for T3 and his ruling on it, each unchanged.*
+
+**The question.** Put to him in the session as T1 to T6: the wire form, (a) tagged or (b) untagged; the permitted types; the loader's checks; whether a mismatch is LOG-RECORD; `once` and `t` records; canonical encoding.
+
+**His words:**
+
+> I adopt T1(a): every input-log value carries its complete RUNTIME-SPEC §5 encoding, including its type tag, represented as lowercase hexadecimal.
+>
+> This is the correct choice because it preserves the exact encoded value bytes used by the `'N'` event. The loader can validate the type at the value's actual port position without translating or guessing its intended type.
+>
+> | Part | Ruling      | Decision                                                               |
+> | ---- | ----------- | ---------------------------------------------------------------------- |
+> | T3   | As proposed | Validate spelling, tag, length, and text validity in the stated order. |
+>
+> T3 — Loader validation.
+>
+> Adopt the four validation stages in the proposed order:
+>
+> 1. Nonempty, even-length, lowercase hexadecimal.
+> 2. Tag matches the declared port type.
+> 3. Exact encoded length and valid representation.
+> 4. Text bytes satisfy UTF-8 and the applicable door rules.
+>
+> The text-door validation remains subject to R3. This ruling does not settle R3.
+
+**What it fixes,** and nothing more: In order: nonempty, even-length, lowercase hex; the tag the port's declared type's; the exact length and a valid representation; a text's bytes UTF-8 and the door's rules, those rules R3's and not settled here. D1, D2 and D3 are unchanged. R3 and R8 stay open. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: typed values, T4, a mismatch is LOG-RECORD (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the typed-values question, finding 8's last part). He ruled T1 to T6 in one message; this section quotes his opening, his table's row for T4 and his ruling on it, each unchanged.*
+
+**The question.** Put to him in the session as T1 to T6: the wire form, (a) tagged or (b) untagged; the permitted types; the loader's checks; whether a mismatch is LOG-RECORD; `once` and `t` records; canonical encoding.
+
+**His words:**
+
+> I adopt T1(a): every input-log value carries its complete RUNTIME-SPEC §5 encoding, including its type tag, represented as lowercase hexadecimal.
+>
+> This is the correct choice because it preserves the exact encoded value bytes used by the `'N'` event. The loader can validate the type at the value's actual port position without translating or guessing its intended type.
+>
+> | Part | Ruling      | Decision                                                               |
+> | ---- | ----------- | ---------------------------------------------------------------------- |
+> | T4   | Yes         | Every listed malformed or mismatched value is LOG-RECORD.              |
+>
+> T4 — Classification.
+>
+> Adopt LOG-RECORD for every listed failure, including:
+>
+> - Wrong type tag.
+> - Invalid encoded length.
+> - Boolean byte other than `00` or `01`.
+> - Invalid UTF-8.
+> - Uppercase hexadecimal.
+> - Odd-length hexadecimal.
+> - Empty value.
+>
+> This applies D1's existing classification. It creates no new error code.
+
+**What it fixes,** and nothing more: Every listed failure (a wrong tag, a wrong length, a boolean byte other than 00 or 01, invalid UTF-8, uppercase hex, odd-length hex, an empty value) is LOG-RECORD, D1's code; no new code. D1, D2 and D3 are unchanged. R3 and R8 stay open. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: typed values, T5, the same rules for `once` and `t` (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the typed-values question, finding 8's last part). He ruled T1 to T6 in one message; this section quotes his opening, his table's row for T5 and his ruling on it, each unchanged.*
+
+**The question.** Put to him in the session as T1 to T6: the wire form, (a) tagged or (b) untagged; the permitted types; the loader's checks; whether a mismatch is LOG-RECORD; `once` and `t` records; canonical encoding.
+
+**His words:**
+
+> I adopt T1(a): every input-log value carries its complete RUNTIME-SPEC §5 encoding, including its type tag, represented as lowercase hexadecimal.
+>
+> This is the correct choice because it preserves the exact encoded value bytes used by the `'N'` event. The loader can validate the type at the value's actual port position without translating or guessing its intended type.
+>
+> | Part | Ruling      | Decision                                                               |
+> | ---- | ----------- | ---------------------------------------------------------------------- |
+> | T5   | As proposed | Identical tagged-value rules for `once` and `t` records.               |
+>
+> T5 — Record consistency.
+>
+> Adopt identical encoding and validation for both record types:
+>
+> - `once`: one tagged value per read-once port, in declaration order.
+> - `t`: one tagged value per each-tick port, in declaration order.
+>
+> Every tag must match its corresponding port.
+
+**What it fixes,** and nothing more: A `once` line carries one tagged value per read-once port and a `t` line one per each-tick port, each in declaration order, each tag its own port's. D1, D2 and D3 are unchanged. R3 and R8 stay open. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: typed values, T6, canonical encoding (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the typed-values question, finding 8's last part). He ruled T1 to T6 in one message; this section quotes his opening, his table's row for T6 and his ruling on it, each unchanged.*
+
+**The question.** Put to him in the session as T1 to T6: the wire form, (a) tagged or (b) untagged; the permitted types; the loader's checks; whether a mismatch is LOG-RECORD; `once` and `t` records; canonical encoding.
+
+**His words:**
+
+> I adopt T1(a): every input-log value carries its complete RUNTIME-SPEC §5 encoding, including its type tag, represented as lowercase hexadecimal.
+>
+> This is the correct choice because it preserves the exact encoded value bytes used by the `'N'` event. The loader can validate the type at the value's actual port position without translating or guessing its intended type.
+>
+> | Part | Ruling      | Decision                                                               |
+> | ---- | ----------- | ---------------------------------------------------------------------- |
+> | T6   | Required    | Exactly one canonical spelling for every accepted value.               |
+>
+> T6 — Canonical encoding.
+>
+> Adopt canonical encoding as mandatory.
+>
+> Every accepted value has exactly one permitted spelling. No alternate capitalization, omitted tags, shortened widths, or invalid representations are accepted.
+>
+> This establishes a consistent byte representation for the input log, `in_0`, `in_t`, `'N'` payloads, and receipts.
+
+**What it fixes,** and nothing more: Every accepted value has exactly one spelling; no other capitalization, no omitted tag, no shortened width, no invalid representation. The log, in_0, in_t, the `'N'` payloads and the receipts have one byte form. D1, D2 and D3 are unchanged. R3 and R8 stay open. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 8: typed values, the compatibility, compliance, affected clauses and scope (2026-10-29)
+
+*Added 2026-10-29, from the same message, each part unchanged.*
+
+**His words:**
+
+> ### Compatibility and implementation requirements
+>
+> I adopt the compatibility provisions:
+>
+> - Version 0 and COMPAT-0 remain untouched.
+> - Version-0 laws still have no ports.
+> - The 13 existing research logs and mutation fixtures must be rewritten into tagged form for 1a.
+> - Those fixtures are not frozen texts.
+>
+> I also adopt all proposed compliance tests:
+>
+> 1. All four permitted types load successfully.
+> 2. Their bytes match the corresponding `'N'` payload value bytes.
+> 3. All eleven specified malformed or prohibited cases are refused with LOG-RECORD.
+> 4. The same validation tests cover both `once` and `t`.
+> 5. All three mutation plants must be detected:
+>    - Tag left unchecked.
+>    - Tag stripped before checking.
+>    - Uppercase hexadecimal accepted.
+>
+> ### Affected clauses
+>
+> The authorized affected locations are:
+>
+> - §15.5 — value representation.
+> - §15.9 — `'N'` event payload.
+> - §15.15 — corresponding rows for §§15.5 and 15.6.
+> - Sheet R12 — misaligned-log plant.
+>
+> No other clauses are implicitly reopened.
+>
+> ## Final scope of the ruling
+>
+> Typed-values question ruled
+>
+> The typed-values question is now settled in all six parts, T1–T6.
+>
+> Finding 8 is therefore fully ruled across D1, D2, D3, and typed values.
+>
+> The remaining work is exactly the sequence you identified:
+>
+> 1. Finding 20: R2, port place, counting, N2 and N3.
+> 2. Draft 11: incorporate the settled rulings and the table originally put to me.
+> 3. One complete re-read of Draft 11 before pinning.
+>
+> No pinning, committing, or implementation authorization is included in this ruling. R3 and R8 retain their independent open status.
+
+**What it fixes:** version 0 and COMPAT-0 untouched; the research model's 13 logs and mutation fixtures rewritten in tagged form for 1a, not being frozen texts; the 1a tests put to him (the four types loading with their `'N'` bytes, the eleven refused cases LOG-RECORD, the same tests for `once` and `t`, the three plants detected); the affected places 15.5, 15.9, 15.15's rows on 15.5 and 15.6, and sheet R12's misaligned-log plant, and no other clause reopened. With it finding 8 is ruled across D1, D2, D3 and typed values. His list of the remaining work is recorded as he wrote it; finding 20 (whether `'R'` carries the cut) and R2, the port place, counting, N2 and N3 are each still owed their own ruling.
+
+### Finding 20: F20.1, where the cut lives (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session. He ruled F20.1 to F20.4 in one message and said they may be recorded separately; this section quotes his opening, his table's row(s) for F20.1 and his ruling on it, each unchanged.*
+
+**The question.** Put to him in the session: F20.1, where the cut lives ((a) `'R'`'s payload, (b) a new event, (c) a receipt line, (d) derived by replay); F20.2, the decoding rule; F20.3, the tick block's and the ports' frames; F20.4, which clause an If-condition refusal names (S6).
+
+**His words:**
+
+> I adopt F20.1(a): version 1's `R` event carries the cut in its payload.
+>
+> The cut must be committed by the refusal event itself, included in the trace head, and therefore bound into the receipt core. The court must decode the recorded cut, not reconstruct it by rerunning the reference.
+>
+> | Part               | Ruling      | Decision                                                          |
+> | ------------------ | ----------- | ----------------------------------------------------------------- |
+> | F20.1              | (a)         | Cut carried in version 1's `R` payload.                           |
+>
+> ### F20.1 — Where the cut lives
+>
+> Adopt (a).
+>
+> I reject:
+>
+> - (b) A separate event, because it unnecessarily splits one refusal across two events.
+> - (c) A receipt-only cut, because it separates the cut from the event-chain commitment.
+> - (d) Replay-based derivation, because the court must read the committed record rather than depend on another execution.
+>
+> Version 0 remains unchanged: its `R` payload contains the refusal code alone.
+
+**What it fixes,** and nothing more: Version 1's `'R'` event carries the cut in its payload, committed by the trace head and so bound into the receipt core; the court decodes the recorded cut and never reruns the reference for it. (b), (c) and (d) are rejected. Version 0's `'R'` stays the code alone. Finding 8 is unchanged. R2, the port place, counting, N2 and N3 stay open. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 20: F20.2, the decoding rule (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session. He ruled F20.1 to F20.4 in one message and said they may be recorded separately; this section quotes his opening, his table's row(s) for F20.2 and his ruling on it, each unchanged.*
+
+**The question.** Put to him in the session: F20.1, where the cut lives ((a) `'R'`'s payload, (b) a new event, (c) a receipt line, (d) derived by replay); F20.2, the decoding rule; F20.3, the tick block's and the ports' frames; F20.4, which clause an If-condition refusal names (S6).
+
+**His words:**
+
+> I adopt F20.1(a): version 1's `R` event carries the cut in its payload.
+>
+> The cut must be committed by the refusal event itself, included in the trace head, and therefore bound into the receipt core. The court must decode the recorded cut, not reconstruct it by rerunning the reference.
+>
+> | Part               | Ruling      | Decision                                                          |
+> | ------------------ | ----------- | ----------------------------------------------------------------- |
+> | F20.2              | As proposed | Decode the recorded frames under the law-header-selected grammar. |
+>
+> ### F20.2 — Decoding
+>
+> Adopt the proposed decoding principles:
+>
+> 1. The law header selects the grammar.
+> 2. The refusal code must match the receipt's status line.
+> 3. At least one frame is required.
+> 4. Frames must satisfy the applicable S1–S7 shapes.
+> 5. The decoder extracts only the specified structural information:
+>    - Clause.
+>    - Selector.
+>    - For bit when applicable.
+>    - Last-frame If arm when applicable.
+> 6. The pinned rule computes \\(\hat K\\) from those decoded fields.
+> 7. No value or operation count is read to derive the cut.
+> 8. A malformed payload is refused with its applicable reason. There is no fallback to version 0's grammar.
+>
+> One qualification: this adopts the semantic decoding rule, not an independent certification of the exact draft-2 byte grammar. The actual S1–S7 byte layouts and their probe results must still be verified before the format is frozen.
+
+**What it fixes,** and nothing more: The law's header selects the grammar; the code must equal the status line's; at least one frame; the frames hold to S1 to S7; only clause, selector, a For's bit where it applies and a last-frame If's arm are read, and the pinned rule computes K̂ from them, reading no value or operation count; a malformed payload is refused with its reason, with no fall-back to version 0. This adopts the semantic rule, not the draft-2 byte grammar, whose S1-S7 layouts and probe results are still to be verified before the format freezes. Finding 8 is unchanged. R2, the port place, counting, N2 and N3 stay open. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 20: F20.3, the version-1 frames (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session. He ruled F20.1 to F20.4 in one message and said they may be recorded separately; this section quotes his opening, his table's row(s) for F20.3 and his ruling on it, each unchanged.*
+
+**The question.** Put to him in the session: F20.1, where the cut lives ((a) `'R'`'s payload, (b) a new event, (c) a receipt line, (d) derived by replay); F20.2, the decoding rule; F20.3, the tick block's and the ports' frames; F20.4, which clause an If-condition refusal names (S6).
+
+**His words:**
+
+> I adopt F20.1(a): version 1's `R` event carries the cut in its payload.
+>
+> The cut must be committed by the refusal event itself, included in the trace head, and therefore bound into the receipt core. The court must decode the recorded cut, not reconstruct it by rerunning the reference.
+>
+> | Part               | Ruling      | Decision                                                          |
+> | ------------------ | ----------- | ----------------------------------------------------------------- |
+> | F20.3 — tick block | As proposed | Plain frame, clause with `sel = 0xFFFF`, no extra field.          |
+> | F20.3 — ports      | As proposed | No frame for port declarations.                                   |
+>
+> ### F20.3 — Version 1 frame shapes
+>
+> Tick block: Adopt the plain frame with selector `0xFFFF` and no additional field. Its body is repeated when another tick may run.
+>
+> Ports: Adopt no frame. Port declarations do not contribute an operation or a refusal stack frame under the stated §15.13.8 premises.
+>
+> Perform: Adopt the proposed allowance for a Perform as the last frame, including the TICK-BUDGET refusal case.
+
+**What it fixes,** and nothing more: The tick block is a plain frame, its clause with selector 0xFFFF and no extra field; a port declaration has no frame; a Perform may be the last frame, TICK-BUDGET's case included. Finding 8 is unchanged. R2, the port place, counting, N2 and N3 stay open. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 20: F20.4, an If-condition refusal names the arm (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session. He ruled F20.1 to F20.4 in one message and said they may be recorded separately; this section quotes his opening, his table's row(s) for F20.4 and his ruling on it, each unchanged.*
+
+**The question.** Put to him in the session: F20.1, where the cut lives ((a) `'R'`'s payload, (b) a new event, (c) a receipt line, (d) derived by replay); F20.2, the decoding rule; F20.3, the tick block's and the ports' frames; F20.4, which clause an If-condition refusal names (S6).
+
+**His words:**
+
+> I adopt F20.1(a): version 1's `R` event carries the cut in its payload.
+>
+> The cut must be committed by the refusal event itself, included in the trace head, and therefore bound into the receipt core. The court must decode the recorded cut, not reconstruct it by rerunning the reference.
+>
+> | Part               | Ruling      | Decision                                                          |
+> | ------------------ | ----------- | ----------------------------------------------------------------- |
+> | F20.4              | Arm         | An If-condition refusal names the arm, consistent with version 0. |
+>
+> ### F20.4 — If-condition refusal
+>
+> Adopt the arm's clause, not the If head's clause.
+>
+> This preserves version 0's convention and makes S6 consistent across versions.
+
+**What it fixes,** and nothing more: A refusal inside an If's condition names the arm's clause, not the head's, as in version 0, so S6 is the same in both versions. Finding 8 is unchanged. R2, the port place, counting, N2 and N3 stay open. Nothing is pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Finding 20: its compliance requirements and scope (2026-10-29)
+
+*Added 2026-10-29, from the same message, each part unchanged.*
+
+**His words:**
+
+> ## Compliance requirements
+>
+> I adopt the proposed tests:
+>
+> - Encoder/decoder round-trip.
+> - S1–S7 forgery rejection with the correct reason.
+> - Refusal-code mismatch rejection.
+> - Version 0 `R` unchanged.
+> - COMPAT-0 remains HOLDS.
+> - Stop, NOT-RUN and LOG-OPEN emit no `R`.
+> - Grammar selected by header, never payload inspection.
+> - Four identical `R` byte sequences in 1b.
+>
+> All four mutation plants must be caught:
+>
+> 1. Court reruns the reference to derive the cut.
+> 2. Decoder sniffs the payload instead of reading the header.
+> 3. For bit is dropped.
+> 4. If arm is dropped.
+>
+> ## Scope and remaining work
+>
+> Finding 20 is ruled at the semantic level described above. The exact S1–S7 encoding still requires its probe.
+>
+> The following remain separate and open:
+>
+> - R2: statement kinds, spellings and reach rules.
+> - Port place.
+> - Counting.
+> - N2 and N3: read-once session events.
+>
+> Finding 8 remains closed and unchanged.
+>
+> No pinning, committing, or implementation authorization is included. You may record these Finding 20 rulings separately, preserving the distinction between adopted semantics and the still-required byte-level verification.
+
+**What it fixes:** the 1a tests put to him (the round trip; S1 to S7's forgeries refused with their reasons; a code mismatch refused; version 0's `'R'` unchanged and COMPAT-0 HELD; no `'R'` at the stop, NOT-RUN or LOG-OPEN; the grammar by the header; four identical `'R'` byte sequences in 1b) and the four plants caught. Finding 20 is ruled at the semantic level; the exact S1-S7 encoding still needs its probe, before the format freezes.
+
+### R2, as ruled: R2.1, statement kinds (2026-10-29)
+
+*Added 2026-10-29. Sheet R2 (above) proposed the forms; the question was put to him in the session. He ruled R2.1 to R2.3 in one message; this section quotes his line adopting them and his ruling on R2.1, each unchanged.*
+
+**The question.** Put to him in the session: R2.1, the statement kinds ((a) two, (b) three, (c) four); R2.2, the spellings and type words; R2.3, the reach rules ((a) as proposed, (b) each tick its own scope, (c) the budget able to stop reach).
+
+**His words:**
+
+> I adopt the recommended option for all three parts: R2.1(a), R2.2 as proposed, and R2.3(a).
+>
+> ## R2.1 — Statement kinds: (a)
+>
+> Adopt exactly two kinds:
+>
+> 1. Port declaration, carrying:
+>    - Mode: each tick or once.
+>    - Type.
+>    - Name.
+> 2. Tick block, carrying its body and optional budget.
+>
+> The budget is an attribute, not a separate statement kind. Each-tick and read-once ports are one kind with different modes.
+>
+> Adopt the examples and compliance requirements:
+>
+> - Each form parses into the correct kind and mode.
+> - Kind and mode are represented in version 1 law bytes.
+> - Changing only a port's mode changes the law seal.
+
+**What it fixes,** and nothing more: Version 1 adds exactly two statement kinds: the port declaration, carrying a mode (each tick or once), a type and a name; and the tick block, carrying its body and an optional budget, the budget an attribute. Kind and mode are in version 1's law bytes; a change of mode alone changes the law seal. The port place, counting and the budget's meaning (R9), N2, N3 and the S1-S7 byte probe stay open; findings 8 and 20 are unchanged. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### R2, as ruled: R2.2, spellings (2026-10-29)
+
+*Added 2026-10-29. Sheet R2 (above) proposed the forms; the question was put to him in the session. He ruled R2.1 to R2.3 in one message; this section quotes his line adopting them and his ruling on R2.2, each unchanged.*
+
+**The question.** Put to him in the session: R2.1, the statement kinds ((a) two, (b) three, (c) four); R2.2, the spellings and type words; R2.3, the reach rules ((a) as proposed, (b) each tick its own scope, (c) the budget able to stop reach).
+
+**His words:**
+
+> I adopt the recommended option for all three parts: R2.1(a), R2.2 as proposed, and R2.3(a).
+>
+> ## R2.2 — Spellings
+>
+> Adopt the four exact proposed spellings:
+>
+> | Form                | Accepted spelling                                      |
+> | ------------------- | ------------------------------------------------------ |
+> | Each-tick port      | `Let <name> be given each tick as <type>.`             |
+> | Read-once port      | `Let <name> be given as <type>.`                       |
+> | Tick block          | `Each tick, do the following.`                         |
+> | Budgeted tick block | `Each tick, at most <N> operations, do the following.` |
+>
+> Adopt the permitted type words:
+>
+> - `an integer`
+> - `a fixed`
+> - `a truth value`
+> - `a text`
+>
+> `a float` remains excluded pending R8.
+>
+> Additional decisions:
+>
+> - `<N>` uses the version-0 decimal representation for numeric bounds.
+> - Capitalization, punctuation and door repairs follow version-0 sentence treatment.
+> - Clauses remain sentences ending in a period.
+> - `truth value` and `text` are reserved as type words only within the port form.
+> - No new `Input` keyword is introduced.
+>
+> Reject the proposed alternative spellings:
+>
+> - `For each tick, ...`
+> - `On each tick, ...`
+> - `Receive ...`
+> - `Take ...`
+>
+> The first must not become a tick block, and existing version-0 calls must retain their meanings.
+>
+> Adopt the compliance requirements, including:
+>
+> - COMPAT-0 remains HOLDS over all 3,361 frozen texts.
+> - New spellings parse only under version 1.
+> - Rejected spellings remain SYNTAX.
+> - Existing version-0 uses of `truth value` and `text` remain unchanged.
+> - The specified `For each tick` mutation plant is detected.
+
+**What it fixes,** and nothing more: The four spellings `Let <name> be given each tick as <type>.`, `Let <name> be given as <type>.`, `Each tick, do the following.` and `Each tick, at most <N> operations, do the following.`; the type words `an integer`, `a fixed`, `a truth value` and `a text`, the last two reserved only within the port form; `a float` excluded pending R8; `<N>` in version 0's decimal form for bounds; version 0's sentence treatment; no `Input` keyword; `For each tick, …`, `On each tick, …`, `Receive …` and `Take …` rejected. The port place, counting and the budget's meaning (R9), N2, N3 and the S1-S7 byte probe stay open; findings 8 and 20 are unchanged. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### R2, as ruled: R2.3, reach rules (2026-10-29)
+
+*Added 2026-10-29. Sheet R2 (above) proposed the forms; the question was put to him in the session. He ruled R2.1 to R2.3 in one message; this section quotes his line adopting them and his ruling on R2.3, each unchanged.*
+
+**The question.** Put to him in the session: R2.1, the statement kinds ((a) two, (b) three, (c) four); R2.2, the spellings and type words; R2.3, the reach rules ((a) as proposed, (b) each tick its own scope, (c) the budget able to stop reach).
+
+**His words:**
+
+> I adopt the recommended option for all three parts: R2.1(a), R2.2 as proposed, and R2.3(a).
+>
+> ## R2.3 — Reach rules: (a)
+>
+> Adopt the recommended reach semantics.
+>
+> Port declarations
+>
+> - Contain no statements.
+> - Add nothing to closure or CUT-0 reach.
+> - Do not add themselves as reachable claims.
+> - Do not create a refusal frame.
+>
+> This preserves the already-settled PREFIX ruling and F20.3.
+>
+> Tick block
+>
+> - Contains its numbered body clauses.
+> - Its body may contain If, For, While and Perform.
+> - Reached as a later sibling at the top level, it adds its body and everything that body may execute, transitively, including reached Performs.
+> - Below the top of the cut, its body is included again because another tick may run.
+> - Its budget does not restrict reach.
+>
+> I reject alternative (b), which would make reach depend on individual tick identity.
+>
+> I reject alternative (c), which would make reach depend on the operation budget and counting.
+>
+> Control-flow boundary
+>
+> Adopt the rule that execution within the tick body does not reach backward into the prefix. The prefix is executed once before the first tick.
+>
+> One boundary is important: the proposed requirement that the tick block occupy the last top-level position belongs to the separate port-place ruling. I am not deciding its placement under R2.
+>
+> ### Examples and compliance
+>
+> Adopt both proposed examples:
+>
+> 1. A prefix refusal whose reachable set includes the claim at 2.1 through a Perform reached from the tick body.
+> 2. A refusal at 3.1 during tick 1 whose reachable set includes that prefix claim again.
+>
+> Adopt the compliance requirements:
+>
+> - Both closure and CUT-0 calculations worked by hand and checked by the probe.
+> - Port declarations add nothing in either calculation.
+> - Detect all three mutation plants:
+>   - Tick block adds nothing below the top.
+>   - Port declaration adds itself.
+>   - Reach calculation skips Performs reached from the tick body.
+
+**What it fixes,** and nothing more: A port declaration contains no statement, adds nothing to the closure or to CUT-0's reach, does not add itself and makes no refusal frame. The tick block contains its numbered body, which may hold If, For, While and Perform; reached as a later top-level sibling it adds its body and everything that may execute from it, transitively, reached Performs included; below the top of the cut it adds its body again; its budget does not restrict reach. Execution in the tick body does not reach back into the prefix, which runs once before the first tick. Alternatives (b) and (c) are rejected. The tick block's last top-level place is the port-place ruling's, not decided here. The port place, counting and the budget's meaning (R9), N2, N3 and the S1-S7 byte probe stay open; findings 8 and 20 are unchanged. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### R2, as ruled: the order of work, the publication decision and the scope (2026-10-29)
+
+*Added 2026-10-29, from the same message: his opening on the order of work and the publication decision, and his scope, each unchanged.*
+
+**His words:**
+
+> First, the correction about sequencing is accepted: the containment fixture test precedes pinning the exact candidate digest. The version-1 reference must exist and pass that test before its candidate is pinned. Pinning first would reverse the dependency established by the earlier ruling.
+>
+> The publication decision remains deferred until Draft 11 has been completely re-read and its findings disposed of.
+>
+> ## Scope and remaining work
+>
+> R2 ruled
+>
+> All three R2 parts are now settled.
+>
+> The following remain independently open:
+>
+> 1. Port place.
+> 2. Counting and budget semantics, including R9.
+> 3. N2 and N3.
+> 4. S1–S7 byte-layout probe.
+>
+> Finding 8 and Finding 20 remain closed.
+>
+> Implementation sequence remains: complete the remaining specification rulings and probes, produce Draft 11, conduct the complete re-read, build and pass the containment fixture against the version-1 reference, and only then pin the exact candidate digest.
+>
+> No implementation, pinning, committing, or publication authorization is included in this ruling.
+
+**What it fixes:** it confirms the order already ruled (the containment fixture test passes on the version-1 reference before the exact candidate's digest is pinned) and defers the publication decision until draft 11 is wholly re-read and its findings disposed. Nothing is authorized by it.
+
+### R2, as ruled: R2.3's wording clarified (2026-10-29)
+
+*Added 2026-10-29. Put to him: R2.3's "does not reach backward into the prefix" is about the prefix's statements running again, not about procedures defined before the tick block, which the tick body reaches by Perform. His words, from the message that also asked for the port-place packet, unchanged.*
+
+**His words:**
+
+> Your proposed clarification to R2.3 is correct: “does not reach backward into the prefix” should mean that execution of the tick body does not cause earlier top-level prefix statements to run again. It must not exclude procedures defined in the prefix from the reach closure when the tick body reaches them through `Perform`. In your example, claim 2.1 is reachable because the tick body performs the procedure containing it—not because the prefix is re-executed.
+>
+> That distinction should be explicit in Draft 11 and checked during the whole re-read.
+>
+> R2 remains ruled; this is a wording clarification, not a reopening. The other open items remain as listed. Nothing about this authorizes implementation, pinning, committing, or publication.
+
+**What it fixes,** and nothing more: in R2.3, execution of the tick body never makes an earlier top-level prefix statement run again; a procedure defined in the prefix stays in the reach closure when the tick body reaches it by Perform. A wording clarification, not a reopening: draft 11 states it, and the whole re-read checks it.
+
+### The port place, as ruled: PP1, where a port may be declared (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the amended set's "port place"). He adopted a text as his complete ruling, with PP5 corrected; this section quotes his adoption and the text's PP1, each unchanged.*
+
+**The question.** Put to him in the session as PP1 to PP6: where a port may be declared; the tick block's place; a law with ports and no tick block; which reads are allowed (PORT-READ or folded into PORT-PLACE); what counts as assigning a port; the codes and their order.
+
+**His words:**
+
+> Yes. I adopt the text as the complete port-place ruling, including your PP5 correction.
+>
+> PP1 — Where ports may be declared
+> Adopted: (a)
+> Port declarations are permitted only as top-level clauses, before the tick block. Prefix statements may appear before, between, and after port declarations.
+> A declaration inside an `If`, loop, procedure, tick body, or inline arm is refused PORT-PLACE.
+> This preserves RO′-3 and the once-only binding premise. Options (b) and (c) are rejected.
+
+**What it fixes,** and nothing more: Port declarations stand only as top-level clauses, before the tick block; prefix statements may stand before, between and after them; a declaration in an If, a loop, a procedure, the tick body or an inline arm is refused PORT-PLACE. (b) and (c) rejected. Counting, the budget's meaning (R9), N2, N3 and the S1-S7 byte probe stay open. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### The port place, as ruled: PP2, the tick block's place (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the amended set's "port place"). He adopted a text as his complete ruling, with PP5 corrected; this section quotes his adoption and the text's PP2, each unchanged.*
+
+**The question.** Put to him in the session as PP1 to PP6: where a port may be declared; the tick block's place; a law with ports and no tick block; which reads are allowed (PORT-READ or folded into PORT-PLACE); what counts as assigning a port; the codes and their order.
+
+**His words:**
+
+> Yes. I adopt the text as the complete port-place ruling, including your PP5 correction.
+>
+> PP2 — Tick-block placement
+> Adopted: (a)
+> There may be at most one tick block, and it must be the last top-level clause.
+> A second tick block, a nested tick block, or a tick block followed by another top-level clause is refused TICK-PLACE.
+> Option (b), requiring a tick block in every v1 law, is rejected.
+
+**What it fixes,** and nothing more: At most one tick block, the last top-level clause; a second, a nested one, or one followed by a top-level clause is refused TICK-PLACE. (b) rejected. Counting, the budget's meaning (R9), N2, N3 and the S1-S7 byte probe stay open. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### The port place, as ruled: PP3, ports without a tick block (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the amended set's "port place"). He adopted a text as his complete ruling, with PP5 corrected; this section quotes his adoption and the text's PP3, each unchanged.*
+
+**The question.** Put to him in the session as PP1 to PP6: where a port may be declared; the tick block's place; a law with ports and no tick block; which reads are allowed (PORT-READ or folded into PORT-PLACE); what counts as assigning a port; the codes and their order.
+
+**His words:**
+
+> Yes. I adopt the text as the complete port-place ruling, including your PP5 correction.
+>
+> PP3 — Ports without a tick block
+> Adopted: (a)
+>
+> * Read-once ports alone are allowed. They form a one-shot law with inputs.
+> * An each-tick port without a tick block is refused PORT-PLACE.
+> * A tick block without ports remains allowed.
+>
+> Options (b) and (c) are rejected.
+
+**What it fixes,** and nothing more: Read-once ports alone are allowed (a one-shot law with inputs); an each-tick port with no tick block is refused PORT-PLACE; a tick block with no port stays allowed. Counting, the budget's meaning (R9), N2, N3 and the S1-S7 byte probe stay open. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### The port place, as ruled: PP4, which reads are allowed (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the amended set's "port place"). He adopted a text as his complete ruling, with PP5 corrected; this section quotes his adoption and the text's PP4, each unchanged.*
+
+**The question.** Put to him in the session as PP1 to PP6: where a port may be declared; the tick block's place; a law with ports and no tick block; which reads are allowed (PORT-READ or folded into PORT-PLACE); what counts as assigning a port; the codes and their order.
+
+**His words:**
+
+> Yes. I adopt the text as the complete port-place ruling, including your PP5 correction.
+>
+> PP4 — Permitted reads
+> Adopted: recommended rule, with clarification
+>
+> * An each-tick port may be read only in the tick body or in a procedure reached only from the tick body.
+> * A read-once port may be read only after its declaration in the execution structure: later top-level statements, the tick body, or procedures reached only from those permitted contexts.
+> * Both textual placement and evaluation reach must be checked. A procedure definition's physical position in the document does not, by itself, determine whether its reads are permitted. Its reachable call contexts determine that.
+>
+> A read violating either requirement is PORT-READ.
+> This means the procedure in your evaluation example cannot evade the rule merely because its body is textually separate from the top-level call that reaches it. The read is rejected because the procedure is reached before the read-once declaration.
+> I reject folding these cases into PORT-PLACE. Misplaced declarations and impermissible reads are distinct faults and deserve distinct codes.
+
+**What it fixes,** and nothing more: An each-tick port is read only in the tick body or a procedure reached only from it; a read-once port only after its declaration in the execution structure; both textual placement and evaluation reach are checked, a procedure's reachable call contexts, not its place in the text, deciding its reads; a violation is PORT-READ, not PORT-PLACE. Counting, the budget's meaning (R9), N2, N3 and the S1-S7 byte probe stay open. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### The port place, as ruled: PP5, assigning and redeclaring a port (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the amended set's "port place"). He adopted a text as his complete ruling, with PP5 corrected; this section quotes his adoption and the text's PP5, and his settlement of it, each unchanged.*
+
+**The question.** Put to him in the session as PP1 to PP6: where a port may be declared; the tick block's place; a law with ports and no tick block; which reads are allowed (PORT-READ or folded into PORT-PLACE); what counts as assigning a port; the codes and their order.
+
+**His words:**
+
+> Yes. I adopt the text as the complete port-place ruling, including your PP5 correction.
+>
+> PP5 — Port mutation
+> Partially adopted; one collision needs resolution
+> I adopt the read-only rule and the proposed PORT-VARIABLE coverage for:
+>
+> * `Set`, `Increase`, `Decrease`, `Append`, or `Remove` applied to a port.
+> * A port used as a `For` counter.
+>
+> I also adopt REDECLARED for a second declaration of an existing port name.
+> There is, however, an overlap in the proposal: it assigns a second `Let` of a port's name to PORT-VARIABLE, while assigning a second declaration of that name to REDECLARED. Those descriptions can refer to the same source construct.
+> My ruling: a second declaration of the same name is REDECLARED; an assignment or mutation through an existing port binding is PORT-VARIABLE. Do not classify a duplicate declaration as PORT-VARIABLE merely because it uses `Let`. If the language has a distinct non-declaration `Let` form, specify it separately before assigning it a code.
+>
+> PP5 is now fully settled:
+>
+> * PORT-VARIABLE: `Set`, `Increase`, `Decrease`, `Append`, or `Remove` applied to a port, and a port used as a `For` counter.
+> * REDECLARED: a second declaration of a port's name, including a second `Let`, using version 0's existing redeclaration rule.
+> * There is no assignment-form `Let`; every `Let X be E` declares `X`.
+>
+> I withdraw my earlier qualification that a further distinction for `Let` might be needed. Your correction resolves the collision without adding a new rule or code.
+
+**What it fixes,** and nothing more: PORT-VARIABLE: Set, Increase, Decrease, Append or Remove on a port, and a port used as a For counter. REDECLARED: a second declaration of a port's name, a second `Let` included, by version 0's rule; every `Let X be E` declares X. Counting, the budget's meaning (R9), N2, N3 and the S1-S7 byte probe stay open. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### The port place, as ruled: PP6, the codes and their order (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the amended set's "port place"). He adopted a text as his complete ruling, with PP5 corrected; this section quotes his adoption and the text's PP6, each unchanged.*
+
+**The question.** Put to him in the session as PP1 to PP6: where a port may be declared; the tick block's place; a law with ports and no tick block; which reads are allowed (PORT-READ or folded into PORT-PLACE); what counts as assigning a port; the codes and their order.
+
+**His words:**
+
+> Yes. I adopt the text as the complete port-place ruling, including your PP5 correction.
+>
+> PP6 — Codes and phase ordering
+> Adopted
+> Add the four new codes:
+>
+> * PORT-PLACE
+> * TICK-PLACE
+> * PORT-READ
+> * PORT-VARIABLE
+>
+> They belong in phase 6 of SPEC §13, in document walk order. The first faulty clause in that order wins.
+> REDECLARED remains its existing code; it is not one of the four new codes.
+> The phase-table row must match the codes the front end can actually raise, and the self-test must verify that equality. The self-test count must be updated to reflect the added checks; do not assume the resulting total is 43.
+
+**What it fixes,** and nothing more: Four new phase-6 codes, PORT-PLACE, TICK-PLACE, PORT-READ and PORT-VARIABLE, in SPEC §13's document walk order, the first faulty clause winning; REDECLARED stays version 0's code; the phase-table row equals the codes the front end can raise, the self-test holding it, its count updated. Counting, the budget's meaning (R9), N2, N3 and the S1-S7 byte probe stay open. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### The port place, as ruled: its compliance, and his adoption (2026-10-29)
+
+*Added 2026-10-29: the text's compliance paragraph, and his adoption of the whole, each unchanged.*
+
+**His words:**
+
+> Compliance
+> I adopt the proposed compliance requirements, including the three mutation plants. Add a test that distinguishes a procedure definition's textual position from the call contexts that reach it; that is essential to the PP4 clarification.
+> The examples should produce the stated outcomes, including the evaluation-based PORT-READ in the procedure example.
+>
+> Yes. I adopt the text as the complete port-place ruling, including your PP5 correction.
+> PP5 is now fully settled:
+>
+> * PORT-VARIABLE: `Set`, `Increase`, `Decrease`, `Append`, or `Remove` applied to a port, and a port used as a `For` counter.
+> * REDECLARED: a second declaration of a port's name, including a second `Let`, using version 0's existing redeclaration rule.
+> * There is no assignment-form `Let`; every `Let X be E` declares `X`.
+>
+> I withdraw my earlier qualification that a further distinction for `Let` might be needed. Your correction resolves the collision without adding a new rule or code.
+> Adopted as a whole:
+>
+> * PP1–PP3: declaration and tick-block placement, including read-once-only laws.
+> * PP4: permitted reads checked by both textual placement and evaluation reach; a procedure's reachable call contexts, not merely its textual position, determine whether its reads are legal.
+> * PP5: the corrected mutation and redeclaration rules above.
+> * PP6: four new phase-6 codes, with first-fault document walk order.
+> * Compliance: the proposed tests and the additional test distinguishing procedure position from its reachable call contexts.
+>
+> The port-place item is now ruled. No implementation, pinning, commit, or publication is authorized.
+
+**What it fixes:** the 1a tests put to him (each example's code at its clause, the phase-table row, COMPAT-0 HELD, the three plants), and a test telling a procedure's place in the text from the call contexts that reach it. The port place is ruled.
+
+### Counting and the budget, as ruled: C1, what version 1 adds to counting (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (counting). He ruled C1 to C3 and B1 to B4 in one message; this section quotes his opening and his ruling on C1, each unchanged.*
+
+**The question.** Put to him in the session as part C, counting (C1 what version 1 adds, C2 what `'T'`'s count means, C3 when the count goes up), and part B, the budget (B1 in the law or not, B2 the range of N, B3 where the refusal falls, B4 the cut and `'R'`).
+
+**His words:**
+
+> I adopt the recommended choices for all seven parts: C1–C3 and B1–B4. The counting rules and budget semantics are now settled separately.
+>
+> C1 — What v1 adds
+> Adopted: (a)
+> Nothing new is counted:
+>
+> * Port binding counts 0, whether read-once or each-tick.
+> * Port reads count 0, like variable reads.
+> * The tick block itself adds no operation.
+> * Emitting `T` or `N` events counts 0.
+> * An empty tick body costs 0 operations.
+>
+> Options (b) and (c) are rejected. This preserves the binding premise underlying §15.13.8's \(\hat K\) argument.
+
+**What it fixes,** and nothing more: Nothing new is counted: binding a port (each tick or once) counts 0, reading a port counts 0, the tick block adds no operation, emitting `'T'` or `'N'` counts 0, and an empty tick body costs 0. (b) and (c) rejected. R2.2, R2.3, PP2, R4, finding 20 and finding 8 are unchanged. N2, N3 and the S1-S7 byte probe stay open. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Counting and the budget, as ruled: C2, what `'T'`'s count means (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (counting). He ruled C1 to C3 and B1 to B4 in one message; this section quotes his opening and his ruling on C2, each unchanged.*
+
+**The question.** Put to him in the session as part C, counting (C1 what version 1 adds, C2 what `'T'`'s count means, C3 when the count goes up), and part B, the budget (B1 in the law or not, B2 the range of N, B3 where the refusal falls, B4 the cut and `'R'`).
+
+**His words:**
+
+> I adopt the recommended choices for all seven parts: C1–C3 and B1–B4. The counting rules and budget semantics are now settled separately.
+>
+> C2 — Meaning of `T`'s count
+> Adopted: (a)
+> The `c` in `T(t,c)` is the running total of `ops` from the start of the run through the moment `T` is emitted.
+> It never decreases and includes prefix operations. A tick's own operation count is the difference between consecutive `T` counts. The receipt's `ops` is the final running total.
+> Option (b) is rejected.
+
+**What it fixes,** and nothing more: In `'T'`(t, c), c is the running total of `ops` from the start of the run to the moment `'T'` is emitted; a tick's own count is the difference between consecutive `'T'` counts; the receipt's `ops` is the final total. (b) rejected. R2.2, R2.3, PP2, R4, finding 20 and finding 8 are unchanged. N2, N3 and the S1-S7 byte probe stay open. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Counting and the budget, as ruled: C3, when the count goes up (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (counting). He ruled C1 to C3 and B1 to B4 in one message; this section quotes his opening and his ruling on C3, each unchanged.*
+
+**The question.** Put to him in the session as part C, counting (C1 what version 1 adds, C2 what `'T'`'s count means, C3 when the count goes up), and part B, the budget (B1 in the law or not, B2 the range of N, B3 where the refusal falls, B4 the cut and `'R'`).
+
+**His words:**
+
+> I adopt the recommended choices for all seven parts: C1–C3 and B1–B4. The counting rules and budget semantics are now settled separately.
+>
+> C3 — When counting occurs
+> Adopted
+> The existing version-0 rule remains unchanged: increment the single `ops` counter by 1 immediately before each counted operation. Use that same counter in v1.
+> An If arm's count belongs to its own clause, not the If head.
+
+**What it fixes,** and nothing more: Version 0's rule unchanged: the single `ops` counter gains 1 immediately before each counted operation, the same counter in version 1; an If arm's count belongs to its own clause. R2.2, R2.3, PP2, R4, finding 20 and finding 8 are unchanged. N2, N3 and the S1-S7 byte probe stay open. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Counting and the budget, as ruled: B1, the budget in the law (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the budget (R9)). He ruled C1 to C3 and B1 to B4 in one message; this section quotes his opening and his ruling on B1, each unchanged.*
+
+**The question.** Put to him in the session as part C, counting (C1 what version 1 adds, C2 what `'T'`'s count means, C3 when the count goes up), and part B, the budget (B1 in the law or not, B2 the range of N, B3 where the refusal falls, B4 the cut and `'R'`).
+
+**His words:**
+
+> I adopt the recommended choices for all seven parts: C1–C3 and B1–B4. The counting rules and budget semantics are now settled separately.
+>
+> B1 — Where the budget lives
+> Adopted: R9 (b)
+> The optional budget is part of the law. Its value is covered by the law's seal.
+> A tick exceeding the budget refuses with TICK-BUDGET at the same counted operation in every execution. A host stopping a run remains a separate STOPPED-BY-HOST outcome and never constitutes a verdict or emits `R`.
+> Option (a) is rejected.
+
+**What it fixes,** and nothing more: R9 (b): the optional budget is part of the law, under its seal; a tick past it refuses TICK-BUDGET at the same counted operation in every execution; a host stop stays STOPPED-BY-HOST, never a verdict, never an `'R'`. (a) rejected. R2.2, R2.3, PP2, R4, finding 20 and finding 8 are unchanged. N2, N3 and the S1-S7 byte probe stay open. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Counting and the budget, as ruled: B2, the range of N (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the budget (R9)). He ruled C1 to C3 and B1 to B4 in one message; this section quotes his opening and his ruling on B2, each unchanged.*
+
+**The question.** Put to him in the session as part C, counting (C1 what version 1 adds, C2 what `'T'`'s count means, C3 when the count goes up), and part B, the budget (B1 in the law or not, B2 the range of N, B3 where the refusal falls, B4 the cut and `'R'`).
+
+**His words:**
+
+> I adopt the recommended choices for all seven parts: C1–C3 and B1–B4. The counting rules and budget semantics are now settled separately.
+>
+> B2 — Range of N
+> Adopted: (a)
+> The budget must be an integer literal in the range \(1\) through \(2^{62}\), inclusive.
+>
+> * `at most 0` is refused at compile time.
+> * Any value above \(2^{62}\) is refused at compile time.
+> * An absent budget is encoded as `0` in the law's bytes; a written budget of zero is not permitted.
+> * Out-of-range values use the existing FUEL code.
+>
+> Option (b), introducing TICK-BUDGET-RANGE, is rejected.
+
+**What it fixes,** and nothing more: N is an integer literal from 1 to 2^62; `at most 0` and anything above 2^62 are refused at compile time with version 0's FUEL; no budget is written 0 in the law's bytes, and a written budget of zero is not allowed. (b) rejected. R2.2, R2.3, PP2, R4, finding 20 and finding 8 are unchanged. N2, N3 and the S1-S7 byte probe stay open. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Counting and the budget, as ruled: B3, where the refusal falls (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the budget (R9)). He ruled C1 to C3 and B1 to B4 in one message; this section quotes his opening and his ruling on B3, each unchanged.*
+
+**The question.** Put to him in the session as part C, counting (C1 what version 1 adds, C2 what `'T'`'s count means, C3 when the count goes up), and part B, the budget (B1 in the law or not, B2 the range of N, B3 where the refusal falls, B4 the cut and `'R'`).
+
+**His words:**
+
+> I adopt the recommended choices for all seven parts: C1–C3 and B1–B4. The counting rules and budget semantics are now settled separately.
+>
+> B3 — Where the refusal falls
+> Adopted
+> The tick's count starts at zero at its `T`. Prefix operations are never charged against the tick budget.
+> Immediately before each counted operation, increment `ops`. If that increment makes the tick's count \(N+1\), refuse with TICK-BUDGET before executing that operation.
+> Consequently:
+>
+> * The refused operation is included in `ops`.
+> * `tick-ops` is exactly \(N+1\).
+> * The refusal is attributed to the clause whose statement is executing.
+> * For an If-condition refusal, that is the arm's clause, consistent with F20.4.
+> * Refusing before incrementing is rejected.
+
+**What it fixes,** and nothing more: A tick's count starts at 0 at its `'T'`; the prefix is never charged; when an increment makes the tick's count N + 1, TICK-BUDGET refuses before that operation executes, the operation counted in `ops`, `tick-ops` exactly N + 1, at the clause whose statement is executing (an If condition's arm, as F20.4). R2.2, R2.3, PP2, R4, finding 20 and finding 8 are unchanged. N2, N3 and the S1-S7 byte probe stay open. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Counting and the budget, as ruled: B4, the cut and `'R'` (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the budget (R9)). He ruled C1 to C3 and B1 to B4 in one message; this section quotes his opening and his ruling on B4, each unchanged.*
+
+**The question.** Put to him in the session as part C, counting (C1 what version 1 adds, C2 what `'T'`'s count means, C3 when the count goes up), and part B, the budget (B1 in the law or not, B2 the range of N, B3 where the refusal falls, B4 the cut and `'R'`).
+
+**His words:**
+
+> I adopt the recommended choices for all seven parts: C1–C3 and B1–B4. The counting rules and budget semantics are now settled separately.
+>
+> B4 — Cut and `R`
+> Adopted
+> TICK-BUDGET is an ordinary refusal under Finding 20.
+>
+> * `R` carries the code `TICK-BUDGET` and the stack of statements at the refused operation.
+> * Its last frame may be any permitted frame kind, including `Perform`.
+> * Status is `REFUSED TICK-BUDGET <clause>`.
+> * The refused tick is included in `ticks`.
+> * If the refused operation lies inside a claim's evaluation, that claim is open at the cut and court R8 does not hold it.
+> * A host stop remains separate and emits no `R`.
+>
+> The four worked examples are adopted with their stated statuses, counts, and cut frames.
+
+**What it fixes,** and nothing more: TICK-BUDGET is an ordinary refusal under finding 20: `'R'` carries the code and the statement stack at the refused operation, its last frame any permitted kind (a Perform included); the status is `REFUSED TICK-BUDGET <clause>`; `ticks` counts the refused tick; a claim whose evaluation holds the refused operation is open at the cut and court R8 does not hold it; a host stop emits no `'R'`. The four worked examples are adopted. R2.2, R2.3, PP2, R4, finding 20 and finding 8 are unchanged. N2, N3 and the S1-S7 byte probe stay open. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### Counting and the budget, as ruled: the compliance and the scope (2026-10-29)
+
+*Added 2026-10-29, from the same message, each part unchanged.*
+
+**His words:**
+
+> Compliance
+> I adopt the proposed compliance tests:
+>
+> * Each worked budget example must produce its stated status, `tick-ops`, `ops`, and `R` frames.
+> * Exactly \(N\) counted operations pass; operation \(N+1\) is refused before execution.
+> * Prefix operations do not count against a tick.
+> * Binding and port reads add zero to `ops`; an empty tick leaves consecutive `T` counts unchanged.
+> * Out-of-range budget values produce FUEL.
+> * The four 1b executions refuse at the same operation and produce identical `R` bytes.
+> * All four mutation plants must be caught: binding counted, refusal before increment, budget counted from run start, and If refusal attributed to the head rather than the arm.
+>
+> Scope and remaining work
+> C1–C3 and B1–B4 are ruled. The named dependencies—R2.2, R2.3, PP2, R4, Finding 20, and Finding 8—remain as settled; none is reopened.
+> Still open before Draft 11:
+>
+> 1. N2 and N3.
+> 2. The S1–S7 byte-layout probe.
+>
+> No implementation, pinning, commit, or publication is authorized. Draft 11 must incorporate these rulings and then receive its complete re-read. The containment fixture still precedes pinning the exact candidate digest.
+
+**What it fixes:** the 1a tests put to him (each worked example's status, `tick-ops`, `ops` and `'R'` frames; N operations pass and the (N + 1)th is refused before it executes; the prefix uncharged; binding and port reads adding 0; FUEL for an out-of-range N; the four 1b executions alike) and the four plants caught.
+
+### N2 and N3, as ruled: N2, `end()` before the read-once record closes (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the amended set's "A2" row, N2 and N3). He ruled N2 and N3 in one message as two separate rulings; this section quotes his opening and his ruling on N2, each unchanged.*
+
+**The question.** Put to him in the session as two independent rulings: N2, an `end()` before the read-once record closes, (a) legal, the read-once stop, or (b) refused; N3, when the host runs the statements before the first read-once declaration, (a) at the session's opening or (b) at the record's close or at `end()`.
+
+**His words:**
+
+> I adopt N2 (a) and N3 (a) as two separate rulings. Neither reopens the previously settled rules.
+>
+> N2 — `end()` before the read-once record closes
+> Adopted: (a)
+> Ending the session while the read-once record is incomplete is legal. It is the read-once stop.
+> The projection is:
+>
+> ```
+> end 0 not-run read-once INPUT-MISSING <port>
+> ```
+>
+> The port named is the first empty read-once port in declaration order. The receipt reports:
+>
+> ```
+> status NOT-RUN READ-ONCE INPUT-MISSING <port>
+> ```
+>
+> The following are also adopted:
+>
+> * END-UNDISPOSED still applies. An accepted arrival that has neither been assigned nor dropped prevents `end()`.
+> * A partly filled read-once record is not written to the log. Its assignments remain in the history.
+> * The verifier checks the named port against the history; the loader does not independently establish which port was first empty.
+> * After a refusal, `end()` remains the only legal move.
+>
+> The `g`-assigned, `h`-empty example therefore produces the stated `INPUT-MISSING h` result, without writing `g`'s assignment into the log.
+> Option (b), refusing `end()` while the record is open, is rejected.
+> Scope: this does not settle which event fills or closes the record, nor whether tick 1 can close before the record. Those lifecycle questions remain open.
+
+**What it fixes,** and nothing more: An `end()` while the read-once record is incomplete is legal and is the read-once stop: it projects to `end 0 not-run read-once INPUT-MISSING <port>`, the first empty read-once port in declaration order, and the receipt reads `status NOT-RUN READ-ONCE INPUT-MISSING <port>`. END-UNDISPOSED still applies; a partly filled record is not written to the log, its assignments staying in the history; the verifier checks the port against the history; after a refusal `end()` stays the only legal move. (b) rejected. Which event fills or closes the record, and whether tick 1 may close before it, stay open. RO′-2 to RO′-5, 8.3, 8.5, PP1 to PP4, counting and finding 20 are unchanged. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### N2 and N3, as ruled: N3, when the host runs the statements before the first read-once declaration (2026-10-29)
+
+*Added 2026-10-29. The question was put to him in the session (the amended set's "A2" row, N2 and N3). He ruled N2 and N3 in one message as two separate rulings; this section quotes his opening and his ruling on N3, each unchanged.*
+
+**The question.** Put to him in the session as two independent rulings: N2, an `end()` before the read-once record closes, (a) legal, the read-once stop, or (b) refused; N3, when the host runs the statements before the first read-once declaration, (a) at the session's opening or (b) at the record's close or at `end()`.
+
+**His words:**
+
+> I adopt N2 (a) and N3 (a) as two separate rulings. Neither reopens the previously settled rules.
+>
+> N3 — When the host executes the prefix
+> Adopted: (a)
+> At session opening, before accepting its first event, the host executes the top-level statements preceding the first read-once declaration.
+> If the prefix refuses:
+>
+> * The refusal is known immediately.
+> * Subsequent moves other than `end()` are refused with RUN-REFUSED.
+> * The refusal writes `R` with its cut under Finding 20.
+>
+> If the prefix completes, the run waits at the first read-once declaration. The read-once `N` events are emitted there when the record closes.
+> Option (b), delaying prefix execution until record closure or `end()`, is rejected.
+> The following are adopted:
+>
+> * Prefix operations precede all `T` events and are not charged against the tick budget.
+> * PP1's permitted prefix statements run as specified by RO′-3.
+> * A refusal during prefix execution is an ordinary refusal with its Finding 20 cut.
+>
+> The division-by-zero example is adopted: clause 1 refuses at session opening, before any arrival is accepted; a later arrival is refused RUN-REFUSED; `end()` ends the session; the receipt reports `REFUSED DIVISION-BY-ZERO 1`.
+> Finding 10 qualification: I agree that Finding 10 remains an open dependency. N3 does not decide the exact end-record representation for a refused session. That must be ruled before Draft 11, or explicitly identified as unresolved in it.
+
+**What it fixes,** and nothing more: At the session's opening, before it accepts its first event, the host runs the top-level statements before the first read-once declaration. A refusal there is known at once, writes `'R'` with its cut (finding 20), and every later move but `end()` is refused RUN-REFUSED; if they complete, the run waits at the first read-once declaration and the read-once `'N'` events are emitted there when the record closes. Their operations precede every `'T'` and are not charged to a tick budget. (b) rejected. A refused session's end record is finding 10's, still open: ruled before draft 11 or named open in it. RO′-2 to RO′-5, 8.3, 8.5, PP1 to PP4, counting and finding 20 are unchanged. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build.
+
+### N2 and N3, as ruled: the compliance and the remaining work (2026-10-29)
+
+*Added 2026-10-29, from the same message, each part unchanged.*
+
+**His words:**
+
+> Compliance
+> I adopt the proposed tests for both rulings:
+>
+> * N2's exact projection and receipt.
+> * END-UNDISPOSED for an accepted, undisposed arrival.
+> * Verifier rejection when the named missing port is not the first empty one.
+> * The plant detecting `end()` projected as `end 0 closed`.
+> * N3's prefix refusal before arrival acceptance.
+> * Byte-identical histories and identical `input-log-sha256` from two hosts given the same law and arrivals.
+> * No `N` before the record closes after a completed prefix.
+> * The plant detecting a host that delays prefix execution until record closure.
+>
+> Remaining work
+> N2 and N3 are ruled. Finding 10 remains open as identified. The record-filling and record-closing mechanics, and the relationship between tick 1 and record closure, remain outside these rulings.
+> Before Draft 11, the remaining work is:
+>
+> 1. Resolve Finding 10, or explicitly carry it as open.
+> 2. Write and run the S1–S7 byte-layout probe. Its measured results—not a semantic ruling—must establish the required evidence.
+>
+> Nothing is implemented, pinned, committed, or authorized for publication.
+
+**What it fixes:** the 1a tests put to him for N2 and N3, both plants included. Before draft 11: finding 10 ruled or carried open, and the S1-S7 byte-layout probe written and run, its measured results the evidence.
+
+### Finding 10: a refused session's end record (2026-10-29)
+
+*Added 2026-10-29. The question was the twin's first review's finding 10 (`twin-r7/DISPOSITION.md`, row 10), as put to
+him in the session. His answer, whole and unchanged.*
+
+**The question.** When a session's run has refused and the host then calls `end()`, what the projected log ends with: (a) `end <n> closed`; (b) a new cause, `end <n> refused`; (c) no end record, the log ending with the last record that ran; with the verifier's checks against the history.
+
+**His words:**
+
+> I adopt Finding 10 (c): a refused session's projected log has no end record. I also adopt the verifier checks as specified.
+> Finding 10 — Refused-session end record
+> Adopted: (c)
+> When the host calls `end()` after the run has refused, the projection appends nothing to the log.
+> The log ends with the last record that actually ran:
+>
+> * The refused tick's record, if refusal occurred during a tick.
+> * The header alone if refusal occurred before any tick and the read-once record did not close.
+> * The header and `once` line only if the read-once record closed whole.
+>
+> Options (a) and (b) are rejected.
+> Status and refusal evidence
+> The log does not assert that a refusal occurred. Execution derives the refusal.
+> Running the log produces:
+>
+> * `status REFUSED <CODE> <clause>`;
+> * `ticks` including the refused tick, if applicable;
+> * unread count 0;
+> * the corresponding `R` event with its cut.
+>
+> The receipt carries the status. The execution produces `R`. Neither is duplicated in the log.
+> Verifier obligations
+> I adopt all three checks:
+>
+> 1. The history reaches a refusal, followed by `end()`.
+> 2. The log is exactly the history's projection: closed tick records, the `once` line only if the record closed whole, and no end record.
+> 3. Running the log produces the same receipt core and refusal location as the live run.
+>
+> A log with an appended end record, a record after the refused tick, or a refusal at a different operation must fail verification with the history-mismatch verdict.
+> The fact that a refused session's log can have the same bytes as a session still open at that point is accepted. The session record, `orlog-session 0`, records whether `end()` occurred; the log is not a substitute for that history.
+> Examples and compliance
+> I adopt both examples as stated:
+>
+> * N3 prefix refusal: three header lines; running them yields `REFUSED DIVISION-BY-ZERO 1`, zero ticks, and an `R` cut at clause 1.
+> * Tick refusal: the header, `once` line, and records for ticks 1 and 2; running them yields the refusal at the same operation, with two ticks.
+>
+> I adopt all compliance tests and mutation plants, including rejection of:
+>
+> * `end 0 closed` for a read-once law refused before record closure;
+> * a fabricated `refused` end cause;
+> * a verifier accepting a log whose execution refuses somewhere other than the history.
+>
+> Scope
+> Finding 10 is ruled. N2, N3, and Finding 20 remain unchanged.
+> The S1–S7 byte-layout probe remains outstanding empirical work. It must be written and run; this ruling supplies no substitute evidence.
+> Nothing is implemented, pinned, committed, or authorized for publication.
+
+**What it fixes,** and nothing more:
+- **Finding 10 (c):** the projection of an `end()` after a refusal appends nothing; the log ends with the refused tick's record, or the header alone, or the header and the `once` line if the record closed whole. (a) and (b) rejected.
+- The log asserts no refusal: running it gives `status REFUSED <CODE> <clause>`, `ticks` counting the refused tick, the unread count 0, and `'R'` with its cut.
+- The verifier checks that the history reaches a refusal then `end()`, that the log is exactly its projection (no end record), and that running the log gives the live run's receipt core and refusal place; otherwise the history-mismatch verdict. Whether `end()` happened is the session record's, never the log's.
+- The examples, tests and plants put to him are adopted. N2, N3 and finding 20 are unchanged; the S1-S7 byte probe stays owed. Nothing is implemented, pinned or committed.
+
+**Its re-reads:** stated in draft 11 and re-read whole before the build; its affected clauses are computed by `ar_compute.py` before that re-read.
+
+### Re-read 9's five questions (2026-10-29)
+
+*Added 2026-10-29 by his answers to the five questions of R7's ninth re-read (`twin-r7/REREAD-9-REPORT.md`; proposed in
+`twin-r7/REREAD-9-DISPOSITION.md`): S15.5-1, S15.3-1, S15.1-1, S15.5-2 and S15.9-1, each put to him with options and a
+recommendation. His answer, whole and unchanged.*
+
+**His words:**
+
+> I accept all five recommendations, with one important qualification on S15.9: Draft 2 is the candidate byte grammar to test, not an already-adopted or frozen format. The version-1 reference must validate it during the containment step before the exact candidate digest can be pinned.
+> The five dispositions are:
+> 1. S15.5-1 — ACCEPT. Correct the fixed-value example to `580000000300000000`, representing fixed 3 under RUNTIME-SPEC §5. The encoding rule itself does not change.
+> 2. S15.3-1 — ACCEPT. Each `N` event is emitted at its own port declaration as execution reaches it. Do not group read-once events at the first declaration. This preserves RO′-3 and replay ordering.
+> 3. S15.1-1 — ACCEPT. The optional budget portion is omitted from the law line when there is no budget. There is no budget value of zero encoded in the law. This follows R5 and avoids two byte representations for the same law.
+> 4. S15.5-2 — ACCEPT. A law with read-once ports but no tick block cannot have tick records. A `t` line is refused as `LOG-RECORD`. The permitted end records remain `end 0 closed` and the applicable stop record. This closes the one-shot log ambiguity without introducing a new record type.
+> 5. S15.9-1 — ACCEPT, subject to the qualification above. The pinned decoding rule must identify the exact byte grammar it decodes. Use Draft 2 as the candidate and test S1–S7 against the actual version-1 reference during containment. If the reference does not support the candidate, resolve the discrepancy before pinning. This is a prerequisite for pinning, not a declaration that the general format freeze has occurred.
+> Scope and next steps
+>
+> * Apply these five dispositions and the nine drafting fixes in Draft 12.
+> * Keep the two genuinely open items open: law-line `<type>` spelling and prefix execution for a law without read-once ports.
+> * Keep the version-1 runtime's log-refusal exit code open for the 1b specification.
+> * Record the F20.4/S6 dated note in `CUT-SCHEMA.md`.
+> * Preserve the stand-in-only qualification on the existing S1–S7 measurement. It is not a substitute for the actual version-1 containment test.
+>
+> Then have the twin re-read Draft 12. I recommend another whole-draft re-read because Draft 12 changes settled semantics and the byte grammar, not merely editorial wording.
+> No implementation, digest pinning, commit, or publication is authorized by these dispositions.
+
+**What it fixes,** and nothing more:
+- **S15.5-1:** the fixed number 3 is `580000000300000000` under RUNTIME-SPEC §5; T1's example is corrected, its rule
+  unchanged.
+- **S15.3-1:** each read-once `'N'` is emitted at its own declaration as execution reaches it, never grouped at the
+  first; RO′-3 and replay's ordering are kept.
+- **S15.1-1:** with no budget, the law line omits its budget part (R5's form); no budget of zero is encoded.
+- **S15.5-2:** a law with read-once ports and no tick block has no tick records; a `t` line is refused LOG-RECORD; its
+  end records are `end 0 closed` and the stop's.
+- **S15.9-1:** the pinned decoding rule identifies the exact byte grammar it decodes. Draft 2 is the candidate to test,
+  not an adopted or frozen format; the version-1 reference tests S1 to S7 against it during the containment step, and a
+  discrepancy is resolved before the pin. The general format freeze (P6) has not occurred.
+- The re-read's seven drafting fixes and two open items are accepted; the 1b runtime's exit code on a refused log stays
+  open; CUT-SCHEMA gains a dated S6 note; the stand-in measurement keeps its grade. He recommends a whole-draft re-read
+  of draft 12. Nothing is implemented, pinned, committed or published by it.
+
+**Its re-reads:** draft 12 states it, its affected clauses are computed by `ar_compute.py` before the re-read, and the
+twin reads the whole of draft 12.
+
+### Re-read 10's question: `close()` in a law with no tick block (2026-10-29)
+
+*Added 2026-10-29 by his answer to the question of R7's tenth re-read (`twin-r7/REREAD-10-REPORT.md`, S15.3-1; proposed
+in `twin-r7/REREAD-10-DISPOSITION.md`): the open A2 table's `close()` runs a tick when "every each-tick port is
+filled", which holds vacuously in a law with no each-tick port. His answer, whole and unchanged.*
+
+**His words:**
+
+> I adopt option (a): refuse `close()` in a law with no tick block.
+> A one-shot law has no tick phase. The fact that it has zero each-tick ports must not make the condition “every each-tick port is filled” vacuously authorize a tick.
+> The rule should be explicit:
+>
+> * If the law has no tick block, `close()` does not run a tick.
+> * It must not emit a `t` record.
+> * It must not create a log that its own loader rejects under the adopted one-shot rule.
+> * The existing one-shot completion and stop behavior remains unchanged.
+>
+> Scope: This settles S15.3-1. It does not decide the remaining open A2 session mechanics for laws that do have a tick block.
+> The four drafting fixes and the 1a specification item can proceed as proposed. For Draft 13, I agree that a targeted re-read of changed clauses and their affected clauses is sufficient, provided the twin checks the cross-section consistency with the one-shot log and close rules. Publication remains deferred until that disposition.
+
+**What it fixes,** and nothing more: in a law with no tick block, `close()` is refused; it runs no tick, emits no `t`
+record, and never makes a log its own loader refuses; a one-shot law's completion and stop are unchanged. The rest of
+A2's session mechanics for a law with a tick block stays open. The four drafting fixes and the 1a item are accepted; the
+re-read of draft 13 is targeted (its changed clauses and their affected clauses), and the twin checks the consistency
+across sections of the one-shot log and `close()` rules. Publication stays deferred until that disposition.
+
+**Its re-reads:** draft 13 states it; its affected clauses are computed by `ar_compute.py` before the targeted re-read.
 
 ## Before 1b: the backends
 
