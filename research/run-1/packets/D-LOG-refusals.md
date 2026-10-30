@@ -2,6 +2,14 @@
 
 ## Finding 8 decision packet: load refusals for a malformed input log (research only; nothing ruled)
 
+*Noted 2026-10-28: his rulings on packet G (`G-stop-status.md`, recorded in `RULINGS.md`) settle §4.5's t = n+1 and
+its "no `not-run` without an each-tick port" for the tick case (8.6), and add the read-once stop's end record
+`end 0 not-run read-once INPUT-MISSING <port>` (8.3) and the closed list of record-less logs (8.5). On 2026-10-28 he also
+ruled D1.a to D1.d, each (i) (recorded in `RULINGS.md`). On 2026-10-29 he ruled the order of
+checks, D2.1 to D2.6, each (a), with E1 to E12's outcomes. On 2026-10-29 he also ruled D3.1 to D3.5:
+no receipt for a refused load, a deterministic refusal witness. Packet D is ruled, and so, the same day, are typed values (T1 to
+T6): finding 8 is ruled.*
+
 **Provenance.** I read the files in the working tree at HEAD 95dac79. Several are not committed: `research/run-1/probes/`, `SPEC-15-DRAFT-1.md`, `CUT-0.md`, `CONTRACT-DRAFT.md`, `ROUNDS.md`, `ADVERSARY-ROUND-D.md` and `twin-r7/` are untracked, `RULINGS.md` is modified, and `evidence/run1-cut0-session.txt` is untracked. Line numbers refer to those working copies. I ran nothing: no probe, no build. Every statement below about what the model does comes from reading its code. Each statement carries a label: RULED, OPEN, INFERENCE or PROPOSED WORDING.
 
 ---

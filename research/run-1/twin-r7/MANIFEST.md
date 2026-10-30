@@ -82,3 +82,132 @@ After his answers on the read-once stop's row, its version-1 check and how the r
 | `RUNTIME-SPEC.md` | `0bd571d6f6bc8117af8161184c3e180e2d56a646000d900eb85bb2dfdd20ec35` | RUNTIME-SPEC.md, whole |
 
 The source files at assembly: `research/run-1/RULINGS.md` sha256 `04640d712d97e26798437651f32b6c2879324f43f674c5919e25ce78c98b4d4e`; `research/run-1/ROUNDS.md` sha256 `fe2eec33c250fcb31ad1da9d598611cc583553e1b1c8531a2dfed09ff05af8fe`; `research/run-1/SPEC-15-DRAFT-5.md` sha256 `3322571640426cafc10f445a9d606a6df4829c4151ac30fd3ba63d5ed3f53400`, unchanged.
+
+## R7's fifth re-read (2026-10-27)
+
+After the release (9de2792) and his answers on the stop's carrier, the owed check and the order of work. These nine files, copied outside the repository, are the twin's reading set, each named by its sha256. The same process rule as above.
+
+| file given to the twin | sha256 | what it is |
+|---|---|---|
+| `REREAD-5-BRIEF.md` | `8ccfb20679137d971dfa6b973504f1d977fc94461687efed66b1712f1d56d0cd` | the brief: what to read and report |
+| `SPEC-15-DRAFT-7.md` | `130480cafc0002377088da4de99c6cb11e5ded253efa20f900eaecf54a190a60` | research/run-1/SPEC-15-DRAFT-7.md, whole |
+| `RULINGS-AS-RULED.md` | `2ffee28a781731ecd1269c8c57c78254796d7db8c735921dce0ce0c9a10a4669` | research/run-1/twin-r7/RULINGS-AS-RULED.md, with his three answers appended |
+| `AR-REREAD-5.md` | `19b639856d5a77da5af608e358de03e9f6880178a51626172466a2d77100dd4d` | the three answers' sets |
+| `DRAFT-7-CHANGES.md` | `a4da6ad869d45396d2863e569b48a79c9a6194fb6164aef66a648817be1e0d3e` | draft 6 to draft 7 |
+| `REREAD-4-DISPOSITION.md` | `50bb02f80a658060b9c850987abd260f86d874cbf4d8b65b8eb3d56b7a2cbc95` | the fourth re-read's findings as disposed |
+| `T10-STATEMENTS.md` | `daec76b6c5d5999aa1c77a315cfe4a60a3b7c7eaf87dfa74cae2a5e7bee9cbaf` | research/run-1/twin-r7/T10-STATEMENTS-6.md: the statement column of T10.0-T10.8 now |
+| `SPEC.md` | `27dfff0cb50feb64f65844d6a0f480778df9b775a67827b50cd4d8b8ee7f6de5` | SPEC.md, whole (§1-§14) |
+| `RUNTIME-SPEC.md` | `0bd571d6f6bc8117af8161184c3e180e2d56a646000d900eb85bb2dfdd20ec35` | RUNTIME-SPEC.md, whole |
+
+The source files at assembly: `research/run-1/RULINGS.md` sha256 `791858f5f4f95b8aaa58c14b8eebf2e98c195c057cf50df7bf8350165f510ae0`; `research/run-1/ROUNDS.md` sha256 `0f38c692d197ea68aca0cafa768c9cf27d9fd446cb97fafb856c89ef9955e410`; `research/run-1/SPEC-15-DRAFT-6.md` sha256 `e9e3f442bbd51ec2e5ca7a9b45027ad3a5bb82d61581b95fde36e2cb26aa76cf`, unchanged.
+
+## R7's sixth re-read (2026-10-27)
+
+After his answers on re-read 5: the containment check as a fixture test, findings 8 and 20 before the pin, and RO′-5 confirmed. These nine files, copied outside the repository, are the twin's reading set, each named by its sha256. The same process rule as above.
+
+| file given to the twin | sha256 | what it is |
+|---|---|---|
+| `REREAD-6-BRIEF.md` | `84222f2bc644a2517a647402f3caa5146f9a5348cd80352441ffffb132cd4629` | the brief: what to read and report |
+| `SPEC-15-DRAFT-8.md` | `53d468213392da911d3b1fc5a50597b61b5c12bbb495c1368c0032f1f0e491c0` | research/run-1/SPEC-15-DRAFT-8.md, whole |
+| `RULINGS-AS-RULED.md` | `6887b21d29474a45bb52533fa23e5ff00494b6c59b6c8fa5985b5bd90a5b07bb` | research/run-1/twin-r7/RULINGS-AS-RULED.md, with his answers on re-read 5 appended |
+| `AR-REREAD-6.md` | `70547a4a9a884a458c0d98f170240cfca50ce16e2433ef5eeae3413728d38647` | the three answers' sets |
+| `DRAFT-8-CHANGES.md` | `303b71bf71938a21d25ef6f0399e235725c5ef597dbcf80820fbc5c55f21d9c3` | draft 7 to draft 8 |
+| `REREAD-5-DISPOSITION.md` | `bfeca26d404aa63016428abbb4161287e25d35670bdcec09ea06c922de19e0c7` | the fifth re-read's findings as disposed |
+| `T10-STATEMENTS.md` | `55de4f2ec7fa64efe1d8ba392be58d83fae486833330d5d4f8b145948106cb88` | research/run-1/twin-r7/T10-STATEMENTS-7.md: the statement column of T10.0-T10.8 now |
+| `SPEC.md` | `27dfff0cb50feb64f65844d6a0f480778df9b775a67827b50cd4d8b8ee7f6de5` | SPEC.md, whole (§1-§14) |
+| `RUNTIME-SPEC.md` | `0bd571d6f6bc8117af8161184c3e180e2d56a646000d900eb85bb2dfdd20ec35` | RUNTIME-SPEC.md, whole |
+
+The source files at assembly: `research/run-1/RULINGS.md` sha256 `246b5a7d31a7b1eff9f028017000189b2fabcae0762db718a2fcac38d2e2248c`; `research/run-1/ROUNDS.md` sha256 `94098ffa50aeac641d6abb77402c61812872cfa2068c5edcf570cc8e0fb08e7a`; `research/run-1/SPEC-15-DRAFT-7.md` sha256 `130480cafc0002377088da4de99c6cb11e5ded253efa20f900eaecf54a190a60`, unchanged.
+
+## R7's seventh re-read (2026-10-27)
+
+After his answer on re-read 6: every input the pinned rule reads, fixed before the pin. These nine files, copied outside the repository, are the twin's reading set, each named by its sha256. The same process rule as above.
+
+| file given to the twin | sha256 | what it is |
+|---|---|---|
+| `REREAD-7-BRIEF.md` | `bc74382cae64d725151f00a4ea9828a60c69ac9a8148774062a70b1f8e6a20d0` | the brief: what to read and report |
+| `SPEC-15-DRAFT-9.md` | `8a1ccf5ce22895d0106884b1208603315c80704f781adb87c3b2e520289d0e8e` | research/run-1/SPEC-15-DRAFT-9.md, whole |
+| `RULINGS-AS-RULED.md` | `d93b6305a051ef16eab8cdb23b9fd0ebb0bb84198901b73422ffd1dc5c8ecf8b` | research/run-1/twin-r7/RULINGS-AS-RULED.md, with his answer on re-read 6 appended |
+| `AR-REREAD-7.md` | `bfc1df9d50698e3bf0f8f5c10bc85c970c252c39e9ec003c6613349f1716270b` | his answer's set |
+| `DRAFT-9-CHANGES.md` | `dbffa4f567c62db89bf6adf25db391da3be72db9d4cdbc16867beb7b924c0b5b` | draft 8 to draft 9 |
+| `REREAD-6-DISPOSITION.md` | `7b8f5df3d873ba0a527f4f2b798d4ba8ae699467166f2b44b1a898dc91ff6e34` | the sixth re-read's findings as disposed |
+| `T10-STATEMENTS.md` | `55de4f2ec7fa64efe1d8ba392be58d83fae486833330d5d4f8b145948106cb88` | research/run-1/twin-r7/T10-STATEMENTS-7.md, unchanged since the sixth re-read |
+| `SPEC.md` | `27dfff0cb50feb64f65844d6a0f480778df9b775a67827b50cd4d8b8ee7f6de5` | SPEC.md, whole (§1-§14) |
+| `RUNTIME-SPEC.md` | `0bd571d6f6bc8117af8161184c3e180e2d56a646000d900eb85bb2dfdd20ec35` | RUNTIME-SPEC.md, whole |
+
+The source files at assembly: `research/run-1/RULINGS.md` sha256 `42c9dfca134456eef6ba13b0c99ecc21c0b0c65d67c1053d044d90ed49bdfe81`; `research/run-1/ROUNDS.md` sha256 `94098ffa50aeac641d6abb77402c61812872cfa2068c5edcf570cc8e0fb08e7a`; `research/run-1/SPEC-15-DRAFT-8.md` sha256 `53d468213392da911d3b1fc5a50597b61b5c12bbb495c1368c0032f1f0e491c0`, unchanged.
+
+## R7's eighth re-read (2026-10-27)
+
+After his clarification on re-read 7: the principle reaches every row of CUT-0. These nine files, copied outside the repository, are the twin's reading set, each named by its sha256. The same process rule as above.
+
+| file given to the twin | sha256 | what it is |
+|---|---|---|
+| `REREAD-8-BRIEF.md` | `0ce77bef6b558c51be4b8aba63e4e270cd40e11f8db1345077f3bb3ed97b9db4` | the brief: what to read and report |
+| `SPEC-15-DRAFT-10.md` | `c69e7e3b02542a5cb6b320de1c5994786f2425d04bbfdb1c7e45ce1741098eb7` | research/run-1/SPEC-15-DRAFT-10.md, whole |
+| `RULINGS-AS-RULED.md` | `d79b35e4f90b43abb41c121385fd3fc09c79eda77bcf1c5a98ac4975a652d61c` | research/run-1/twin-r7/RULINGS-AS-RULED.md, with his clarification on re-read 7 appended |
+| `AR-REREAD-8.md` | `484b4ebb020b08ecfa49d71ccd4527337a19bf740fec9af792e1135bab5ac04a` | his clarification's set |
+| `DRAFT-10-CHANGES.md` | `6c39fad6d3b5823c534e2a9dd195634d1c5fa4aa876c48a5104a5b593d4680d0` | draft 9 to draft 10 |
+| `REREAD-7-DISPOSITION.md` | `6c477752dbb91fe61ff2e3a041260bead22848ec478ecc79c9d5f2760c07b279` | the seventh re-read's findings as disposed |
+| `T10-STATEMENTS.md` | `55de4f2ec7fa64efe1d8ba392be58d83fae486833330d5d4f8b145948106cb88` | research/run-1/twin-r7/T10-STATEMENTS-7.md, unchanged since the sixth re-read |
+| `SPEC.md` | `27dfff0cb50feb64f65844d6a0f480778df9b775a67827b50cd4d8b8ee7f6de5` | SPEC.md, whole (§1-§14) |
+| `RUNTIME-SPEC.md` | `0bd571d6f6bc8117af8161184c3e180e2d56a646000d900eb85bb2dfdd20ec35` | RUNTIME-SPEC.md, whole |
+
+The source files at assembly: `research/run-1/RULINGS.md` sha256 `7589b2e5464c84c96d359c59abf039c1b68815c90cb705c46d0741e74f32564b`; `research/run-1/ROUNDS.md` sha256 `94098ffa50aeac641d6abb77402c61812872cfa2068c5edcf570cc8e0fb08e7a`; `research/run-1/SPEC-15-DRAFT-9.md` sha256 `8a1ccf5ce22895d0106884b1208603315c80704f781adb87c3b2e520289d0e8e`, unchanged.
+
+## R7's ninth re-read (2026-10-29)
+
+The whole of draft 11, after every ruling of 2026-10-28 and 2026-10-29. These ten files, copied outside the repository, are the twin's reading set, each named by its sha256. The same process rule as above.
+
+| file given to the twin | sha256 | what it is |
+|---|---|---|
+| `REREAD-9-BRIEF.md` | `fc93fb065f53d449b6b7b31c0c73bde6cbe62d74c43570b81a3902543b0a71f6` | the brief: read the whole draft |
+| `SPEC-15-DRAFT-11.md` | `937499a6daa87ebeb483cb535d1dba2f20eecb4d3518b83d2598991db96524f5` | research/run-1/SPEC-15-DRAFT-11.md, whole |
+| `RULINGS-AS-RULED.md` | `f952ac3ae1e09e29da1bc3f881bb17728271f49948a37351b34bcdefc1cf5381` | research/run-1/twin-r7/RULINGS-AS-RULED.md, with every ruling since re-read 8 appended |
+| `AR-REREAD-9.md` | `aefec45f305f75bb23f263edd444dc67ef8ef5f78620a178d7d7d8c1adf82ec6` | the rulings' affected clauses |
+| `DRAFT-11-CHANGES.md` | `c9a25d13b09b9f9f14700647208e2bd82400367a3ebf391f609c7846eb34ae86` | draft 10 to draft 11 |
+| `REREAD-8-DISPOSITION.md` | `3980cc08f8ee1a4b1bc4b5ca46d7234be98bdbbd901b5e314194837e249ea4c4` | the eighth re-read's findings as disposed |
+| `CUT-SCHEMA.md` | `070c82deee9d9f619fab6a9568d51d487c20f4d018f64bb7cc800cddf20165b0` | research/run-1/CUT-SCHEMA.md, whole |
+| `T10-STATEMENTS.md` | `55de4f2ec7fa64efe1d8ba392be58d83fae486833330d5d4f8b145948106cb88` | research/run-1/twin-r7/T10-STATEMENTS-7.md, unchanged since the sixth re-read |
+| `SPEC.md` | `27dfff0cb50feb64f65844d6a0f480778df9b775a67827b50cd4d8b8ee7f6de5` | SPEC.md, whole (§1-§14) |
+| `RUNTIME-SPEC.md` | `0bd571d6f6bc8117af8161184c3e180e2d56a646000d900eb85bb2dfdd20ec35` | RUNTIME-SPEC.md, whole |
+
+The source files at assembly: `research/run-1/RULINGS.md` sha256 `db8b17d798540ce38793cbe16ad956d5b6567a1c4cd16151614f7b158060c086`; `research/run-1/SPEC-15-DRAFT-10.md` sha256 `c69e7e3b02542a5cb6b320de1c5994786f2425d04bbfdb1c7e45ce1741098eb7`, unchanged.
+
+## R7's tenth re-read (2026-10-29)
+
+The whole of draft 12, after his answers to re-read 9. These ten files, copied outside the repository, are the twin's reading set, each named by its sha256. The same process rule as above.
+
+| file given to the twin | sha256 | what it is |
+|---|---|---|
+| `REREAD-10-BRIEF.md` | `d9322537c18d986575f61dc3ea59e23b299a5e1011d32b621f0ff7cf61e6470d` | the brief: read the whole draft |
+| `SPEC-15-DRAFT-12.md` | `772fda5264fd0c10c86aba95cd85e44669e4611761914700969b70fc4e86e750` | research/run-1/SPEC-15-DRAFT-12.md, whole |
+| `RULINGS-AS-RULED.md` | `2375e5798f0dcc9a3b475473cae4a92146eb99987ba1354ecd8496ecbccce074` | research/run-1/twin-r7/RULINGS-AS-RULED.md, with his answers to re-read 9 appended |
+| `AR-REREAD-10.md` | `8466ece93e6c81854ac500447dece5203828d7e101d3d49de57536d002e721f5` | the answers' affected clauses |
+| `DRAFT-12-CHANGES.md` | `0564ed54cd9f8aef89121ed993b8e1c282c25ae7125bd476a808a3946b44adb6` | draft 11 to draft 12 |
+| `REREAD-9-DISPOSITION.md` | `18620c13d18814bf2ca13b12ec76934f235b49f4c2728a608a4ca32bfca25cb7` | the ninth re-read's findings, proposed and adopted |
+| `CUT-SCHEMA.md` | `bee387beda076a7ae54290ebbc9906fef9a6d9df88bed6b175d1693d5e75ef08` | research/run-1/CUT-SCHEMA.md, whole |
+| `T10-STATEMENTS.md` | `55de4f2ec7fa64efe1d8ba392be58d83fae486833330d5d4f8b145948106cb88` | research/run-1/twin-r7/T10-STATEMENTS-7.md, unchanged since the sixth re-read |
+| `SPEC.md` | `27dfff0cb50feb64f65844d6a0f480778df9b775a67827b50cd4d8b8ee7f6de5` | SPEC.md, whole (§1-§14) |
+| `RUNTIME-SPEC.md` | `0bd571d6f6bc8117af8161184c3e180e2d56a646000d900eb85bb2dfdd20ec35` | RUNTIME-SPEC.md, whole |
+
+The source files at assembly: `research/run-1/RULINGS.md` sha256 `7e7f184c8eea7759718a5eecfcf720f4ede20b33e8eb9ee1cea202c5d347c5df`; `research/run-1/SPEC-15-DRAFT-11.md` sha256 `937499a6daa87ebeb483cb535d1dba2f20eecb4d3518b83d2598991db96524f5`, unchanged.
+
+## R7's eleventh re-read (2026-10-29)
+
+Draft 13, targeted (its changed clauses and their affected clauses), with the cross-section check of the one-shot log and `close()` rules he required. These ten files, copied outside the repository, are the twin's reading set, each named by its sha256. The same process rule as above.
+
+| file given to the twin | sha256 | what it is |
+|---|---|---|
+| `REREAD-11-BRIEF.md` | `39789dc7b013ee19d9090a3e4f687d9cdd7b685dd48c57bf4258214f6892f20a` | the brief: targeted, with the cross-section check |
+| `SPEC-15-DRAFT-13.md` | `60bc7cdfb292a28be7de98a11c3114cc68b72446d959712611a96e801e4edae6` | research/run-1/SPEC-15-DRAFT-13.md, whole |
+| `RULINGS-AS-RULED.md` | `afa9c8ada1d2cadbbb3e40f26f644d832102ac68d241f4761a8fc48cdec84976` | research/run-1/twin-r7/RULINGS-AS-RULED.md, with his answer to re-read 10 appended |
+| `AR-REREAD-11.md` | `cf72c18e7231eef3084f258074a322c5929728a971e6098f5effd7023c8cafbd` | the answer's affected clauses |
+| `DRAFT-13-CHANGES.md` | `e0eef1207f8c65808982acd3c5a9db6f0968f98d4c8c1dc93054c7ca9e2501bb` | draft 12 to draft 13 |
+| `REREAD-10-DISPOSITION.md` | `926713f5ee044875fc30eda08881ea7895769ecc6bd5a0b166bc279f2fa3eae1` | the tenth re-read's findings, proposed and adopted |
+| `T10-STATEMENTS.md` | `c5243cf19f038cc402dd4b6a335d65056b2fc978d8729ba0ad38fba38bacd3f4` | research/run-1/twin-r7/T10-STATEMENTS-8.md |
+| `CUT-SCHEMA.md` | `77af74c69fb76f79790fd23173686fec3612405aff161a72677ba43f65e5cfa4` | research/run-1/CUT-SCHEMA.md, whole |
+| `SPEC.md` | `27dfff0cb50feb64f65844d6a0f480778df9b775a67827b50cd4d8b8ee7f6de5` | SPEC.md, whole (§1-§14) |
+| `RUNTIME-SPEC.md` | `0bd571d6f6bc8117af8161184c3e180e2d56a646000d900eb85bb2dfdd20ec35` | RUNTIME-SPEC.md, whole |
+
+The source files at assembly: `research/run-1/RULINGS.md` sha256 `e79ca274737fd2555e881859bcf829cafc39e328d94d2b29d07763a02fed1edd`; `research/run-1/ROUNDS.md` sha256 `bec981be8e0383c062bc7f04261c65621a08572ba0c6d7d35460ddcb54550a76`; `research/run-1/SPEC-15-DRAFT-12.md` sha256 `772fda5264fd0c10c86aba95cd85e44669e4611761914700969b70fc4e86e750`, unchanged.

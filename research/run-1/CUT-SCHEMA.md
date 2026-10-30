@@ -78,7 +78,7 @@ frame   := u32 clause || u16 sel || [u8 more: a For not last] || [u16 arm: an If
 | S3 inline | an arm's inline statement anywhere but directly after its own If | `body` runs an inline statement in place (`interp.py` 143–147) | unchanged |
 | S4 top kind | a last frame whose statement cannot refuse at its own clause: in version 0, a Perform | a Perform counts and runs its body, with no refusal of its own (`interp.py` 242–244) | **v0 only.** TICK-BUDGET refuses at any counted operation, a Perform's included (`CONTRACT-DRAFT.md` 4.3) |
 | S5 ranges | a bit other than 0 or 1; an arm that names no condition | — | unchanged |
-| S6 event | an `'R'` event whose clause is not the last frame's, or for an If not the refused condition's | every refusal names the executing statement's clause, except an If's condition, which names its arm's (`interp.py` 213–216) | **open:** 4.3 refuses TICK-BUDGET "at the clause whose statement is executing", and does not say whether an If's condition operation names the head's clause or the arm's. Version 0's refusals inside a condition name the arm's |
+| S6 event | an `'R'` event whose clause is not the last frame's, or for an If not the refused condition's | every refusal names the executing statement's clause, except an If's condition, which names its arm's (`interp.py` 213–216) | **open:** 4.3 refuses TICK-BUDGET "at the clause whose statement is executing", and does not say whether an If's condition operation names the head's clause or the arm's. Version 0's refusals inside a condition name the arm's *Ruled 2026-10-29 (`RULINGS.md`, finding 20, F20.4): a refusal inside an If's condition names the arm's clause, as in version 0.* |
 | S7 code | a code raised by one statement kind alone, on a last frame of another kind | CLAIM-REFUTED, MUST-FAILED, FUEL-EXHAUSTED, OUTPUT-TOO-LONG and EMPTY-LIST are each raised once, in one branch (`interp.py` 267, 250, 226, 208, 280; the probe checks each line) | TICK-BUDGET is raised at any kind |
 
 Then:
@@ -167,7 +167,7 @@ Draft 2 accepts none outside the shapes, on those forgeries and on the forgeries
 
 **Does not show:**
 - version 1's frames (the tick block, the ports, TICK-BUDGET), which are DECLARED. S4 is version 0's alone, and S6 is
-  open under 4.3;
+  open under 4.3 (*ruled 2026-10-29 by F20.4, `RULINGS.md`: an If-condition refusal names the arm's clause*);
 - that the generated shapes are exactly the reachable ones. They are reachable by the calls' structure. S4 still
   admits a top statement whose expression cannot refuse by value, such as `Let i be 0`, which no run reaches;
 - that the families cover every construct (they are the proponent's grammar and seed);
@@ -202,6 +202,38 @@ Draft 2 accepts none outside the shapes, on those forgeries and on the forgeries
 **One cost, under every option.** The cut is in the receipt core, so the reference and the three compiled backends
 must compute the same cut. The frame stack becomes a twin surface in `gen_c`, `gen_rs` and `gen_py`, held by the
 agreement record.
+
+## Version 1's frames on version-0 stand-ins (2026-10-29)
+
+*Added 2026-10-29, after his finding-20 rulings (`RULINGS.md`, F20.1 to F20.4) and his authorization of this probe:
+"I authorize writing and running the S1–S7 probe on version-0 stand-ins, within the limits you've described."*
+
+**What ran:** `cut0_schema.py --v1-standins`, output in `evidence/run1-cut0-schema-v1-standins.txt`. No version-1
+interpreter exists, so three version-0 laws stand in for version-1 ones:
+- the tick block is a top-level While, last in the law, run once per tick with no operation of its own (C1); its frame
+  is the While's, which carries no extra field, as F20.3's plain frame;
+- a port declaration is a top-level `Let x be <literal>.` named as a port; it may never be a frame's last statement
+  (S4 in version 1) and runs nothing below it (S2);
+- the budget (B1 to B4) is a counting layer over the instrumented reference: TICK-BUDGET when an increment makes the
+  tick's count N + 1, at the clause whose statement is executing, an If condition's arm included (F20.4).
+
+**MEASURED, on these stand-ins only:** CUT SCHEMA DRAFT 2, VERSION 1 ON STAND-INS HELD: 26 refused runs decoded as live (0 differ); 2388 frame forgeries, 2292 refused, 96 accepted inside the shapes, 0 accepted outside them; 13 named plants as required (0 not); 7 of 7 shape rules needed. MEASURED on version-0 stand-ins only
+
+- 36 runs (N from 1 to 12, three ticks each): 26 refused TICK-BUDGET, with last frames a Perform (5), an If refused in a
+  condition (6, naming the arm's clause), a claim open at the cut (2), a For (2), a Say (3) and a change (8); each
+  payload decodes to its live cut, K̂ equal, a generated shape.
+- Frame forgeries on those cuts (every frame deleted, substituted or inserted): 2,388, of which 2,292 refused (1,796
+  "not nested", 496 "not rooted"), 96 accepted inside the shapes (an edit landing on another frame sequence a run can
+  produce, rightly accepted) and none accepted outside them. The probe fails unless the three add to the total.
+- One named plant per rule, each refused with its own reason, and four payloads that must load and do (a Perform last;
+  an If-condition refusal naming the arm; TICK-BUDGET on a Perform; a Say in the tick body). The Perform-last payload
+  is refused `top kind` under version 0's rule, as it should be.
+- Each of S1 to S7 is needed on version 1's frames: dropping it lets its named plant load.
+
+**What it does not show:** that a version-1 interpreter produces these frames (none exists); the stand-in's tick block
+is a While run by the probe, and its ports are Lets; the byte form beyond what draft 2 already states; anything that
+would freeze the format (P6, his ruling: it keeps its own trigger). The version-0 run of the same probe is unchanged,
+byte for byte, below its evidence file's header.
 
 ## Draft 1, superseded the same day
 
