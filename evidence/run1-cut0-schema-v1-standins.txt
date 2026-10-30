@@ -1,0 +1,70 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/run-1/probes/cut0_schema.py --v1-standins
+# tree: 9de2792 plus the uncommitted research files (src/ unchanged); Windows 11, CPython 3.14.5; 2026-10-29; exit 0; run twice, identical
+# EXPERIMENTAL RESEARCH PROBE on version-0 stand-ins: MEASURED on these stand-ins only, never on a version-1 interpreter; it authorizes no format freeze
+# version 1's frames on version-0 stand-ins: MEASURED on these stand-ins only, never on a version-1 interpreter; no format freeze follows from it
+== stand-in A: a tick that performs a procedure holding a claim (ports 1; the tick block 4)
+   N=1  REFUSED TICK-BUDGET at 4.2, last frame Perform, 2 frames, as live  0b5449434b2d425544474554000200000005ffff00000007ffff
+   N=2  REFUSED TICK-BUDGET at 2.1, last frame Claim, 3 frames, as live  0b5449434b2d425544474554000300000005ffff00000007ffff00000003ffff
+   N=3  REFUSED TICK-BUDGET at 2.1, last frame Claim, 3 frames, as live  0b5449434b2d425544474554000300000005ffff00000007ffff00000003ffff
+   N=4  REFUSED TICK-BUDGET at 4.3, last frame Change, 2 frames, as live  0b5449434b2d425544474554000200000005ffff00000008ffff
+   N=5  REFUSED TICK-BUDGET at 4.3, last frame Change, 2 frames, as live  0b5449434b2d425544474554000200000005ffff00000008ffff
+   N=6  COMPLETED  ops 20
+   N=7  COMPLETED  ops 20
+   N=8  COMPLETED  ops 20
+   N=9  COMPLETED  ops 20
+   N=10 COMPLETED  ops 20
+   N=11 COMPLETED  ops 20
+   N=12 COMPLETED  ops 20
+== stand-in B: a tick whose If chain has conditions that cost operations (ports 1; the tick block 3)
+   N=1  REFUSED TICK-BUDGET at 3.1, last frame IfS, 2 frames, as live  0b5449434b2d425544474554000200000003ffff00000004ffff0000
+   N=2  REFUSED TICK-BUDGET at 3.1, last frame IfS, 2 frames, as live  0b5449434b2d425544474554000200000003ffff00000004ffff0000
+   N=3  REFUSED TICK-BUDGET at 3.2, last frame IfS, 2 frames, as live  0b5449434b2d425544474554000200000003ffff00000004ffff0001
+   N=4  REFUSED TICK-BUDGET at 3.2, last frame IfS, 2 frames, as live  0b5449434b2d425544474554000200000003ffff00000004ffff0001
+   N=5  REFUSED TICK-BUDGET at 3.2, last frame IfS, 2 frames, as live  0b5449434b2d425544474554000200000003ffff00000004ffff0001
+   N=6  REFUSED TICK-BUDGET at 3.2, last frame IfS, 2 frames, as live  0b5449434b2d425544474554000200000003ffff00000004ffff0001
+   N=7  REFUSED TICK-BUDGET at 3.2, last frame Say, 3 frames, as live  0b5449434b2d425544474554000300000003ffff00000004ffff000000050001
+   N=8  REFUSED TICK-BUDGET at 3.4, last frame Change, 2 frames, as live  0b5449434b2d425544474554000200000003ffff00000007ffff
+   N=9  REFUSED TICK-BUDGET at 3.4, last frame Change, 2 frames, as live  0b5449434b2d425544474554000200000003ffff00000007ffff
+   N=10 COMPLETED  ops 32
+   N=11 COMPLETED  ops 32
+   N=12 COMPLETED  ops 32
+== stand-in C: a tick with a For whose passes remain, and a procedure whose first statement is a Perform (ports 1; the tick block 5)
+   N=1  REFUSED TICK-BUDGET at 5.1, last frame For, 2 frames, as live  0b5449434b2d425544474554000200000008ffff00000009ffff
+   N=2  REFUSED TICK-BUDGET at 5.1.1, last frame Perform, 3 frames, as live  0b5449434b2d425544474554000300000008ffff00000009ffff010000000affff
+   N=3  REFUSED TICK-BUDGET at 4.1, last frame Perform, 4 frames, as live  0b5449434b2d425544474554000400000008ffff00000009ffff010000000affff00000006ffff
+   N=4  REFUSED TICK-BUDGET at 3.1, last frame Change, 5 frames, as live  0b5449434b2d425544474554000500000008ffff00000009ffff010000000affff00000006ffff00000004ffff
+   N=5  REFUSED TICK-BUDGET at 3.1, last frame Change, 5 frames, as live  0b5449434b2d425544474554000500000008ffff00000009ffff010000000affff00000006ffff00000004ffff
+   N=6  REFUSED TICK-BUDGET at 4.2, last frame Say, 4 frames, as live  0b5449434b2d425544474554000400000008ffff00000009ffff010000000affff00000007ffff
+   N=7  REFUSED TICK-BUDGET at 5.1, last frame For, 2 frames, as live  0b5449434b2d425544474554000200000008ffff00000009ffff
+   N=8  REFUSED TICK-BUDGET at 5.1.1, last frame Perform, 3 frames, as live  0b5449434b2d425544474554000300000008ffff00000009ffff010000000affff
+   N=9  REFUSED TICK-BUDGET at 4.1, last frame Perform, 4 frames, as live  0b5449434b2d425544474554000400000008ffff00000009ffff010000000affff00000006ffff
+   N=10 REFUSED TICK-BUDGET at 3.1, last frame Change, 5 frames, as live  0b5449434b2d425544474554000500000008ffff00000009ffff010000000affff00000006ffff00000004ffff
+   N=11 REFUSED TICK-BUDGET at 3.1, last frame Change, 5 frames, as live  0b5449434b2d425544474554000500000008ffff00000009ffff010000000affff00000006ffff00000004ffff
+   N=12 REFUSED TICK-BUDGET at 4.2, last frame Say, 4 frames, as live  0b5449434b2d425544474554000400000008ffff00000009ffff010000000affff00000007ffff
+== every refused stand-in run: 26 refused (10 completed), last-frame kinds {'Change': 8, 'Claim': 2, 'For': 2, 'IfS': 6, 'Perform': 5, 'Say': 3}; decoded as live: all
+== frame forgeries on those cuts: 2388 = 2292 refused + 96 accepted inside the shapes (another position a run could reach) + 0 accepted outside them; refusals by reason {'not nested': 1796, 'not rooted': 496}
+== the named plants, one per rule, each refused with its own reason (and the cases that must load)
+   tick frame, then a Say in its body                         loads          as required
+   S4 version 1 loads a Perform as the last frame             loads          as required
+   S6 an If-condition refusal naming the arm loads            loads          as required
+   S7 TICK-BUDGET on a Perform last frame loads               loads          as required
+   S1 first frame inside the tick body                        not rooted     as required
+   S2 tick frame then a statement not in its body             not nested     as required
+   S2 a port declaration below the tick frame                 not nested     as required
+   S3 an inline arm statement not after its If                not nested     as required
+   S4 port: a port declaration as the only, last frame        top kind       as required
+   S5 a For bit of 2                                          bit            as required
+   S5 an If arm out of range                                  arm            as required
+   S6 an If-condition refusal naming the head's clause        event clause   as required
+   S7 CLAIM-REFUTED on a Say last frame                       code kind      as required
+== version 0's rule on the same Perform-last payload, for the contrast
+   the same frames with DIVISION-BY-ZERO: refused under version 0, top kind
+== each shape rule is needed on version 1's frames: dropping it lets its named plant load
+   no-root      lets through: S1 first frame inside the tick body
+   no-nest      lets through: S2 tick frame then a statement not in its body
+   no-inline    lets through: S3 an inline arm statement not after its If
+   no-top-kind  lets through: S4 port: a port declaration as the only, last frame
+   no-range     lets through: S5 an If arm out of range
+   no-event     lets through: S6 an If-condition refusal naming the head's clause
+   no-code-kind lets through: S7 CLAIM-REFUTED on a Say last frame
+CUT SCHEMA DRAFT 2, VERSION 1 ON STAND-INS HELD: 26 refused runs decoded as live (0 differ); 2388 frame forgeries, 2292 refused, 96 accepted inside the shapes, 0 accepted outside them; 13 named plants as required (0 not); 7 of 7 shape rules needed. MEASURED on version-0 stand-ins only
