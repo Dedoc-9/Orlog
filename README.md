@@ -143,7 +143,7 @@ checks a layer states an absence, which no run can measure, so it is DECLARED.
 |---|---|---|---|---|
 | the front end: door, parser, type checker, law bytes | all four executions | **nothing.** A defect planted there (every `plus` read as `minus`) slips past all four, which agree | the clean-room twin, whose front end is its own; claims whose certificates refuse a wrong result | the self-test's `independence (MONITORED NEGATIVE …)` row, kept on purpose: the day the front end gains real diversity, it must flip to expect detection |
 | lowering and the three generators | the three backends | **real evidence.** A defect planted there moves all three together against the reference: REFERENCE-DISSENT | the reference, which never lowers. Trust moves to the reference here, it is not spread | the `independence: … shared lowering` row |
-| arithmetic | one definition, written as separate code (exact rationals in the reference, bit-level code in the runtimes) | **method diversity.** But the reference generated all 20,015 vectors, so alone they define the arithmetic rather than check it | since 2026-10-25, a second derivation that never imports the reference, 113 hand-worked cases and two published SHA-256 digests; three planted mistakes that the reference and its vectors would share are caught | [`evidence/vectors-independent.txt`](evidence/vectors-independent.txt); the `independence: … runtime vectors` row |
+| arithmetic | one definition, written as separate code. In the reference, Fix is exact rational arithmetic, and Float is the host's binary64 arithmetic (`+ − × ÷` and `math.sqrt`, then the NaN made canonical); the runtimes use bit-level code | **method diversity** for Fix. For Float, the reference and the runtimes compute on one host's floating-point hardware, so their agreement there is not an independent derivation. And the reference generated all 20,015 vectors, so alone they define the arithmetic rather than check it | since 2026-10-25, a second derivation that never imports the reference and holds no float (`tests/numeric_oracle.py`, exact rationals only). It reproduces all 9,913 Float lines of the vectors with no difference, among the 20,006 lines it derives (MEASURED on one host). With it come 113 hand-worked cases and two published SHA-256 digests, and three planted mistakes that the reference and its vectors would share are caught. It does not show identity on another host, nor that a runtime checks its floating-point state (flush-to-zero, rounding mode) when it runs: neither is shown | [`evidence/vectors-independent.txt`](evidence/vectors-independent.txt); the `independence: … runtime vectors` row |
 | the comparison itself (the arbiter) | everything | **not diversified.** It has produced a false agreement (a lenient receipt check), dissents that were failed builds, and false dissents when runs shared a work folder, all repaired | its own rows and plants | [`evidence/race-after.txt`](evidence/race-after.txt); the arbiter rows |
 | the specification and the authors | everything | **nothing.** One model family wrote every part from one SPEC.md | nothing in this repository (DECLARED, an absence) | Knight & Leveson (1986): independently written versions fail together where a shared specification was misread |
 
@@ -177,7 +177,7 @@ Two consecutive runs gave byte-identical output ([`evidence/selftest-run2.txt`](
 | what | evidence |
 |---|---|
 | The corpus gives byte-identical outputs and receipts on the reference and on the Python, C99 and Rust backends. It is 11 programs, among them chaotic float orbits, fixed-point physics, a certified gcd, defeasible rules, Aztec tilings and three spellings of one law | `evidence/selftest-run.txt`, the `corpus` rows |
-| The C99 and Rust runtimes each reproduce all 20,015 conformance vectors generated from the exact-rational reference, at two optimization levels each, with byte-identical output. They were written by separate authors of one model family, each recording that it did not read the other's code. The vectors themselves agree with a second derivation that never imports the reference, and with 113 hand-worked cases | [`evidence/rt_c-vectors-O2.txt`](evidence/rt_c-vectors-O2.txt), [`-O0`](evidence/rt_c-vectors-O0.txt), [`evidence/rt_rs-vectors-O.txt`](evidence/rt_rs-vectors-O.txt), [`-O0`](evidence/rt_rs-vectors-O0.txt), [`evidence/vectors-independent.txt`](evidence/vectors-independent.txt); [`rt_c/NOTES.md`](rt_c/NOTES.md), [`rt_rs/NOTES.md`](rt_rs/NOTES.md) |
+| The C99 and Rust runtimes each reproduce all 20,015 conformance vectors generated from the reference (which computes Fix in exact rationals and Float in the host's binary64 arithmetic), at two optimization levels each, with byte-identical output. They were written by separate authors of one model family, each recording that it did not read the other's code. The vectors themselves agree with a second derivation that never imports the reference, and with 113 hand-worked cases | [`evidence/rt_c-vectors-O2.txt`](evidence/rt_c-vectors-O2.txt), [`-O0`](evidence/rt_c-vectors-O0.txt), [`evidence/rt_rs-vectors-O.txt`](evidence/rt_rs-vectors-O.txt), [`-O0`](evidence/rt_rs-vectors-O0.txt), [`evidence/vectors-independent.txt`](evidence/vectors-independent.txt); [`rt_c/NOTES.md`](rt_c/NOTES.md), [`rt_rs/NOTES.md`](rt_rs/NOTES.md) |
 | Three spellings of one program (words, symbols, phrases) give three text seals and one law seal. A byte-mangled copy (BOM, CRLF, curly quotes, NBSP, ×) is repaired to the same law seal, each repair noted | the `spellings` rows |
 | The door repairs typographic variants and notes each repair. It refuses bidi controls, confusable letters in code, ambiguous dashes and bytes that are not UTF-8, and it keeps text literals byte for byte. A second pass over repaired texts changes nothing. (That each repair rule preserves meaning is DECLARED, rule by rule) | the `door` rows |
 | A defect planted in each backend is caught and located at its first divergent event. A defect planted in the reference reads REFERENCE-DISSENT when two or more backends run | the `plant` rows |
@@ -190,6 +190,12 @@ Two consecutive runs gave byte-identical output ([`evidence/selftest-run2.txt`](
 
 Each `plant` row plants a defect and requires the self-test to catch it, so that guard is shown to bite, not merely
 to pass. One plant is declared equivalent (a rewrite that changes nothing), and is never counted as caught.
+
+**Since then (2026-10-27).** The push 95dac79..9de2792 added the open run's research records and their evidence, and
+changed no code: `src/`, `tests/`, `twin/`, `rt_c/`, `rt_rs/`, `vectors/`, `examples/` and `orl.py` are as they were
+at 95dac79. Before its commits, the gate ran on its exact tree (`7a766f5e632564b06841ba5b8bf52c9ed6b7ee02`):
+COMPAT-0 HELD over 3,361 texts and `ORLOG SELFTEST 210/210`, MEASURED here and recorded in the message of commit
+9de2792, which names that tree on its `Gated-Tree:` line. No file of the tree holds that run.
 
 ## What is not claimed
 
@@ -237,12 +243,20 @@ python -B orl.py court examples/plankton.orl
 - [DOCTRINE.md](DOCTRINE.md): each stage's theorem, as an adversarial court narrowed it.
 - [SPEC.md](SPEC.md) and [RUNTIME-SPEC.md](RUNTIME-SPEC.md): the language, read with its amendments (§11–§14).
 - [court/RECORD.md](court/RECORD.md): the first court's findings against the design, and their disposition.
+- [research/run-1/](research/run-1/): version 1, the open run (a law with a tick block or ports, inputs read once or each tick), as
+  research.
+  SPEC §15 is drafted there and is not yet part of SPEC.md: each draft is kept as it was, and the highest-numbered
+  `SPEC-15-DRAFT-N.md` is current. The owner's rulings are in [RULINGS.md](research/run-1/RULINGS.md), in his words.
+  `twin-r7/` holds R7's independent review of the drafts and its re-reads, each report saved word for word and each
+  finding disposed. Nothing of §15 is built (DECLARED): no clause before its required re-read, and nothing of 1a
+  before the read-once stop's containment check is done and CUT-0's digest is pinned.
 - [research/roadmap-debate/VERDICT.md](research/roadmap-debate/VERDICT.md): the next steps, ranked by foundational
   value, after a debate between an architect, a use-case skeptic and a documentation prosecutor.
 - [research/ragnarok/VERDICT.md](research/ragnarok/VERDICT.md): a proposed counterworld search, argued by a proponent
   and an adversary, with a prior-art survey.
 
 **Status.** Research. It is not admitted to or registered in any other system, and its specification is DECLARED.
+Version 1, the open run, exists only as drafts and rulings, and is not built.
 It continues a line of earlier work:
 [executable-epistemics](https://github.com/Dedoc-9/executable-epistemics) → Semiotic core →
 [Dentatus](https://github.com/Dedoc-9/Dentatus) → [Ursprung](https://github.com/Dedoc-9/Ursprung) → Urðr →

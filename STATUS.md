@@ -1,9 +1,10 @@
-# ØRLǪG (Orlog): status, 2026-10-26, after COMPAT-0, the court's R8 and the reporting pass (SPEC v0.4)
+# ØRLǪG (Orlog): status, 2026-10-29, after version 1's specification rulings (draft 13), COMPAT-0 and the court's R8 (SPEC v0.4)
 
 Start here when resuming. The project lives in its own repository, [github.com/Dedoc-9/Orlog](https://github.com/Dedoc-9/Orlog),
 under the GNU AGPL v3 (AGPL-3.0-only, as Verðandi). It moved there from a session
 scratch folder on 2026-10-25. Nothing is admitted or registered anywhere, and the Verðandi checkout is untouched. The
-owner makes every commit and push.
+owner makes every commit and push. His last push, 95dac79..9de2792 (2026-10-27), carried the RUN-1 research records
+and their evidence, gated on its exact tree (`Gated-Tree: 7a766f5e…` in 9de2792's message), and changed no code.
 
 ## Read in this order
 1. **AGENTS.md**: the brief for any agent working here (what to read, never touch, run, and how to claim).
@@ -21,12 +22,16 @@ owner makes every commit and push.
    (d): the meet R8 ∧ CUT-0 pinned to CUT-0's digest), R7 (a: one independent review of §15's draft with triggered
    re-reads), and from that review D for finding 24 (D10's court clause scoped to real readings) with B1 + 4a + 5c
    + K1 for the PREFIX licence, all 2026-10-26, then the labels' definitions, the closure's rule table and R6's
-   control, the table's Perform row, finding 6, read-once ports, A′, and the release's narrow scope (2026-10-27); the
-   rest await the owner, the amended set's remaining rows and finding 8 deferred to rulings before 1a's build. Beside it, in the same
+   control, the table's Perform row, finding 6, read-once ports, A′, the release's narrow scope, and his answers on
+   the read-once stop and the pin's order: its own receipt status (never a fifth status word), the containment check
+   as a fixture test MEASURED on its fixtures only, every input the pinned rule reads (the port place, counting,
+   findings 8 and 20, and the cut's decoding if it is in `'R'`) resolved before the pin, then the test against the
+   resulting candidate, then the pin, then 1a, P6 on its own trigger, and the next push only after the full gate on
+   the next release's exact tree (2026-10-27); the rest await the owner, the amended set's remaining rows and finding 8 deferred to rulings before 1a's build. Beside it, in the same
    folder, the contract debate after R6:
    - `DESIGN-BRIEF.md`, the rulings quoted for an outside reviewer;
    - `CONTRACT-DEBATE.md` and `ROUNDS.md`: rounds A to D, the theorem ledger as proof obligations, and the decisions
-     held for one push;
+     held for one push (pushed as 9de2792, 2026-10-27);
    - `CONTRACT-DRAFT.md` and the two adversaries' records;
    - `CUT-0.md`, the causal cut and the session as a transition system, with its probes in `probes/` (indexed by
      `PROBES.md`);
@@ -43,9 +48,20 @@ owner makes every commit and push.
    - `twin-r7/`, R7's independent review of that draft (ruled 2026-10-26): its reading set, the rulings as ruled, and
      the twin's report, its 58 findings disposed, and draft 1 (`SPEC-15-DRAFT-1.md`) with its changes clause by clause;
      then, after the owner's rulings of 2026-10-26 and 2026-10-27, the affected-clause sets (`AR-*.md`, computed by
-     `ar_compute.py`), four re-reads by the same twin (31, 23, 17 and 10 findings, each disposed), and drafts 2 to 6
-     (`SPEC-15-DRAFT-6.md` the current one), each with its changes. Draft 7's fixes and his last three answers are
-     recorded (`REREAD-4-DISPOSITION.md`, `AR-REREAD-5.md`), owed with their re-read before the build;
+     `ar_compute.py`), eleven re-reads by the same twin (31, 23, 17, 10, 11, 10, 5, 3, 14, 6 and 4 findings, each
+     disposed; re-reads 9 and 10 of the whole draft), and drafts 2 to 13 (`SPEC-15-DRAFT-13.md` the current one;
+     draft 6 the one pushed in 9de2792), each with its changes. Since draft 10 he has ruled finding 8 (packet G's 8.1
+     to 8.6, the read-once record's line `once …`, packet D's D1 to D3 with D1's code table, typed values T1 to
+     T6), finding 20 (the cut in version 1's `'R'`, F20.1 to F20.4), R2 with R2.3's clarification, the port place
+     (PP1 to PP6), counting and the budget (C1 to C3, R9's B1 to B4), N2, N3, finding 10, re-read 9's five questions
+     (draft 2 the candidate byte grammar to test before the pin, never adopted or frozen) and re-read 10's
+     (`close()` refused in a law with no tick block), all in `RULINGS.md`. The S1-S7 probe ran on version-0
+     stand-ins (`evidence/run1-cut0-schema-v1-standins.txt`): HELD, MEASURED on the stand-ins only, no format
+     freeze. Re-read 11's four wording fixes are proposed for draft 14, not adopted (`REREAD-11-DISPOSITION.md`).
+     Still open, as draft 13's 15.15 lists: sheet R8, R1, H2, R3's details, the A2 row's remaining events, the
+     session record, finding 37, out_0, the receipt's remaining lines, 1a's specification (the containment test's
+     fixtures, the S1-S7 test on the version-1 reference), the pin's wording, D10, reporting and the format freeze.
+     Nothing of version 1 is built or pinned;
    - `packets/`, five decision packets (A to E) for the rulings that block R7's round and for the held push, with
      their integration (2026-10-26);
    - `manifold/`, the debate on a manifold view, judged in `manifold/VERDICT.md`.
@@ -193,7 +209,7 @@ owner makes every commit and push.
   (`research/ragnarok/VERDICT.md`); and prosecutor F42, below.
 - **Privacy (prosecutor F42)**: by the owner's word (2026-10-26), the 16 tracked files under `court/` that embedded the
   home folder's path (the prosecution's header and 15 captured observations of the red team) hold `{session}` and
-  `{python}` in their place in the held push, with nothing else changed. The paths remain in history through 95dac79;
+  `{python}` in their place since the push of 9de2792, with nothing else changed. The paths remain in history through 95dac79;
   whether to rewrite it is still his decision, so F42 stays open for history. `research/scripts-r1b/x.sh` was pointed at the repository (F36).
 - **The twin's readings**: it holds its own on the three probes settled against it (SPEC §14 items 6, 7, 9). Whether
   its author adopts §14 is a fourth round's question.

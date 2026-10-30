@@ -24,11 +24,15 @@ Never smooth one away to make a run agree, and never count agreement as proof.
 
 ## 1. Where the truth is
 
-- **What a run computes:** the reference interpreter (`src/orlog/interp.py`, with `src/orlog/numeric_ref.py` in exact
-  rationals) is the authority, by declaration. That is not proven, and it is not a vote. The backends must match it
-  byte for byte. A backend that disagrees is a dissent the arbiter localizes to its first divergent event.
+- **What a run computes:** the reference interpreter (`src/orlog/interp.py`, with `src/orlog/numeric_ref.py`, which
+  computes Fix in exact rationals and Float in the host's binary64 arithmetic) is the authority, by declaration. That
+  is not proven, and it is not a vote. The backends must match it byte for byte. A backend that disagrees is a dissent
+  the arbiter localizes to its first divergent event.
 - **What the language is:** `SPEC.md`, read with its amendments §11 (v0.1), §12 (v0.2), §13 (v0.3) and §14 (v0.4),
-  which govern the body where they differ, and `RUNTIME-SPEC.md`.
+  which govern the body where they differ, and `RUNTIME-SPEC.md`. Version 1, the open run, is §15, drafted in
+  `research/run-1/` and governing nothing until it is built into `SPEC.md`.
+- **What the owner has ruled:** `research/run-1/RULINGS.md`, each ruling quoted whole with what it fixes and what it
+  leaves open. A reviewer's text is a proposal until he rules it; an open question stays open until he rules it.
 - **Where the specification and the code disagree,** that is a finding, and neither is presumed right. Settle it in
   writing, as §11–§14 do: "Code changed", or a reading settled with its reason.
 - **What agreement measures:** what the agreeing executions do not share (DOCTRINE T11). The front end is shared by
@@ -44,6 +48,9 @@ Never smooth one away to make a run agree, and never count agreement as proof.
 | [`court/RECORD.md`](court/RECORD.md) | every finding against the design and its disposition |
 | `rt_c/NOTES.md`, `rt_rs/NOTES.md`, `twin/NOTES.md` | each separate author's own record (one model family; the C header's E21 code is the maintainer's) |
 | `research/roadmap-debate/VERDICT.md` | before planning: the next steps ranked by foundational value, and the documentation findings' dispositions |
+| `research/run-1/RULINGS.md` | before any work on version 1: the owner's rulings in his words, and what each leaves open |
+| `research/run-1/SPEC-15-DRAFT-N.md`, the highest N | SPEC §15 as drafted now, each clause tagged ruled, pinned, open or fixed; earlier drafts are kept as they were |
+| `research/run-1/twin-r7/` | R7's independent review and its re-reads: each brief, report (word for word) and disposition; each draft's changes; each ruling's affected clauses |
 
 ## 2. The map
 
@@ -57,7 +64,8 @@ Never smooth one away to make a run agree, and never count agreement as proof.
 | `court/` | the prosecutions, the red team (`redteam-eng/`), the judge and its record |
 | `examples/` | the corpus: Collatz, a certified gcd, leapfrog physics, chaos, defeasible law, the plankton parable, Aztec tilings, a falling body, three spellings of one law |
 | `research/` | the literature behind the theorems, prior art, and the debate records (`roadmap-debate/`, `ragnarok/`), each saved verbatim with the judge's verdict beside it |
-| `evidence/` | recorded runs, tracked, each new file headed by its command and tree: the self-test twice, the probe comparisons, the vectors at both optimization levels and against the derivation, the differential runs, the corpus seals, the race, the door fuzz, the E21 measurements |
+| `research/run-1/` | version 1, the open run, as research: the rulings, CUT-0 and its schema, the contract debate and the theorem ledger (`ROUNDS.md`), SPEC §15's drafts, the decision packets (`packets/`), the manifold debate and its adversary (`manifold/`), the probes (`probes/`, indexed by `PROBES.md`), and R7's review (`twin-r7/`) with its clause tools, `clause_diff.py` and `ar_compute.py`. Nothing in the program reads any of it |
+| `evidence/` | recorded runs, tracked, each new file headed by its command and tree: the self-test twice, the probe comparisons, the vectors at both optimization levels and against the derivation, the differential runs, the corpus seals, the race, the door fuzz, the E21 measurements, and the open run's probes (`run1-*.txt`) |
 | `build/`, `work/` | generated output, ignored by git |
 
 ## 3. Never, without the owner's word
@@ -97,6 +105,22 @@ Never smooth one away to make a run agree, and never count agreement as proof.
   with a note saying so.
 - **Claim** a timing, or determinism on a host, compiler or flag set nobody ran. "Here" means the host where the
   output was produced.
+- **In the open run's records (`research/run-1/`):**
+  - **Paraphrase or trim a ruling's record.** `RULINGS.md` quotes him whole; a draft that restates a ruling is tagged
+    with it.
+  - **Edit a draft of SPEC §15, a twin's report or a disposition after the fact.** A change to a draft is the next
+    draft, with its changes computed by `clause_diff.py` into `twin-r7/DRAFT-N-CHANGES.md`. A report is saved word
+    for word, and every finding is disposed once.
+  - **Narrow a ruling's affected-clause set, or build a §15 clause before its re-read.** R7: each ruling's
+    A_r = T_r ∪ L_r ∪ D_r is computed by `ar_compute.py` and recorded in `twin-r7/AR-*.md`, and the twin re-reads it.
+    His words: *"no push before the final gate, and no §15 clause built before the required review."*
+  - **Build or run 1a against an unpinned CUT-0.** His words: *"Complete the version-1 containment check first, pin
+    the exact CUT-0 digest second, and only then run 1a’s rows against that pinned candidate."*
+  - **Settle an open question by drafting around it.** His words: *"Keep N2, N3, the read-once `NOT-RUN` byte form,
+    and other explicitly open questions from being silently treated as settled."*
+  - **Normalize the seven first-form adversary outputs** in `research/run-1/manifold/adversary/`, or widen their
+    `.gitattributes` lines. His words: *"Preserve the seven original outputs byte-for-byte as captured."* Each of the
+    seven exact paths is `-text`; the current reruns beside them keep the repository's normalization.
 - **Commit or push.**
 
 ## 4. What to run, by what changed
@@ -118,6 +142,9 @@ Set `PYTHONHASHSEED=0` and `PYTHONUTF8=1` for every run, and use `python -B`.
 | the court or its record | the self-test; `python -B tests/court_monotone.py --jobs 8`; `python -B court/build_record.py && python -B court/judge.py` | the court rows, R8's among them; `COURT R8 ONE-SIDED: 0 gained`, both its plants caught; `court/VERDICT.txt` recomputed, never typed. A rule that withholds is measured one-sided over COMPAT-0's frozen texts and the court's fixtures. A rule that grants needs its own rows, never only a count. Never give a rule a module switch that rows set before reading: a row must read the value `orl.py` reads (the reporting pass's finding 1) |
 | what `orl.py` prints or exits with | the self-test (its `orl.py court` rows run the command in process) | the run's status and integrity first, every key a row holds, exit 2 over a dissent, a failed build or a host stop. A law's own refusal exits 0 under `run` and `court` alike until the owner rules otherwise |
 | the specification | the self-test and the probes | the phase-table row; a settled reading recorded in `settled.json` |
+| a draft of SPEC §15 (`research/run-1/`) | `python -B research/run-1/twin-r7/clause_diff.py OLD NEW` | its output, unchanged, in the new draft's `twin-r7/DRAFT-N-CHANGES.md`, beside a reason for every change; and every earlier `DRAFT-N-CHANGES.md` reproduced by the same command |
+| a ruling on SPEC §15 | `python -B research/run-1/twin-r7/ar_compute.py N` (N is the set; the script refuses any draft but the one its set names, by sha256) | its output, unedited, in that ruling's `twin-r7/AR-*.md`, and every earlier set reproduced byte for byte. A new set is added to the script, never computed by hand |
+| an open-run probe (`research/run-1/probes/`) | the command on the `# command:` line of its output in `evidence/run1-*.txt` | that output again, byte for byte below its header. An output kept for an earlier draft (`run1-cut0-schema-draft1.txt`) is history and is not expected to recur; `run1-gate-before-push.txt` is a gate's record, not a probe. A probe is evidence for a proposal, never of a contract |
 
 Before believing a surprising result, rerun clean: delete the stale `build/` cache, and use `python -B`.
 
@@ -127,7 +154,9 @@ Before believing a surprising result, rerun clean: delete the stale `build/` cac
 - Line endings are LF. Write planted files and stdin as binary, because text mode on Windows turns LF into CR LF and a
   law's seals are of exact bytes.
 - Git Bash heredocs drop backslashes from Python sources. Write such files with an editor tool.
-- A redirected stdout on Windows uses a legacy code page. Set `PYTHONUTF8=1`.
+- A redirected stdout on Windows uses a legacy code page. Set `PYTHONUTF8=1`. It also writes CR LF: normalize a
+  listing before appending it to a record, and count CR bytes in Python, never with Git Bash's `grep -c $'\r'`, which
+  counted every line of a file holding non-ASCII text.
 
 ## 6. Writing a claim
 
@@ -140,6 +169,9 @@ Before believing a surprising result, rerun clean: delete the stale `build/` cac
 - **No scalar scorecards.** Report witnesses side by side.
 - **Novelty needs a prior-art search, cited.** The court withdrew every unsearched claim of novelty.
 - **Quote the owner's rulings in his words.**
+- **A re-read is a reading.** A clean report from the twin shows that a text says what was ruled, as far as one
+  reader found. It shows neither that CUT-0 is sound nor that an owed check passes; those need their own evidence. A
+  gate that passed holds for the tree it ran on, not for a later draft.
 - **A test asserts the apparatus.** Plant the defect and require the refusal. A plant that changes nothing is an
   equivalent mutant, declared as such and never counted as caught. Plant the defect in the code the row is about:
   a predicate inside a function is planted in a copy of its module made in memory (`tests/plants.py`), never in a
@@ -188,8 +220,19 @@ Before believing a surprising result, rerun clean: delete the stale `build/` cac
   source ran the wrong source until its own row caught it. Close before replacing, and read back what you wrote.
 - **Failure must be deterministic too.** A ledger torn by a crash made every court reading raise; now it refuses at its
   line. A host stop is not a refusal, and is never written as one.
+- **A repository's policy can rewrite its evidence.** Under `text=auto eol=lf`, staging would have stripped the CR
+  bytes from seven captured adversary outputs. They are kept by `-text` on their seven exact paths, and were compared
+  byte for byte after staging and again before the push.
+- **A drafter's paraphrase drifts from the ruling.** In R7's re-reads the twin caught the drafter's own words where
+  they departed from the owner's: "no execution" for his "a particular execution", and a closing line that put the
+  tick block among the kinds the rule table does not name. Quote him, and tag the clause with the ruling.
+- **A check that also writes is not a check.** A script that both edited the theorem ledger and checked it added its
+  note a second time when it was run again. Keep checks read-only, and edits in a script of their own that refuses to
+  apply twice.
 
 ## 8. Privacy
 
 Record about a host only what its own output establishes. Do not write the owner's personal details or hardware into
-the repository.
+the repository. Never write a home path or a host name into a tracked file: the court's records carry `{session}` and
+`{python}` where their captures held paths, and the key stays in the git-ignored `work/`. History through 95dac79
+still holds those paths, and whether to rewrite it is his decision (prosecutor F42, open).
