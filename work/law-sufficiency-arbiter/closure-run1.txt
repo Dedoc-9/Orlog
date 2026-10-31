@@ -1,0 +1,41 @@
+LAW-SUFFICIENCY-1: THE FOUR CLOSURE EXPERIMENTS (research/law-sufficiency/closure_tests.py, SHEET-1.md)
+texts: 297 (LAW-SUFFICIENCY-0's 290 and the seven fixtures)
+decoder.py sha256 4f9a66b4468bd1ab0ddeabba872c4c1b6a4a7f06b4df7a29a8f6f93aaaaf7ee5
+decoder1.py sha256 3584f565f6929879c3d942a45b3fa8d5c09cc2382b67772559109e38930ab877
+
+== E1: the rounded conversion (three fixtures)
+   e1-rounded-fixed.orl     D  parsed COMPLETED                      decoded P equal, round trip exact
+   e1-rounded-fixed.orl     D1 parsed COMPLETED                      decoded P equal, round trip exact
+   e1-rounded-floats.orl    D  parsed COMPLETED                      decoded P equal, round trip exact
+   e1-rounded-floats.orl    D1 parsed COMPLETED                      decoded P equal, round trip exact
+   e1-rounded-refuses.orl   D  parsed REFUSED NOT-FINITE 1           decoded P equal, round trip exact
+   e1-rounded-refuses.orl   D1 parsed REFUSED NOT-FINITE 1           decoded P equal, round trip exact
+   rounded paths decoded by D: 6 of 6 ['fix<-float', 'fix<-int', 'float<-fix', 'float<-int', 'int<-fix', 'int<-float']
+   plant, D1 reads rounded as as: predicted REFUSED INEXACT-CONVERSION 1, got REFUSED INEXACT-CONVERSION 1: AS PREDICTED
+   E1 HELD; its plants as predicted
+
+== E2: the order of a rule's definitions (SPEC §6: left to right, in clause order)
+   e2-provisos.orl          predicted REFUSED DIVISION-BY-ZERO 3   parsed REFUSED DIVISION-BY-ZERO 3   decoded REFUSED DIVISION-BY-ZERO 3   AS PREDICTED
+   e2-provisos-swapped.orl  predicted REFUSED OVERFLOW 3           parsed REFUSED OVERFLOW 3           decoded REFUSED OVERFLOW 3           AS PREDICTED
+   e2-values.orl            predicted REFUSED DIVISION-BY-ZERO 3   parsed REFUSED DIVISION-BY-ZERO 3   decoded REFUSED DIVISION-BY-ZERO 3   AS PREDICTED
+   e2-values-swapped.orl    predicted REFUSED OVERFLOW 3           parsed REFUSED OVERFLOW 3           decoded REFUSED OVERFLOW 3           AS PREDICTED
+   e2-provisos.orl and e2-provisos-swapped.orl: law seals differ
+   e2-values.orl and e2-values-swapped.orl: law seals differ
+   plant, an.rules reversed in e2-provisos.orl        law bytes fixed; parsed REFUSED OVERFLOW 3 (predicted REFUSED OVERFLOW 3); decoded REFUSED DIVISION-BY-ZERO 3 (predicted REFUSED DIVISION-BY-ZERO 3): AS PREDICTED
+   plant, an.rules reversed in e2-values.orl          law bytes fixed; parsed REFUSED OVERFLOW 3 (predicted REFUSED OVERFLOW 3); decoded REFUSED DIVISION-BY-ZERO 3 (predicted REFUSED DIVISION-BY-ZERO 3): AS PREDICTED
+   E2 HELD; its plants as predicted
+
+== E3: D1's backend-only derivations against the analysis (an.vars with each id, type and top; an.rule_types)
+   on 297 texts: vars equal 297, rule_types equal 297, decoded P equal 297, round trip exact 297
+   plant top-includes-inline  differs from the analysis on 0 texts: MEASURED: equivalent on this set (no text has a let in an inline body of a top-level clause)
+   plant top-always-false     differs from the analysis on 142 texts; texts with a top-level let: 142: AS PREDICTED
+   E3 HELD; its plants as predicted
+
+== E4: the backends on D1's decoded law
+   generated programs byte-identical, parsed against decoded: python 297, c99 297, rust 297, on 297 texts
+   each decoded program built and run by the arbiter, its P equal to the reference's parsed P: python 297 of 297, c99 297 of 297, rust 297 of 297
+   plant, D1's top always false: the generated programs differ on 142 texts; texts with a top-level let: 142: AS PREDICTED
+   E4 HELD; its plants as predicted
+
+LAW-SUFFICIENCY-1 HELD: E1 held; E2 held; E3 held; E4 held
+exit 0

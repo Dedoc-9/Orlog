@@ -1,0 +1,4 @@
+Title: A Rounded Conversion That Refuses.
+Note: LAW-SUFFICIENCY-1, E1. A research fixture, off the gate: an infinity rounded to an integer.
+§1 Let z be (1 as a float divided by 0 as a float) rounded to an integer.
+§2 Say z.

@@ -25,3 +25,4 @@ tests/compat/*.jsonl -text
 *.png binary
 *.pdf binary
 *.exe binary
+work/law-sufficiency-arbiter/closure-run1.txt -text
