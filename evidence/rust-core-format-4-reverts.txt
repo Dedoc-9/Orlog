@@ -1,0 +1,31 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/rust-core/plant_reverts.py
+# tree: 2e9805a plus the uncommitted research files (src/, tests/ and vectors/ unchanged; the contract vectors sha256 841240b72cb58041); Windows, CPython 3.14.5; 2026-10-30; exit 0; run twice, identical
+# code and data sha256 (first 16 hex): LAW-FORMAT-0-DRAFT-4.md 0978c7f180ea7657; format_check.py b39bbd057dfe90db; plant_reverts.py 94b60e81982c3305; run_format.py 5a8ecfc46a9b6633; vectors-as-integer.txt 2bff1c69faeed37d; vectors-as-integer.manifest 1b17b1446dc16dbc
+# RUST-CORE-0 phase 0, LAW-FORMAT-0 draft 4, off the gate: MEASURED on these plants and these undoings only, never ESTABLISHED; evidence for the format, not its authority; not a ruling
+DRAFT 4'S PLANTS, EACH FIX UNDONE IN MEMORY (research/rust-core/plant_reverts.py)
+Python's recursion limit: 1000; int-string limit: 4300
+E1 undone: draft 3's capped walk, no gate    H2: 30,000 nested whiles, refused without a crash      as stated W14 line 19  undone W14 line 19                same
+E1 undone: draft 3's capped walk, no gate    H2: 30,000 nested If blocks, refused without a crash   as stated W14 line 27  undone W14 line 27                same
+E1 undone: draft 3's capped walk, no gate    J1: deep let 0, inline else let 1 (the depth gate)     as stated W14 line 27  undone W8 line 3                  BITES
+E1 undone: draft 3's capped walk, no gate    J1: deep let 1, inline else let 0 (the depth gate)     as stated W14 line 27  undone W14 line 27                same
+E1 undone: draft 3's capped walk, no gate    J1: deep must 0, inline else must 1 (the depth gate)   as stated W14 line 27  undone W8 line 3                  BITES
+E1 undone: draft 3's capped walk, no gate    J1: deep claim 0, inline else claim 1 (the depth gate) as stated W14 line 27  undone W8 line 3                  BITES
+E1 undone: draft 3's capped walk, no gate    E1: the depth gate before the chain gate               as stated W14 line 28  undone W4 line 3                  BITES
+E1 undone: the whole tree walked, no gate    H2: 30,000 nested whiles, refused without a crash      as stated W14 line 19  undone CRASHED (RecursionError)   BITES
+E1 undone: the whole tree walked, no gate    H2: 30,000 nested If blocks, refused without a crash   as stated W14 line 27  undone CRASHED (RecursionError)   BITES
+E1 undone: the whole tree walked, no gate    J1: deep let 0, inline else let 1 (the depth gate)     as stated W14 line 27  undone W14 line 27                same
+E1 undone: the whole tree walked, no gate    J1: deep let 1, inline else let 0 (the depth gate)     as stated W14 line 27  undone W8 line 3                  BITES
+E1 undone: the whole tree walked, no gate    J1: deep must 0, inline else must 1 (the depth gate)   as stated W14 line 27  undone W14 line 27                same
+E1 undone: the whole tree walked, no gate    J1: deep claim 0, inline else claim 1 (the depth gate) as stated W14 line 27  undone W14 line 27                same
+E1 undone: the whole tree walked, no gate    E1: the depth gate before the chain gate               as stated W14 line 28  undone W4 line 3                  BITES
+E1 undone: draft 3's skip of a W4 chain      J7: an inner chain naming clause 99, under an else's l as stated W4 line 4    undone W8 line 3                  BITES
+E1 undone: no chain gate, nothing skipped    J7: an inner chain naming clause 99, under an else's l as stated W4 line 4    undone CRASHED (KeyError)         BITES
+J8 undone: under the decimals clause's mode  J8: a float literal under line 2's fixed, decimals flo as stated W6 line 3    undone W6 line 4                  BITES
+J9 undone: Python's int-string limit kept    J9: a 5,000-digit Int literal                          as stated W13 line 3   undone CRASHED (ValueError)       BITES
+J9 undone: Python's int-string limit kept    J9: a 5,000-digit clause number                        as stated W1 line 3    undone CRASHED (ValueError)       BITES
+J9 undone: Python's int-string limit kept    J9: a 5,000-digit perform target                       as stated W4 line 3    undone CRASHED (ValueError)       BITES
+J9 undone: Python's int-string limit kept    J9: a 5,000-digit label part                           as stated W4 line 4    undone CRASHED (ValueError)       BITES
+J11 undone: no skip after a backslash        J11: an escaped quote, then 131 '(' outside the string as stated W14 line 3   undone W2 line 3                  BITES
+J11 undone: no skip after a backslash        fixture: an escaped quote, then 131 '(' inside the str as stated accepted     undone W14 line 3                 BITES
+int-string limit after every read: 4300
+PLANT REVERTS HELD: 15 plants and fixtures, 15 changed by at least one undoing

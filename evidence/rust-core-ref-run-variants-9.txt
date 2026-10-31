@@ -1,0 +1,22 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/rust-core/ref_run_variants.py
+# tree: 2e9805a plus the uncommitted research files (src/, tests/ and vectors/ unchanged; the contract vectors sha256 841240b72cb58041); Windows, CPython 3.14.5; 2026-10-31; exit 0; run twice, identical
+# code and data sha256 (first 16 hex): LAW-FORMAT-0-DRAFT-9.md 12d95962b116cc0f; format_check.py 2965ed15c824a638; plant_reverts.py 922e31c38be7b915; ref_run.py 822c826ee2033df2; ref_run_paths.py 87d93a4946ff4023; ref_run_variants.py b85295dc5379ea90; depth_probe.py 6db7a0487c70978d; run_format.py 7dab3af74c99c2fa; vectors-as-integer.txt 2bff1c69faeed37d; vectors-as-integer.manifest 1b17b1446dc16dbc
+# RUST-CORE-0 phase 0, LAW-FORMAT-0 draft 9, off the gate: MEASURED on these changes of the runner and its check only, never ESTABLISHED; evidence for the format, not its authority; not a ruling
+THE RUNNER CHANGES THE RE-READS SHOWED, AGAINST ref_run_paths.py (research/rust-core/ref_run_variants.py)
+   control: the runner unchanged                              REF-RUN PATHS HELD: 43 of 43 as stated  [as it must]
+   REREAD-6: the ENV line removed                             caught: REF-RUN PATHS FAILED: 33 of 43 as stated
+   REREAD-6: the recursion limit raised                       caught: REF-RUN PATHS FAILED: 30 of 43 as stated
+   REREAD-6: format_check imported                            caught: REF-RUN PATHS FAILED: 25 of 43 as stated
+   REREAD-6: BUDGET read from os.environ                      caught: REF-RUN PATHS FAILED: 42 of 43 as stated
+   V1: law mode ignores BUDGET                                caught: REF-RUN PATHS FAILED: 42 of 43 as stated
+   V2: the law seal from the bytes less their last LF         caught: REF-RUN PATHS FAILED: 40 of 43 as stated
+   V3: decoder1's message dropped                             caught: REF-RUN PATHS FAILED: 41 of 43 as stated
+   V4: a KeyError from decode taken as a refusal              caught: REF-RUN PATHS FAILED: 42 of 43 as stated
+   V5: a stop reports one operation more                      caught: REF-RUN PATHS FAILED: 42 of 43 as stated
+   V6: classify, two different results RESULT                 caught: REF-RUN PATHS FAILED: 42 of 43 as stated
+   V7: classify, two different refusals REFERENCE-REFUSED     caught: REF-RUN PATHS FAILED: 42 of 43 as stated
+   V8: the recursion limit raised by getattr                  caught: REF-RUN PATHS FAILED: 30 of 43 as stated
+   V9: BUDGET read through `from os import environ`           caught: REF-RUN PATHS FAILED: 42 of 43 as stated
+   V10: P keeps the text-seal line in law mode only           caught: REF-RUN PATHS FAILED: 41 of 43 as stated
+   V11: an IndexError in law mode's run taken as a refusal    NOT CAUGHT (REF-RUN PATHS HELD: 43 of 43 as stated): no case of this check: no input of it makes the interpreter raise IndexError. The record's rows would change (REREAD-7's reader 2), so the hash closure of a record made by such a runner fails
+REF-RUN VARIANTS HELD: 14 of 15 changes caught by the check; the control passes; 1 not caught, each said
