@@ -1,0 +1,305 @@
+# S3's budget values: SHEET.md Amendment 2, fixed before any experiment (the owner's ruling C2(a), 2026-10-30)
+# generator research/rust-core/gen_s3_budgets.py sha256 adb50cf0d2e6c4d2f62904c18d9c7ec895da341432943f1f509a3e9d664956ac
+# reference at 2e9805a: src/orlog/interp.py sha256 f843291861798c85c90716430a00b24663e4d7521f6cecdf268cb197c7e94d27, src/orlog/numeric_ref.py sha256 eacac3dd7c4dfda903f1927994ea8b3a95ba866b3485fb1c6b91428cb5f6bb64
+# each reference run: one fresh `python -B` process, PYTHONHASHSEED=0, the default recursion limit, never importing format_check, the text's own budget, a 60 s limit; two runs per text
+# environment, as each run reported it: ENV python CPython 3.14.5 recursion-limit 1000 format_check not-imported; Windows 11
+# texts 298, sorted by id; classes RESULT 298; seed 20261030 through the RESULT texts in this order; per text every B from 0 to max = min(ops, budget) when there are at most 20, else 20 drawn by random.Random(seed).sample, sorted; 2100 values in all
+# a row: id kind budget <b> class <class> then, for RESULT, the run's status word, ops, max and the values B; otherwise both runs' outcomes
+corpus/examples/aztec.orl@e317c26b31aa corpus budget 10000000 class RESULT COMPLETED ops 792268 max 792268 B 39196 129439 148724 155283 168188 230427 274677 283160 303061 349974 355777 431833 432568 542028 571811 587454 619863 665416 690200 769495
+corpus/examples/chaos.orl@5f6989aabdaa corpus budget 10000000 class RESULT COMPLETED ops 21031 max 21031 B 820 1800 2719 2992 4627 6040 7884 9312 9950 10618 11053 11481 12334 12879 13645 14457 15865 16208 17684 20097
+corpus/examples/chaos.orl@67a0ebc27cf7 corpus budget 10000000 class RESULT COMPLETED ops 21031 max 21031 B 161 2385 2427 2787 3299 4241 5051 5919 6140 6616 7936 8670 14988 15669 15751 18199 18667 18703 19885 20794
+corpus/examples/collatz.orl@592bc3e4123d corpus budget 10000000 class RESULT COMPLETED ops 1164 max 1164 B 97 147 175 190 198 213 312 428 455 481 523 551 559 643 763 807 849 888 1014 1017
+corpus/examples/fall.orl@73ccecab2e7b corpus budget 10000000 class RESULT COMPLETED ops 8373 max 8373 B 224 650 685 734 1336 1440 2349 2467 3297 4351 4440 4775 5378 5782 5941 6062 6158 6955 7500 7715
+corpus/examples/gcd_certificate.orl@305b2be09583 corpus budget 10000000 class RESULT COMPLETED ops 752 max 752 B 68 85 135 177 191 197 202 245 296 298 305 327 369 373 387 422 594 633 664 721
+corpus/examples/leapfrog.orl@5aecd009e358 corpus budget 10000000 class RESULT COMPLETED ops 168078 max 168078 B 10143 23110 30812 32892 33720 39253 45573 48086 64689 66377 69619 74075 74253 75840 83286 84298 88950 117970 129537 134098
+corpus/examples/leapfrog.orl@8ecb5c6d9b5a corpus budget 10000000 class RESULT COMPLETED ops 168078 max 168078 B 9372 12167 12627 16753 26306 26383 29044 34902 35190 43514 64336 65505 77361 97530 103833 131028 142066 143605 163897 167645
+corpus/examples/legal.orl@14c3d5c4a27e corpus budget 10000000 class RESULT COMPLETED ops 129 max 129 B 6 11 12 17 23 32 41 50 55 56 59 61 63 68 69 73 74 77 101 119
+corpus/examples/plankton.orl@7110dcd6f849 corpus budget 10000000 class RESULT COMPLETED ops 11 max 11 B 0 1 2 3 4 5 6 7 8 9 10 11
+corpus/examples/spellings/phrases.orl@33634aea1f1b corpus budget 10000000 class RESULT COMPLETED ops 8 max 8 B 0 1 2 3 4 5 6 7 8
+corpus/examples/spellings/symbols.orl@8539dbef8406 corpus budget 10000000 class RESULT COMPLETED ops 8 max 8 B 0 1 2 3 4 5 6 7 8
+corpus/examples/spellings/words.orl@5fab85a9c40e corpus budget 10000000 class RESULT COMPLETED ops 8 max 8 B 0 1 2 3 4 5 6 7 8
+fixture/tests/fixtures/e21/list_ownership.orl fixture budget 1000000 class RESULT COMPLETED ops 35 max 35 B 2 5 7 10 11 13 15 18 19 21 22 23 24 25 27 28 29 30 31 33
+fixture/tests/fixtures/e21/loop_condition.orl fixture budget 1000000 class RESULT COMPLETED ops 30 max 30 B 0 1 2 4 5 6 8 9 11 14 16 21 22 23 24 25 26 27 28 29
+fixture/tests/fixtures/e21/procedure_local.orl fixture budget 1000000 class RESULT COMPLETED ops 19 max 19 B 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+fixture/tests/fixtures/e21/self_store.orl fixture budget 1000000 class RESULT COMPLETED ops 14 max 14 B 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14
+fixture/tests/fixtures/redteam/E10_python_depth_if_chain_110.orl fixture budget 1000000 class RESULT COMPLETED ops 224 max 224 B 12 27 36 40 73 74 89 100 122 127 151 153 165 181 195 208 210 214 219 222
+fixture/tests/fixtures/redteam/E13b_note_after_seal.orl fixture budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+fixture/tests/fixtures/redteam/E16a_upper_to.orl fixture budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+fixture/tests/fixtures/redteam/E16b_to_two_spaces.orl fixture budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+fixture/tests/fixtures/redteam/E16e_to_no_space.orl fixture budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+fixture/tests/fixtures/redteam/E16f_to_inner_spaces.orl fixture budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+fixture/tests/fixtures/redteam/E1_eq_promotion_crash.orl fixture budget 1000000 class RESULT COMPLETED ops 5 max 5 B 0 1 2 3 4 5
+fixture/tests/fixtures/redteam/E20a_labels_plain.orl fixture budget 1000000 class RESULT COMPLETED ops 5 max 5 B 0 1 2 3 4 5
+fixture/tests/fixtures/redteam/E20b_labels_leading_zero.orl fixture budget 1000000 class RESULT COMPLETED ops 5 max 5 B 0 1 2 3 4 5
+fixture/tests/fixtures/redteam/E20c_label_ref_as_integer.orl fixture budget 1000000 class RESULT COMPLETED ops 5 max 5 B 0 1 2 3 4 5
+fixture/tests/fixtures/redteam/E22_ratify_non_claim.orl fixture budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+fixture/tests/fixtures/redteam/E26_false_door_note.orl fixture budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+fixture/tests/fixtures/redteam/E2a_rule_in_procedure.orl fixture budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+fixture/tests/fixtures/redteam/E2b_rule_uses_rule.orl fixture budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+fixture/tests/fixtures/redteam/E9_door_curly_in_literal.orl fixture budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+fixture/twin/inputs/refuse-claim-refuted.orl fixture budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+fixture/twin/inputs/refuse-division-by-zero.orl fixture budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+fixture/twin/inputs/refuse-empty-list.orl fixture budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+fixture/twin/inputs/refuse-fuel-exhausted.orl fixture budget 1000000 class RESULT REFUSED ops 17 max 17 B 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17
+fixture/twin/inputs/refuse-index-out-of-range.orl fixture budget 1000000 class RESULT REFUSED ops 4 max 4 B 0 1 2 3 4
+fixture/twin/inputs/refuse-inexact-conversion.orl fixture budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+fixture/twin/inputs/refuse-inexact-division.orl fixture budget 1000000 class RESULT REFUSED ops 2 max 2 B 0 1 2
+fixture/twin/inputs/refuse-must-failed.orl fixture budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+fixture/twin/inputs/refuse-negative-sqrt.orl fixture budget 1000000 class RESULT REFUSED ops 4 max 4 B 0 1 2 3 4
+fixture/twin/inputs/refuse-not-finite.orl fixture budget 1000000 class RESULT REFUSED ops 4 max 4 B 0 1 2 3 4
+fixture/twin/inputs/refuse-overflow.orl fixture budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+fixture/twin/inputs/refuse-rule-conflict.orl fixture budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+fixture/twin/inputs/refuse-rule-undefined.orl fixture budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+fixtures/e1-rounded-fixed.orl fixture budget 1000000 class RESULT COMPLETED ops 22 max 22 B 0 1 2 3 4 5 6 7 9 10 12 13 14 16 17 18 19 20 21 22
+fixtures/e1-rounded-floats.orl fixture budget 1000000 class RESULT COMPLETED ops 13 max 13 B 0 1 2 3 4 5 6 7 8 9 10 11 12 13
+fixtures/e1-rounded-refuses.orl fixture budget 1000000 class RESULT REFUSED ops 5 max 5 B 0 1 2 3 4 5
+fixtures/e2-provisos-swapped.orl fixture budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+fixtures/e2-provisos.orl fixture budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+fixtures/e2-values-swapped.orl fixture budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+fixtures/e2-values.orl fixture budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+fixtures/e3-inline-let.orl fixture budget 1000000 class RESULT COMPLETED ops 5 max 5 B 0 1 2 3 4 5
+mutant/s1/0024 mutant budget 1000000 class RESULT COMPLETED ops 21031 max 21031 B 526 740 994 1944 2168 2801 3179 3351 5266 7863 8301 11975 12271 13706 13728 13888 14493 17890 20378 20667
+mutant/s1/0026 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/0031 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/0033 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/0050 mutant budget 1000000 class RESULT COMPLETED ops 63 max 63 B 1 8 12 13 14 15 19 23 25 34 36 43 49 50 51 55 58 60 62 63
+mutant/s1/0076 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/0081 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/0082 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/0124 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/0130 mutant budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+mutant/s1/0139 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/0148 mutant budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+mutant/s1/0166 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/0188 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/0238 mutant budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+mutant/s1/0254 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/0263 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/0272 mutant budget 1000000 class RESULT COMPLETED ops 9 max 9 B 0 1 2 3 4 5 6 7 8 9
+mutant/s1/0281 mutant budget 1000000 class RESULT COMPLETED ops 63 max 63 B 3 4 5 10 11 14 15 20 21 22 24 29 31 48 52 55 58 59 62 63
+mutant/s1/0292 mutant budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+mutant/s1/0338 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/0403 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/0405 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/0412 mutant budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+mutant/s1/0413 mutant budget 1000000 class RESULT COMPLETED ops 1164 max 1164 B 5 44 107 145 196 258 352 398 424 495 576 624 679 839 928 941 955 1047 1097 1114
+mutant/s1/0427 mutant budget 1000000 class RESULT COMPLETED ops 0 max 0 B 0
+mutant/s1/0432 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/0485 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/0492 mutant budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+mutant/s1/0499 mutant budget 1000000 class RESULT COMPLETED ops 0 max 0 B 0
+mutant/s1/0523 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/0541 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/0543 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/0546 mutant budget 1000000 class RESULT COMPLETED ops 0 max 0 B 0
+mutant/s1/0568 mutant budget 1000000 class RESULT COMPLETED ops 792268 max 792268 B 4771 9145 25142 33684 36332 112681 150955 159687 218922 271652 340886 346060 350470 508153 509134 534039 555988 598294 642532 721628
+mutant/s1/0572 mutant budget 1000000 class RESULT COMPLETED ops 8 max 8 B 0 1 2 3 4 5 6 7 8
+mutant/s1/0580 mutant budget 1000000 class RESULT COMPLETED ops 10 max 10 B 0 1 2 3 4 5 6 7 8 9 10
+mutant/s1/0609 mutant budget 1000000 class RESULT REFUSED ops 2 max 2 B 0 1 2
+mutant/s1/0635 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/0752 mutant budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+mutant/s1/0766 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/0850 mutant budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+mutant/s1/0854 mutant budget 1000000 class RESULT COMPLETED ops 129 max 129 B 14 15 17 20 26 34 35 39 41 43 46 49 70 80 83 90 102 105 114 125
+mutant/s1/0867 mutant budget 1000000 class RESULT COMPLETED ops 17 max 17 B 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17
+mutant/s1/0875 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/0884 mutant budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+mutant/s1/0944 mutant budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+mutant/s1/0953 mutant budget 1000000 class RESULT REFUSED ops 2 max 2 B 0 1 2
+mutant/s1/0965 mutant budget 1000000 class RESULT COMPLETED ops 22 max 22 B 0 1 2 3 4 6 7 9 10 11 12 13 14 15 16 17 18 19 20 21
+mutant/s1/0981 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/1012 mutant budget 1000000 class RESULT COMPLETED ops 5 max 5 B 0 1 2 3 4 5
+mutant/s1/1058 mutant budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+mutant/s1/1073 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/1078 mutant budget 1000000 class RESULT COMPLETED ops 5 max 5 B 0 1 2 3 4 5
+mutant/s1/1080 mutant budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+mutant/s1/1081 mutant budget 1000000 class RESULT COMPLETED ops 129 max 129 B 2 3 9 22 25 39 50 59 64 65 72 75 85 94 96 110 114 117 123 124
+mutant/s1/1091 mutant budget 1000000 class RESULT COMPLETED ops 0 max 0 B 0
+mutant/s1/1110 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/1123 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/1133 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/1139 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/1158 mutant budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+mutant/s1/1169 mutant budget 1000000 class RESULT REFUSED ops 6822 max 6822 B 377 632 936 1123 1147 1313 1445 1694 2121 3162 3866 4150 5257 5642 5703 5741 5977 6007 6513 6800
+mutant/s1/1200 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/1220 mutant budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+mutant/s1/1228 mutant budget 1000000 class RESULT COMPLETED ops 25 max 25 B 0 1 2 3 4 5 9 10 11 12 13 14 15 16 17 20 21 22 23 25
+mutant/s1/1229 mutant budget 1000000 class RESULT COMPLETED ops 0 max 0 B 0
+mutant/s1/1240 mutant budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+mutant/s1/1262 mutant budget 1000000 class RESULT COMPLETED ops 26 max 26 B 0 1 3 4 5 6 7 8 9 11 12 13 15 17 18 20 21 23 25 26
+mutant/s1/1265 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/1266 mutant budget 1000000 class RESULT COMPLETED ops 24 max 24 B 0 1 2 4 5 7 8 9 11 12 13 14 15 16 17 18 20 21 22 23
+mutant/s1/1316 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/1354 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/1368 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/1369 mutant budget 1000000 class RESULT REFUSED ops 4 max 4 B 0 1 2 3 4
+mutant/s1/1375 mutant budget 1000000 class RESULT COMPLETED ops 8 max 8 B 0 1 2 3 4 5 6 7 8
+mutant/s1/1380 mutant budget 1000000 class RESULT COMPLETED ops 19 max 19 B 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+mutant/s1/1449 mutant budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+mutant/s1/1452 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/1453 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/1515 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/1531 mutant budget 1000000 class RESULT COMPLETED ops 8 max 8 B 0 1 2 3 4 5 6 7 8
+mutant/s1/1546 mutant budget 1000000 class RESULT COMPLETED ops 5 max 5 B 0 1 2 3 4 5
+mutant/s1/1585 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/1613 mutant budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+mutant/s1/1624 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/1633 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/1648 mutant budget 1000000 class RESULT COMPLETED ops 8 max 8 B 0 1 2 3 4 5 6 7 8
+mutant/s1/1671 mutant budget 1000000 class RESULT COMPLETED ops 168078 max 168078 B 7984 10801 16194 18057 30450 31463 38937 40953 44477 52276 56933 65898 90430 103596 107615 111359 136256 150800 161386 161484
+mutant/s1/1676 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/1683 mutant budget 1000000 class RESULT COMPLETED ops 10 max 10 B 0 1 2 3 4 5 6 7 8 9 10
+mutant/s1/1684 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/1692 mutant budget 1000000 class RESULT COMPLETED ops 8 max 8 B 0 1 2 3 4 5 6 7 8
+mutant/s1/1693 mutant budget 1000000 class RESULT COMPLETED ops 63 max 63 B 9 10 13 14 15 17 21 26 33 35 36 39 41 42 45 49 53 59 60 62
+mutant/s1/1698 mutant budget 1000000 class RESULT COMPLETED ops 30 max 30 B 1 2 3 4 6 7 8 9 11 12 15 16 17 18 19 23 24 26 28 30
+mutant/s1/1706 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/1725 mutant budget 1000000 class RESULT REFUSED ops 2 max 2 B 0 1 2
+mutant/s1/1757 mutant budget 1000000 class RESULT COMPLETED ops 24 max 24 B 0 1 4 5 6 7 8 9 11 12 13 16 17 18 19 20 21 22 23 24
+mutant/s1/1764 mutant budget 1000000 class RESULT COMPLETED ops 8 max 8 B 0 1 2 3 4 5 6 7 8
+mutant/s1/1781 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/1825 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/1850 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/1859 mutant budget 1000000 class RESULT REFUSED ops 2 max 2 B 0 1 2
+mutant/s1/1868 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/1884 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/1886 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/1890 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/1902 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/1918 mutant budget 1000000 class RESULT COMPLETED ops 0 max 0 B 0
+mutant/s1/1940 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/1963 mutant budget 1000000 class RESULT REFUSED ops 2 max 2 B 0 1 2
+mutant/s1/2005 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/2049 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/2067 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/2070 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/2074 mutant budget 1000000 class RESULT COMPLETED ops 121 max 121 B 5 12 20 27 32 34 44 60 62 65 80 84 90 97 98 100 101 112 114 120
+mutant/s1/2088 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/2127 mutant budget 1000000 class RESULT REFUSED ops 6 max 6 B 0 1 2 3 4 5 6
+mutant/s1/2134 mutant budget 1000000 class RESULT COMPLETED ops 5 max 5 B 0 1 2 3 4 5
+mutant/s1/2160 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/2167 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/2178 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/2182 mutant budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+mutant/s1/2200 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/2210 mutant budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+mutant/s1/2223 mutant budget 1000000 class RESULT REFUSED ops 2 max 2 B 0 1 2
+mutant/s1/2224 mutant budget 1000000 class RESULT REFUSED ops 4 max 4 B 0 1 2 3 4
+mutant/s1/2315 mutant budget 1000000 class RESULT REFUSED ops 2 max 2 B 0 1 2
+mutant/s1/2324 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/2371 mutant budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+mutant/s1/2410 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/2427 mutant budget 1000000 class RESULT COMPLETED ops 19 max 19 B 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+mutant/s1/2431 mutant budget 1000000 class RESULT COMPLETED ops 10 max 10 B 0 1 2 3 4 5 6 7 8 9 10
+mutant/s1/2456 mutant budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+mutant/s1/2457 mutant budget 1000000 class RESULT COMPLETED ops 10 max 10 B 0 1 2 3 4 5 6 7 8 9 10
+mutant/s1/2479 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/2486 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/2496 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/2503 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/2506 mutant budget 1000000 class RESULT COMPLETED ops 19 max 19 B 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+mutant/s1/2545 mutant budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+mutant/s1/2564 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/2576 mutant budget 1000000 class RESULT REFUSED ops 4 max 4 B 0 1 2 3 4
+mutant/s1/2595 mutant budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+mutant/s1/2691 mutant budget 1000000 class RESULT COMPLETED ops 8 max 8 B 0 1 2 3 4 5 6 7 8
+mutant/s1/2700 mutant budget 1000000 class RESULT REFUSED ops 4 max 4 B 0 1 2 3 4
+mutant/s1/2702 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/2715 mutant budget 1000000 class RESULT REFUSED ops 2 max 2 B 0 1 2
+mutant/s1/2739 mutant budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+mutant/s1/2759 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/2795 mutant budget 1000000 class RESULT COMPLETED ops 1164 max 1164 B 57 201 264 311 382 391 404 407 461 472 733 739 765 776 824 867 989 1050 1104 1122
+mutant/s1/2814 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/2872 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/2874 mutant budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+mutant/s1/2882 mutant budget 1000000 class RESULT REFUSED ops 4 max 4 B 0 1 2 3 4
+mutant/s1/2923 mutant budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+mutant/s1/2956 mutant budget 1000000 class RESULT COMPLETED ops 752 max 752 B 28 53 73 153 222 231 248 254 282 373 389 402 440 556 584 607 613 648 658 743
+mutant/s1/2986 mutant budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/g4-count-after-operands.orl probe budget 1000000 class RESULT REFUSED ops 2 max 2 B 0 1 2
+probe/twin/probes/g4-rule-counts-first.orl probe budget 1000000 class RESULT REFUSED ops 4 max 4 B 0 1 2 3 4
+probe/twin/probes/n02-note-no-space.orl probe budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+probe/twin/probes/n02-title-empty.orl probe budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+probe/twin/probes/n02-title-no-space.orl probe budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+probe/twin/probes/n03-title-after-note.orl probe budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+probe/twin/probes/n06-leading-zeros.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n09-mixed-labels.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n10-no-separators.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n12-keywords-any-case.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n13-seal-phrase-and-s.orl probe budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+probe/twin/probes/n15-unless-counts-not.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n16-unless-otherwise-attaches.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n18-arm-claim-clause.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n18-arm-condition-clause.orl probe budget 1000000 class RESULT REFUSED ops 4 max 4 B 0 1 2 3 4
+probe/twin/probes/n18-arm-statement-clause.orl probe budget 1000000 class RESULT REFUSED ops 4 max 4 B 0 1 2 3 4
+probe/twin/probes/n19-bound-max.orl probe budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+probe/twin/probes/n20-reserved-word-inside-name.orl probe budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+probe/twin/probes/n23-given-three.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n23-notwithstanding-four.orl probe budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+probe/twin/probes/n24-define-unless-counts.orl probe budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+probe/twin/probes/n26-the-everywhere.orl probe budget 1000000 class RESULT COMPLETED ops 22 max 22 B 0 1 2 3 4 5 6 7 10 11 12 14 15 16 17 18 19 20 21 22
+probe/twin/probes/n27-increase-item-parenthesized.orl probe budget 1000000 class RESULT COMPLETED ops 8 max 8 B 0 1 2 3 4 5 6 7 8
+probe/twin/probes/n30-certificate-chain.orl probe budget 1000000 class RESULT COMPLETED ops 5 max 5 B 0 1 2 3 4 5
+probe/twin/probes/n30-certificate-in-procedure.orl probe budget 1000000 class RESULT COMPLETED ops 9 max 9 B 0 1 2 3 4 5 6 7 8 9
+probe/twin/probes/n31-agreement-earlier-any.orl probe budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+probe/twin/probes/n31-agreement-same-clause.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n32-premise-later-and-self.orl probe budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+probe/twin/probes/n34-list-goes-on-before-item.orl probe budget 1000000 class RESULT COMPLETED ops 5 max 5 B 0 1 2 3 4 5
+probe/twin/probes/n34-list-goes-on-before-minus-and-the.orl probe budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+probe/twin/probes/n34-list-goes-on-before-name.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n35-short-circuit.orl probe budget 1000000 class RESULT COMPLETED ops 6 max 6 B 0 1 2 3 4 5 6
+probe/twin/probes/n36-minus-on-literal-counted.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n37-is-not-forms.orl probe budget 1000000 class RESULT COMPLETED ops 12 max 12 B 0 1 2 3 4 5 6 7 8 9 10 11 12
+probe/twin/probes/n37-is-not-nan.orl probe budget 1000000 class RESULT COMPLETED ops 10 max 10 B 0 1 2 3 4 5 6 7 8 9 10
+probe/twin/probes/n38-fix-literal-max.orl probe budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+probe/twin/probes/n38-float-literal-below-midpoint.orl probe budget 1000000 class RESULT COMPLETED ops 1 max 1 B 0 1
+probe/twin/probes/n39-int-with-fix.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n39-int-with-float.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n40-promotion-exact.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n40-promotion-inexact.orl probe budget 1000000 class RESULT REFUSED ops 2 max 2 B 0 1 2
+probe/twin/probes/n41-promotion-before-right-operand.orl probe budget 1000000 class RESULT REFUSED ops 2 max 2 B 0 1 2
+probe/twin/probes/n41-promotion-counts.orl probe budget 1000000 class RESULT COMPLETED ops 6 max 6 B 0 1 2 3 4 5 6
+probe/twin/probes/n42-promotion-before-next-item.orl probe budget 1000000 class RESULT REFUSED ops 2 max 2 B 0 1 2
+probe/twin/probes/n46-define-uses-complete-rule.orl probe budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+probe/twin/probes/n47-variable-before-procedure.orl probe budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+probe/twin/probes/n50-signed-zero-and-nan.orl probe budget 1000000 class RESULT COMPLETED ops 15 max 15 B 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+probe/twin/probes/n51-static-closure.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n52-agreeing-values-not-counted.orl probe budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+probe/twin/probes/n52-conflict-not-counted.orl probe budget 1000000 class RESULT REFUSED ops 2 max 2 B 0 1 2
+probe/twin/probes/n53-event-e-index-and-tag.orl probe budget 1000000 class RESULT COMPLETED ops 8 max 8 B 0 1 2 3 4 5 6 7 8
+probe/twin/probes/n55-increase-promotion-counts.orl probe budget 1000000 class RESULT COMPLETED ops 5 max 5 B 0 1 2 3 4 5
+probe/twin/probes/n55-increase-promotion-refusal.orl probe budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n56-unevaluated-claim.orl probe budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+probe/twin/probes/n59-fix-as-integer.orl probe budget 1000000 class RESULT REFUSED ops 5 max 5 B 0 1 2 3 4 5
+probe/twin/probes/n59-float-as-integer-inexact.orl probe budget 1000000 class RESULT REFUSED ops 2 max 2 B 0 1 2
+probe/twin/probes/n59-float-as-integer-nan.orl probe budget 1000000 class RESULT REFUSED ops 4 max 4 B 0 1 2 3 4
+probe/twin/probes/n59-float-as-integer-overflow.orl probe budget 1000000 class RESULT REFUSED ops 4 max 4 B 0 1 2 3 4
+probe/twin/probes/n60-float-sqrt-negative.orl probe budget 1000000 class RESULT COMPLETED ops 6 max 6 B 0 1 2 3 4 5 6
+probe/twin/probes/n60-negative-sqrt-fix.orl probe budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+probe/twin/probes/n60-negative-sqrt-int.orl probe budget 1000000 class RESULT REFUSED ops 3 max 3 B 0 1 2 3
+probe/twin/probes3/ed-23-minuses-pass.orl probe budget 1000000 class RESULT COMPLETED ops 24 max 24 B 1 3 4 5 6 7 10 11 12 13 14 16 17 18 19 20 21 22 23 24
+probe/twin/probes3/ed-23-nots-pass.orl probe budget 1000000 class RESULT COMPLETED ops 25 max 25 B 0 1 3 5 7 8 9 11 12 13 14 15 16 17 18 20 21 22 23 25
+probe/twin/probes3/ed-23-parens-pass.orl probe budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+probe/twin/probes3/ed-23-phrases-pass.orl probe budget 1000000 class RESULT COMPLETED ops 24 max 24 B 2 3 5 6 7 9 10 11 12 13 14 15 16 17 18 19 20 21 22 24
+probe/twin/probes3/ed-63-terms-pass.orl probe budget 1000000 class RESULT COMPLETED ops 63 max 63 B 2 6 8 9 10 11 13 15 16 17 22 28 32 33 44 45 49 54 59 60
+probe/twin/probes3/ed-is-not-left-operand.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes3/ed-is-not-not-counted.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes3/ed-mixed-24-pass.orl probe budget 1000000 class RESULT COMPLETED ops 19 max 19 B 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+probe/twin/probes3/ed-tree-cat-one-node.orl probe budget 1000000 class RESULT COMPLETED ops 64 max 64 B 1 4 10 11 16 17 23 28 29 31 33 35 40 45 51 53 55 58 62 63
+probe/twin/probes3/ed-tree-length-name.orl probe budget 1000000 class RESULT COMPLETED ops 66 max 66 B 12 14 15 16 18 20 22 26 27 29 32 33 35 37 47 49 50 54 59 64
+probe/twin/probes3/ed-tree-paren-node.orl probe budget 1000000 class RESULT COMPLETED ops 63 max 63 B 0 10 11 14 15 24 25 26 28 35 37 39 48 49 50 51 52 56 60 62
+probe/twin/probes3/ed-unless-not-not-counted.orl probe budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+probe/twin/probes3/i47-local-in-own-body.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes3/i47-multiword-name-and-variable.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes3/i47-procedure-after-invisible-variable.orl probe budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+probe/twin/probes3/i47-rule-and-variable-case-sensitive.orl probe budget 1000000 class RESULT COMPLETED ops 4 max 4 B 0 1 2 3 4
+probe/twin/probes3/ln-16-pass.orl probe budget 1000000 class RESULT COMPLETED ops 33 max 33 B 0 1 2 3 7 8 10 12 14 15 16 18 19 22 23 25 26 27 28 33
+probe/twin/probes3/ln-ifs-do-not-count.orl probe budget 1000000 class RESULT COMPLETED ops 40 max 40 B 3 4 5 8 9 11 12 13 17 18 20 22 26 28 29 32 33 38 39 40
+probe/twin/probes3/ln-procedure-body.orl probe budget 1000000 class RESULT COMPLETED ops 36 max 36 B 1 2 3 5 6 8 9 10 11 13 14 15 18 19 21 29 31 32 34 35
+probe/twin/probes3/ln-siblings-do-not-nest.orl probe budget 1000000 class RESULT COMPLETED ops 17 max 17 B 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17
+probe/twin/probes3/p2-depth-24-passes.orl probe budget 1000000 class RESULT COMPLETED ops 24 max 24 B 0 1 2 3 4 5 7 10 12 13 15 16 17 18 19 20 21 22 23 24
+probe/twin/probes3/p3-call-in-arm-to-semicolon.orl probe budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+probe/twin/probes3/p3-to-spacing.orl probe budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+probe/twin/probes3/ref-leading-zero-certificate.orl probe budget 1000000 class RESULT COMPLETED ops 3 max 3 B 0 1 2 3
+probe/twin/probes3/ref-leading-zero-given.orl probe budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
+probe/twin/probes3/ref-leading-zero-notwithstanding.orl probe budget 1000000 class RESULT COMPLETED ops 2 max 2 B 0 1 2
