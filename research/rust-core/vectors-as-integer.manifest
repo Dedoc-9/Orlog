@@ -1,0 +1,9 @@
+vectors-as-integer.txt: supplementary vectors for `as an integer` (RUST-CORE-0, the owner's ruling A2(a), 2026-10-30)
+status: supplementary test evidence; not a change to the version-0 contract nor to the reference's authority
+command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/rust-core/gen_as_int_vectors.py
+generator: research/rust-core/gen_as_int_vectors.py sha256 abbbe3107ad7e732e9e736602f29a65bcfb3c8004689429632d913ab5d416afc
+numeric reference: src/orlog/numeric_ref.py sha256 eacac3dd7c4dfda903f1927994ea8b3a95ba866b3485fb1c6b91428cb5f6bb64 (x_as_i, f_as_i)
+seed: 20261030 (random.Random)
+output: vectors-as-integer.txt sha256 2bff1c69faeed37dbf4379aa1a2e6efd64bfb39711bf9b5a0a22977c7ddbad2f; 446 lines: x_as_i 178, f_as_i 268; 189 of them refusals
+codes: NOT-FINITE 6, INEXACT-CONVERSION 143, OVERFLOW 40
+contract file: vectors/runtime-vectors.txt, not read, not changed
