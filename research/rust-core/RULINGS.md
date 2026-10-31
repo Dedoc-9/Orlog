@@ -1794,6 +1794,168 @@ every check run once the apparatus lands. His ruling, whole:
 - **Next:** the five lists rebuilt and their sha256 verified, and the dry run repeated from a short-path clone in this
   order. Nothing is staged, committed or pushed.
 
+## The five commits authorized; stopped at the pre-flight (2026-10-31)
+
+He was given the five lists rebuilt for the order 5, 1, 3, 2, 4, each byte-identical to the audited one; the dry run
+in that order from a short-path clone, 270 paths, the one forced path exactly; and the states before commit two,
+measured. His ruling, whole:
+
+> Yes. I authorize staging and committing the five commits in the exact order 5 → 1 → 3 → 2 → 4, subject to the boundaries below.
+> The refreshed audit and dry-run results satisfy the conditions I set:
+>
+> * All five rebuilt path lists are byte-identical to the audited lists. Membership is unchanged; only the commit order differs.
+> * The short-path clone dry run identifies exactly 270 paths, including exactly one forced path: `work/law-sufficiency-arbiter/closure-run1.txt`.
+> * The early-state checks now cover the states the original audit missed. The law-sufficiency runners pass after commit 5; the format generators reproduce their outputs after commits 5 and 1; and the complete apparatus checks hold after commit 3.
+> * The only tracked change since the audit is the expected update to `RULINGS.md`. The other 269 audited hashes remain unchanged.
+>
+> The law-sufficiency evidence is adequate for commit 5. The supplied `LAW-SUFFICIENCY-1` report records all four experiments as held:
+>
+> * E1: rounded conversions and the inexact-conversion plant behave as predicted.
+> * E2: definition order changes the law seals and produces the predicted refusal differences; both reversal plants behave as predicted.
+> * E3: the backend-only derivations agree with the analysis across all 297 texts. The `top-includes-inline` plant is equivalent on this set because no text contains the relevant construction; that is not a universal equivalence claim.
+> * E4: Python, C99, and Rust generated programs are byte-identical across all 297 texts, build and run, and match the reference parsed results. The 142-text plant behaves as predicted.
+>
+> The reported `LAW-SUFFICIENCY-1 HELD` result supports retaining these experiments as evidence. It does not establish a broader claim than the experiments actually test.
+> Authorization boundaries
+>
+> 1. Stage and commit exactly the five approved path groups, preserving their membership and using the order 5, 1, 3, 2, 4.
+> 2. Preserve the single force-add for `closure-run1.txt`; do not force-add other paths.
+> 3. Do not repair the five recorded audit exceptions during this operation.
+> 4. Do not edit draft 9, its dependent records, the law-sufficiency files, or any other files outside the approved lists.
+> 5. After each commit, verify its path membership and resulting repository state. If an unexpected path, hash change, or command failure appears, stop and report it rather than improvising a repair.
+> 6. This authorizes staging and committing only. It does not authorize pushing.
+>
+> The four experiments, the updated ruling record, and the five commit groups can now be preserved in the approved sequence.
+
+**As kept.**
+- **What it is:** an operational authorization, to stage and commit the five groups in the order ruled. It changes no
+  law, no draft, no verdict and no finding. His account of LAW-SUFFICIENCY-1's four experiments is his reading of that
+  report, recorded with the ruling; it adds no finding here.
+- **Two of its statements differ from the record, as he was told; the ruling is kept as he gave it:** the apparatus
+  checks hold after commit two, which lands fourth, not after commit three; and RULINGS.md was an untracked file among
+  the 270, not a tracked change.
+- **What followed:** the pre-flight before the first `git add` found one hash change, and the work stopped under his
+  boundary 5, nothing staged. `work/law-sufficiency-arbiter/closure-run1.txt` has 40 CRLF line ends, and the rule
+  `* text=auto eol=lf` in `.gitattributes` would have stored it as 3606 bytes, sha256 `47840d8d9474…`, not the 3646
+  bytes, `766ed0090e47…`, recorded with his ruling on that file, whose condition 4 keeps them. In throwaway clones, as
+  authorized, a fresh checkout gave 269 of 270; with one exact-path `-text` line in `.gitattributes`, carried in
+  commit five, 270 of 270. The choice was put to him: that line (recommended), the file committed with LF, or its raw
+  bytes forced into the index.
+
+## The first-run output kept byte for byte: an exact-path `-text` rule in commit five (2026-10-31)
+
+His amendment, whole:
+
+> Use the exact-path `-text` rule in `.gitattributes`. I authorize that solution.
+> Add this one line:
+>
+> ```
+> work/law-sufficiency-arbiter/closure-run1.txt -text
+> ```
+>
+> This is the right choice because the first-run output is preserved evidence, not a text document whose line endings Git may normalize. Its recorded SHA-256 identifies the original 3,646-byte capture. The repository should preserve that exact object, rather than silently substitute a 3,606-byte LF-normalized version.
+> The scope amendment is:
+>
+> 1. Add only that exact-path attribute rule to `.gitattributes`.
+> 2. Include the `.gitattributes` change in commit 5, alongside the law-sufficiency evidence.
+> 3. Keep `closure-run1.txt` as the single force-added file. Do not rewrite or regenerate it.
+> 4. Update the inventory, path lists, counts, and staging proposal to account for the additional `.gitattributes` path. The original 270-path inventory becomes 271 paths if `.gitattributes` was not already counted.
+> 5. Repeat the five-commit rehearsal and fresh-checkout verification. Require all 271 paths to match their intended bytes, including the first-run output's exact 3,646-byte length and SHA-256 `766ed0090e47789f6770fa97b5b25255ff28644ff915df0a99a7e0863c60f070`.
+> 6. Confirm `git add --renormalize` would not alter the captured file under the new rule.
+>
+> This is a narrowly authorized addition to the previously approved commit plan, not permission to change any other membership or repair any of the five audit exceptions.
+> Do not stage yet. Bring back the revised inventory and rehearsal results for review. The existing authorization to commit in order 5 → 1 → 3 → 2 → 4 remains, with this one addition to commit 5. No push is authorized.
+
+**As kept.**
+- **What it is:** an amendment to the approved commit plan: one path, `.gitattributes`, added to commit five; no
+  other membership changed, none of the audit's five exceptions repaired. It changes no law, no draft, no verdict and
+  no finding.
+- **Asked whether I agreed:** agreed, with four notes: the count becomes 271, commit five 28; `eol: lf` still shows on
+  the file and has no effect once `text` is unset; the line appended last, with no comment; and RULINGS.md left as
+  reviewed until after the commits.
+
+## The amendment's go-ahead (2026-10-31)
+
+His go-ahead, whole:
+
+> Yes. Go ahead with the amendment exactly as described. This authorizes the `.gitattributes` change and the associated inventory, snapshot, list, proposal, and verification updates. It does not authorize staging or committing.
+> Specific boundaries:
+>
+> 1. Append only the exact-path rule as the final line of `.gitattributes`:
+>
+> ```
+> work/law-sufficiency-arbiter/closure-run1.txt -text
+> ```
+>
+> No explanatory comment or other attribute changes.
+> 2. Regenerate the inventory and snapshot. The expected total is 271 paths. Commit five has 28 paths: its 27 existing paths plus `.gitattributes`. The forced first-run output remains the one separately force-added path.
+> 3. Keep commits 1–4's path lists byte-identical. Only `commit-5.txt` should change.
+> 4. Re-run the real-repository pre-flight without staging. Verify every path's intended stored bytes, including the first-run output at exactly 3,646 bytes and SHA-256 `766ed0090e47789f6770fa97b5b25255ff28644ff915df0a99a7e0863c60f070`.
+> 5. Repeat the full throwaway-clone rehearsal, fresh checkout, and `git add --renormalize` checks. Require 271/271 exact, no unintended staged changes, and no change to the captured output.
+> 6. Preserve both outstanding rulings—the original staging/commit authorization and this amendment—word for word in `work/rust-core/`. Do not change `RULINGS.md` during this operation; its later recording remains a separate change for subsequent authorization.
+>
+> If any check fails or another path changes unexpectedly, stop and report it.
+
+**As kept.**
+- **What it is:** an operational authorization, to make the change and verify it; not to stage or commit.
+- **Done, nothing staged:** the line appended as the last line of `.gitattributes` (then 1148 bytes, sha256
+  `2e5ec4208b52…`); the inventory and snapshot at 271 paths, 15, 25, 167, 36 and 28; the lists of commits one to four
+  byte-identical, commit five's with one line added, `.gitattributes`. On the repository, the pre-flight: every path
+  stored by git byte for byte, the first-run output 3646 bytes, `766ed0090e47…`. In throwaway clones, the rehearsal:
+  each commit exactly its list; a fresh checkout 271 of 271; `git add --renormalize`, on the file alone and then the
+  whole tree, staging nothing; and where the rule is absent and the raw bytes are forced into the index, renormalize
+  staged the file at 3606 bytes.
+- **His amendment and this go-ahead** were kept word for word in `work/rust-core/`, and RULINGS.md was not changed,
+  by his boundary 6.
+
+## The five commits made, their messages at my discretion (2026-10-31)
+
+His ruling, whole:
+
+> Yes. I authorize staging and committing all five approved groups now, in the exact order 5 → 1 → 3 → 2 → 4.
+>
+> I also authorize you to write the five commit messages, since none have been supplied, using the repository’s existing style and accurately reflecting the relevant rulings. Quote ruling language verbatim where appropriate; do not introduce new findings or imply broader authorization.
+>
+> The authorized commit contents are:
+> Order	Commit	Paths
+> 1	5 — Law-sufficiency	28, including the one forced first-run output
+> 2	1 — Format	15
+> 3	3 — Evidence	167
+> 4	2 — Apparatus	25
+> 5	4 — Record	36
+> 	Total	271
+>
+> Preserve these boundaries:
+> - Keep the exact-path -text rule in commit 5 and preserve closure-run1.txt byte-for-byte.
+> - Use the approved lists without changing membership.
+> - Do not repair the five audit exceptions.
+> - Do not modify draft 9, its dependent records, the law-sufficiency files, or RULINGS.md.
+> - Verify each commit's contents and resulting state before proceeding to the next. If an unexpected path, hash change, or command failure occurs, stop and report it.
+> - After the fifth commit, verify the final repository status and report the five commit IDs and messages.
+
+**As kept.**
+- **What it is:** an operational authorization, to stage and commit the five groups and to write their messages; no
+  push. It changes no law, no draft, no verdict and no finding.
+- **The commits,** each verified before the next: the staged paths exactly its list; every staged and committed blob
+  of its recorded sha256; one parent, the expected one; the message as written; nothing left staged; the untracked
+  files exactly those of the commits to come.
+
+| order | commit | id | paths |
+|---|---|---|---|
+| 1 | 5, law-sufficiency | `4eeb988397f6643d3c264441063e6eb59271851d` | 28 |
+| 2 | 1, the format | `67dcab9243c5850a71f125d55e7048b7e4b86680` | 15 |
+| 3 | 3, the evidence | `05bdec75968366c54230900c8baa68444b7b98c6` | 167 |
+| 4 | 2, the apparatus | `145a2bd5dcc201e471acef4c7befe7757501660c` | 25 |
+| 5 | 4, the record | `670374f00f5e587e1c288fcc1a9096924241852c` | 36 |
+
+- **After the fifth:** the status empty; `main` five commits above `origin/main`, `2e9805a`; nothing pushed. A fresh
+  clone of the fifth commit: 271 of 271 of their recorded sha256, the first-run output 3646 bytes, `766ed0090e47…`,
+  and `git add --renormalize .` staging nothing.
+- **The messages** quote his rulings word for word, and carry no Gated-Tree line: no gate ran on these trees.
+- **These four rulings are recorded here after the commits,** by his ruling of the same day: *"I authorize recording
+  the four latest rulings in `RULINGS.md` as a separate, post-commit change."* This change to RULINGS.md is not staged
+  or committed.
+
 ## What follows, as recorded
 
 - **Phase 0 comes first:** LAW-FORMAT-0, then its independent re-read, then the disposition of the re-read's findings.
