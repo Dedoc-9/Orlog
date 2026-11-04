@@ -49,6 +49,26 @@ def changed(old, new):
     return out
 
 
+def status_of(status):
+    """-> (class, code). The location is printed for a reader and never returned: RULINGS.md."""
+    if status.startswith("NO VERDICT"):
+        return "NO VERDICT", None
+    if status == "COMPLETED":
+        return "COMPLETED", None
+    parts = status.split(" ")
+    if parts[0] == "REFUSED" and len(parts) >= 2:
+        return "REFUSED", " ".join(parts[1:]) if PLANT == "location-compared" else parts[1]
+    raise ValueError("a status this tool does not know")
+
+
+def status_rows(old, new):
+    """same class and same code. NO VERDICT on either side is undetermined, so neither can read as a pass."""
+    (a, x), (b, y) = status_of(old), status_of(new)
+    if "NO VERDICT" in (a, b):
+        return {"same class": "undetermined", "same code": "undetermined"}
+    return {"same class": "yes" if a == b else "no", "same code": ("yes" if x == y else "no") if a == b == "REFUSED" else "n.a."}
+
+
 def lines_of(out):
     """The output's lines. A last line with no LF is kept: an output is never shortened to fit the split."""
     lines = bytes(out).decode("utf-8").split("\n")
@@ -76,8 +96,8 @@ def compare(old, new):
         a, b = run(old, wd), run(new, wd)
     if a[0] is None or b[0] is None:
         return {"refused": (a[1] if a[0] is None else None, b[1] if b[0] is None else None)}
-    rows = {"same law": a[0] == b[0], "old status": a[1], "new status": b[1], "same status": a[1] == b[1],
-            "old lines": a[2], "new lines": b[2]}
+    rows = {"same law": a[0] == b[0], "old status": a[1], "new status": b[1], "old lines": a[2], "new lines": b[2]}
+    rows.update(status_rows(a[1], b[1]))
     rows["law diff"] = changed(a[0].decode("utf-8").split("\n"), b[0].decode("utf-8").split("\n"))
     if a[2] is not None and b[2] is not None:
         for name, f in RELATIONS:
@@ -135,11 +155,11 @@ def selftest():
     bad += not ok
     print("%s the law diff names the one changed clause" % ("PASS" if ok else "FAIL"))
     r = compare(src("Say 1 + 1."), src("Say 2."))
-    ok = r["output diff"] == [] and r["law diff"] != [] and r["same status"] is True
+    ok = r["output diff"] == [] and r["law diff"] != [] and r["same class"] == "yes"
     bad += not ok
     print("%s another law, the same output: a law diff and no output diff" % ("PASS" if ok else "FAIL"))
     r = compare(src("Say 1."), src("Say 1.", "Say 1 / 0."))
-    ok = r["same status"] is False and r["output diff"] == []
+    ok = r["same class"] == "no" and r["same code"] == "n.a." and r["output diff"] == []
     bad += not ok
     print("%s a status that changed with no output diff is said" % ("PASS" if ok else "FAIL"))
     # hand-worked: what each output's lines must be
@@ -147,6 +167,27 @@ def selftest():
     ok = all(lines_of(o) == w for o, w in want)
     bad += not ok
     print("%s a last line with no LF is kept" % ("PASS" if ok else "FAIL"))
+    # hand-worked from the ruling: (old, new, same class, same code)
+    D, N = "REFUSED DIVISION-BY-ZERO 2", "NO VERDICT: stopped by the host's budget"
+    want = (("COMPLETED", "COMPLETED", "yes", "n.a."), (D, "REFUSED DIVISION-BY-ZERO 3", "yes", "yes"),
+            (D, "REFUSED RULE-CONFLICT 2", "yes", "no"), ("COMPLETED", D, "no", "n.a."), (D, "COMPLETED", "no", "n.a."),
+            (N, "COMPLETED", "undetermined", "undetermined"), (D, N, "undetermined", "undetermined"),
+            (N, N, "undetermined", "undetermined"))
+    ok = all(list(status_rows(o, n).values()) == [c, k] for o, n, c, k in want)
+    bad += not ok
+    print("%s class and code apart, location not compared, no verdict undetermined" % ("PASS" if ok else "FAIL"))
+    try:
+        status_of("HALTED")
+        ok = False
+    except ValueError:
+        ok = True
+    bad += not ok
+    print("%s a status the tool does not know is an error" % ("PASS" if ok else "FAIL"))
+    PLANT = "location-compared"
+    caught = status_rows(D, "REFUSED DIVISION-BY-ZERO 3")["same code"] != "yes"
+    PLANT = None
+    bad += not caught
+    print("%s plant location-compared caught" % ("PASS" if caught else "FAIL"))
     PLANT = "final-line-dropped"
     caught = lines_of(b"1") != ["1"]
     PLANT = None
@@ -192,7 +233,7 @@ def main(argv):
             if code:
                 print("%s REFUSED %s" % (label, code))
         return 1
-    for k in ("same law", "old status", "new status", "same status"):
+    for k in ("same law", "old status", "new status", "same class", "same code"):
         print("%-12s %s" % (k, r[k]))
     for line in r["law diff"]:
         print("  law    " + line)
