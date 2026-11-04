@@ -2,7 +2,7 @@
 
 A law takes no input today, so one run is its whole behaviour and this comparison is exact, not a sample. It chooses no
 preservation relation: that is OPEN by the owner's ruling, so every candidate is reported and none is called the verdict.
-Exit: 0 reported, 1 a text refused at compile, 2 usage. python -B tools/observe/observe.py --selftest checks the comparison."""
+Exit: 0 reported, 1 a text refused at compile, 2 usage, 3 the tool or compiler raised (no comparison). python -B tools/observe/observe.py --selftest checks the comparison."""
 import difflib
 import os
 import sys
@@ -49,6 +49,16 @@ def changed(old, new):
     return out
 
 
+def lines_of(out):
+    """The output's lines. A last line with no LF is kept: an output is never shortened to fit the split."""
+    lines = bytes(out).decode("utf-8").split("\n")
+    if PLANT == "final-line-dropped":
+        return lines[:-1]
+    if lines[-1] == "":
+        lines.pop()
+    return lines
+
+
 def run(raw, wd):
     """-> (law bytes, status, output lines), or (None, refusal, None) when the text does not compile."""
     comp, w, ref = Arbiter(wd, backends=()).arbitrate(raw, "t")
@@ -58,7 +68,7 @@ def run(raw, wd):
         return comp.law, "NO VERDICT: stopped by the host's budget", None
     r = w["reference"]
     status = r["status"] + (" " + str(r["code"]) if r.get("code") else "")
-    return comp.law, status, bytes(ref.out).decode("utf-8").split("\n")[:-1]
+    return comp.law, status, lines_of(ref.out)
 
 
 def compare(old, new):
@@ -132,6 +142,25 @@ def selftest():
     ok = r["same status"] is False and r["output diff"] == []
     bad += not ok
     print("%s a status that changed with no output diff is said" % ("PASS" if ok else "FAIL"))
+    # hand-worked: what each output's lines must be
+    want = ((b"", []), (b"1\n", ["1"]), (b"1", ["1"]), (b"1\n2", ["1", "2"]), (b"1\n\n", ["1", ""]))
+    ok = all(lines_of(o) == w for o, w in want)
+    bad += not ok
+    print("%s a last line with no LF is kept" % ("PASS" if ok else "FAIL"))
+    PLANT = "final-line-dropped"
+    caught = lines_of(b"1") != ["1"]
+    PLANT = None
+    bad += not caught
+    print("%s plant final-line-dropped caught" % ("PASS" if caught else "FAIL"))
+    with tempfile.TemporaryDirectory() as wd:
+        good, huge, ref = (os.path.join(wd, n) for n in ("g.orl", "h.orl", "r.orl"))
+        for path, raw in ((good, src("Say 1.")), (huge, src("Say " + "9" * 5000 + ".")), (ref, src("Say x."))):
+            with open(path, "wb") as fh:
+                fh.write(raw)
+        codes = main([good, good]), main([ref, good]), main([huge, good])
+    ok = codes == (0, 1, 3)
+    bad += not ok
+    print("%s exits: compared 0, refused 1, raised 3: %s" % ("PASS" if ok else "FAIL", codes))
     PLANT = "diff-positional"
     caught = compare(src("Say 2."), src("Say 1.", "Say 2."))["output diff"] != ["+ 1"]
     PLANT = None
@@ -153,7 +182,11 @@ def main(argv):
         print(__doc__)
         return 2
     old, new = (open(p, "rb").read() for p in argv)
-    r = compare(old, new)
+    try:
+        r = compare(old, new)
+    except Exception as e:      # never read as a refusal: a raised compile is not a refusal code (T10 is one such)
+        print("INTERNAL %s: no comparison" % type(e).__name__)
+        return 3
     if "refused" in r:
         for label, code in zip(("old", "new"), r["refused"]):
             if code:
