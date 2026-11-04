@@ -11,7 +11,7 @@ python -B tools/observe/observe.py --selftest
 
 ## What it decides: nothing
 
-The preservation relation is OPEN by the owner's ruling, so the tool reports exact, prefix and subsequence side by side and calls none of them the verdict. How status is read is the owner's ruling (`RULINGS.md`); the tool reports it and enforces nothing yet. A relation is his to choose, and choosing one makes this tool a check.
+For closed laws the owner has ruled exact output plus status (`RULINGS.md`). The tool still only reports, with prefix and subsequence shown for reference: it does not print the full seal, no authorization record exists, and nothing fails on a break, so its report is input to a person's judgment.
 
 ## What it does not show
 
@@ -22,6 +22,6 @@ The preservation relation is OPEN by the owner's ruling, so the tool reports exa
 
 ## Next, in order, each needing the owner's word
 
-1. Rule on the preservation relation, at least for closed laws.
+1. Decide on the next piece: printing the full seal, then the smallest authorization record.
 2. Decide whether the printer audit is authorized. That is separate work on LAU-1, and neither waits on the other.
-3. Only then decide whether this comparison belongs in compiling, and what happens to text that declares no observation.
+3. Decide whether this comparison belongs in compiling, and what happens to text that declares no observation.
