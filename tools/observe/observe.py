@@ -1,7 +1,7 @@
 """Compare what two texts of a closed law show when run: python -B tools/observe/observe.py OLD.orl NEW.orl
 
-A law takes no input today, so one run is its whole behaviour and this comparison is exact, not a sample. It chooses no
-preservation relation: that is OPEN by the owner's ruling, so every candidate is reported and none is called the verdict.
+A law takes no input today, so one run is its whole behaviour and this comparison is exact, not a sample. Exact is the
+owner's ruled relation for closed laws (RULINGS.md); prefix and subsequence are reported for reference. It reports and enforces nothing.
 Exit: 0 reported, 1 a text refused at compile, 2 usage, 3 the tool or compiler raised (no comparison). python -B tools/observe/observe.py --selftest checks the comparison."""
 import difflib
 import os
@@ -241,7 +241,7 @@ def main(argv):
         print("no output comparison: a run had no output to compare")
         return 0
     print("%-12s %d, %d" % ("lines", len(r["old lines"]), len(r["new lines"])))
-    print("the old output is preserved under each candidate relation (none is chosen; the relation is OPEN):")
+    print("the old output under each relation (exact is the ruled one for closed laws; this reports and enforces nothing):")
     for n, _ in RELATIONS:
         print("  %-12s %s" % (n, "holds" if r[n] else "does not hold"))
     for line in r["output diff"]:
