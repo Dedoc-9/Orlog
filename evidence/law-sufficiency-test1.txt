@@ -1,0 +1,69 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/law-sufficiency/test1_reads.py
+# tree: 2e9805a plus the uncommitted research/law-sufficiency/ files (src/, tests/ and vectors/ unchanged); Windows, CPython 3.14.5; 2026-10-30; exit 0; run twice, identical
+# code sha256 (first 16 hex): common.py 8b123546b359e72f; decoder.py 4f9a66b4468bd1ab; test1_reads.py 3ff7821dcb6b1811; test2_equal_seal.py a7b93d7d2cafb389; test3_decoder.py a987117b16146019; run_all.py f586dc89b766690c
+# EXPERIMENTAL RESEARCH, off the gate (research/law-sufficiency/SHEET.md): MEASURED on these texts and these plants only, never ESTABLISHED; not a ruling
+LAW-SUFFICIENCY-0, TEST 1: THE READ SET AGAINST THE SEALED SET (research/law-sufficiency/test1_reads.py)
+texts: 290 (every accepted text, once by its bytes)
+the recorder inert (P and the law bytes as without it): yes, on every text
+R_run: 72 (class, attribute) pairs; R_seal: 66; read by the backends: 78
+
+== R_run - R_seal: 15 candidates, each classified
+   Analysis   claims                   on 290 texts  derivable: the claim lines ordered by their written claim id (sema.py:212-213)
+   Analysis   overrides                on  37 texts  derivable: each define's (over id ...) list, closed transitively (sema.py:476-493)
+   Analysis   rules                    on  37 texts  derivable: the define lines of each name, in clause order (sema.py:71-75)
+   BoolLit    type                     on   6 texts  derivable: the expression's type: written for a literal, a binary or unary operator and a list; the target for a conversion; a variable's or rule's type; text for a string, the seal and cat; int for a length; the list's element type for an item; a list of the value's type for list-of
+   Cat        type                     on  34 texts  derivable: the expression's type: written for a literal, a binary or unary operator and a list; the target for a conversion; a variable's or rule's type; text for a string, the seal and cat; int for a length; the list's element type for an item; a list of the value's type for list-of
+   Change     elem                     on  23 texts  derivable: the variable's type, or its element type when the change writes an index (sema.py:147-155)
+   ClaimSite  id                       on  39 texts  derivable: the clause the claim stands in: its line's, or for an inline claim its arm's or else's
+   Clause     children                 on  54 texts  derivable: the clauses whose parent id is this clause's, in clause order
+   Clause     cost_tracked             on 288 texts  derivable: true exactly for a clause that a claim's (certificate N ...) names (sema.py:215-219)
+   Conv       type                     on   4 texts  derivable: the expression's type: written for a literal, a binary or unary operator and a list; the target for a conversion; a variable's or rule's type; text for a string, the seal and cat; int for a length; the list's element type for an item; a list of the value's type for list-of
+   Item       type                     on   7 texts  derivable: the expression's type: written for a literal, a binary or unary operator and a list; the target for a conversion; a variable's or rule's type; text for a string, the seal and cat; int for a length; the list's element type for an item; a list of the value's type for list-of
+   Program    top                      on 290 texts  derivable: the clauses whose parent id is 0, in clause order
+   Str        type                     on  42 texts  derivable: the expression's type: written for a literal, a binary or unary operator and a list; the target for a conversion; a variable's or rule's type; text for a string, the seal and cat; int for a length; the list's element type for an item; a list of the value's type for list-of
+   Var        type                     on  86 texts  derivable: the expression's type: written for a literal, a binary or unary operator and a list; the target for a conversion; a variable's or rule's type; text for a string, the seal and cat; int for a length; the list's element type for an item; a list of the value's type for list-of
+   VarInfo    type                     on 147 texts  derivable: the type of the let's expression, or int for a for's counter (sema.py:124-125, 176)
+
+== the sheet's static table against the trace
+   Analysis   claims         traced in R_run - R_seal
+   Analysis   overrides      traced in R_run - R_seal
+   Analysis   rules          traced in R_run - R_seal
+   Change     elem           traced in R_run - R_seal
+   Clause     children       traced in R_run - R_seal
+   Clause     cost_tracked   traced in R_run - R_seal
+   VarInfo    type           traced in R_run - R_seal
+   traced in R_run - R_seal and not in the table: 8 ['BoolLit.type', 'Cat.type', 'ClaimSite.id', 'Conv.type', 'Item.type', 'Program.top', 'Str.type', 'Var.type']
+
+== R_seal - R_run: sealed, and never read by the run (9)
+   Analysis.decimals, Claim.premises, Clause.parent, Decimals.mode, Define.name, Define.over, Let.name, ProcDef.name, Program.clauses
+
+== read by the backends and not by the law bytes (reported, deciding nothing): 20
+   Analysis   claims                   derivable
+   Analysis   overrides                derivable
+   Analysis   rule_types               derivable as written, not run (D does not build it): each rule's type, the type of its first define's expression (sema.py:243-248)
+   Analysis   rules                    derivable
+   Analysis   vars                     derivable as written, not run (D does not build it): every let's and for's variable, in the order of their ids (sema.py:97-98)
+   Cat        type                     derivable
+   Change     elem                     derivable
+   ClaimSite  id                       derivable
+   Clause     children                 derivable
+   Clause     cost_tracked             derivable
+   Conv       type                     derivable
+   Item       type                     derivable
+   Length     type                     derivable
+   ListOf     type                     derivable
+   Program    top                      derivable
+   Seal       type                     derivable
+   Str        type                     derivable
+   Var        type                     derivable
+   VarInfo    top                      derivable as written, not run (D does not build it): a let in a top-level clause, outside any inline body; never a for's counter (sema.py:97)
+   VarInfo    type                     derivable
+
+== the falsifier: a candidate that is not derivable and whose perturbation, the law bytes fixed, changes P
+   every candidate is derivable by a written derivation: nothing to perturb (test 3 runs the derivations)
+
+== plants: each run alone, after the real pass; each must be reported as stated before it ran
+   plant 1, Interp reads Clause.line: expected listed in R_run - R_seal as not derivable: CAUGHT
+   plant 2, the recorder drops Change's reads: expected the table's Change.elem reported NOT TRACED: CAUGHT
+
+TEST 1 HELD: 15 candidates, 15 derivable by a written derivation, 0 without one; the recorder inert; plants 2 of 2

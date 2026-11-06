@@ -1,0 +1,65 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/rust-core/ref_run_paths.py
+# tree: 2e9805a plus the uncommitted research files (src/, tests/ and vectors/ unchanged; the contract vectors sha256 841240b72cb58041); Windows, CPython 3.14.5; 2026-10-31; exit 0; run twice, identical
+# code and data sha256 (first 16 hex): LAW-FORMAT-0-DRAFT-9.md 2c0224d1f0a742e8; format_check.py 2965ed15c824a638; plant_reverts.py 25cfb7048b545b01; ref_run.py 822c826ee2033df2; ref_run_paths.py bd1cbf1489b64782; ref_run_variants.py b9b29564fa02c323; depth_probe.py 6db7a0487c70978d; run_format.py 365174676d372a86; vectors-as-integer.txt 2bff1c69faeed37d; vectors-as-integer.manifest 1b17b1446dc16dbc
+# RUST-CORE-0 phase 0, LAW-FORMAT-0 draft 9, off the gate: MEASURED on these runs of the reference runner only, never ESTABLISHED; evidence for the format, not its authority; not a ruling
+THE REFERENCE RUNNER'S WAYS OF ENDING, THROUGH classify (research/rust-core/ref_run_paths.py)
+   the orlog modules a fresh import loads: a text 8, a law 5, under a stand-in decoder1 5 (ZB3)
+   the recorded baseline, r6-reference-5.txt's ENV line: found
+   a fresh interpreter's sys.flags, no PYTHON variable but PYTHONHASHSEED and PYTHONUTF8: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, false, 1, 0, false, 4300]
+   text: a text the front end accepts               exit 0 | out RUN COMPLETED ops 2 p 4c57 | err                                              | RESULT              as stated
+   text: the same under budget 0                    exit 0 | out RUN STOPPED ops 1 trace 75 | err                                              | RESULT              as stated
+   text: a text the front end refuses               exit 3 | out ENV python CPython 3.14.5  | err RUNNER-FAULT the front end refuses the text  | RUNNER-FAULT        as stated
+   law: the empty law                               exit 0 | out RUN COMPLETED ops 0 p 4477 | err                                              | RESULT              as stated
+   law: a law that completes                        exit 0 | out RUN COMPLETED ops 2 p 4c57 | err                                              | RESULT              as stated
+   law: the same law stopped by budget 0            exit 0 | out RUN STOPPED ops 1 trace 75 | err                                              | RESULT              as stated
+   law: decoder1 refuses (version 1)                exit 0 | out DECODER-REFUSED "not versi | err                                              | REFERENCE-REFUSED   as stated
+   law: decoder1 crashes (a byte above 0x7E)        exit 1 | out ENV python CPython 3.14.5  | err REFERENCE-EXCEPTION builtins.UnicodeDecodeEr | NO-REFERENCE-RESULT as stated
+   usage: no arguments                              exit 3 | out                            | err RUNNER-FAULT usage: ref_run.py text BUDGET P | RUNNER-FAULT        as stated
+   usage: budget 1e6                                exit 3 | out                            | err RUNNER-FAULT BUDGET is not none or a canonic | RUNNER-FAULT        as stated
+   usage: budget -1                                 exit 3 | out                            | err RUNNER-FAULT BUDGET is not none or a canonic | RUNNER-FAULT        as stated
+   usage: budget 05                                 exit 3 | out                            | err RUNNER-FAULT BUDGET is not none or a canonic | RUNNER-FAULT        as stated
+   usage: budget +5                                 exit 3 | out                            | err RUNNER-FAULT BUDGET is not none or a canonic | RUNNER-FAULT        as stated
+   usage: budget 5 and a line feed (NB6)            exit 3 | out                            | err RUNNER-FAULT BUDGET is not none or a canonic | RUNNER-FAULT        as stated
+   usage: a text seal in capitals                   exit 3 | out                            | err RUNNER-FAULT TEXTSEAL is not 64 lowercase he | RUNNER-FAULT        as stated
+   usage: an input that does not exist              exit 3 | out                            | err RUNNER-FAULT the input cannot be read: FileN | RUNNER-FAULT        as stated
+   stand-in: decode calls sys.exit(0)               exit 1 | out ENV python CPython 3.14.5  | err REFERENCE-EXCEPTION builtins.SystemExit      | NO-REFERENCE-RESULT as stated
+   stand-in: decode raises KeyError                 exit 1 | out ENV python CPython 3.14.5  | err REFERENCE-EXCEPTION builtins.KeyError        | NO-REFERENCE-RESULT as stated
+   stand-in: decode is interrupted                  exit 3 | out ENV python CPython 3.14.5  | err RUNNER-FAULT interrupted                     | RUNNER-FAULT        as stated
+   stand-in: decoder1 holds a plant                 exit 3 | out                            | err RUNNER-FAULT decoder1 holds a plant          | RUNNER-FAULT        as stated
+   stand-in: decode refuses                         exit 0 | out DECODER-REFUSED 'a refusal | err                                              | REFERENCE-REFUSED   as stated
+   stand-in: decoder1 cannot be imported            exit 3 | out                            | err RUNNER-FAULT decoder1 cannot be imported: Mo | RUNNER-FAULT        as stated
+   stand-in: decoder1's import raises ValueError    exit 3 | out                            | err RUNNER-FAULT decoder1 cannot be imported: Va | RUNNER-FAULT        as stated
+   stand-in: orlog's import raises ValueError       exit 3 | out                            | err RUNNER-FAULT the reference's modules cannot  | RUNNER-FAULT        as stated
+   stand-in: the ENV line's platform query fails    exit 3 | out                            | err RUNNER-FAULT before the reference began: OSE | RUNNER-FAULT        as stated
+   stand-in: the ENV line is interrupted            exit 3 | out                            | err RUNNER-FAULT interrupted                     | RUNNER-FAULT        as stated
+   a runner whose decoder1 pin is wrong             exit 3 | out                            | err RUNNER-FAULT decoder1.py is not the file the | RUNNER-FAULT        as stated
+   a runner beside a __pycache__ folder             exit 3 | out                            | err RUNNER-FAULT a __pycache__ folder stands in  | RUNNER-FAULT        as stated
+   a __pycache__ in src/orlog                       exit 3 | out                            | err RUNNER-FAULT a __pycache__ folder stands in  | RUNNER-FAULT        as stated
+   a __pycache__ in research/rust-core              exit 3 | out                            | err RUNNER-FAULT a __pycache__ folder stands in  | RUNNER-FAULT        as stated
+   a __pycache__ in research/law-sufficiency        exit 3 | out                            | err RUNNER-FAULT a __pycache__ folder stands in  | RUNNER-FAULT        as stated
+   observed: a law that completes                   as stated
+   observed: the same law stopped by budget 0       as stated
+   observed: a text the front end accepts           as stated
+   --files: a completed run                         leaves reference.out reference.receipt reference.trace      as stated
+   --files: a stopped run                           leaves reference.out reference.trace                        as stated
+   --files: a completed law, TEXTSEAL not zeros (NB6) leaves reference.out reference.receipt reference.trace      as stated
+   made up: two timeouts                            NO-REFERENCE-RESULT as stated
+   made up: a timeout and a result                  UNSTABLE            as stated
+   made up: a crash and a timeout (NB6)             UNSTABLE            as stated
+   made up: a result, CR LF and LF                  RESULT              as stated
+   made up: two different results                   UNSTABLE            as stated
+   made up: two different refusals                  UNSTABLE            as stated
+   made up: two crashes of different types          UNSTABLE            as stated
+   made up: two crashes, one exit status each       UNSTABLE            as stated
+   made up: a runner fault's line                   RUNNER-FAULT        as stated
+   made up: an exit 3 without its line              ANOMALY             as stated
+   made up: an unknown status with KeyboardInterrupt INTERRUPTED         as stated
+   made up: an unknown status without it, twice     NO-REFERENCE-RESULT as stated
+   source: no name environ, getenv, putenv or setrecursionlimit as stated
+   source: no getattr on os or sys                  as stated
+   source: no import of format_check                as stated
+   source: no constant holding a forbidden name (NB5) as stated
+   source: every getattr names its attribute by a constant (NB5) as stated
+   source: no dynamic import, exec or eval, no clock module (NB5) as stated
+   source: no attribute that imports or reads a clock (NB5) as stated
+REF-RUN PATHS HELD: 56 of 56 as stated

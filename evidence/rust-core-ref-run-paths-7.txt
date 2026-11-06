@@ -1,0 +1,37 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/rust-core/ref_run_paths.py
+# tree: 2e9805a plus the uncommitted research files (src/, tests/ and vectors/ unchanged; the contract vectors sha256 841240b72cb58041); Windows, CPython 3.14.5; 2026-10-30; exit 0; run twice, identical
+# code and data sha256 (first 16 hex): LAW-FORMAT-0-DRAFT-7.md 05010e0150ccf614; format_check.py 5103fd396487f623; plant_reverts.py 23f9cccdcc29e8d1; ref_run.py 162d4ec776f0c02d; ref_run_paths.py 5f415e8493d26a43; run_format.py e54f1e137ee4c725; vectors-as-integer.txt 2bff1c69faeed37d; vectors-as-integer.manifest 1b17b1446dc16dbc
+# RUST-CORE-0 phase 0, LAW-FORMAT-0 draft 7, off the gate: MEASURED on these runs of the reference runner only, never ESTABLISHED; evidence for the format, not its authority; not a ruling
+THE REFERENCE RUNNER'S WAYS OF ENDING, THROUGH classify (research/rust-core/ref_run_paths.py)
+   text: a text the front end accepts             exit 0 | out RUN COMPLETED ops 2 p 4c57 | err                                              | RESULT              as stated
+   text: the same under budget 0                  exit 0 | out RUN STOPPED ops 1 trace 75 | err                                              | RESULT              as stated
+   text: a text the front end refuses             exit 3 | out ENV python CPython 3.14.5  | err RUNNER-FAULT the front end refuses the text  | RUNNER-FAULT        as stated
+   law: the empty law                             exit 0 | out RUN COMPLETED ops 0 p 4477 | err                                              | RESULT              as stated
+   law: decoder1 refuses (version 1)              exit 0 | out DECODER-REFUSED "not versi | err                                              | REFERENCE-REFUSED   as stated
+   law: decoder1 crashes (a byte above 0x7E)      exit 1 | out ENV python CPython 3.14.5  | err REFERENCE-EXCEPTION builtins.UnicodeDecodeEr | NO-REFERENCE-RESULT as stated
+   usage: no arguments                            exit 3 | out                            | err RUNNER-FAULT usage: ref_run.py text BUDGET P | RUNNER-FAULT        as stated
+   usage: budget 1e6                              exit 3 | out                            | err RUNNER-FAULT BUDGET is not none or a canonic | RUNNER-FAULT        as stated
+   usage: budget -1                               exit 3 | out                            | err RUNNER-FAULT BUDGET is not none or a canonic | RUNNER-FAULT        as stated
+   usage: budget 05                               exit 3 | out                            | err RUNNER-FAULT BUDGET is not none or a canonic | RUNNER-FAULT        as stated
+   usage: budget +5                               exit 3 | out                            | err RUNNER-FAULT BUDGET is not none or a canonic | RUNNER-FAULT        as stated
+   usage: a text seal in capitals                 exit 3 | out                            | err RUNNER-FAULT TEXTSEAL is not 64 lowercase he | RUNNER-FAULT        as stated
+   usage: an input that does not exist            exit 3 | out                            | err RUNNER-FAULT the input cannot be read: FileN | RUNNER-FAULT        as stated
+   stand-in: decode calls sys.exit(0)             exit 1 | out ENV python CPython 3.14.5  | err REFERENCE-EXCEPTION builtins.SystemExit      | NO-REFERENCE-RESULT as stated
+   stand-in: decode is interrupted                exit 3 | out ENV python CPython 3.14.5  | err RUNNER-FAULT interrupted                     | RUNNER-FAULT        as stated
+   stand-in: decoder1 holds a plant               exit 3 | out ENV python CPython 3.14.5  | err RUNNER-FAULT decoder1 holds a plant          | RUNNER-FAULT        as stated
+   stand-in: decode refuses                       exit 0 | out DECODER-REFUSED 'a refusal | err                                              | REFERENCE-REFUSED   as stated
+   stand-in: decoder1 cannot be imported          exit 3 | out ENV python CPython 3.14.5  | err RUNNER-FAULT decoder1 cannot be imported: Mo | RUNNER-FAULT        as stated
+   a runner whose decoder1 pin is wrong           exit 3 | out ENV python CPython 3.14.5  | err RUNNER-FAULT decoder1.py is not the file the | RUNNER-FAULT        as stated
+   --files: a completed run                       leaves reference.out reference.receipt reference.trace      as stated
+   --files: a stopped run                         leaves reference.out reference.trace                        as stated
+   made up: two timeouts                          NO-REFERENCE-RESULT as stated
+   made up: a timeout and a result                UNSTABLE            as stated
+   made up: a result, CR LF and LF                RESULT              as stated
+   made up: two crashes of different types        UNSTABLE            as stated
+   made up: two crashes, one exit status each     UNSTABLE            as stated
+   made up: an exit 3 without its line            RUNNER-FAULT        as stated
+   source: reads no environment variable (os.environ) as stated
+   source: reads no environment variable (getenv) as stated
+   source: sets no recursion limit (setrecursionlimit) as stated
+   source: imports no format_check (import format_check) as stated
+REF-RUN PATHS HELD: 31 of 31 as stated

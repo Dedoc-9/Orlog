@@ -1,0 +1,5 @@
+Title: Two Values That Refuse Differently, Written in the Other Order.
+Note: LAW-SUFFICIENCY-1, E2. A research fixture, off the gate: e2-values.orl with its two definitions swapped.
+§1 Define r as 9223372036854775807 plus 1.
+§2 Define r as 1 divided by 0.
+§3 Say r.

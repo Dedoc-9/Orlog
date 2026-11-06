@@ -1,0 +1,34 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/law-sufficiency/test2_equal_seal.py
+# tree: 2e9805a plus the uncommitted research/law-sufficiency/ files (src/, tests/ and vectors/ unchanged); Windows, CPython 3.14.5; 2026-10-30; exit 0; run twice, identical
+# code sha256 (first 16 hex): common.py 8b123546b359e72f; decoder.py 4f9a66b4468bd1ab; test1_reads.py 3ff7821dcb6b1811; test2_equal_seal.py a7b93d7d2cafb389; test3_decoder.py a987117b16146019; run_all.py f586dc89b766690c
+# EXPERIMENTAL RESEARCH, off the gate (research/law-sufficiency/SHEET.md): MEASURED on these texts and these plants only, never ESTABLISHED; not a ruling
+LAW-SUFFICIENCY-0, TEST 2: EQUAL SEAL, EQUAL BEHAVIOUR (research/law-sufficiency/test2_equal_seal.py)
+P: the reference receipt without its backend and text-seal lines (common.projection, fixed before the run)
+the accepted texts: 290, 173 distinct laws; laws with two or more distinct text seals among them: 67 (184 texts)
+
+== the variants, by transform (each applied once to each accepted text)
+   crlf             kept, text seal same 290
+   bom              kept, text seal same 290
+   trailing-spaces  kept, text seal same 290
+   blank-lines      kept, text seal same 290
+   nbsp-in-code     kept, text seal same 288, no site 2
+   minus-sign       kept, text seal same 30, no site 260
+   times-sign       kept, text seal same 6, no site 284
+   note-added       kept, text seal differs 290
+   note-nfc         kept, text seal differs 290
+   title-changed    kept, text seal differs 287, refused 3
+   decimal-zero     kept, text seal differs 29, no site 260, refused 1
+   double-space     kept, text seal differs 279, no site 2, refused 9
+   keyword-upper    kept, text seal differs 276, no site 5, refused 9
+
+== the groups: 173 laws; 173 with two or more members (3225 members); 173 with two or more distinct text seals
+   every member's run: receipt 3225
+   the three spellings (examples/spellings/): 3 texts (corpus/examples/spellings/phrases.orl@33634aea1f1b, corpus/examples/spellings/symbols.orl@8539dbef8406, corpus/examples/spellings/words.orl@5fab85a9c40e), 1 law seal, 3 text seals, 1 P
+
+== groups whose members' P differ: 0
+
+== plants: each run alone, after the real pass; each must fail exactly the groups stated before it ran
+   plant 1, Interp folds the text seal into its output: expected to fail the 173 groups with two or more text seals and no other: 173 fail, CAUGHT
+   plant 2, P keeps the text-seal line (COMPAT-0's receipt core): expected to fail the same 173 groups: 173 fail, CAUGHT
+
+TEST 2 HELD: 173 groups with two or more members compared, 173 of them across distinct text seals; 0 differ; plants 2 of 2

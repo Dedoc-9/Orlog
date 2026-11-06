@@ -1,0 +1,5 @@
+Title: Two Provisos That Refuse Differently, Written in the Other Order.
+Note: LAW-SUFFICIENCY-1, E2. A research fixture, off the gate: e2-provisos.orl with its two definitions swapped.
+§1 Define r as 2, provided that 9223372036854775807 plus 1 is at least 0.
+§2 Define r as 1, provided that 1 divided by 0 is at least 0.
+§3 Say r.

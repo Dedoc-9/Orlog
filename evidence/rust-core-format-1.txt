@@ -1,0 +1,38 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/rust-core/format_check.py
+# tree: 2e9805a plus the uncommitted research files (src/, tests/ and vectors/ unchanged; the contract vectors sha256 841240b72cb58041); Windows, CPython 3.14.5; 2026-10-30; exit 0; run twice, identical
+# code and data sha256 (first 16 hex): LAW-FORMAT-0-DRAFT-1.md 8c277a1e6305e730; format_check.py fa0a0c9be3f594c8; run_format.py cf3da4ad2c164fe3; vectors-as-integer.txt 2bff1c69faeed37d; vectors-as-integer.manifest 1b17b1446dc16dbc
+# RUST-CORE-0 phase 0, LAW-FORMAT-0 draft 1, off the gate: MEASURED on these laws and these plants only, never ESTABLISHED; evidence for the format, not its authority; not a ruling
+LAW-FORMAT-0'S CHECKER, DRAFT 1 (research/rust-core/format_check.py)
+LAW-FORMAT-0-DRAFT-1.md sha256 8c277a1e6305e7301bc6316dde534f342fbe3c7b52bffb5ed4e135b056496a05
+format_check.py sha256 fa0a0c9be3f594c8ca67a87b195f448f5844c21494e6c2450c76356100585a64
+
+== LAW-SUFFICIENCY's 298 laws, and REREAD-0's 4 fixture laws
+read, W1-W14 passed, written back exactly: 302 of 302
+derivations equal to the analysis's (top, children, labels, vars with type and top, rule types, rules, overrides, claim sites, cost-tracked clauses): 302 of 302
+the deepest expression in them: 64 (W14's bound: 126)
+
+== plants: each refused on the line and by the W section 8 chooses
+   W1  line 2   a CR at the end of line 2 (draft 0)                        on corpus/examples/aztec.orl@e317c26b refused W1 line 2: CAUGHT
+   W2  line 3   a natural number with a leading zero (draft 0)             on corpus/examples/aztec.orl@e317c26b refused W2 line 3: CAUGHT
+   W3  line 3   two spaces between two items (draft 0)                     on corpus/examples/aztec.orl@e317c26b refused W3 line 3: CAUGHT
+   W4  line 23  a perform of a clause that does not exist (draft 0)        on corpus/examples/leapfrog.orl@8ecb5 refused W4 line 23: CAUGHT
+   W5  line 4   a clause made a child of a say clause (draft 0)            on probe/twin/probes/n09-mixed-labels refused W5 line 4: CAUGHT
+   W6  line 2   line 2's mode not the law's (draft 0)                      on corpus/examples/aztec.orl@e317c26b refused W6 line 2: CAUGHT
+   W7  line 18  a while inline in an arm (draft 0)                         on corpus/examples/aztec.orl@e317c26b refused W7 line 18: CAUGHT
+   W8  line 4   a variable used before it is declared (draft 0)            on corpus/examples/chaos.orl@5f6989aa refused W8 line 4: CAUGHT
+   W9  line 8   an Int sum written as a Fix sum (draft 0)                  on corpus/examples/aztec.orl@e317c26b refused W9 line 8: CAUGHT
+   W10 line 11  a notwithstanding cycle (draft 0)                          on corpus/examples/fall.orl@73ccecab2 refused W10 line 11: CAUGHT
+   W11 line 23  a perform of an earlier clause that is no procedure (draft on corpus/examples/leapfrog.orl@8ecb5 refused W11 line 23: CAUGHT
+   W12 line 24  a certificate naming the last clause (draft 0)             on corpus/examples/gcd_certificate.or refused W12 line 24: CAUGHT
+   W13 line 17  a while bound of 0 (draft 0)                               on corpus/examples/aztec.orl@e317c26b refused W13 line 17: CAUGHT
+   W1  line 5   F1: clause 3 a child of clause 1, after clause 2           on (the plant's own bytes)            refused W1 line 5: CAUGHT
+   W14 line 3   F3: a 300-deep chain of not                                on (the plant's own bytes)            refused W14 line 3: CAUGHT
+   W9  line 3   F4: a let whose value is a promote                         on (the plant's own bytes)            refused W9 line 3: CAUGHT
+   W9  line 3   F4: both operands of + promotes                            on (the plant's own bytes)            refused W9 line 3: CAUGHT
+   W9  line 3   F4: a list whose every item is a promote                   on (the plant's own bytes)            refused W9 line 3: CAUGHT
+   W5  line 3   F6: a block arm with an otherwise in its own line          on (the plant's own bytes)            refused W5 line 3: CAUGHT
+   W5  line 3   F6: two arms and an otherwise in the If's own line         on (the plant's own bytes)            refused W5 line 3: CAUGHT
+   W2  line 3   F5: a surrogate in a string                                on (the plant's own bytes)            refused W2 line 3: CAUGHT
+   W2  line 3   F8: an A written as \u{41}                                 on (the plant's own bytes)            refused W2 line 3: CAUGHT
+
+FORMAT CHECK (DRAFT 1) HELD: 302 of 302 laws pass and come back exactly, derivations equal on 302; plants 22 of 22 caught, 0 not run

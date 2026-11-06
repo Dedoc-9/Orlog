@@ -153,6 +153,13 @@ Before believing a surprising result, rerun clean: delete the stale `build/` cac
 - Seen in use: Windows 11, CPython 3.14.5, clang 22.1.8, rustc 1.96.1. No version is pinned.
 - Line endings are LF. Write planted files and stdin as binary, because text mode on Windows turns LF into CR LF and a
   law's seals are of exact bytes.
+- Byte-sensitive evidence. Distinguish a deliberately normalized text listing transcribed into a record from a
+  captured artifact whose exact bytes are evidence. For the latter, preserve the captured bytes, including CR and
+  CRLF. Before staging, give the exact path an explicit `-text` rule wherever Git normalization would alter those
+  bytes. Hash the working file before staging; after staging, verify the index blob against that hash; after
+  committing, verify the committed blob against it. If normalization has already occurred, record the discrepancy and
+  recover the original only from an independently identified source. Never infer or reconstruct original bytes from
+  the normalized copy.
 - Git Bash heredocs drop backslashes from Python sources. Write such files with an editor tool.
 - A redirected stdout on Windows uses a legacy code page. Set `PYTHONUTF8=1`. It also writes CR LF: normalize a
   listing before appending it to a record, and count CR bytes in Python, never with Git Bash's `grep -c $'\r'`, which

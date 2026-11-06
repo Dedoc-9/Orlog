@@ -1,0 +1,26 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/rust-core/format_check.py
+# tree: 2e9805a plus the uncommitted research files (src/, tests/ and vectors/ unchanged); Windows, CPython 3.14.5; 2026-10-30; exit 0; run twice, identical
+# code sha256 (first 16 hex): LAW-FORMAT-0.md 1ae57ee8d196a743; format_check.py 036b13c5d2e123ed; run_format.py b0e9a3f54fbb5a7d
+# RUST-CORE-0 phase 0, off the gate (research/rust-core/SHEET.md): MEASURED on these 298 laws and these plants only, never ESTABLISHED; not a ruling
+LAW-FORMAT-0'S CHECKER (research/rust-core/format_check.py), on LAW-SUFFICIENCY's 298 laws
+LAW-FORMAT-0.md sha256 1ae57ee8d196a743e6d8571995eba4e7744942be7f6c74d7d98ec7d83ca60c50
+format_check.py sha256 036b13c5d2e123ed70efeca0827b97df2345425889744106edf826f51d5c74c2
+laws read, W1-W13 passed and written back exactly: 298 of 298
+derivations equal to the analysis's (top, children, labels, vars with type and top, rule types, rules, overrides, claim sites, cost-tracked clauses): 298 of 298
+
+== plants: each a malformation of one law's bytes, each to be refused by the check that names it
+   W1  a CR before a line's LF                          on corpus/examples/aztec.orl@e317c26b31aa       refused W1: CAUGHT
+   W2  a natural number with a leading zero             on corpus/examples/aztec.orl@e317c26b31aa       refused W2: CAUGHT
+   W3  two spaces between two items                     on corpus/examples/aztec.orl@e317c26b31aa       refused W3: CAUGHT
+   W4  a perform of a clause that does not exist        on corpus/examples/leapfrog.orl@8ecb5c6d9b5a    refused W4: CAUGHT
+   W5  a clause made a child of a say clause            on probe/twin/probes/n09-mixed-labels.orl       refused W5: CAUGHT
+   W6  line 2's mode not the law's                      on corpus/examples/aztec.orl@e317c26b31aa       refused W6: CAUGHT
+   W7  a while inline in an arm                         on corpus/examples/aztec.orl@e317c26b31aa       refused W7: CAUGHT
+   W8  a variable used before it is declared            on corpus/examples/chaos.orl@5f6989aabdaa       refused W8: CAUGHT
+   W9  an Int sum written as a Fix sum                  on corpus/examples/aztec.orl@e317c26b31aa       refused W9: CAUGHT
+   W10 a notwithstanding cycle                          on corpus/examples/fall.orl@73ccecab2e7b        refused W10: CAUGHT
+   W11 a perform of what is no procedure defined before on corpus/examples/leapfrog.orl@8ecb5c6d9b5a    refused W11: CAUGHT
+   W12 a certificate naming the last clause             on corpus/examples/gcd_certificate.orl@305b2be0 refused W12: CAUGHT
+   W13 a while bound of 0                               on corpus/examples/aztec.orl@e317c26b31aa       refused W13: CAUGHT
+
+FORMAT CHECK HELD: 298 of 298 laws pass and come back exactly, derivations equal on 298; plants 13 of 13 run, 0 not run

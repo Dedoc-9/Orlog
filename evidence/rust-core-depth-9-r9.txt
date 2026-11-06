@@ -1,0 +1,40 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/rust-core/depth_probe.py
+# tree: 2e9805a plus the uncommitted research files (src/, tests/ and vectors/ unchanged; the contract vectors sha256 841240b72cb58041); Windows, CPython 3.14.5; 2026-10-31; exit 0; run twice, identical
+# code and data sha256 (first 16 hex): LAW-FORMAT-0-DRAFT-9.md 2c0224d1f0a742e8; format_check.py 2965ed15c824a638; plant_reverts.py 25cfb7048b545b01; ref_run.py 822c826ee2033df2; ref_run_paths.py bd1cbf1489b64782; ref_run_variants.py b9b29564fa02c323; depth_probe.py 6db7a0487c70978d; run_format.py 365174676d372a86; vectors-as-integer.txt 2bff1c69faeed37d; vectors-as-integer.manifest 1b17b1446dc16dbc
+# RUST-CORE-0 phase 0, LAW-FORMAT-0 draft 9, off the gate: MEASURED on these texts through the front end only, a lower bound by a witness, never ESTABLISHED; evidence for the format, not its authority; not a ruling
+D1: THE FRONT END'S EXPRESSION LIMITS, AND THE DEEPEST LAW LINE IT WRITES (research/rust-core/depth_probe.py)
+src/orlog/syntax.py sha256 ad4e3bc5fe21165302a14eec74dc7cfabf1cc4dc3310128a05184effa1870ef7
+
+== 1. The two limits, at their edges (a Let's value)
+  tree depth: 62 conversions (a tree 64 deep)    accepted, deepest law line 65  [as expected]
+  tree depth: 63 conversions (a tree 65 deep)    refused, EXPRESSION-DEPTH at line 5: a statement's expression tree is at most 64 deep  [as expected]
+  nesting: 23 parentheses (24 atoms deep)        accepted, deepest law line 3  [as expected]
+  nesting: 24 parentheses (25 atoms deep)        refused, EXPRESSION-DEPTH at line 5: expressions nest at most 24 deep (parentheses, minus, not, phrases): red team E24, E25  [as expected]
+
+== 2. The deepest law line, by form and family (levels of promoted conversions 0-24, a conversion chain below,
+   0-63; the innermost level closed in parentheses, or open)
+  closed a Let's value                                  88  (levels 23, chain 16)
+  closed an inline If's condition                       88  (levels 23, chain 14)
+  closed an inline Unless's condition                   89  (levels 23, chain 14)
+  closed a clause If's condition, with a block          88  (levels 23, chain 14)
+  closed a clause Unless's condition, with a block      89  (levels 23, chain 14)
+  closed an Int compared at the top, clause Unless      90  (levels 22, chain 16)
+  closed an inline statement's value in an If's arm     88  (levels 23, chain 14)
+  open   a Let's value                                  89  (levels 23, chain 15)
+  open   an inline If's condition                       89  (levels 23, chain 13)
+  open   an inline Unless's condition                   90  (levels 23, chain 13)
+  open   a clause If's condition, with a block          89  (levels 23, chain 13)
+  open   a clause Unless's condition, with a block      90  (levels 23, chain 13)
+  open   an Int compared at the top, clause Unless      91  (levels 22, chain 15)
+  open   an inline statement's value in an If's arm     89  (levels 23, chain 13)
+  deepest found: 91, in an Int compared at the top, clause Unless, open (levels 22, chain 15). Its statements:
+    Unless w is less than (w plus (w plus (w plus (w plus (w plus (w plus (w plus (w plus (w plus (w plus (w plus (w plus (w plus (w plus (w plus (w plus (w plus (w plus (w plus (w plus (w plus (w plus (w plus w as an integer as a fixed as an integer as a fixed as an integer as a fixed as an integer as a fixed as an integer as a fixed as an integer as a fixed as an integer as a fixed as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer) as an integer, do the following.
+    §4.1 Say 1.
+    one level more       refused, EXPRESSION-DEPTH at line 5: expressions nest at most 24 deep (parentheses, minus, not, phrases): red team E24, E25  [as expected]
+    a chain two longer   refused, EXPRESSION-DEPTH at line 5: a statement's expression tree is at most 64 deep  [as expected]
+
+== 3. LAW-SUFFICIENCY's laws and the checker's fixtures
+  298 texts: deepest law line 66; 7 fixture laws: deepest 91
+
+D1 MEASURED: the limits held at their edges 4 of 4, the deepest line's own edges 2 of 2; the deepest law line found is 91 (a witness, a lower bound);
+the upper bound 91 derived in draft 9's section 8 is REASONED, not measured; W14(c) is 91, the candidate limit (his H), until REREAD-9 has tried to write a deeper line

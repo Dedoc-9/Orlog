@@ -1,0 +1,11 @@
+Title: Every Rounded Conversion, Decimals Floats.
+Note: LAW-SUFFICIENCY-1, E1. A research fixture, off the gate: the rounded conversions from a float literal.
+§1 Decimals are floats.
+§2 Let a be 2.5 rounded to an integer.
+§3 Let b be 0.1 rounded to a fixed.
+§4 Let c be 7 rounded to a float.
+§5 Let d be 0.5 as a fixed rounded to a float.
+§6 Say a.
+§7 Say b.
+§8 Say c.
+§9 Say d.

@@ -1,0 +1,45 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/law-sufficiency/closure_tests.py
+# tree: 2e9805a plus the uncommitted research/law-sufficiency/ files (src/, tests/ and vectors/ unchanged); Windows, CPython 3.14.5; 2026-10-30; exit 0; run twice, identical
+# code sha256 (first 16 hex): common.py 8b123546b359e72f; decoder.py 4f9a66b4468bd1ab; decoder1.py 3584f565f6929879; closure_tests.py 71a0511c40ea31d5; run_all_1.py 140ca9b281f211b4
+# fixtures sha256 (first 16 hex): e1-rounded-fixed.orl dc845f935f72fdec; e1-rounded-floats.orl 792a6332a8297ff8; e1-rounded-refuses.orl 093910eaf9737125; e2-provisos-swapped.orl 643c0ae5756af88b; e2-provisos.orl 13e823e1398698db; e2-values-swapped.orl 4c5251603b5e2258; e2-values.orl 91c5c99cdf83a1ed; e3-inline-let.orl 921ab92156700e0f
+# EXPERIMENTAL RESEARCH, off the gate (research/law-sufficiency/SHEET-1.md): MEASURED on these texts and these plants only, never ESTABLISHED; not a ruling
+LAW-SUFFICIENCY-1: THE FOUR CLOSURE EXPERIMENTS (research/law-sufficiency/closure_tests.py, SHEET-1.md)
+texts: 298 (LAW-SUFFICIENCY-0's 290 and the 8 fixtures)
+decoder.py sha256 4f9a66b4468bd1ab0ddeabba872c4c1b6a4a7f06b4df7a29a8f6f93aaaaf7ee5
+decoder1.py sha256 3584f565f6929879c3d942a45b3fa8d5c09cc2382b67772559109e38930ab877
+
+== E1: the rounded conversion (three fixtures)
+   e1-rounded-fixed.orl     D  parsed COMPLETED                      decoded P equal, round trip exact
+   e1-rounded-fixed.orl     D1 parsed COMPLETED                      decoded P equal, round trip exact
+   e1-rounded-floats.orl    D  parsed COMPLETED                      decoded P equal, round trip exact
+   e1-rounded-floats.orl    D1 parsed COMPLETED                      decoded P equal, round trip exact
+   e1-rounded-refuses.orl   D  parsed REFUSED NOT-FINITE 1           decoded P equal, round trip exact
+   e1-rounded-refuses.orl   D1 parsed REFUSED NOT-FINITE 1           decoded P equal, round trip exact
+   rounded paths decoded by D: 6 of 6 ['fix<-float', 'fix<-int', 'float<-fix', 'float<-int', 'int<-fix', 'int<-float']
+   plant, D1 reads rounded as as: predicted REFUSED INEXACT-CONVERSION 1, got REFUSED INEXACT-CONVERSION 1: AS PREDICTED
+   E1 HELD; its plants as predicted
+
+== E2: the order of a rule's definitions (SPEC §6: left to right, in clause order)
+   e2-provisos.orl          predicted REFUSED DIVISION-BY-ZERO 3   parsed REFUSED DIVISION-BY-ZERO 3   decoded REFUSED DIVISION-BY-ZERO 3   AS PREDICTED
+   e2-provisos-swapped.orl  predicted REFUSED OVERFLOW 3           parsed REFUSED OVERFLOW 3           decoded REFUSED OVERFLOW 3           AS PREDICTED
+   e2-values.orl            predicted REFUSED DIVISION-BY-ZERO 3   parsed REFUSED DIVISION-BY-ZERO 3   decoded REFUSED DIVISION-BY-ZERO 3   AS PREDICTED
+   e2-values-swapped.orl    predicted REFUSED OVERFLOW 3           parsed REFUSED OVERFLOW 3           decoded REFUSED OVERFLOW 3           AS PREDICTED
+   e2-provisos.orl and e2-provisos-swapped.orl: law seals differ
+   e2-values.orl and e2-values-swapped.orl: law seals differ
+   plant, an.rules reversed in e2-provisos.orl        law bytes fixed; parsed REFUSED OVERFLOW 3 (predicted REFUSED OVERFLOW 3); decoded REFUSED DIVISION-BY-ZERO 3 (predicted REFUSED DIVISION-BY-ZERO 3): AS PREDICTED
+   plant, an.rules reversed in e2-values.orl          law bytes fixed; parsed REFUSED OVERFLOW 3 (predicted REFUSED OVERFLOW 3); decoded REFUSED DIVISION-BY-ZERO 3 (predicted REFUSED DIVISION-BY-ZERO 3): AS PREDICTED
+   E2 HELD; its plants as predicted
+
+== E3: D1's backend-only derivations against the analysis (an.vars with each id, type and top; an.rule_types)
+   on 298 texts: vars equal 298, rule_types equal 298, decoded P equal 298, round trip exact 298
+   plant top-includes-inline  differs from the analysis on 1 texts; texts with a let in an inline body of a top-level clause: 1: AS PREDICTED
+   plant top-always-false     differs from the analysis on 143 texts; texts with a top-level let: 143: AS PREDICTED
+   E3 HELD; its plants as predicted
+
+== E4: the backends on D1's decoded law
+   generated programs byte-identical, parsed against decoded: python 298, c99 298, rust 298, on 298 texts
+   each decoded program built and run by the arbiter, its P equal to the reference's parsed P: python 298 of 298, c99 298 of 298, rust 298 of 298
+   plant, D1's top always false: the generated programs differ on 143 texts; texts with a top-level let: 143: AS PREDICTED
+   E4 HELD; its plants as predicted
+
+LAW-SUFFICIENCY-1 HELD: E1 held; E2 held; E3 held; E4 held

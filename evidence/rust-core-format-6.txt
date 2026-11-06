@@ -1,0 +1,106 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/rust-core/format_check.py
+# tree: 2e9805a plus the uncommitted research files (src/, tests/ and vectors/ unchanged; the contract vectors sha256 841240b72cb58041); Windows, CPython 3.14.5; 2026-10-30; exit 0; run twice, identical
+# code and data sha256 (first 16 hex): LAW-FORMAT-0-DRAFT-6.md c5435579ca65c129; format_check.py 3c3ad0b612cde767; plant_reverts.py 7ee07f94316803a6; ref_run.py 33914074cfd7c0bf; ref_run_paths.py e1edf642de6c547e; run_format.py 776bf2bac2e0aaad; vectors-as-integer.txt 2bff1c69faeed37d; vectors-as-integer.manifest 1b17b1446dc16dbc
+# RUST-CORE-0 phase 0, LAW-FORMAT-0 draft 6, off the gate: MEASURED on these laws and these plants only, never ESTABLISHED; evidence for the format, not its authority; not a ruling
+LAW-FORMAT-0'S CHECKER, DRAFT 6 (research/rust-core/format_check.py)
+LAW-FORMAT-0-DRAFT-6.md sha256 c5435579ca65c129cc646cfdf6cf90e90beab8a95db0c81f2155fe80ff0ae004
+Python's recursion limit in this process: 1000 (the default; draft 6 raises none); its int-string limit: 4300, lifted only inside read()
+format_check.py sha256 3c3ad0b612cde767b1afa0f43e9136fe31090f82be625216ecb2de1754a1ea31
+
+== LAW-SUFFICIENCY's 298 laws, and 6 fixture laws (REREAD-0's four, and B1's two chains)
+read, W1-W14 passed, written back exactly: 304 of 304
+derivations equal to the analysis's (top, children, labels, vars with type and top, rule types, rules, overrides, claim sites, cost-tracked clauses): 304 of 304
+the deepest nesting of parentheses on any clause line in them: 66 (W14(c)'s bound: 130)
+
+== the byte fixtures (draft 2's and 4's), which the format accepts and no text writes
+   U+0000 in a string (G3)                          accepted, written back exactly
+   a clause line nested exactly 130 deep (G11)      accepted, written back exactly
+   an escaped quote, then 131 '(' inside the string (J11) accepted, written back exactly
+
+== plants: each refused on the line and by the W section 8 chooses
+   W1  line 2   a CR at the end of line 2 (draft 0)                        on corpus/examples/aztec.orl@e317c26b refused W1 line 2: CAUGHT
+   W2  line 3   a natural number with a leading zero (draft 0)             on corpus/examples/aztec.orl@e317c26b refused W2 line 3: CAUGHT
+   W3  line 3   two spaces between two items (draft 0)                     on corpus/examples/aztec.orl@e317c26b refused W3 line 3: CAUGHT
+   W4  line 23  a perform of a clause that does not exist (draft 0)        on corpus/examples/leapfrog.orl@8ecb5 refused W4 line 23: CAUGHT
+   W5  line 4   a clause made a child of a say clause (draft 0)            on probe/twin/probes/n09-mixed-labels refused W5 line 4: CAUGHT
+   W6  line 2   line 2's mode not the law's (draft 0)                      on corpus/examples/aztec.orl@e317c26b refused W6 line 2: CAUGHT
+   W7  line 18  a while inline in an arm (draft 0)                         on corpus/examples/aztec.orl@e317c26b refused W7 line 18: CAUGHT
+   W8  line 4   a variable used before it is declared (draft 0)            on corpus/examples/chaos.orl@5f6989aa refused W8 line 4: CAUGHT
+   W9  line 8   an Int sum written as a Fix sum (draft 0)                  on corpus/examples/aztec.orl@e317c26b refused W9 line 8: CAUGHT
+   W10 line 11  a notwithstanding cycle (draft 0)                          on corpus/examples/fall.orl@73ccecab2 refused W10 line 11: CAUGHT
+   W11 line 23  a perform of an earlier clause that is no procedure (draft on corpus/examples/leapfrog.orl@8ecb5 refused W11 line 23: CAUGHT
+   W12 line 24  a certificate naming the last clause (draft 0)             on corpus/examples/gcd_certificate.or refused W12 line 24: CAUGHT
+   W13 line 17  a while bound of 0 (draft 0)                               on corpus/examples/aztec.orl@e317c26b refused W13 line 17: CAUGHT
+   W1  line 5   F1: clause 3 a child of clause 1, after clause 2           on (the plant's own bytes)            refused W1 line 5: CAUGHT
+   W14 line 3   F3: a 300-deep chain of not                                on (the plant's own bytes)            refused W14 line 3: CAUGHT
+   W9  line 3   F4: a let whose value is a promote                         on (the plant's own bytes)            refused W9 line 3: CAUGHT
+   W9  line 3   F4: both operands of + promotes                            on (the plant's own bytes)            refused W9 line 3: CAUGHT
+   W9  line 3   F4: a list whose every item is a promote                   on (the plant's own bytes)            refused W9 line 3: CAUGHT
+   W5  line 3   F6: a block arm with an otherwise in its own line          on (the plant's own bytes)            refused W5 line 3: CAUGHT
+   W5  line 3   F6: two arms and an otherwise in the If's own line         on (the plant's own bytes)            refused W5 line 3: CAUGHT
+   W2  line 3   F5: a surrogate in a string                                on (the plant's own bytes)            refused W2 line 3: CAUGHT
+   W2  line 3   F8: an A written as \u{41}                                 on (the plant's own bytes)            refused W2 line 3: CAUGHT
+   W14 line 27  G18: W14(a), a clause 25 deep (a chain of If blocks)       on (the plant's own bytes)            refused W14 line 27: CAUGHT
+   W14 line 19  G18: W14(b), 17 nested loops                               on (the plant's own bytes)            refused W14 line 19: CAUGHT
+   W8  line 3   G18: ids numbered in line order, not walk order            on (the plant's own bytes)            refused W8 line 3: CAUGHT
+   W6  line 3   G18: a float literal under fixed                           on (the plant's own bytes)            refused W6 line 3: CAUGHT
+   W10 line 3   G1, T3: a rule cycle through define values                 on (the plant's own bytes)            refused W10 line 3: CAUGHT
+   W8  line 3   G1, T4: a define's value using a later let                 on (the plant's own bytes)            refused W8 line 3: CAUGHT
+   W2  line 3   G18: \u{110000} in a string                                on (the plant's own bytes)            refused W2 line 3: CAUGHT
+   W9  line 3   G4: promote int in +                                       on (the plant's own bytes)            refused W9 line 3: CAUGHT
+   W9  line 3   G4: promote int in ==                                      on (the plant's own bytes)            refused W9 line 3: CAUGHT
+   W9  line 3   G4: promote int in <                                       on (the plant's own bytes)            refused W9 line 3: CAUGHT
+   W4  line 4   G5: an else naming clause 99                               on (the plant's own bytes)            refused W4 line 4: CAUGHT
+   W4  line 4   G5: an arm naming clause 99                                on (the plant's own bytes)            refused W4 line 4: CAUGHT
+   W14 line 3   G9: a clause line nested 131 deep                          on (the plant's own bytes)            refused W14 line 3: CAUGHT
+   W14 line 3   G9: nested 25,000 deep, then a W2 line                     on (the plant's own bytes)            refused W14 line 3: CAUGHT
+   W1  line 3   G6: T1, line 3 not a clause line, line 4 a bad byte        on (the plant's own bytes)            refused W1 line 3: CAUGHT
+   W1  line 3   G6: T2, line 3 not a clause line, line 4 with no LF        on (the plant's own bytes)            refused W1 line 3: CAUGHT
+   W1  line 1   G6: T2b, line 1 wrong, line 4 a bad byte                   on (the plant's own bytes)            refused W1 line 1: CAUGHT
+   W7  line 5   G8: an inline if with a block (W7, not walked)             on (the plant's own bytes)            refused W7 line 5: CAUGHT
+   W6  line 4   G8: a decimal literal before decimals (the decimals line)  on (the plant's own bytes)            refused W6 line 4: CAUGHT
+   W5  line 5   G8: an absorbed clause named by two Ifs (the later If)     on (the plant's own bytes)            refused W5 line 5: CAUGHT
+   W3  line 4   G7: two spaces before absorbed                             on (the plant's own bytes)            refused W3 line 4: CAUGHT
+   W1  line 3   G7: two spaces in the prefix                               on (the plant's own bytes)            refused W1 line 3: CAUGHT
+   W14 line 19  H2: 30,000 nested whiles, refused without a crash          on (the plant's own bytes)            refused W14 line 19: CAUGHT
+   W14 line 27  H2: 30,000 nested If blocks, refused without a crash       on (the plant's own bytes)            refused W14 line 27: CAUGHT
+   W2  line 3   H5: an unbalanced line whose count never exceeds 130       on (the plant's own bytes)            refused W2 line 3: CAUGHT
+   W14 line 3   H5: an unbalanced line whose count exceeds 130             on (the plant's own bytes)            refused W14 line 3: CAUGHT
+   W8  line 4   H6: remove-last on a for counter                           on (the plant's own bytes)            refused W8 line 4: CAUGHT
+   W5  line 6   H7: an absorbed clause named by two Ifs through blocks     on (the plant's own bytes)            refused W5 line 6: CAUGHT
+   W10 line 3   H8: a promote beside a rule with no define                 on (the plant's own bytes)            refused W10 line 3: CAUGHT
+   W4  line 5   H13: G5's third, an else naming clause 99 after a procedur on (the plant's own bytes)            refused W4 line 5: CAUGHT
+   W14 line 27  J1: deep let 0, inline else let 1 (the depth gate)         on (the plant's own bytes)            refused W14 line 27: CAUGHT
+   W14 line 27  J1: deep let 1, inline else let 0 (the depth gate)         on (the plant's own bytes)            refused W14 line 27: CAUGHT
+   W14 line 27  J1: deep must 0, inline else must 1 (the depth gate)       on (the plant's own bytes)            refused W14 line 27: CAUGHT
+   W14 line 27  J1: deep claim 0, inline else claim 1 (the depth gate)     on (the plant's own bytes)            refused W14 line 27: CAUGHT
+   W4  line 4   J7: an inner chain naming clause 99, under an else's let ( on (the plant's own bytes)            refused W4 line 4: CAUGHT
+   W14 line 28  N1 gates: a chain on line 3, a clause 25 deep on line 28   on (the plant's own bytes)            refused W14 line 28: CAUGHT
+   W14 line 27  N1 gates: a clause 25 deep on line 27, a chain on line 28  on (the plant's own bytes)            refused W14 line 27: CAUGHT
+   W5  line 3   N1 gates: a W5 body on line 3 before a chain on line 5     on (the plant's own bytes)            refused W5 line 3: CAUGHT
+   W14 line 28  N1 gates: a W7 inline on line 3, a clause 25 deep on line  on (the plant's own bytes)            refused W14 line 28: CAUGHT
+   W4  line 3   N1 gates: W4 and W7 on one line, an inline if naming 99    on (the plant's own bytes)            refused W4 line 3: CAUGHT
+   W14 line 27  N1 gates: a clause 25 deep whose own If names 99           on (the plant's own bytes)            refused W14 line 27: CAUGHT
+   W14 line 27  N1 gates: a clause 25 deep whose own If has an inline whil on (the plant's own bytes)            refused W14 line 27: CAUGHT
+   W5  line 4   L7: a chain whose absorbed clause is not right after it    on (the plant's own bytes)            refused W5 line 4: CAUGHT
+   W5  line 4   L7: an absorbed clause in no chain                         on (the plant's own bytes)            refused W5 line 4: CAUGHT
+   W5  line 4   L7: a block naming a clause with no children               on (the plant's own bytes)            refused W5 line 4: CAUGHT
+   W5  line 3   N3: W5, an inline if's block names no clause               on (the plant's own bytes)            refused W5 line 3: CAUGHT
+   W5  line 4   K1: A1, a say with a let 0 child; inline else let 1        on (the plant's own bytes)            refused W5 line 4: CAUGHT
+   W5  line 4   K1: A2, the same numbered the other way                    on (the plant's own bytes)            refused W5 line 4: CAUGHT
+   W5  line 4   K1: A4, the same with claims                               on (the plant's own bytes)            refused W5 line 4: CAUGHT
+   W5  line 4   K1: B1, an absorbed arm clause with a let child            on (the plant's own bytes)            refused W5 line 4: CAUGHT
+   W5  line 4   K1: C1, an inline-else perform of a procedure under a say  on (the plant's own bytes)            refused W5 line 4: CAUGHT
+   W7  line 3   K4: an inline define                                       on (the plant's own bytes)            refused W7 line 3: CAUGHT
+   W7  line 3   K4: an inline procedure                                    on (the plant's own bytes)            refused W7 line 3: CAUGHT
+   W7  line 3   K4: an inline decimals                                     on (the plant's own bytes)            refused W7 line 3: CAUGHT
+   W4  line 4   K6: perform 99 on line 3, a chain naming 99 on line 4      on (the plant's own bytes)            refused W4 line 4: CAUGHT
+   W4  line 4   K6: an undeclared variable on line 3, (block 99) on line 4 on (the plant's own bytes)            refused W4 line 4: CAUGHT
+   W6  line 3   J8: a float literal under line 2's fixed, decimals floats  on (the plant's own bytes)            refused W6 line 3: CAUGHT
+   W13 line 3   J9: a 5,000-digit Int literal                              on (the plant's own bytes)            refused W13 line 3: CAUGHT
+   W1  line 3   J9: a 5,000-digit clause number                            on (the plant's own bytes)            refused W1 line 3: CAUGHT
+   W4  line 3   J9: a 5,000-digit perform target                           on (the plant's own bytes)            refused W4 line 3: CAUGHT
+   W4  line 4   J9: a 5,000-digit label part                               on (the plant's own bytes)            refused W4 line 4: CAUGHT
+   W14 line 3   J11: an escaped quote, then 131 '(' outside the string     on (the plant's own bytes)            refused W14 line 3: CAUGHT
+
+FORMAT CHECK (DRAFT 6) HELD: 304 of 304 laws pass and come back exactly, derivations equal on 304; plants 84 of 84 caught, 0 not run

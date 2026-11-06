@@ -1,0 +1,5 @@
+Title: Two Values That Refuse Differently.
+Note: LAW-SUFFICIENCY-1, E2. A research fixture, off the gate: both definitions apply and neither overrides the other; the first value in clause order divides by zero, the second overflows.
+§1 Define r as 1 divided by 0.
+§2 Define r as 9223372036854775807 plus 1.
+§3 Say r.

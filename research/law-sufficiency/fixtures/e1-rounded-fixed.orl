@@ -1,0 +1,14 @@
+Title: Every Rounded Conversion, Decimals Fixed.
+Note: LAW-SUFFICIENCY-1, E1. A research fixture, off the gate: each rounded conversion the grammar has, once.
+§1 Let a be 2.5 rounded to an integer.
+§2 Let b be 3.5 as a float rounded to an integer.
+§3 Let c be 7 rounded to a fixed.
+§4 Let d be (1 as a float divided by 3 as a float) rounded to a fixed.
+§5 Let e be 9007199254740993 rounded to a float.
+§6 Let f be 3000000.1 rounded to a float.
+§7 Say a.
+§8 Say b.
+§9 Say c.
+§10 Say d.
+§11 Say e.
+§12 Say f.

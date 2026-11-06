@@ -1,6 +1,7 @@
 # generated output (the self-test, the differential run, builds)
 build/
 work/
+!research/rust-core/kept/work/
 __pycache__/
 *.pyc
 *.exe

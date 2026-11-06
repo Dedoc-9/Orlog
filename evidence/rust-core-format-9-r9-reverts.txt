@@ -1,0 +1,169 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/rust-core/plant_reverts.py
+# tree: 2e9805a plus the uncommitted research files (src/, tests/ and vectors/ unchanged; the contract vectors sha256 841240b72cb58041); Windows, CPython 3.14.5; 2026-10-31; exit 0; run twice, identical
+# code and data sha256 (first 16 hex): LAW-FORMAT-0-DRAFT-9.md 2c0224d1f0a742e8; format_check.py 2965ed15c824a638; plant_reverts.py 25cfb7048b545b01; ref_run.py 822c826ee2033df2; ref_run_paths.py bd1cbf1489b64782; ref_run_variants.py b9b29564fa02c323; depth_probe.py 6db7a0487c70978d; run_format.py 365174676d372a86; vectors-as-integer.txt 2bff1c69faeed37d; vectors-as-integer.manifest 1b17b1446dc16dbc
+# RUST-CORE-0 phase 0, LAW-FORMAT-0 draft 9, off the gate: MEASURED on these plants and these undoings only, never ESTABLISHED; evidence for the format, not its authority; not a ruling
+THE PLANTS OF DRAFTS 4 TO 9, EACH FIX UNDONE IN MEMORY (research/rust-core/plant_reverts.py)
+Python's recursion limit: 1000; int-string limit: 4300
+E1 undone: draft 3's capped walk, no depth gate    H2: 30,000 nested whiles, refused without a crash        as stated W14 line 19  undone W14 line 19                same
+E1 undone: draft 3's capped walk, no depth gate    H2: 30,000 nested If blocks, refused without a crash     as stated W14 line 27  undone W14 line 27                same
+E1 undone: draft 3's capped walk, no depth gate    J1: deep let 0, inline else let 1 (the depth gate)       as stated W14 line 27  undone W8 line 3                  BITES
+E1 undone: draft 3's capped walk, no depth gate    J1: deep let 1, inline else let 0 (the depth gate)       as stated W14 line 27  undone W14 line 27                same
+E1 undone: draft 3's capped walk, no depth gate    J1: deep must 0, inline else must 1 (the depth gate)     as stated W14 line 27  undone W8 line 3                  BITES
+E1 undone: draft 3's capped walk, no depth gate    J1: deep claim 0, inline else claim 1 (the depth gate)   as stated W14 line 27  undone W8 line 3                  BITES
+E1 undone: draft 3's capped walk, no depth gate    N1 gates: a chain on line 3, a clause 25 deep on line 28 as stated W14 line 28  undone W4 line 3                  BITES
+E1 undone: draft 3's capped walk, no depth gate    N1 gates: a W7 inline on line 3, a clause 25 deep on lin as stated W14 line 28  undone W7 line 3                  BITES
+E1 undone: the whole tree walked, no depth gate    H2: 30,000 nested whiles, refused without a crash        as stated W14 line 19  undone CRASHED (RecursionError)   BITES BY A CRASH
+E1 undone: the whole tree walked, no depth gate    H2: 30,000 nested If blocks, refused without a crash     as stated W14 line 27  undone CRASHED (RecursionError)   BITES BY A CRASH
+E1 undone: the whole tree walked, no depth gate    J1: deep let 0, inline else let 1 (the depth gate)       as stated W14 line 27  undone W14 line 27                same
+E1 undone: the whole tree walked, no depth gate    J1: deep let 1, inline else let 0 (the depth gate)       as stated W14 line 27  undone W8 line 3                  BITES
+E1 undone: the whole tree walked, no depth gate    J1: deep must 0, inline else must 1 (the depth gate)     as stated W14 line 27  undone W14 line 27                same
+E1 undone: the whole tree walked, no depth gate    J1: deep claim 0, inline else claim 1 (the depth gate)   as stated W14 line 27  undone W14 line 27                same
+E1 undone: the whole tree walked, no depth gate    N1 gates: a chain on line 3, a clause 25 deep on line 28 as stated W14 line 28  undone W4 line 3                  BITES
+E1 undone: the whole tree walked, no depth gate    N1 gates: a W7 inline on line 3, a clause 25 deep on lin as stated W14 line 28  undone W7 line 3                  BITES
+E1 undone: draft 3's skip of a W4 chain            J7: an inner chain naming clause 99, under an else's let as stated W4 line 4    undone W8 line 3                  BITES
+E1 undone: draft 3's skip of a W4 chain            K6: perform 99 on line 3, a chain naming 99 on line 4    as stated W4 line 4    undone W4 line 3                  BITES
+E1 undone: draft 3's skip of a W4 chain            K6: an undeclared variable on line 3, (block 99) on line as stated W4 line 4    undone W8 line 3                  BITES
+E1 undone: no chain gate, nothing skipped          J7: an inner chain naming clause 99, under an else's let as stated W4 line 4    undone W4 line 4                  same
+E1 undone: no chain gate, nothing skipped          K6: perform 99 on line 3, a chain naming 99 on line 4    as stated W4 line 4    undone W4 line 3                  BITES
+E1 undone: no chain gate, nothing skipped          K6: an undeclared variable on line 3, (block 99) on line as stated W4 line 4    undone W8 line 3                  BITES
+F1 undone: draft 4's checker                       K1: A1, a say with a let 0 child; inline else let 1      as stated W5 line 4    undone W8 line 3                  BITES
+F1 undone: draft 4's checker                       K1: A2, the same numbered the other way                  as stated W5 line 4    undone W5 line 4                  same
+F1 undone: draft 4's checker                       K1: A4, the same with claims                             as stated W5 line 4    undone W8 line 3                  BITES
+F1 undone: draft 4's checker                       K1: B1, an absorbed arm clause with a let child          as stated W5 line 4    undone W8 line 3                  BITES
+F1 undone: draft 4's checker                       K1: C1, an inline-else perform of a procedure under a sa as stated W5 line 4    undone W11 line 3                 BITES
+F1 undone: draft 4's checker                       K4: an inline define                                     as stated W7 line 3    undone W7 line 3                  same
+F1 undone: draft 4's checker                       K4: an inline procedure                                  as stated W7 line 3    undone W7 line 3                  same
+F1 undone: draft 4's checker                       K4: an inline decimals                                   as stated W7 line 3    undone W7 line 3                  same
+K1 undone alone: W11 by what the walk has met      K1: A1, a say with a let 0 child; inline else let 1      as stated W5 line 4    undone W5 line 4                  same
+K1 undone alone: W11 by what the walk has met      K1: A2, the same numbered the other way                  as stated W5 line 4    undone W5 line 4                  same
+K1 undone alone: W11 by what the walk has met      K1: A4, the same with claims                             as stated W5 line 4    undone W5 line 4                  same
+K1 undone alone: W11 by what the walk has met      K1: B1, an absorbed arm clause with a let child          as stated W5 line 4    undone W5 line 4                  same
+K1 undone alone: W11 by what the walk has met      K1: C1, an inline-else perform of a procedure under a sa as stated W5 line 4    undone W5 line 4                  same
+F1 undone: draft 4's text, W6 read on a W7 one     K1: A1, a say with a let 0 child; inline else let 1      as stated W5 line 4    undone W8 line 3                  BITES
+F1 undone: draft 4's text, W6 read on a W7 one     K1: A2, the same numbered the other way                  as stated W5 line 4    undone W5 line 4                  same
+F1 undone: draft 4's text, W6 read on a W7 one     K1: A4, the same with claims                             as stated W5 line 4    undone W8 line 3                  BITES
+F1 undone: draft 4's text, W6 read on a W7 one     K1: B1, an absorbed arm clause with a let child          as stated W5 line 4    undone W8 line 3                  BITES
+F1 undone: draft 4's text, W6 read on a W7 one     K1: C1, an inline-else perform of a procedure under a sa as stated W5 line 4    undone W5 line 4                  same
+F1 undone: draft 4's text, W6 read on a W7 one     K4: an inline define                                     as stated W7 line 3    undone W6 line 3                  BITES
+F1 undone: draft 4's text, W6 read on a W7 one     K4: an inline procedure                                  as stated W7 line 3    undone W6 line 3                  BITES
+F1 undone: draft 4's text, W6 read on a W7 one     K4: an inline decimals                                   as stated W7 line 3    undone W6 line 3                  BITES
+F1 undone: W5 in a whole walk, bodiless ones too   K1: A1, a say with a let 0 child; inline else let 1      as stated W5 line 4    undone W5 line 4                  same
+F1 undone: W5 in a whole walk, bodiless ones too   K1: A2, the same numbered the other way                  as stated W5 line 4    undone W8 line 3                  BITES
+F1 undone: W5 in a whole walk, bodiless ones too   K1: A4, the same with claims                             as stated W5 line 4    undone W5 line 4                  same
+F1 undone: W5 in a whole walk, bodiless ones too   K1: B1, an absorbed arm clause with a let child          as stated W5 line 4    undone W8 line 3                  BITES
+F1 undone: W5 in a whole walk, bodiless ones too   K1: C1, an inline-else perform of a procedure under a sa as stated W5 line 4    undone W5 line 4                  same
+F1 undone: W5 in a whole walk, bodiless ones too   K4: an inline define                                     as stated W7 line 3    undone W7 line 3                  same
+F1 undone: W5 in a whole walk, bodiless ones too   K4: an inline procedure                                  as stated W7 line 3    undone W7 line 3                  same
+F1 undone: W5 in a whole walk, bodiless ones too   K4: an inline decimals                                   as stated W7 line 3    undone W7 line 3                  same
+N1 undone: draft 5's rule, the least (line, W) among all three N1 gates: a chain on line 3, a clause 25 deep on line 28 as stated W14 line 28  undone W4 line 3                  BITES
+N1 undone: draft 5's rule, the least (line, W) among all three N1 gates: a clause 25 deep on line 27, a chain on line 2 as stated W14 line 27  undone W14 line 27                same
+N1 undone: draft 5's rule, the least (line, W) among all three N1 gates: a W5 body on line 3 before a chain on line 5   as stated W5 line 3    undone W5 line 3                  same
+N1 undone: draft 5's rule, the least (line, W) among all three N1 gates: a W7 inline on line 3, a clause 25 deep on lin as stated W14 line 28  undone W7 line 3                  BITES
+N1 undone: draft 5's rule, the least (line, W) among all three N1 gates: W4 and W7 on one line, an inline if naming 99  as stated W4 line 3    undone W4 line 3                  same
+N1 undone: draft 5's rule, the least (line, W) among all three N1 gates: a clause 25 deep whose own If names 99         as stated W14 line 27  undone W4 line 27                 BITES
+N1 undone: draft 5's rule, the least (line, W) among all three N1 gates: a clause 25 deep whose own If has an inline wh as stated W14 line 27  undone W7 line 27                 BITES
+N1 undone: the gates in order depth, chain, structure N1 gates: a chain on line 3, a clause 25 deep on line 28 as stated W14 line 28  undone W14 line 28                same
+N1 undone: the gates in order depth, chain, structure N1 gates: a clause 25 deep on line 27, a chain on line 2 as stated W14 line 27  undone W14 line 27                same
+N1 undone: the gates in order depth, chain, structure N1 gates: a W5 body on line 3 before a chain on line 5   as stated W5 line 3    undone W4 line 5                  BITES
+N1 undone: the gates in order depth, chain, structure N1 gates: a W7 inline on line 3, a clause 25 deep on lin as stated W14 line 28  undone W14 line 28                same
+N1 undone: the gates in order depth, chain, structure N1 gates: W4 and W7 on one line, an inline if naming 99  as stated W4 line 3    undone W4 line 3                  same
+N1 undone: the gates in order depth, chain, structure N1 gates: a clause 25 deep whose own If names 99         as stated W14 line 27  undone W14 line 27                same
+N1 undone: the gates in order depth, chain, structure N1 gates: a clause 25 deep whose own If has an inline wh as stated W14 line 27  undone W14 line 27                same
+N1 undone: the gates in order depth, structure, chain N1 gates: a chain on line 3, a clause 25 deep on line 28 as stated W14 line 28  undone W14 line 28                same
+N1 undone: the gates in order depth, structure, chain N1 gates: a clause 25 deep on line 27, a chain on line 2 as stated W14 line 27  undone W14 line 27                same
+N1 undone: the gates in order depth, structure, chain N1 gates: a W5 body on line 3 before a chain on line 5   as stated W5 line 3    undone W5 line 3                  same
+N1 undone: the gates in order depth, structure, chain N1 gates: a W7 inline on line 3, a clause 25 deep on lin as stated W14 line 28  undone W14 line 28                same
+N1 undone: the gates in order depth, structure, chain N1 gates: W4 and W7 on one line, an inline if naming 99  as stated W4 line 3    undone W7 line 3                  BITES
+N1 undone: the gates in order depth, structure, chain N1 gates: a clause 25 deep whose own If names 99         as stated W14 line 27  undone W14 line 27                same
+N1 undone: the gates in order depth, structure, chain N1 gates: a clause 25 deep whose own If has an inline wh as stated W14 line 27  undone W14 line 27                same
+N1 undone: the gates in order chain, depth, structure N1 gates: a chain on line 3, a clause 25 deep on line 28 as stated W14 line 28  undone W4 line 3                  BITES
+N1 undone: the gates in order chain, depth, structure N1 gates: a clause 25 deep on line 27, a chain on line 2 as stated W14 line 27  undone W4 line 28                 BITES
+N1 undone: the gates in order chain, depth, structure N1 gates: a W5 body on line 3 before a chain on line 5   as stated W5 line 3    undone W4 line 5                  BITES
+N1 undone: the gates in order chain, depth, structure N1 gates: a W7 inline on line 3, a clause 25 deep on lin as stated W14 line 28  undone W14 line 28                same
+N1 undone: the gates in order chain, depth, structure N1 gates: W4 and W7 on one line, an inline if naming 99  as stated W4 line 3    undone W4 line 3                  same
+N1 undone: the gates in order chain, depth, structure N1 gates: a clause 25 deep whose own If names 99         as stated W14 line 27  undone W4 line 27                 BITES
+N1 undone: the gates in order chain, depth, structure N1 gates: a clause 25 deep whose own If has an inline wh as stated W14 line 27  undone W14 line 27                same
+N1 undone: the gates in order chain, structure, depth N1 gates: a chain on line 3, a clause 25 deep on line 28 as stated W14 line 28  undone W4 line 3                  BITES
+N1 undone: the gates in order chain, structure, depth N1 gates: a clause 25 deep on line 27, a chain on line 2 as stated W14 line 27  undone W4 line 28                 BITES
+N1 undone: the gates in order chain, structure, depth N1 gates: a W5 body on line 3 before a chain on line 5   as stated W5 line 3    undone W4 line 5                  BITES
+N1 undone: the gates in order chain, structure, depth N1 gates: a W7 inline on line 3, a clause 25 deep on lin as stated W14 line 28  undone W7 line 3                  BITES
+N1 undone: the gates in order chain, structure, depth N1 gates: W4 and W7 on one line, an inline if naming 99  as stated W4 line 3    undone W4 line 3                  same
+N1 undone: the gates in order chain, structure, depth N1 gates: a clause 25 deep whose own If names 99         as stated W14 line 27  undone W4 line 27                 BITES
+N1 undone: the gates in order chain, structure, depth N1 gates: a clause 25 deep whose own If has an inline wh as stated W14 line 27  undone W7 line 27                 BITES
+N1 undone: the gates in order structure, depth, chain N1 gates: a chain on line 3, a clause 25 deep on line 28 as stated W14 line 28  undone W14 line 28                same
+N1 undone: the gates in order structure, depth, chain N1 gates: a clause 25 deep on line 27, a chain on line 2 as stated W14 line 27  undone W14 line 27                same
+N1 undone: the gates in order structure, depth, chain N1 gates: a W5 body on line 3 before a chain on line 5   as stated W5 line 3    undone W5 line 3                  same
+N1 undone: the gates in order structure, depth, chain N1 gates: a W7 inline on line 3, a clause 25 deep on lin as stated W14 line 28  undone W7 line 3                  BITES
+N1 undone: the gates in order structure, depth, chain N1 gates: W4 and W7 on one line, an inline if naming 99  as stated W4 line 3    undone W7 line 3                  BITES
+N1 undone: the gates in order structure, depth, chain N1 gates: a clause 25 deep whose own If names 99         as stated W14 line 27  undone W14 line 27                same
+N1 undone: the gates in order structure, depth, chain N1 gates: a clause 25 deep whose own If has an inline wh as stated W14 line 27  undone W7 line 27                 BITES
+N1 undone: the gates in order structure, chain, depth N1 gates: a chain on line 3, a clause 25 deep on line 28 as stated W14 line 28  undone W4 line 3                  BITES
+N1 undone: the gates in order structure, chain, depth N1 gates: a clause 25 deep on line 27, a chain on line 2 as stated W14 line 27  undone W4 line 28                 BITES
+N1 undone: the gates in order structure, chain, depth N1 gates: a W5 body on line 3 before a chain on line 5   as stated W5 line 3    undone W5 line 3                  same
+N1 undone: the gates in order structure, chain, depth N1 gates: a W7 inline on line 3, a clause 25 deep on lin as stated W14 line 28  undone W7 line 3                  BITES
+N1 undone: the gates in order structure, chain, depth N1 gates: W4 and W7 on one line, an inline if naming 99  as stated W4 line 3    undone W7 line 3                  BITES
+N1 undone: the gates in order structure, chain, depth N1 gates: a clause 25 deep whose own If names 99         as stated W14 line 27  undone W4 line 27                 BITES
+N1 undone: the gates in order structure, chain, depth N1 gates: a clause 25 deep whose own If has an inline wh as stated W14 line 27  undone W7 line 27                 BITES
+L7 undone: the chain's shape checked in the walk   L7: a chain whose absorbed clause is not right after it  as stated W5 line 4    undone W8 line 3                  BITES
+L7 undone: an orphan checked in the walk           L7: an absorbed clause in no chain                       as stated W5 line 4    undone W8 line 3                  BITES
+L7 undone: an empty block checked in the walk      L7: a block naming a clause with no children             as stated W5 line 4    undone W8 line 3                  BITES
+N3 undone: an inline if's block names its clause   N3: W5, an inline if's block names no clause             as stated W5 line 3    undone W7 line 5                  BITES
+M3 undone: a sound chain's first arm names nothing M3: a sound chain's first arm names absorbed clause 2    as stated W5 line 5    undone W5 line 4                  BITES
+M3 undone: a sound chain's first arm names nothing M3: the same first arm, in a chain whose else names 99   as stated W4 line 5    undone W4 line 5                  same
+M3 undone: a sound chain's first arm names nothing M3: a later arm of a chain naming 99 names an earlier ab as stated W4 line 5    undone W4 line 5                  same
+M3 undone: a W4 chain's first arm names nothing    M3: a sound chain's first arm names absorbed clause 2    as stated W5 line 5    undone W5 line 5                  same
+M3 undone: a W4 chain's first arm names nothing    M3: the same first arm, in a chain whose else names 99   as stated W4 line 5    undone W5 line 4                  BITES
+M3 undone: a W4 chain's first arm names nothing    M3: a later arm of a chain naming 99 names an earlier ab as stated W4 line 5    undone W4 line 5                  same
+M3 undone: a W4 chain names nothing                M3: a sound chain's first arm names absorbed clause 2    as stated W5 line 5    undone W5 line 5                  same
+M3 undone: a W4 chain names nothing                M3: the same first arm, in a chain whose else names 99   as stated W4 line 5    undone W5 line 4                  BITES
+M3 undone: a W4 chain names nothing                M3: a later arm of a chain naming 99 names an earlier ab as stated W4 line 5    undone W5 line 4                  BITES
+M4 undone: an inline if's arms and else name       M4: an inline if's else names no absorbed clause         as stated W5 line 4    undone W7 line 5                  BITES
+E1 undone: ids counted by distinct id              E1: ids numbered as met, a repeated declaration counted  as stated W8 line 3    undone W8 line 5                  BITES
+E2 undone: a rule typed as the walk meets it       E2: a rule used before its define is typed by its first  as stated W9 line 3    undone W10 line 3                 BITES
+E2 undone: an indexed set's W9 whole or not at all E2: an indexed set on a variable that is no list, its in as stated W9 line 4    undone W10 line 4                 BITES
+E2 undone: an indexed set's W9 whole or not at all E2: an indexed change on a bool, its index underived     as stated W9 line 4    undone W10 line 4                 BITES
+V4 undone: W14(b) not reset at a procedure         V4: W14(b) counts loops again below a procedure          as stated W6 line 13   undone W14 line 20                BITES
+V4 undone: only a block naming its own clause      V4: a block naming another clause still names it         as stated W5 line 5    undone W5 line 3                  BITES
+V5: J9 under a fixed-width reader, no crash        J9: a 5,000-digit Int literal                            as stated W13 line 3   undone W2 line 3                  BITES
+V5: J9 under a fixed-width reader, no crash        J9: a 5,000-digit clause number                          as stated W1 line 3    undone W1 line 3                  same
+V5: J9 under a fixed-width reader, no crash        J9: a 5,000-digit perform target                         as stated W4 line 3    undone W2 line 3                  BITES
+V5: J9 under a fixed-width reader, no crash        J9: a 5,000-digit label part                             as stated W4 line 4    undone W2 line 4                  BITES
+G undone: a self-using first define typed by its form G: a first define that uses its own rule has no type     as stated W10 line 3   undone W9 line 3                  BITES
+G undone: a self-using first define typed by its form G: two first defines that use each other have no type    as stated W10 line 3   undone W9 line 3                  BITES
+G undone: a self-using first define typed by its form G: two rules each with a later typed define, no crash    as stated W10 line 3   undone W10 line 3                 same
+G undone: a rule typed by its first derived define G: a rule typed by its first define, not a later derived as stated W10 line 3   undone W9 line 3                  BITES
+G undone: a rule typed by its first derived define G: two rules each with a later typed define, no crash    as stated W10 line 3   undone W10 line 3                 same
+G undone: draft 8's typing, both parts             G: a first define that uses its own rule has no type     as stated W10 line 3   undone W9 line 3                  BITES
+G undone: draft 8's typing, both parts             G: two first defines that use each other have no type    as stated W10 line 3   undone W9 line 3                  BITES
+G undone: draft 8's typing, both parts             G: a rule typed by its first define, not a later derived as stated W10 line 3   undone W9 line 3                  BITES
+G undone: draft 8's typing, both parts             G: two rules each with a later typed define, no crash    as stated W10 line 3   undone CRASHED (AssertionError)   BITES BY A CRASH
+G undone: a promote's parts gated by its place     G: a promote of a bool, its place underived              as stated W9 line 3    undone W10 line 3                 BITES
+G undone: a promote's parts gated by its place     G: a promote to int, its place underived                 as stated W9 line 3    undone W10 line 3                 BITES
+H undone: W14(c) at draft 8's 130                  G9: a clause line nested 92 deep (draft 9, H)            as stated W14 line 3   undone accepted                   BITES
+H undone: W14(c) at draft 8's 130                  H5: an unbalanced line whose count exceeds 91            as stated W14 line 3   undone W2 line 3                  BITES
+H undone: W14(c) at 90                             H5: an unbalanced line whose count never exceeds 91      as stated W2 line 3    undone W14 line 3                 BITES
+H undone: W14(c) at 90                             fixture: a clause line nested exactly 91 deep (G11; draf as stated accepted     undone W14 line 3                 BITES
+RS-A undone: a part on <type> alone for neg        RS-A: neg bool over an underived rule                    as stated W10 line 3   undone W9 line 3                  BITES
+RS-B undone: a comparison's kind per operand       RS-B: < over a bool and an underived rule                as stated W10 line 3   undone W9 line 3                  BITES
+RS-B undone: a comparison's kind per operand       RS-B: == over a list and an underived rule               as stated W10 line 4   undone W9 line 4                  BITES
+RS-C undone: reading (i), any clause declares      RS-C: a first define reads a variable the walk meets lat as stated W10 line 3   undone W9 line 3                  BITES
+RS-C undone: reading (ii), in scope at the use     RS-C: a first define reads a variable met earlier, out o as stated W9 line 3    undone W10 line 3                 BITES
+RS-D undone: the last declaration types the id     RS-D: id 0 declared int, then fix                        as stated W9 line 3    undone W10 line 3                 BITES
+RS-D undone: the last declaration types the id     RS-D: id 0 declared fix, then int                        as stated W10 line 3   undone W9 line 3                  BITES
+ZA5 undone: musts counted by distinct id           ZA5: E1 musts, counted as met                            as stated W8 line 3    undone W8 line 5                  BITES
+ZA5 undone: claims counted by distinct id          ZA5: E1 claims, counted as met                           as stated W8 line 3    undone W8 line 5                  BITES
+ZA5 undone: a binary's W9 whole or nothing         ZA5: + int over an underived rule and a bool             as stated W9 line 3    undone W10 line 3                 BITES
+ZA5 undone: a unary's W9 whole or nothing          ZA5: not int over an underived rule                      as stated W9 line 3    undone W10 line 3                 BITES
+ZA5 undone: item's W9 whole or nothing             ZA5: item of an int variable, its index underived        as stated W9 line 4    undone W10 line 4                 BITES
+ZA5 undone: list-of's W9 whole or nothing          ZA5: list-of with a text value, its count underived      as stated W9 line 3    undone W10 line 3                 BITES
+J8 undone: under the decimals clause's mode        J8: a float literal under line 2's fixed, decimals float as stated W6 line 3    undone W6 line 4                  BITES
+J9 undone: Python's int-string limit kept          J9: a 5,000-digit Int literal                            as stated W13 line 3   undone CRASHED (ValueError)       BITES BY A CRASH
+J9 undone: Python's int-string limit kept          J9: a 5,000-digit clause number                          as stated W1 line 3    undone CRASHED (ValueError)       BITES BY A CRASH
+J9 undone: Python's int-string limit kept          J9: a 5,000-digit perform target                         as stated W4 line 3    undone CRASHED (ValueError)       BITES BY A CRASH
+J9 undone: Python's int-string limit kept          J9: a 5,000-digit label part                             as stated W4 line 4    undone CRASHED (ValueError)       BITES BY A CRASH
+J11 undone: no skip after a backslash              J11: an escaped quote, then 131 '(' outside the string   as stated W14 line 3   undone W2 line 3                  BITES
+J11 undone: no skip after a backslash              fixture: an escaped quote, then 131 '(' inside the strin as stated accepted     undone W14 line 3                 BITES
+M10 undone: the writer appends a byte              the write-back count of the laws read                    BITES: 0 of 305, where the unbroken checker's is 305 of 305
+int-string limit after every read: 4300
+changed only by a crash of an undone checker: G: two rules each with a later typed define, no crash; H2: 30,000 nested If blocks, refused without a crash; H2: 30,000 nested whiles, refused without a crash; J9: a 5,000-digit clause number
+PLANT REVERTS HELD: 69 plants and fixtures, 69 changed by at least one undoing, 4 of them only by a crash

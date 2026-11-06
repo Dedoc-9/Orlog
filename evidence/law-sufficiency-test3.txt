@@ -1,0 +1,36 @@
+# command: PYTHONHASHSEED=0 PYTHONUTF8=1 python -B research/law-sufficiency/test3_decoder.py
+# tree: 2e9805a plus the uncommitted research/law-sufficiency/ files (src/, tests/ and vectors/ unchanged); Windows, CPython 3.14.5; 2026-10-30; exit 0; run twice, identical
+# code sha256 (first 16 hex): common.py 8b123546b359e72f; decoder.py 4f9a66b4468bd1ab; test1_reads.py 3ff7821dcb6b1811; test2_equal_seal.py a7b93d7d2cafb389; test3_decoder.py a987117b16146019; run_all.py f586dc89b766690c
+# EXPERIMENTAL RESEARCH, off the gate (research/law-sufficiency/SHEET.md): MEASURED on these texts and these plants only, never ESTABLISHED; not a ruling
+LAW-SUFFICIENCY-0, TEST 3: AN INDEPENDENT DECODER (research/law-sufficiency/test3_decoder.py)
+decoder.py sha256 4f9a66b4468bd1ab0ddeabba872c4c1b6a4a7f06b4df7a29a8f6f93aaaaf7ee5
+D's independence, from its source: held: it imports struct and syntax.py's node classes only, and names no module or object to reach the parsed path
+the shared dependency this test does not attack: syntax.py's node classes, which D builds and the interpreter dispatches on by isinstance
+
+== the decoded run against the parsed run, on 290 texts
+   P equal 290, decoded 290, round trip exact 290
+   what D was exercised on (forms decoded, over every text):
+     expr as 16, expr binary 995, expr cat 59, expr item 105, expr length 8, expr list 34
+     expr list-of 12, expr lit bool 176, expr lit fix 83, expr lit float 51, expr lit int 1568, expr promote 82
+     expr rule 47, expr seal 2, expr str 102, expr unary 324, expr var 738, stmt append 16
+     stmt change 29, stmt claim 57, stmt decimals 27, stmt define 87, stmt for 91, stmt if 86
+     stmt let 282, stmt must 12, stmt perform 42, stmt procedure 39, stmt remove-last 8, stmt say 437
+     stmt set 113, stmt while 49
+   conversion forms the grammar has and no text exercised: ['expr rounded']
+
+== plants in the parsed path: the law bytes fixed, one unsealed structure changed, on every text that has it
+   an override edge removed from an.overrides       applied to  12 texts; law bytes moved on 0; parsed P changed on   7; decoded P moved on 0: CAUGHT
+      e.g. corpus/examples/fall.orl@73ccecab2e7b: clause 10 no longer beats clause 9 (rule 'drag'); line 3: 'status COMPLETED' against 'status REFUSED RULE-CONFLICT 20'
+   a claim site dropped from an.claims              applied to  39 texts; law bytes moved on 0; parsed P changed on  39; decoded P moved on 0: CAUGHT
+      e.g. corpus/examples/aztec.orl@e317c26b31aa: the last claim site (clause 53) dropped from an.claims; line 1: 'orlog-receipt 0' against 'CRASH IndexError'
+   cost_tracked flipped on a certificate's clause   applied to   9 texts; law bytes moved on 0; parsed P changed on   8; decoded P moved on 0: CAUGHT
+      e.g. corpus/examples/gcd_certificate.orl@305b2be09583: clause 9's cost_tracked set false; line 10: 'claim 0 22 1 1 12 9 724' against 'claim 0 22 1 1 12 9 0'
+   a Change's elem changed from int to fix          applied to  14 texts; law bytes moved on 0; parsed P changed on  13; decoded P moved on 0: CAUGHT
+      e.g. corpus/examples/aztec.orl@e317c26b31aa: clause 18's Change elem int made fix; line 7: 'trace-head 8c228e9d2f1deca9ca7a0f5cc022168e8982ce034b86281551da70fd3b26ed8b' against 'trace-head 948607a316ea9104395e16f608576834b787e5ce24b8b4412080c6cd
+   an.rules reversed                                applied to  19 texts; law bytes moved on 0; parsed P changed on   0; decoded P moved on 0: MEASURED: equivalent on every text it applies to
+
+== plants in D
+   D derives a Change's elem without its index (the list's type): the decoded P differs from the parsed on 8 texts: CAUGHT
+   D's source given an import of sema (a reach into the parsed path): the independence check reports ['from orlog import ...']: CAUGHT
+
+TEST 3 HELD: 290 texts, decoded P equal on 290, round trip exact on 290, independence held; plants 7 of 7 as stated

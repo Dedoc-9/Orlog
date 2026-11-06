@@ -1,0 +1,5 @@
+Title: A Let in an Inline Body.
+Note: LAW-SUFFICIENCY-1, E3, added by SHEET-1.md's amendment. A research fixture, off the gate: a let in an inline arm of a top-level if, whose variable is not top.
+§1 Let x be 1.
+§2 If x is 1, let y be 2; otherwise say 3.
+§3 Say x.
