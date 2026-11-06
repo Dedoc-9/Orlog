@@ -1,0 +1,16 @@
+Title: The graybox's vertical jump, rules 1, unit-free
+Note: RULES-1 step 6 on flat ground at height 0: on the first tick the jump sets vy; every tick vy = vy - gravity*TICK, then feet = feet + vy*TICK; landing when feet is at most the ground. The same operations in the same order as graybox/tick_ref.py's fall and land.
+1. Decimals are floats.
+2. Let step be 1.0 / 120.0.
+3. Let gravity be 20.0.
+4. Let jump be 7.0.
+5. Let vy be 0.0.
+6. Let feet be 0.0.
+7. For each n from 1 to 100, do the following.
+7.1. If n = 1, set vy to jump.
+7.2. Set vy to vy - gravity * step.
+7.3. Set feet to feet + vy * step.
+7.4. If feet is at most 0.0, do the following.
+7.4.1. Set feet to 0.0.
+7.4.2. Set vy to 0.0.
+7.5. Say n followed by " " followed by feet followed by " " followed by vy.
