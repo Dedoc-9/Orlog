@@ -127,6 +127,8 @@ Never smooth one away to make a run agree, and never count agreement as proof.
 
 Set `PYTHONHASHSEED=0` and `PYTHONUTF8=1` for every run, and use `python -B`.
 
+All pull requests follow the PR Verification Discipline (`docs/engineering/release/PR-VERIFICATION-DISCIPLINE.md`).
+
 | what changed | run | expect |
 |---|---|---|
 | anything | `python -B tests/selftest.py` (`--backends python` without compilers) | `ORLOG SELFTEST n/n`; read every FAIL line, and when a row fails, check first whether its expectation is stale |
