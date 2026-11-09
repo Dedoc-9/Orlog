@@ -1,0 +1,7 @@
+PREDICTION, written before any run (exact rational arithmetic, Python fractions)
+update per tick: vy <- vy - gravity*TICK; feet <- feet + vy*TICK; gravity=20, TICK=1/120, jump vy=7 on tick 1, feet0=0
+closed form per tick: v_n = 7 - n/6 ; feet_n = 7n/120 - n(n+1)/1440
+discrete maximum feet = 287/240 = 1.195833333333 m, at tick(s) [41, 42] (an exact tie: v_42 = 0)
+continuous apex v0^2/(2g) = 49/40 = 1.225000000000 m
+difference continuous - discrete = 7/240 = 0.029166666667 m = v0*TICK/2 = 7/240
+binary64 note: TICK, gravity*TICK and each update round; the exact tie at ticks 41/42 may break either way. Predicted: the binary64 maximum lies within a few ulps of 287/240 at tick 41 or 42.

@@ -1,0 +1,54 @@
+# command: python -B research/jump/compare.py --verdandi VERDANDI; the same with --plant explicit-euler and --plant gravity-ulp; python -B orl.py run examples/jump.orl --backends python,c99,rust
+# tree: 54ec6a7 plus the uncommitted changes of the round that adds this file; VERDANDI is a tree of Verdandi b441a1e5ccc33351ed0307a7062bd65423b3db90 (tree 922c492a02cf9a11826cc3c175deed1a06466563)
+# host: Windows 11, clang 22.1.8, rustc 1.96.1, CPython 3.14.5; 2026-11-06; PYTHONHASHSEED=0 PYTHONUTF8=1
+# research/jump/PREDICTION.txt sha256 09aaa9a911a60055411681c7dc75a378e668ebad466b9bbc3d3f70078b1d3227; examples/jump.orl sha256 4e6971caddae0e456879aa407d0c00c5a8681e68d2eee1524305fc55640a9956
+the clean-room twin: COMPLETED, output equal to the reference's (sha256 202d4705e0baf114c6588e49e70aaa39c56c3b066a3c9a72548227305f28335b)
+examples/jump.orl: law seal c2a7d4d4199be412cba6bd8b8678d1aed104b8fee03199798a1dcba4da01fe22, reference COMPLETED, 100 ticks said
+Orlog against the prediction (mathematical comparison)
+   maximum feet 1.1958333333333322 (bits 3ff322222222221d) at tick(s) [41, 42]; predicted 287/240 at ticks 41 and 42
+   measured - 287/240 = -1.140e-15 (-5.13 ulp); continuous apex 49/40 - measured = 0.029166666667; predicted 7/240 = 0.029166666667
+   vy at tick 42: -3.497202527569243e-15 (0 in exact arithmetic); first tick back on the ground: 83
+   HELD: maximum at the predicted ticks and within 8 ulp of 287/240
+bit-level comparison with Verdandi's tick_ref.py (implementation comparison, not physical validation)
+   ticks compared 100; ticks whose feet or vy differ in any bit: 0 []
+tick_ref.py against the prediction (mathematical comparison)
+   maximum feet 1.1958333333333322 (bits 3ff322222222221d) at tick(s) [41, 42]; predicted 287/240 at ticks 41 and 42
+   measured - 287/240 = -1.140e-15 (-5.13 ulp); continuous apex 49/40 - measured = 0.029166666667; predicted 7/240 = 0.029166666667
+   vy at tick 42: -3.497202527569243e-15 (0 in exact arithmetic); first tick back on the ground: 83
+   HELD: maximum at the predicted ticks and within 8 ulp of 287/240
+JUMP HELD
+exit 0
+the clean-room twin: COMPLETED, output equal to the reference's (sha256 675d0d4ea7c1379aa3cba41444cd9155bcb8b7e090c8d91cc21f5921efc2ac64)
+examples/jump.orl with the plant explicit-euler: law seal d581e767ffe7ff83086802213a5370aea701a7e5512e95ddae020d3f2f8561bc, reference COMPLETED, 100 ticks said
+Orlog against the prediction (mathematical comparison)
+   maximum feet 1.2541666666666655 (bits 3ff411111111110c) at tick(s) [42, 43]; predicted 287/240 at ticks 41 and 42
+   measured - 287/240 = 5.833e-02 (262709978263273.88 ulp); continuous apex 49/40 - measured = -0.029166666667; predicted 7/240 = 0.029166666667
+   vy at tick 42: -3.497202527569243e-15 (0 in exact arithmetic); first tick back on the ground: 85
+   NOT HELD: maximum at the predicted ticks and within 8 ulp of 287/240
+bit-level comparison with Verdandi's tick_ref.py (implementation comparison, not physical validation)
+   ticks compared 100; ticks whose feet or vy differ in any bit: 84 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+tick_ref.py against the prediction (mathematical comparison)
+   maximum feet 1.1958333333333322 (bits 3ff322222222221d) at tick(s) [41, 42]; predicted 287/240 at ticks 41 and 42
+   measured - 287/240 = -1.140e-15 (-5.13 ulp); continuous apex 49/40 - measured = 0.029166666667; predicted 7/240 = 0.029166666667
+   vy at tick 42: -3.497202527569243e-15 (0 in exact arithmetic); first tick back on the ground: 83
+   HELD: maximum at the predicted ticks and within 8 ulp of 287/240
+JUMP NOT HELD
+exit 1
+the clean-room twin: COMPLETED, output equal to the reference's (sha256 ca2e9794b14e32d2f88b16698cd975c6c2520767e55ce52ebb4513cb60403c75)
+examples/jump.orl with the plant gravity-ulp: law seal f3604ce376e9b144c8bf86ea86eba08ead97222c3cd8b951f8ca0a358d7c3a28, reference COMPLETED, 100 ticks said
+Orlog against the prediction (mathematical comparison)
+   maximum feet 1.1958333333333322 (bits 3ff322222222221d) at tick(s) [41, 42]; predicted 287/240 at ticks 41 and 42
+   measured - 287/240 = -1.140e-15 (-5.13 ulp); continuous apex 49/40 - measured = 0.029166666667; predicted 7/240 = 0.029166666667
+   vy at tick 42: -3.9968028886505635e-15 (0 in exact arithmetic); first tick back on the ground: 83
+   HELD: maximum at the predicted ticks and within 8 ulp of 287/240
+bit-level comparison with Verdandi's tick_ref.py (implementation comparison, not physical validation)
+   ticks compared 100; ticks whose feet or vy differ in any bit: 47 [36, 37, 38, 39, 40, 41, 42, 43, 44, 45]
+tick_ref.py against the prediction (mathematical comparison)
+   maximum feet 1.1958333333333322 (bits 3ff322222222221d) at tick(s) [41, 42]; predicted 287/240 at ticks 41 and 42
+   measured - 287/240 = -1.140e-15 (-5.13 ulp); continuous apex 49/40 - measured = 0.029166666667; predicted 7/240 = 0.029166666667
+   vy at tick 42: -3.497202527569243e-15 (0 in exact arithmetic); first tick back on the ground: 83
+   HELD: maximum at the predicted ticks and within 8 ulp of 287/240
+JUMP NOT HELD
+exit 1
+jump               law sapol-tigih-dokir-vibif  ref COMPLETED  agree [c99,python,rust]  dissent [] NONE
+exit 0
