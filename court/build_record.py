@@ -79,6 +79,62 @@ ed2 = {
 for k, text in ed2.items():
     args["ed2-" + k] = {"by": "doctrine", "text": "edition 2: " + text}
 
+# --- Round 2 (2026-11-09): the ten re-verified October-25 HOLDS findings, as a documentation of
+# repairs (owner ruled S1-S4 as amended). Each finding attacked edition-2's implementation claim; the
+# repair that resolved it, cited by its commit, defeats it, so ed2-IMPL survives IN and the verdict
+# delta on it is empty. Evidence: court/redteam-eng/FINDINGS.md (HOLDS 2026-10-25) and the archived
+# re-verification (COURT-ROUND-2-REVERIFICATION-RESULTS-2026-11-09.md): all ten RESOLVED at e2b40ee,
+# self-test 211/211, re-measured in a clean clone before this patch. A finding left unresolved would
+# stand, move ed2-IMPL OUT, and halt the closeout; none does.
+round2 = {
+    "E7":  ("E7 the arbiter read non-byte-identical receipts (CR LF, no final LF, an injected 'backend' line) as agreeing",
+            "fc19339 (receipt_core: byte-exact core comparison)"),
+    "E8":  ("E8 a backend that failed to build flipped REFERENCE-DISSENT into BACKEND-DISSENT, masking a reference dissent",
+            "b4eaf11 (a failed build counted neither agreeing nor dissenting: INCOMPLETE)"),
+    "E9":  ("E9 a curly quote inside a straight-quoted literal closed it, so the literal's contents changed (DOCTRINE T6)",
+            "b4eaf11 (the door's literal segmentation, canon.py)"),
+    "E11": ("E11 C99 and Rust failed on a non-ASCII work-folder path: host-dependent (RUNTIME-SPEC 1)",
+            "b4eaf11 (arbiter run folders) with fc19339 (the C runtime)"),
+    "E19": ("E19 invisible characters inside a literal passed through unseen: the door's INVISIBLE set was too small",
+            "b4eaf11 (the door, canon.py)"),
+    "E20": ("E20 labels '(given 2)' and '(given 02)' gave different law-seals, and a reference refused UNKNOWN-CLAUSE",
+            "fc19339 (label parts compare as integers, sema.py; amendment 6)"),
+    "E21": ("E21 the C runtime leaked: orl_s_take copies were never freed (already rt_c/NOTES.md finding 8)",
+            "fc19339 (every heap text and list has one owner)"),
+    "E23": ("E23 three refusals (NESTING-DEPTH, LOOP-NESTING, QUOTE-BOUNDARY) were not listed in the specification",
+            "fc19339 (SPEC 14 lists and places them)"),
+    "E24": ("E24 a Python-only IndentationError diverged from the other backends on deep nested 'and' inside loops",
+            "fc19339 (EXPRESSION-DEPTH raised at the shared front end, SPEC 14)"),
+    "E25": ("E25 a deep nesting of parentheses raised RecursionError with no refusal",
+            "fc19339 (EXPRESSION-DEPTH, EXPR_NEST_MAX)"),
+    "E26": ("E26 a false LITERAL-NOT-NFC note was logged on a line with no literal (a regression of the E17 fix)",
+            "b4eaf11 (the door, canon.py)"),
+}
+for k, (text, repair) in round2.items():
+    args["R2-" + k] = {"by": "redteam-round2",
+                       "text": "%s (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)" % text,
+                       "targets": ["ed2-IMPL"]}
+    args["R2-" + k + "-fixed"] = {"by": "repair",
+                                  "text": "resolved at %s; re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)" % repair,
+                                  "targets": ["R2-" + k]}
+
+# E18/E22 (prosecutor F6): both repaired, but at fc19339 they had no self-test row, so by the record's
+# own rule they transiently defeated ed2-IMPL; the rows added in b4eaf11 (E18's with a plant) defeat them.
+for k, text in (("E18", "E18 the door was not idempotent: a second pass added a repair the first missed"),
+                ("E22", "E22 'orl.py ratify' wrote a claim ratification for a non-claim")):
+    args["R2-" + k] = {"by": "redteam-round2",
+                       "text": "%s; repaired before entry, but with no self-test row at fc19339 (prosecutor F6) it transiently defeated ed2-IMPL" % text,
+                       "targets": ["ed2-IMPL"]}
+    args["R2-" + k + "-fixed"] = {"by": "repair",
+                                  "text": "the self-test row added in b4eaf11 holds the repair (E18's with a plant); re-verified RESOLVED on 2026-11-09",
+                                  "targets": ["R2-" + k]}
+
+# Twin round 3 (S4): documented deviations, merged alongside SPEC 14 at fc19339. The three Part-1
+# deviations remain live on the corpus (not compliant with 14); the twin author's SPEC 14 adoption is
+# EXPLICITLY UNRESOLVED -- a merged implementation is not author adoption. Documented; attacks nothing.
+args["R2-TW3"] = {"by": "twin",
+                  "text": "twin round 3: 128 hand-worked probes, 3 settled against the twin in SPEC 14 at fc19339; the three Part-1 deviations remain live on the corpus (twin/probes3/settled.json); the twin author's SPEC 14 adoption stays EXPLICITLY UNRESOLVED -- a merged implementation is not author adoption"}
+
 attacks = []
 for k, a in args.items():
     for t in a.pop("targets", []):

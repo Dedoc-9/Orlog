@@ -212,6 +212,114 @@
    "by": "prosecution-novelty",
    "text": "N9 NARROWS (court/prosecution-novelty.md)"
   },
+  "R2-E11": {
+   "by": "redteam-round2",
+   "text": "E11 C99 and Rust failed on a non-ASCII work-folder path: host-dependent (RUNTIME-SPEC 1) (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)"
+  },
+  "R2-E11-fixed": {
+   "by": "repair",
+   "text": "resolved at b4eaf11 (arbiter run folders) with fc19339 (the C runtime); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)"
+  },
+  "R2-E18": {
+   "by": "redteam-round2",
+   "text": "E18 the door was not idempotent: a second pass added a repair the first missed; repaired before entry, but with no self-test row at fc19339 (prosecutor F6) it transiently defeated ed2-IMPL"
+  },
+  "R2-E18-fixed": {
+   "by": "repair",
+   "text": "the self-test row added in b4eaf11 holds the repair (E18's with a plant); re-verified RESOLVED on 2026-11-09"
+  },
+  "R2-E19": {
+   "by": "redteam-round2",
+   "text": "E19 invisible characters inside a literal passed through unseen: the door's INVISIBLE set was too small (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)"
+  },
+  "R2-E19-fixed": {
+   "by": "repair",
+   "text": "resolved at b4eaf11 (the door, canon.py); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)"
+  },
+  "R2-E20": {
+   "by": "redteam-round2",
+   "text": "E20 labels '(given 2)' and '(given 02)' gave different law-seals, and a reference refused UNKNOWN-CLAUSE (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)"
+  },
+  "R2-E20-fixed": {
+   "by": "repair",
+   "text": "resolved at fc19339 (label parts compare as integers, sema.py; amendment 6); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)"
+  },
+  "R2-E21": {
+   "by": "redteam-round2",
+   "text": "E21 the C runtime leaked: orl_s_take copies were never freed (already rt_c/NOTES.md finding 8) (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)"
+  },
+  "R2-E21-fixed": {
+   "by": "repair",
+   "text": "resolved at fc19339 (every heap text and list has one owner); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)"
+  },
+  "R2-E22": {
+   "by": "redteam-round2",
+   "text": "E22 'orl.py ratify' wrote a claim ratification for a non-claim; repaired before entry, but with no self-test row at fc19339 (prosecutor F6) it transiently defeated ed2-IMPL"
+  },
+  "R2-E22-fixed": {
+   "by": "repair",
+   "text": "the self-test row added in b4eaf11 holds the repair (E18's with a plant); re-verified RESOLVED on 2026-11-09"
+  },
+  "R2-E23": {
+   "by": "redteam-round2",
+   "text": "E23 three refusals (NESTING-DEPTH, LOOP-NESTING, QUOTE-BOUNDARY) were not listed in the specification (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)"
+  },
+  "R2-E23-fixed": {
+   "by": "repair",
+   "text": "resolved at fc19339 (SPEC 14 lists and places them); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)"
+  },
+  "R2-E24": {
+   "by": "redteam-round2",
+   "text": "E24 a Python-only IndentationError diverged from the other backends on deep nested 'and' inside loops (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)"
+  },
+  "R2-E24-fixed": {
+   "by": "repair",
+   "text": "resolved at fc19339 (EXPRESSION-DEPTH raised at the shared front end, SPEC 14); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)"
+  },
+  "R2-E25": {
+   "by": "redteam-round2",
+   "text": "E25 a deep nesting of parentheses raised RecursionError with no refusal (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)"
+  },
+  "R2-E25-fixed": {
+   "by": "repair",
+   "text": "resolved at fc19339 (EXPRESSION-DEPTH, EXPR_NEST_MAX); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)"
+  },
+  "R2-E26": {
+   "by": "redteam-round2",
+   "text": "E26 a false LITERAL-NOT-NFC note was logged on a line with no literal (a regression of the E17 fix) (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)"
+  },
+  "R2-E26-fixed": {
+   "by": "repair",
+   "text": "resolved at b4eaf11 (the door, canon.py); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)"
+  },
+  "R2-E7": {
+   "by": "redteam-round2",
+   "text": "E7 the arbiter read non-byte-identical receipts (CR LF, no final LF, an injected 'backend' line) as agreeing (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)"
+  },
+  "R2-E7-fixed": {
+   "by": "repair",
+   "text": "resolved at fc19339 (receipt_core: byte-exact core comparison); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)"
+  },
+  "R2-E8": {
+   "by": "redteam-round2",
+   "text": "E8 a backend that failed to build flipped REFERENCE-DISSENT into BACKEND-DISSENT, masking a reference dissent (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)"
+  },
+  "R2-E8-fixed": {
+   "by": "repair",
+   "text": "resolved at b4eaf11 (a failed build counted neither agreeing nor dissenting: INCOMPLETE); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)"
+  },
+  "R2-E9": {
+   "by": "redteam-round2",
+   "text": "E9 a curly quote inside a straight-quoted literal closed it, so the literal's contents changed (DOCTRINE T6) (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)"
+  },
+  "R2-E9-fixed": {
+   "by": "repair",
+   "text": "resolved at b4eaf11 (the door's literal segmentation, canon.py); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)"
+  },
+  "R2-TW3": {
+   "by": "twin",
+   "text": "twin round 3: 128 hand-worked probes, 3 settled against the twin in SPEC 14 at fc19339; the three Part-1 deviations remain live on the corpus (twin/probes3/settled.json); the twin author's SPEC 14 adoption stays EXPLICITLY UNRESOLVED -- a merged implementation is not author adoption"
+  },
   "TW37": {
    "by": "twin",
    "text": "twin note 37: 'is not E' op count underdetermined by SPEC v0"
@@ -613,6 +721,110 @@
   [
    "N9",
    "ed1-P2"
+  ],
+  [
+   "R2-E11",
+   "ed2-IMPL"
+  ],
+  [
+   "R2-E11-fixed",
+   "R2-E11"
+  ],
+  [
+   "R2-E18",
+   "ed2-IMPL"
+  ],
+  [
+   "R2-E18-fixed",
+   "R2-E18"
+  ],
+  [
+   "R2-E19",
+   "ed2-IMPL"
+  ],
+  [
+   "R2-E19-fixed",
+   "R2-E19"
+  ],
+  [
+   "R2-E20",
+   "ed2-IMPL"
+  ],
+  [
+   "R2-E20-fixed",
+   "R2-E20"
+  ],
+  [
+   "R2-E21",
+   "ed2-IMPL"
+  ],
+  [
+   "R2-E21-fixed",
+   "R2-E21"
+  ],
+  [
+   "R2-E22",
+   "ed2-IMPL"
+  ],
+  [
+   "R2-E22-fixed",
+   "R2-E22"
+  ],
+  [
+   "R2-E23",
+   "ed2-IMPL"
+  ],
+  [
+   "R2-E23-fixed",
+   "R2-E23"
+  ],
+  [
+   "R2-E24",
+   "ed2-IMPL"
+  ],
+  [
+   "R2-E24-fixed",
+   "R2-E24"
+  ],
+  [
+   "R2-E25",
+   "ed2-IMPL"
+  ],
+  [
+   "R2-E25-fixed",
+   "R2-E25"
+  ],
+  [
+   "R2-E26",
+   "ed2-IMPL"
+  ],
+  [
+   "R2-E26-fixed",
+   "R2-E26"
+  ],
+  [
+   "R2-E7",
+   "ed2-IMPL"
+  ],
+  [
+   "R2-E7-fixed",
+   "R2-E7"
+  ],
+  [
+   "R2-E8",
+   "ed2-IMPL"
+  ],
+  [
+   "R2-E8-fixed",
+   "R2-E8"
+  ],
+  [
+   "R2-E9",
+   "ed2-IMPL"
+  ],
+  [
+   "R2-E9-fixed",
+   "R2-E9"
   ],
   [
    "TW37",

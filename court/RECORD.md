@@ -74,3 +74,47 @@
   *(Note, 2026-10-25, prosecutor F6: at commit fc19339, E18 and E22, both repaired, had no row. The next revision added
   both, E18's with a plant. By this record's own rule the finding defeats the edition-2 implementation claim
   (ed2-IMPL) as it stood; it is to be entered with the second round's record, beside the revised claim.)*
+
+## Round 2 (2026-11-09): documentation of repairs
+
+The ten engineering red-team findings that **held** at the first court (E7, E8, E9, E11, E19, E20, E21, E23, E24, E25,
+E26 — `redteam-eng/FINDINGS.md`) were re-verified against commit `e2b40ee` on 2026-11-09, under a strict protocol
+(digest-pinned reproducers, four classifications, pre-registered consequences, a 40-agent adversarial pass), and
+re-measured in a clean clone before this record was written (`SELFTEST 211/211`, every red-team row green). The full
+record is archived (`COURT-ROUND-2-REVERIFICATION-RESULTS-2026-11-09.md`, outside this tree).
+
+**All ten are RESOLVED. None stands. The verdict delta is empty: `ed2-IMPL` stays IN** (the doctrine verdict is
+13 IN / 21 OUT, as in round 1). Round 2 is a documentation of repairs, not a refutation: each finding entered the record
+(attacking `ed2-IMPL`); the repair that resolved it, cited by its commit, defeats it, so the finding is OUT and the
+claim survives. By the owner's ruling (S1–S4 as amended, 2026-11-09) each finding is entered **resolved-with-history** —
+its October-25 original result and its November-9 RESOLVED disposition — with the commit that resolved it:
+
+| finding (HOLDS 2026-10-25) | current (RESOLVED 2026-11-09) | resolved at |
+|---|---|---|
+| E7 non-byte-identical receipts read as agreeing | byte-exact `receipt_core`; the three corruptions dissent | `fc19339` |
+| E8 a failed build flipped REFERENCE-DISSENT to BACKEND-DISSENT | a failed build counts neither (INCOMPLETE/BUILD-FAILED) | `b4eaf11` |
+| E9 a curly quote closed a straight-quoted literal (T6) | the literal is preserved; no door event | `b4eaf11` |
+| E11 C99/Rust failed on a non-ASCII work-folder path | all backends agree on the non-ASCII folder | `b4eaf11`, `fc19339` |
+| E19 invisibles passed through a literal | refused (INVISIBLE-CHAR / CONTROL-CHAR) | `b4eaf11` |
+| E20 `(given 2)` vs `(given 02)` gave different law-seals | one law-seal; label parts compare as integers (amendment 6) | `fc19339` |
+| E21 the C runtime leaked (`rt_c/NOTES.md` finding 8) | every heap text and list has one owner | `fc19339` |
+| E23 three refusals not listed in the specification | listed and placed in SPEC §13/§14 | `fc19339` |
+| E24 a Python-only IndentationError diverged | EXPRESSION-DEPTH at the shared front end; one verdict | `fc19339` |
+| E25 deep parentheses raised RecursionError, no refusal | a clean EXPRESSION-DEPTH refusal | `fc19339` |
+| E26 a false LITERAL-NOT-NFC note on a line with no literal | one accurate R-SPACE repair, no false note | `b4eaf11` |
+
+- **E21 (S2):** one entry — its resolved-with-history row above; its repair at `fc19339` is its provenance, citing
+  `rt_c/NOTES.md` finding 8 as the prior record it closes (not a second entry; finding 8 is not edited).
+- **E18, E22 (S3, prosecutor F6):** repaired before ever being entered, but with no self-test row at `fc19339` they
+  transiently defeated `ed2-IMPL`; the rows added in `b4eaf11` (E18's with a plant) defeat them. They enter via those
+  rows; the disposition rests on F6's record, not a new measurement.
+- **Twin round 3 (S4):** 128 hand-worked probes, three settled against the twin in SPEC §14 (`fc19339`); the probes and
+  the §14 settlements coexist in the tree, and the three Part-1 deviations remain **live** on the corpus
+  (`twin/probes3/settled.json`) — not compliant with §14. The twin author's §14 adoption stays **explicitly unresolved**
+  (the fourth round's question): a merged implementation is not author adoption.
+
+**Limitations, stated.** Two findings carry a residual *test-harness* staleness, not a product defect: E7's reproducer
+`arbiter_plants.py` crashes against the reworked arbiter (its resolution rests on a direct probe and the self-test E7
+row, not the reproducer), and E24's `show_stderr.py` has drifted against the `Compiled` API (its resolution rests on the
+measured nesting depth, 51 > the cap of 24, and its self-test row). The re-verification report and its hashes are
+assistant-computed; the fresh `211/211` re-measure here is a second measurement, not an owner-independent one.
