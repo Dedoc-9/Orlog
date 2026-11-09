@@ -51,6 +51,20 @@ IN        N6             prosecution-novelty  N6 NARROWS (court/prosecution-nove
 IN        N7             prosecution-novelty  N7 NARROWS (court/prosecution-novelty.md)
 IN        N8             prosecution-novelty  N8 NARROWS (court/prosecution-novelty.md)
 IN        N9             prosecution-novelty  N9 NARROWS (court/prosecution-novelty.md)
+IN        R2-E11-fixed   repair               resolved at b4eaf11 (arbiter run folders) with fc19339 (the C runtime); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)
+IN        R2-E18-fixed   repair               the self-test row added in b4eaf11 holds the repair (E18's with a plant); re-verified RESOLVED on 2026-11-09
+IN        R2-E19-fixed   repair               resolved at b4eaf11 (the door, canon.py); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)
+IN        R2-E20-fixed   repair               resolved at fc19339 (label parts compare as integers, sema.py; amendment 6); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)
+IN        R2-E21-fixed   repair               resolved at fc19339 (every heap text and list has one owner); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)
+IN        R2-E22-fixed   repair               the self-test row added in b4eaf11 holds the repair (E18's with a plant); re-verified RESOLVED on 2026-11-09
+IN        R2-E23-fixed   repair               resolved at fc19339 (SPEC 14 lists and places them); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)
+IN        R2-E24-fixed   repair               resolved at fc19339 (EXPRESSION-DEPTH raised at the shared front end, SPEC 14); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)
+IN        R2-E25-fixed   repair               resolved at fc19339 (EXPRESSION-DEPTH, EXPR_NEST_MAX); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)
+IN        R2-E26-fixed   repair               resolved at b4eaf11 (the door, canon.py); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)
+IN        R2-E7-fixed    repair               resolved at fc19339 (receipt_core: byte-exact core comparison); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)
+IN        R2-E8-fixed    repair               resolved at b4eaf11 (a failed build counted neither agreeing nor dissenting: INCOMPLETE); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)
+IN        R2-E9-fixed    repair               resolved at b4eaf11 (the door's literal segmentation, canon.py); re-verified RESOLVED at e2b40ee on 2026-11-09, held by a self-test row (SELFTEST 211/211)
+IN        R2-TW3         twin                 twin round 3: 128 hand-worked probes, 3 settled against the twin in SPEC 14 at fc19339; the three Part-1 deviations remain live on the corpus (twin/probes3/settled.json); the twin author's SPEC 14 adoption stays EXPLICITLY UNRESOLVED -- a merged implementation is not author adoption
 IN        TW37           twin                 twin note 37: 'is not E' op count underdetermined by SPEC v0
 IN        TW38           twin                 twin note 38: a float literal beyond binary64 crashed the compiler
 IN        ed1-T5         doctrine             edition 1: Fixed and floating point are deterministic by construction under the declared envelope; four-way byte identity here; Orlog's generated C has no FMA under contraction-allowing flags.
@@ -66,6 +80,19 @@ IN        ed2-T6         doctrine             edition 2: the door never moves a 
 IN        ed2-T7         doctrine             edition 2: reversibility and momentum are properties of the update (Newton III, not Noether)
 IN        ed2-T8         doctrine             edition 2: three spellings, one law-seal (one program); names are in the law; prior art ALGOL 60, Dhall, Unison
 IN        ed2-T9         doctrine             edition 2: chaos magnifies a recurring difference; a single one-ulp difference is erased about a quarter of the time
+OUT       R2-E11         redteam-round2       E11 C99 and Rust failed on a non-ASCII work-folder path: host-dependent (RUNTIME-SPEC 1) (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)
+OUT       R2-E18         redteam-round2       E18 the door was not idempotent: a second pass added a repair the first missed; repaired before entry, but with no self-test row at fc19339 (prosecutor F6) it transiently defeated ed2-IMPL
+OUT       R2-E19         redteam-round2       E19 invisible characters inside a literal passed through unseen: the door's INVISIBLE set was too small (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)
+OUT       R2-E20         redteam-round2       E20 labels '(given 2)' and '(given 02)' gave different law-seals, and a reference refused UNKNOWN-CLAUSE (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)
+OUT       R2-E21         redteam-round2       E21 the C runtime leaked: orl_s_take copies were never freed (already rt_c/NOTES.md finding 8) (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)
+OUT       R2-E22         redteam-round2       E22 'orl.py ratify' wrote a claim ratification for a non-claim; repaired before entry, but with no self-test row at fc19339 (prosecutor F6) it transiently defeated ed2-IMPL
+OUT       R2-E23         redteam-round2       E23 three refusals (NESTING-DEPTH, LOOP-NESTING, QUOTE-BOUNDARY) were not listed in the specification (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)
+OUT       R2-E24         redteam-round2       E24 a Python-only IndentationError diverged from the other backends on deep nested 'and' inside loops (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)
+OUT       R2-E25         redteam-round2       E25 a deep nesting of parentheses raised RecursionError with no refusal (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)
+OUT       R2-E26         redteam-round2       E26 a false LITERAL-NOT-NFC note was logged on a line with no literal (a regression of the E17 fix) (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)
+OUT       R2-E7          redteam-round2       E7 the arbiter read non-byte-identical receipts (CR LF, no final LF, an injected 'backend' line) as agreeing (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)
+OUT       R2-E8          redteam-round2       E8 a backend that failed to build flipped REFERENCE-DISSENT into BACKEND-DISSENT, masking a reference dissent (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)
+OUT       R2-E9          redteam-round2       E9 a curly quote inside a straight-quoted literal closed it, so the literal's contents changed (DOCTRINE T6) (court/redteam-eng/FINDINGS.md; HOLDS at 2026-10-25)
 OUT       ed1-IMPL       doctrine             edition 1 implementation: every program the spec admits compiles, and runs identically on four executions; every invalid one is refused
 OUT       ed1-NF         doctrine             edition 1: Not found in prior art: a stated byte-identical Python/C99/Rust contract with a declared authority and localized mismatch notes.
 OUT       ed1-P1         doctrine             edition 1: Pioneering (speculative): self-certification reported as gfp minus lfp, with a sandwich-closed certificate.
