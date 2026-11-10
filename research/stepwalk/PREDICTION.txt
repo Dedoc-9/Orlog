@@ -1,0 +1,51 @@
+PREDICTION, written before any run (exact rational arithmetic + the binary64 accumulation, Python).
+
+Scenario (the graybox, rules 1): a body on a cell-center line at yaw 0, forward held, 125 ticks.
+  world: cells 1 wide in x, 8 deep in z, 1 m each; tops by z-cell = [0, 0, 0.5, 0.5, 0, 0, 0, 0].
+  start: x = 0.5 (centre of x-cell 0), z = 7.52, feet = 0.0, vy = 0.0, on the ground, yaw 0, pitch 0.
+  input: forward held every tick (no turn, no strafe, no jump).
+
+The walk at yaw 0 is trig-free in value: sin 0 = 0, cos 0 = 1, hypot(0, 1) = 1, all exact in the graybox's
+fdlibm, so forward is a pure move in -z of mz/length * speed * TICK = -1.0 * 6.0 * TICK per tick, and the x-move
+is move(0, 0) (no effect). No cell is ever a wall for this body (a 0.5 ledge is at most feet + step, so is_blocked
+is false and move never halves): the walk is z <- z + dz each tick with dz = -(6.0 * TICK).
+
+world.ground on this line reduces exactly to a one-interval test on z (radius 0.35, cell 1.0, x centred):
+  ground(z) = 0.5  if and only if  1.65 < z < 4.35 ;  else 0.0.
+(The ledge z-cells 2 and 3 are "near" the body's radius exactly on that open interval; the circle-rectangle
+overlap and the interval agree at every tick because the crossings fall mid-step, below.)
+
+Constants: TICK = 1/120, gravity = 20, speed = 6, step = 0.55.
+Per tick, in order: turn (nothing); walk (z += dz); fall (vy <- vy - gravity*TICK; feet <- feet + vy*TICK);
+land (feet <- ground, vy <- 0, grounded, when feet <= ground OR (was-grounded AND vy <= 0 AND feet - ground <= step)).
+
+dz exact rational = -1/20 = -0.05; binary64 dz = -0x1.999999999999ap-5 (the nearest double to -0.05).
+ideal z_n = 7.52 - n/20. The two ground crossings:
+  mount (ground 0 -> 0.5): ideal first n with z < 4.35 is n = 64 (7.52 - 64/20 = 4.32; 7.52 - 63/20 = 4.37).
+  step-down (ground 0.5 -> 0): ideal first n with z < 1.65 is n = 118 (7.52 - 118/20 = 1.62; 7.52 - 117/20 = 1.67).
+
+binary64, accumulating z += dz each tick (as the graybox does, not 7.52 - n*dz):
+  mount at tick 64, z = 4.320000000000011 (0.030 below 4.35; the tick before, z = 4.370000000000011, 0.020 above).
+  step-down at tick 118, z = 1.6200000000000188 (0.030 below 1.65; the tick before, 1.6700000000000188, 0.020 above).
+  end (tick 125): z = 1.2700000000000184.
+Both crossings lie ~0.02-0.03 from the thresholds, far from any ulp knife-edge, so the open-interval test and
+the graybox's circle test cannot disagree at a crossing tick.
+
+Predicted feet and the two step-clause branches:
+  ticks 1..63   : feet = 0.0  (flat ground; each tick feet dips by gravity*TICK^2 then the land resets it to 0).
+  ticks 64..117 : feet = 0.5  (mounted; the land fires through "feet <= ground" -- branch A, the body dips below
+                               the newly raised ground and snaps up onto the 0.5 ledge).
+  ticks 118..125: feet = 0.0  (stepped down; the land fires through the step allowance -- branch B, feet - ground
+                               = 0.5 <= step = 0.55, so the body follows the ground down without leaving it).
+  vy = 0.0 at the end of every tick; grounded = true at every tick (the body never leaves the ground across a
+  ledge whose rise and drop are each at most the step height -- the whole point of the step allowance).
+
+Equivalent mutants in THIS fixture (stated per the engineering rule that a plant changing nothing is equivalent):
+because the body is grounded every tick -- vy is reset to 0 and feet is reset to the ground exactly -- a plant in
+the gravity constant, or one swapping the vy and feet updates (explicit vs semi-implicit Euler), changes nothing
+observable here: feet and vy are overwritten by the land before they are said. Those plants bite the vertical jump
+(examples/jump.orl), where vy is genuinely in flight; they are equivalent mutants on this grounded walk. The plants
+that bite here are the ones touching the land decision, the step bound, the ground interval, or the walk
+displacement -- exactly the logic this rung adds over the jump.
+
+This prediction is exact arithmetic, independent of both implementations but not of their author.
