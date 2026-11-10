@@ -1,0 +1,24 @@
+Recorded run of research/stepwalk/compare.py --verdandi <tree>, from the repository root. PYTHONHASHSEED=0.
+The run self-reports its provenance below (Orlog git HEAD; tick_ref.py sha256 and git HEAD) -- no absolute paths.
+
+Orlog repository git HEAD 709272e4466ae4ed1f11b6bff795cb918de42d2c
+the clean-room twin: status COMPLETED (reference COMPLETED); twin output sha256 8d2dac023c74eed4916ce2b32021d869d88f0f403e55ae3c9593d7abff14192c; reference output sha256 8d2dac023c74eed4916ce2b32021d869d88f0f403e55ae3c9593d7abff14192c
+   twin vs reference, by byte equality of output and equal status: True
+examples/stepwalk.orl: law seal 082e13c92755f4a4393a688747ad963542be80874a194240280355be38bc960f, reference COMPLETED, 125 ticks said
+Orlog reference against the prediction (mathematical comparison)
+   mount tick 64 (predicted 64); step-down tick 118 (predicted 118); rows 125 (expected 125)
+   feet 0 before mount, 0.5 while mounted, 0 after step-down: True; vy 0 every tick: True
+   HELD
+clean-room twin (its own parsed output) against the prediction (mathematical comparison)
+   mount tick 64 (predicted 64); step-down tick 118 (predicted 118); rows 125 (expected 125)
+   feet 0 before mount, 0.5 while mounted, 0 after step-down: True; vy 0 every tick: True
+   HELD
+Verdandi graybox/tick_ref.py: sha256 b1da2c4fe57331739f2e72ec2a7d05ed66558884118c1ff09319fb11dc86bbf2; git HEAD 95a9731b3ce8cf6a516b116fd6d7ec1d9e0bacf5
+bit-level comparison with Verdandi's tick_ref.py (implementation comparison, not physical validation)
+   Orlog rows 125; tick_ref rows 125
+   ticks whose z, feet or vy differ in any bit: 0 []
+tick_ref.py against the prediction (mathematical comparison)
+   mount tick 64 (predicted 64); step-down tick 118 (predicted 118); rows 125 (expected 125)
+   feet 0 before mount, 0.5 while mounted, 0 after step-down: True; vy 0 every tick: True
+   HELD
+STEPWALK HELD
