@@ -1,0 +1,30 @@
+Title: The graybox's walk onto and off a ledge, rules 1, unit-free
+Note: RULES-1 on a cell-center line at yaw 0, forward held. Each tick turns (nothing here), walks, then falls and lands, in that order, the same operations as graybox/tick_ref.py. At yaw 0 the forward step is a pure move in -z of speed*TICK, with no trigonometry: sin 0 = 0, cos 0 = 1, hypot(0,1) = 1, all exact. The body walks across a ledge whose top is 0.5; on this line world.ground is 0.5 while 1.65 < z < 4.35 and 0.0 otherwise. The step allowance (feet minus the ground is at most the step height) carries the body up onto the ledge and back down off it without ever leaving the ground.
+§1 Decimals are floats.
+§2 Let dt be 1.0 / 120.0.
+§3 Let gravity be 20.0.
+§4 Let speed be 6.0.
+§5 Let step be 0.55.
+§6 Let z be 7.52.
+§7 Let feet be 0.0.
+§8 Let vy be 0.0.
+§9 Let grounded be true.
+§10 Let dz be -1.0 * speed * dt.
+§11 Define g as 0.0.
+§12 Notwithstanding §11, define g as 0.5, provided that z is greater than 1.65 and z is less than 4.35.
+§13 For each n from 1 to 125, do the following.
+§13.1 Let was be grounded.
+§13.2 Set z to z + dz.
+§13.3 Set vy to vy - gravity * dt.
+§13.4 Set feet to feet + vy * dt.
+§13.5 If feet is at most g, do the following.
+§13.5.1 Set feet to g.
+§13.5.2 Set vy to 0.0.
+§13.5.3 Set grounded to true.
+§13.6 Otherwise, if was is true and vy is at most 0.0 and feet minus g is at most step, do the following.
+§13.6.1 Set feet to g.
+§13.6.2 Set vy to 0.0.
+§13.6.3 Set grounded to true.
+§13.7 Otherwise, set grounded to false.
+§13.8 It must hold that grounded is true.
+§13.9 Say n followed by " " followed by z followed by " " followed by feet followed by " " followed by vy.
